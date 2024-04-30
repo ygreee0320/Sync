@@ -6,10 +6,10 @@ import retrofit2.Callback
 import retrofit2.Response
 
 object LoginManager {
-    fun sendLogin(authToken: String, platform: String,
+    fun sendLogin(authToken: String, platform: Platform,
                   onSuccess: (LogInResponse) -> Unit, onError: (Throwable) -> Unit ) {
         val apiService = RetrofitClient().loginService
-        val call = apiService.signIn(authToken, platform)
+        val call = apiService.signIn("application/json", authToken, platform)
 
         call.enqueue(object : Callback<LogInResponse> {
             override fun onResponse(call: Call<LogInResponse>, response: Response<LogInResponse>) {

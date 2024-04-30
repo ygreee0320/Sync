@@ -8,6 +8,7 @@ import android.util.Log
 import com.example.sync_front.MainActivity
 import com.example.sync_front.BuildConfig.KAKAO_APP_KEY
 import com.example.sync_front.api_server.LoginManager
+import com.example.sync_front.api_server.Platform
 import com.example.sync_front.databinding.ActivityLoginBinding
 import com.google.gson.Gson
 import com.kakao.sdk.auth.model.OAuthToken
@@ -25,8 +26,6 @@ class LoginActivity : AppCompatActivity() {
         // 저장된 토큰 꺼내기
         val sharedPreferences = getSharedPreferences("my_token", Context.MODE_PRIVATE)
         val accessToken = sharedPreferences.getString("access_token", null)
-
-        Log.d("my log", ""+accessToken)
 
         KakaoSdk.init(this, "${KAKAO_APP_KEY}")
 
@@ -51,8 +50,8 @@ class LoginActivity : AppCompatActivity() {
 
                 // 서버에 로그인 전송
                 LoginManager.sendLogin(
-                    "${token.accessToken}",
-                    "kakao",
+                    token.accessToken,
+                    Platform("kakao"),
                     onSuccess = { userData ->
                         Log.d("my log", "서버 - 로그인 성공")
 

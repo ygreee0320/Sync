@@ -11,6 +11,10 @@ data class User(
     val sessionId: String
 )
 
+data class Platform(
+    val platform: String
+)
+
 data class LogInResponse(
     val status: Int,
     val message: String,
