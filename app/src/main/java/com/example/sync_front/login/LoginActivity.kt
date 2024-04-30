@@ -41,18 +41,17 @@ class LoginActivity : AppCompatActivity() {
                 // 토큰 저장
                 val sharedPreferences = this.getSharedPreferences("my_token", Context.MODE_PRIVATE)
                 val editor = sharedPreferences.edit()
-                val gson = Gson()
-                val tokenJson = gson.toJson(token)
-
-                editor.putString("kakao_token", tokenJson)  // 카카오 토큰 전체
-                editor.putString("access_token", token.accessToken) // 액세스 토큰
-                editor.apply()
 
                 // 서버에 로그인 전송
                 LoginManager.sendLogin(
-                    token.accessToken, Platform("kakao")) { isSuccess ->
-                    if (isSuccess) {
+                    token.accessToken, Platform("kakao")) { response ->
+                    response?.let {
                         Log.d("my log", "서버 - 로그인 성공")
+
+                        editor.putString("access_token", token.accessToken) // 액세스 토큰 저장
+                        editor.putString("email", response.email)
+                        editor.putString("name", response.name)
+                        editor.apply()
 
                         val intent = Intent(this@LoginActivity, MainActivity::class.java)
                         startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
