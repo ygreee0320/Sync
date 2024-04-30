@@ -50,19 +50,15 @@ class LoginActivity : AppCompatActivity() {
 
                 // 서버에 로그인 전송
                 LoginManager.sendLogin(
-                    token.accessToken,
-                    Platform("kakao"),
-                    onSuccess = { userData ->
+                    token.accessToken, Platform("kakao")) { isSuccess ->
+                    if (isSuccess) {
                         Log.d("my log", "서버 - 로그인 성공")
 
                         val intent = Intent(this@LoginActivity, MainActivity::class.java)
                         startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
                         finish()
-                    },
-                    onError = { throwable ->
-                        Log.e("my log", "오류3: $throwable")
                     }
-                )
+                }
 
             }
         }
