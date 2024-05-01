@@ -34,3 +34,12 @@ data class ChattingRoom(
     var lastText: String? = null,
     var lastTime: String? = null
 )
+
+data class ChatMessageRequestDto(
+    val chatSession: String,
+    val fromUserName: String,
+    val toUserName: String,
+    val content: String
+)
+
+
