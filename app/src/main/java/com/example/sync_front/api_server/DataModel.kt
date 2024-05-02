@@ -38,8 +38,30 @@ data class ChattingRoom(
 data class ChatMessageRequestDto(
     val chatSession: String,
     val fromUserName: String,
-    val toUserName: String,
+    val roomName: String,
     val content: String
 )
 
+data class ChatMessageListRequestDto(
+    val chatSession: String,
+    val fromUserName: String,
+    val toUserName: String,
+)
 
+data class RoomMessageListResponseDto(
+    val users: List<ChatUserResponseDto>,
+    val chatMessageList: List<RoomMessageElementResponseDto> = emptyList()
+)
+
+data class ChatUserResponseDto(
+    val sessionId: String,
+    val name: String,
+    val type: String,
+    val profile: String
+)
+
+data class RoomMessageElementResponseDto(
+    val user: ChatUserResponseDto,
+    val content: String,
+    val time: String
+)

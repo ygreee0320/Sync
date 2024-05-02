@@ -1,17 +1,17 @@
-package com.example.sync_front.chatting
-
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.sync_front.api_server.Chatting
+import com.example.sync_front.api_server.RoomMessageElementResponseDto
 import com.example.sync_front.databinding.ItemChattingMeBinding
 import com.example.sync_front.databinding.ItemChattingOtherBinding
+import java.text.SimpleDateFormat
+import java.util.*
 
 class MyChattingViewHolder(val binding: ItemChattingMeBinding) : RecyclerView.ViewHolder(binding.root)
 class OtherChattingViewHolder(val binding: ItemChattingOtherBinding) : RecyclerView.ViewHolder(binding.root)
 
-class ChattingAdapter(private val itemList: MutableList<Chatting>, private val myName: String? = null):
+class ChattingAdapter(private var itemList: List<RoomMessageElementResponseDto>, private val myName: String? = null):
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -24,7 +24,8 @@ class ChattingAdapter(private val itemList: MutableList<Chatting>, private val m
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (itemList[position].user == myName) {
+        val data = itemList[position]
+        return if (data?.user?.name == myName) {
             0 // 로그인한 사용자의 이름과 일치하는 경우 (내 채팅)
         } else {
             1 // 로그인한 사용자의 이름과 다른 경우 (다른 사람 채팅)
@@ -35,41 +36,41 @@ class ChattingAdapter(private val itemList: MutableList<Chatting>, private val m
         return itemList.size
     }
 
-    override fun onBindViewHolder(holder:RecyclerView.ViewHolder, position: Int) {
-        val data = itemList.get(position)
+    fun updateData(newList: List<RoomMessageElementResponseDto>) {
+        itemList = newList
+        notifyDataSetChanged()
+    }
 
-        if (holder is MyChattingViewHolder) {
+    override fun onBindViewHolder(holder:RecyclerView.ViewHolder, position: Int) {
+        val data = itemList[position]
+
+        if (holder is MyChattingViewHolder && data != null) {
             holder.binding.run {
-                chattingMessage.text = data.text
-                messageTime.text = formatTime("${data.time}")
+                chattingMessage.text = data.content
+                messageTime.text = formatTime(data.time)
                 chattingMessage.gravity = Gravity.RIGHT
             }
-        } else if (holder is OtherChattingViewHolder) {
+        } else if (holder is OtherChattingViewHolder && data != null) {
             holder.binding.run {
                 chattingMessage.gravity = Gravity.LEFT
-                chattingUser.text = "${data.user}"
-                chattingMessage.text = data.text
-                messageTime.text = data.time
+                chattingUser.text = data.user.name
+                chattingMessage.text = data.content
+                messageTime.text = formatTime(data.time)
             }
         }
     }
 
-    private fun formatTime(dateTime: String): String {
-        val dateTimeParts = dateTime.split(" ")
-        if (dateTimeParts.size >= 2) {
-            val timeParts = dateTimeParts[1].split(":")
-            if (timeParts.size >= 2) {
-                val hour = timeParts[0]
-                val minute = timeParts[1]
-                return "$hour:$minute"
-            }
-        }
-        return ""
+    private fun formatTime(time: String): String {
+        val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS", Locale.getDefault())
+        val outputFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
+
+        val date = inputFormat.parse(time)
+        return outputFormat.format(date)
     }
 
-    fun setData(list: List<Chatting>) {
-        itemList.clear()
-        itemList.addAll(list)
+    fun setData(list: List<RoomMessageElementResponseDto>) {
+        //itemList.clear()
+        //itemList.addAll(list)
         notifyDataSetChanged()
     }
 }
