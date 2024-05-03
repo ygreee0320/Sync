@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "119573743558",
+    "project_id": "sync-push-7a2e6",
+    "storage_bucket": "sync-push-7a2e6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:119573743558:android:107d4770f9c954986dd4c7",
+        "android_client_info": {
+          "package_name": "com.example.sync_front"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB57J4G9hfEpNfjI-EmObqo8olecFU9xNw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
