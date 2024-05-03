@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle" >
+    <solid android:color="#55000000" /> <!-- 반투명 검정색으로 그림자 효과 -->
+    <corners
+        android:topLeftRadius="25dp"
+        android:topRightRadius="25dp"/>
+</shape>
