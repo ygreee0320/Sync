@@ -11,7 +11,7 @@ import com.example.sync_front.databinding.FragmentChattingBinding
 
 class ChattingFragment : Fragment() {
     lateinit var binding: FragmentChattingBinding
-    lateinit var roomList: List<ChattingRoom>
+    lateinit var roomList: MutableList<ChattingRoom>
     private lateinit var adapter: RoomAdapter
 
     override fun onCreateView(
@@ -20,6 +20,7 @@ class ChattingFragment : Fragment() {
         binding = FragmentChattingBinding.inflate(inflater, container, false)
 
         // 어댑터를 설정하고 리사이클러뷰에 연결
+        roomList = mutableListOf<ChattingRoom>()
         adapter = RoomAdapter(roomList)
         binding.roomRecyclerview.layoutManager = LinearLayoutManager(requireContext())
         binding.roomRecyclerview.adapter = adapter

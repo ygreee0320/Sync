@@ -38,7 +38,7 @@ data class ChattingRoom(
 data class ChatMessageRequestDto(
     val chatSession: String,
     val fromUserName: String,
-    val roomName: String,
+    val toRoomName: String,
     val content: String
 )
 
