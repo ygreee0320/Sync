@@ -11,7 +11,127 @@
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">@color/primary</item>
-        <!-- Customize your theme here. -->
+    </style>
+    <!--Sync 기본 폰트 설정-->
+
+    <style name="Heading1">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/spoqahansansneo_bold</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:lineSpacingExtra">5.4sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Heading2">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/spoqahansansneo_bold</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:lineSpacingExtra">4.9sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Heading3">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/spoqahansansneo_bold</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:lineSpacingExtra">4.5sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Heading4">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/spoqahansansneo_bold</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:lineSpacingExtra">4sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Body1_400">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/spoqahansansneo_regular</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:lineSpacingExtra">4.8sp</item>
+    </style>
+
+    <style name="Body1_700">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/spoqahansansneo_bold</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:lineSpacingExtra">4.8sp</item>
+    </style>
+
+    <style name="Body2_400">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/spoqahansansneo_regular</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:lineSpacingExtra">4.2sp</item>
+    </style>
+
+    <style name="Body2_700">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/spoqahansansneo_bold</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:lineSpacingExtra">4.2sp</item>
+    </style>
+
+    <style name="Body3_400">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/spoqahansansneo_regular</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:lineSpacingExtra">3.6sp</item>
+        <item name="android:textColor">@color/gray_90</item>
+    </style>
+
+    <style name="Body3_700">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/spoqahansansneo_bold</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:lineSpacingExtra">3.6sp</item>
+    </style>
+
+    <style name="Detail_400">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/spoqahansansneo_regular</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:lineSpacingExtra">3.6sp</item>
+    </style>
+
+    <style name="Detail_700">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/spoqahansansneo_bold</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:lineSpacingExtra">3.6sp</item>
+    </style>
+
+    <!--홈 프래그먼트 박스 레이아웃 테마-->
+    <style name="home_box">
+        <item name="android:layout_width">110dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:paddingLeft">30dp</item>
+        <item name="android:paddingRight">30dp</item>
+        <item name="android:paddingTop">9dp</item>
+        <item name="android:paddingBottom">9dp</item>
+    </style>
+
+    <style name="home_linear">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">22dp</item>
+        <item name="android:orientation">vertical</item>
     </style>
 
     <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
