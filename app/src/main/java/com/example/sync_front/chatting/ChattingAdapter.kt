@@ -11,7 +11,7 @@ import java.util.*
 class MyChattingViewHolder(val binding: ItemChattingMeBinding) : RecyclerView.ViewHolder(binding.root)
 class OtherChattingViewHolder(val binding: ItemChattingOtherBinding) : RecyclerView.ViewHolder(binding.root)
 
-class ChattingAdapter(private var itemList: List<RoomMessageElementResponseDto>, private val myName: String? = null):
+class ChattingAdapter(private var itemList: MutableList<RoomMessageElementResponseDto>, private val myName: String? = null):
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -36,8 +36,8 @@ class ChattingAdapter(private var itemList: List<RoomMessageElementResponseDto>,
         return itemList.size
     }
 
-    fun updateData(newList: List<RoomMessageElementResponseDto>) {
-        itemList = newList
+    fun updateData(newList: RoomMessageElementResponseDto) {
+        itemList.add(newList)
         notifyDataSetChanged()
     }
 
@@ -69,8 +69,8 @@ class ChattingAdapter(private var itemList: List<RoomMessageElementResponseDto>,
     }
 
     fun setData(list: List<RoomMessageElementResponseDto>) {
-        //itemList.clear()
-        //itemList.addAll(list)
+        itemList.clear()
+        itemList.addAll(list)
         notifyDataSetChanged()
     }
 }
