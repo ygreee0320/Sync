@@ -19,7 +19,8 @@
     <string name="etc">기타</string>
     <string name="interest_sync">관심사 별 싱크</string>
     <string name="interest_sync_how">어떤 관심사의 모임을 찾으시나요?</string>
-
+    <!--sync activity-->
+    <string name="join">가입하기</string>
     <!--바텀 메뉴-->
     <string name="menu1">싱크</string>
     <string name="menu2">커뮤니티</string>

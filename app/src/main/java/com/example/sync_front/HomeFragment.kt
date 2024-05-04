@@ -2,6 +2,7 @@ package com.example.sync_front
 
 import com.example.sync_front.CircleGraphView
 import android.animation.ValueAnimator
+import android.content.Intent
 import android.graphics.Rect
 import android.util.Log
 import android.os.Bundle
@@ -17,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sync_front.databinding.FragmentHomeBinding
+import com.example.sync_front.sync.SyncActivity
 
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
@@ -26,7 +28,6 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        setupCirCleGraphView()
         return binding.root
     }
 
@@ -34,14 +35,9 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupViewPager()
         setupTouchListeners()
+        setupClickListeners()
     }
 
-    private fun setupCirCleGraphView() {
-        circleGraphView = binding.circle
-        circleGraphView.animateSection(0, 0f, 25f) // 첫 번째 섹션을 0%에서 25%로 애니메이션 적용
-        circleGraphView.animateSection(1, 0f, 25f) // 두 번째 섹션을 0%에서 50%로 애니메이션 적용
-        circleGraphView.animateSection(2, 0f, 25f) // 세 번째 섹션을 0%에서 75%로 애니메이션 적용
-    }
 
     private fun setupViewPager() {
         binding.viewPagerSync.adapter = ViewPagerAdapter(getSyncList())
@@ -76,48 +72,6 @@ class HomeFragment : Fragment() {
         }
     }
 
-
-    inner class ZoomOutPageTransformer : ViewPager2.PageTransformer {
-        private val MIN_SCALE = 0.85f
-        private val MIN_ALPHA = 0.5f
-        override fun transformPage(view: View, position: Float) {
-            view.apply {
-                val pageWidth = width
-                val pageHeight = height
-                when {
-                    position < -1 -> { // [-Infinity,-1)
-                        // This page is way off-screen to the left.
-                        alpha = 0f
-                    }
-
-                    position <= 1 -> { // [-1,1]
-                        // Modify the default slide transition to shrink the page as well
-                        val scaleFactor = Math.max(MIN_SCALE, 1 - Math.abs(position))
-                        val vertMargin = pageHeight * (1 - scaleFactor) / 2
-                        val horzMargin = pageWidth * (1 - scaleFactor) / 2
-                        translationX = if (position < 0) {
-                            horzMargin - vertMargin / 2
-                        } else {
-                            horzMargin + vertMargin / 2
-                        }
-
-                        // Scale the page down (between MIN_SCALE and 1)
-                        scaleX = scaleFactor
-                        scaleY = scaleFactor
-
-                        // Fade the page relative to its size.
-                        alpha = MIN_ALPHA + (MIN_ALPHA * (1 - Math.abs(position)))
-                    }
-
-                    else -> { // (1,+Infinity]
-                        // This page is way off-screen to the right.
-                        alpha = 0f
-                    }
-                }
-            }
-        }
-    }
-
     private fun setupTouchListeners() {
         binding.boxOnetime.setOnTouchListener { view, event ->
             when (event.action) {
@@ -148,6 +102,15 @@ class HomeFragment : Fragment() {
         }
     }
 
+    private fun setupClickListeners() {
+        binding.homeSync3.setOnClickListener {
+            // 새로운 Intent 생성. 현재 Fragment의 context와 목표 Activity(SyncActivity::class.java)를 지정
+            val intent = Intent(context, SyncActivity::class.java)
+
+            // Intent를 사용하여 Activity 시작
+            startActivity(intent)
+        }
+    }
 
     private fun getSyncList(): ArrayList<Int> {
         return arrayListOf<Int>(
