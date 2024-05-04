@@ -3,6 +3,7 @@ package com.example.sync_front
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import com.example.sync_front.chatting.ChattingFragment
 import com.example.sync_front.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
