@@ -86,4 +86,15 @@ dependencies {
     //네비게이션
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.6")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.6")
+
+    implementation ("com.kakao.sdk:v2-user:2.19.0")
+    implementation ("com.google.android.material:material:1.11.0")
+
+    //stomp
+    implementation 'com.github.NaikSoftware:StompProtocolAndroid:1.6.6'
+    //implementation 'ua.naiksoftware:stomp-websocket-android:1.6.4'
+
+    //rx
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.5'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
 }

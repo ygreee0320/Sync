@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import com.example.sync_front.chatting.ChattingFragment
 import com.example.sync_front.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
