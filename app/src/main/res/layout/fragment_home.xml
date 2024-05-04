@@ -14,7 +14,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -68,16 +67,18 @@
                 android:id="@+id/viewPager_sync"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/home_tv3" />
 
+            <!--유형별 싱크-->
             <LinearLayout
                 android:id="@+id/home_sync1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="22dp"
-                android:orientation="vertical"
+                style="@style/home_linear"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/viewPager_sync">
@@ -155,13 +156,10 @@
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
-
+            <!--관심사 별 싱크-->
             <LinearLayout
                 android:id="@+id/home_sync2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="22dp"
-                android:orientation="vertical"
+                style="@style/home_linear"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/home_sync1">
@@ -298,8 +296,31 @@
                             android:text="@string/etc" />
 
                     </LinearLayout>
-
                 </LinearLayout>
+            </LinearLayout>
+            <!--오늘의 인기 싱크-->
+            <LinearLayout
+                android:id="@+id/home_sync3"
+                style="@style/home_linear"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/home_sync2">
+
+                <TextView
+                    android:id="@+id/home_tv8"
+                    style="@style/Body1_700"
+                    android:text="@string/interest_sync"
+                    android:textColor="@color/gray_90" />
+
+                <TextView
+                    android:id="@+id/home_tv9"
+                    style="@style/Detail_400"
+                    android:text="@string/interest_sync_how"
+                    android:textColor="@color/gray_50" />
+
+
+
+
             </LinearLayout>
 
             <com.example.sync_front.CircleGraphView
