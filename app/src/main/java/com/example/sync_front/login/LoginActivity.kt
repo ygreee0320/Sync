@@ -33,8 +33,7 @@ class LoginActivity : AppCompatActivity() {
             if (error != null) {
                 // 소셜 로그인 실패
                 Log.d("my log", "로그인 실패")
-            }
-            else if (token != null){
+            } else if (token != null) {
                 // 소셜 로그인 성공
                 Log.d("my log", "로그인 성공 - 토큰 값 :" + token.accessToken)
 
@@ -44,7 +43,8 @@ class LoginActivity : AppCompatActivity() {
 
                 // 서버에 로그인 전송
                 LoginManager.sendLogin(
-                    token.accessToken, Platform("kakao")) { response ->
+                    token.accessToken, Platform("kakao")
+                ) { response ->
                     response?.let {
                         Log.d("my log", "서버 - 로그인 성공")
 
@@ -63,7 +63,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         binding.loginBtn.setOnClickListener {
-            if(UserApiClient.instance.isKakaoTalkLoginAvailable(this)){
+            if (UserApiClient.instance.isKakaoTalkLoginAvailable(this)) {
                 UserApiClient.instance.loginWithKakaoTalk(this, callback = callback)
             } else {
                 UserApiClient.instance.loginWithKakaoAccount(this, callback = callback)
