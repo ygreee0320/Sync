@@ -70,8 +70,8 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         // Android Oreo 이상에서는 알림 채널을 설정합니다.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
-                "Sync 알림",
-                "Sync 알림",
+                "MyNotifications",
+                "My Notifications",
                 NotificationManager.IMPORTANCE_DEFAULT
             )
             notificationManager.createNotificationChannel(channel)
