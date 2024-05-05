@@ -1,326 +1,336 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.main.home.HomeFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.core.widget.NestedScrollView
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.sync_front.ui.main.home.HomeViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:context=".ui.main.home.HomeFragment">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageView
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/ic_main_ellipse"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/home_logo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="22dp"
-                android:layout_marginTop="17dp"
-                android:background="@drawable/ic_logo"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_main_ellipse"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/home_username"
-                style="@style/Heading2"
-                android:layout_marginStart="22dp"
-                android:layout_marginTop="12dp"
-                android:text="@string/username"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/home_logo" />
-
-            <TextView
-                android:id="@+id/home_tv2"
-                style="@style/Heading2"
-                android:layout_marginTop="12dp"
-                android:text="@string/님을_위한"
-                app:layout_constraintStart_toEndOf="@id/home_username"
-                app:layout_constraintTop_toBottomOf="@id/home_logo" />
-
-            <TextView
-                android:id="@+id/home_tv3"
-                style="@style/Heading2"
-                android:layout_marginStart="22dp"
-                android:text="@string/싱크를_추천드려요"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/home_username" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="22dp"
-                android:background="@drawable/ic_alarm"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/home_tv2" />
-
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/viewPager_sync"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:clipChildren="false"
-                android:clipToPadding="false"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/home_tv3" />
-
-            <!--유형별 싱크-->
-            <LinearLayout
-                android:id="@+id/home_sync1"
-                style="@style/home_linear"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/viewPager_sync">
-
-                <TextView
-                    android:id="@+id/home_tv4"
-                    style="@style/Body1_700"
-                    android:text="@string/유형_별_싱크"
-                    android:textColor="@color/gray_90" />
-
-                <TextView
-                    android:id="@+id/home_tv5"
-                    style="@style/Detail_400"
-                    android:text="@string/어떤_유형의_모임을_찾으시나요"
-                    android:textColor="@color/gray_50" />
-
-
-                <LinearLayout
+                <ImageView
+                    android:id="@+id/home_logo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:orientation="horizontal"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginStart="22dp"
+                    android:layout_marginTop="17dp"
+                    android:background="@drawable/ic_logo"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/home_tv5">
-
-                    <LinearLayout
-                        android:id="@+id/box_onetime"
-                        style="@style/home_box"
-                        android:background="@drawable/bg_btn_box">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/ic_onetime" />
-
-                        <TextView
-                            style="@style/Body3_400"
-                            android:text="@string/onetime" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/box_persistence"
-                        style="@style/home_box"
-                        android:layout_marginStart="10dp"
-                        android:background="@drawable/bg_btn_box">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/ic_persistence" />
-
-                        <TextView
-                            style="@style/Body3_400"
-                            android:text="@string/persistence" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/box_myfriend"
-                        style="@style/home_box"
-                        android:layout_marginStart="10dp"
-                        android:background="@drawable/bg_btn_box">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/ic_myfriend" />
-
-                        <TextView
-                            style="@style/Body3_400"
-                            android:text="@string/myfriend" />
-
-                    </LinearLayout>
-                </LinearLayout>
-            </LinearLayout>
-            <!--관심사 별 싱크-->
-            <LinearLayout
-                android:id="@+id/home_sync2"
-                style="@style/home_linear"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/home_sync1">
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/home_tv6"
-                    style="@style/Body1_700"
-                    android:text="@string/interest_sync"
-                    android:textColor="@color/gray_90" />
+                    android:id="@+id/home_username"
+                    style="@style/Heading2"
+                    android:layout_marginStart="22dp"
+                    android:layout_marginTop="12dp"
+                    android:text="@{viewModel.text}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/home_logo" />
 
                 <TextView
-                    android:id="@+id/home_tv7"
-                    style="@style/Detail_400"
-                    android:text="@string/interest_sync_how"
-                    android:textColor="@color/gray_50" />
+                    android:id="@+id/home_tv2"
+                    style="@style/Heading2"
+                    android:layout_marginTop="12dp"
+                    android:text="@string/님을_위한"
+                    app:layout_constraintStart_toEndOf="@id/home_username"
+                    app:layout_constraintTop_toBottomOf="@id/home_logo" />
 
+                <TextView
+                    android:id="@+id/home_tv3"
+                    style="@style/Heading2"
+                    android:layout_marginStart="22dp"
+                    android:text="@string/싱크를_추천드려요"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/home_username" />
 
-                <LinearLayout
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:orientation="horizontal"
+                    android:layout_marginEnd="22dp"
+                    android:background="@drawable/ic_alarm"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/home_tv5">
+                    app:layout_constraintTop_toTopOf="@id/home_tv2" />
 
-                    <LinearLayout
-                        android:id="@+id/box_exchange_language"
-                        style="@style/home_box"
-                        android:background="@drawable/bg_btn_box">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/ic_exchange_language" />
-
-                        <TextView
-                            style="@style/Body3_400"
-                            android:text="@string/exchange_language" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/box_culture"
-                        style="@style/home_box"
-                        android:layout_marginStart="10dp"
-                        android:background="@drawable/bg_btn_box">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/ic_culture" />
-
-                        <TextView
-                            style="@style/Body3_400"
-                            android:text="@string/culture" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/box_travel"
-                        style="@style/home_box"
-                        android:layout_marginStart="10dp"
-                        android:background="@drawable/bg_btn_box">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/ic_travel" />
-
-                        <TextView
-                            style="@style/Body3_400"
-                            android:text="@string/travel" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/viewPager_sync"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal"
+                    android:clipChildren="false"
+                    android:clipToPadding="false"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/home_tv5">
+                    app:layout_constraintTop_toBottomOf="@id/home_tv3" />
+
+                <!--유형별 싱크-->
+                <LinearLayout
+                    android:id="@+id/home_sync1"
+                    style="@style/home_linear"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/viewPager_sync">
+
+                    <TextView
+                        android:id="@+id/home_tv4"
+                        style="@style/Body1_700"
+                        android:text="@string/유형_별_싱크"
+                        android:textColor="@color/gray_90" />
+
+                    <TextView
+                        android:id="@+id/home_tv5"
+                        style="@style/Detail_400"
+                        android:text="@string/어떤_유형의_모임을_찾으시나요"
+                        android:textColor="@color/gray_50" />
+
 
                     <LinearLayout
-                        android:id="@+id/box_activity"
-                        style="@style/home_box"
-                        android:background="@drawable/bg_btn_box">
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/home_tv5">
 
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/ic_activity" />
+                        <LinearLayout
+                            android:id="@+id/box_onetime"
+                            style="@style/home_box"
+                            android:background="@drawable/bg_btn_box">
 
-                        <TextView
-                            style="@style/Body3_400"
-                            android:text="@string/activity" />
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/ic_onetime" />
 
-                    </LinearLayout>
+                            <TextView
+                                style="@style/Body3_400"
+                                android:text="@string/onetime" />
 
-                    <LinearLayout
-                        android:id="@+id/box_food"
-                        style="@style/home_box"
-                        android:layout_marginStart="10dp"
-                        android:background="@drawable/bg_btn_box">
+                        </LinearLayout>
 
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/ic_food" />
+                        <LinearLayout
+                            android:id="@+id/box_persistence"
+                            style="@style/home_box"
+                            android:layout_marginStart="10dp"
+                            android:background="@drawable/bg_btn_box">
 
-                        <TextView
-                            style="@style/Body3_400"
-                            android:text="@string/food" />
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/ic_persistence" />
 
-                    </LinearLayout>
+                            <TextView
+                                style="@style/Body3_400"
+                                android:text="@string/persistence" />
 
-                    <LinearLayout
-                        android:id="@+id/box_etc"
-                        style="@style/home_box"
-                        android:layout_marginStart="10dp"
-                        android:background="@drawable/bg_btn_box">
+                        </LinearLayout>
 
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/ic_etc" />
+                        <LinearLayout
+                            android:id="@+id/box_myfriend"
+                            style="@style/home_box"
+                            android:layout_marginStart="10dp"
+                            android:background="@drawable/bg_btn_box">
 
-                        <TextView
-                            style="@style/Body3_400"
-                            android:text="@string/etc" />
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/ic_myfriend" />
 
+                            <TextView
+                                style="@style/Body3_400"
+                                android:text="@string/myfriend" />
+
+                        </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
-            </LinearLayout>
-            <!--오늘의 인기 싱크-->
-            <LinearLayout
-                android:id="@+id/home_sync3"
-                style="@style/home_linear"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/home_sync2">
+                <!--관심사 별 싱크-->
+                <LinearLayout
+                    android:id="@+id/home_sync2"
+                    style="@style/home_linear"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/home_sync1">
 
-                <TextView
-                    android:id="@+id/home_tv8"
-                    style="@style/Body1_700"
-                    android:text="@string/interest_sync"
-                    android:textColor="@color/gray_90" />
+                    <TextView
+                        android:id="@+id/home_tv6"
+                        style="@style/Body1_700"
+                        android:text="@string/interest_sync"
+                        android:textColor="@color/gray_90" />
 
-                <TextView
-                    android:id="@+id/home_tv9"
-                    style="@style/Detail_400"
-                    android:text="@string/interest_sync_how"
-                    android:textColor="@color/gray_50" />
+                    <TextView
+                        android:id="@+id/home_tv7"
+                        style="@style/Detail_400"
+                        android:text="@string/interest_sync_how"
+                        android:textColor="@color/gray_50" />
 
 
-            </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/home_tv5">
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.core.widget.NestedScrollView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+                        <LinearLayout
+                            android:id="@+id/box_exchange_language"
+                            style="@style/home_box"
+                            android:background="@drawable/bg_btn_box">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/ic_exchange_language" />
+
+                            <TextView
+                                style="@style/Body3_400"
+                                android:text="@string/exchange_language" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/box_culture"
+                            style="@style/home_box"
+                            android:layout_marginStart="10dp"
+                            android:background="@drawable/bg_btn_box">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/ic_culture" />
+
+                            <TextView
+                                style="@style/Body3_400"
+                                android:text="@string/culture" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/box_travel"
+                            style="@style/home_box"
+                            android:layout_marginStart="10dp"
+                            android:background="@drawable/bg_btn_box">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/ic_travel" />
+
+                            <TextView
+                                style="@style/Body3_400"
+                                android:text="@string/travel" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/home_tv5">
+
+                        <LinearLayout
+                            android:id="@+id/box_activity"
+                            style="@style/home_box"
+                            android:background="@drawable/bg_btn_box">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/ic_activity" />
+
+                            <TextView
+                                style="@style/Body3_400"
+                                android:text="@string/activity" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/box_food"
+                            style="@style/home_box"
+                            android:layout_marginStart="10dp"
+                            android:background="@drawable/bg_btn_box">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/ic_food" />
+
+                            <TextView
+                                style="@style/Body3_400"
+                                android:text="@string/food" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/box_etc"
+                            style="@style/home_box"
+                            android:layout_marginStart="10dp"
+                            android:background="@drawable/bg_btn_box">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/ic_etc" />
+
+                            <TextView
+                                style="@style/Body3_400"
+                                android:text="@string/etc" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+                <!--오늘의 인기 싱크-->
+                <LinearLayout
+                    android:id="@+id/home_sync3"
+                    style="@style/home_linear"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/home_sync2">
+
+                    <TextView
+                        android:id="@+id/home_tv8"
+                        style="@style/Body1_700"
+                        android:text="@string/interest_sync"
+                        android:textColor="@color/gray_90" />
+
+                    <TextView
+                        android:id="@+id/home_tv9"
+                        style="@style/Detail_400"
+                        android:text="@string/interest_sync_how"
+                        android:textColor="@color/gray_50" />
+
+
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
