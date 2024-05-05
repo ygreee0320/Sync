@@ -1,16 +1,15 @@
-package com.example.sync_front.login
+package com.example.sync_front.ui.login
 
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import com.example.sync_front.MainActivity
+import com.example.sync_front.ui.main.MainActivity
 import com.example.sync_front.BuildConfig.KAKAO_APP_KEY
 import com.example.sync_front.api_server.LoginManager
 import com.example.sync_front.api_server.Platform
 import com.example.sync_front.databinding.ActivityLoginBinding
-import com.google.gson.Gson
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.KakaoSdk
 import com.kakao.sdk.user.UserApiClient

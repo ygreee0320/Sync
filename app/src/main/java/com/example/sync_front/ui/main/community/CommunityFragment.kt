@@ -1,4 +1,4 @@
-package com.example.sync_front
+package com.example.sync_front.ui.main.community
 
 import android.os.Bundle
 import android.view.LayoutInflater

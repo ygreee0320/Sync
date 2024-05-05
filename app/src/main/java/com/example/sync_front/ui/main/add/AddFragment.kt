@@ -1,14 +1,14 @@
-package com.example.sync_front
+package com.example.sync_front.ui.main.add
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.sync_front.databinding.FragmentMyBinding
+import com.example.sync_front.databinding.FragmentAddBinding
 
-class MyFragment : Fragment() {
-    private var _binding: FragmentMyBinding? = null
+class AddFragment : Fragment() {
+    private var _binding: FragmentAddBinding? = null
     private val binding get() = _binding!!
 
 
@@ -16,7 +16,7 @@ class MyFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentMyBinding.inflate(inflater, container, false)
+        _binding = FragmentAddBinding.inflate(inflater, container, false)
         return binding.root
     }
 

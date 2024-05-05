@@ -1,4 +1,4 @@
-package com.example.sync_front.sync
+package com.example.sync_front.ui.sync
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

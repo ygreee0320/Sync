@@ -9,7 +9,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
-import com.example.sync_front.MainActivity
+import com.example.sync_front.ui.main.MainActivity
 import com.example.sync_front.R
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

@@ -1,9 +1,10 @@
-package com.example.sync_front
+package com.example.sync_front.ui.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import com.example.sync_front.R
 import com.example.sync_front.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

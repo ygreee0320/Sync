@@ -1,9 +1,7 @@
-package com.example.sync_front
+package com.example.sync_front.ui.main.home
 
 import com.example.sync_front.CircleGraphView
-import android.animation.ValueAnimator
 import android.content.Intent
-import android.graphics.Rect
 import android.util.Log
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -14,16 +12,13 @@ import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.viewpager2.widget.ViewPager2
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.recyclerview.widget.RecyclerView
+import com.example.sync_front.R
 import com.example.sync_front.databinding.FragmentHomeBinding
-import com.example.sync_front.sync.SyncActivity
+import com.example.sync_front.ui.sync.SyncActivity
 
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-    private lateinit var circleGraphView: CircleGraphView
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
