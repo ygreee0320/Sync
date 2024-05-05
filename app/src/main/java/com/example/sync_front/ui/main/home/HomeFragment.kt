@@ -1,6 +1,5 @@
 package com.example.sync_front.ui.main.home
 
-import com.example.sync_front.CircleGraphView
 import android.content.Intent
 import android.util.Log
 import android.os.Bundle
@@ -11,6 +10,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.example.sync_front.R
 import com.example.sync_front.databinding.FragmentHomeBinding
@@ -19,10 +20,15 @@ import com.example.sync_front.ui.sync.SyncActivity
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
+    private lateinit var viewModel: HomeViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+        // 뷰모델 바인딩
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 
