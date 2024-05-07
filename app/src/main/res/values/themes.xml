@@ -128,7 +128,7 @@
         <item name="android:paddingBottom">9dp</item>
     </style>
 
-    <style name="home_linear">
+    <style name="home_linear_vertical">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">22dp</item>

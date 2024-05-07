@@ -19,6 +19,11 @@
     <string name="etc">기타</string>
     <string name="interest_sync">관심사 별 싱크</string>
     <string name="interest_sync_how">어떤 관심사의 모임을 찾으시나요?</string>
+    <string name="today_popular_sync">오늘의 인기 싱크</string>
+    <string name="find_today_popular_sync">요즘 인기있는 모임을 찾아보세요!</string>
+    <string name="popular_sync">인기싱크</string>
+    <string name="discount_benefit">제휴할인</string>
+
     <!--sync activity-->
     <string name="join">가입하기</string>
     <!--바텀 메뉴-->
