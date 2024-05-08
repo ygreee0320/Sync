@@ -16,6 +16,12 @@
         android:theme="@style/Theme.Syncfront"
         tools:targetApi="31">
         <activity
+            android:name=".ui.main.my.BookmarkActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.my.ModProfileActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.sync.SyncActivity"
             android:exported="false" />
         <activity

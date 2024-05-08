@@ -154,6 +154,25 @@
         <item name="android:paddingRight">8dp</item>
         <item name="android:paddingTop">4dp</item>
         <item name="android:paddingBottom">4dp</item>
+      </style>
+
+    <!--마이페이지 프래그먼트 박스 레이아웃 테마-->
+    <style name="mypage_box">
+        <item name="android:layout_width">103dp</item>
+        <item name="android:layout_height">82dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:paddingTop">9dp</item>
+        <item name="android:paddingBottom">9dp</item>
+    </style>
+
+    <!--프로필 수정 텍스트 박스 테마-->
+    <style name="edit_text_box">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingLeft">24dp</item>
     </style>
 
     <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
