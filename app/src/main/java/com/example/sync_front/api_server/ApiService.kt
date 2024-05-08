@@ -17,3 +17,11 @@ interface LoginService {
     // 회원 가입
 
 }
+
+interface GoogleService {
+    // 구글 액세스 토큰 발급
+    @POST("oauth2/v4/token")
+    fun getAccessToken(
+        @Body request: LoginGoogleRequestModel
+    ): Call<LoginGoogleResponseModel>
+}

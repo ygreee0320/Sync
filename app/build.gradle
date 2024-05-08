@@ -24,6 +24,8 @@ android {
         buildConfigField("String", "KAKAO_APP_KEY", "\"${properties.getProperty("kakao.key")}\"")
         buildConfigField("String", "KAKAO_APP_KEY_MAN", "\"${properties.getProperty("kakao.key.manifest")}\"")
         buildConfigField("String", "BASE_URL", "\"${properties.getProperty("BASE_URL")}\"")
+        buildConfigField("String", "GOOGLE_CLIENT_ID", "\"${properties.getProperty("google.client.id")}\"")
+        buildConfigField("String", "GOOGLE_CLIENT_SECRET", "\"${properties.getProperty("google.client.secret")}\"")
 
         manifestPlaceholders = [KAKAO_APP_KEY_MAN: "${properties.getProperty("kakao.key.manifest")}"]
     }
@@ -100,4 +102,6 @@ dependencies {
     //rx
     implementation 'io.reactivex.rxjava2:rxjava:2.2.5'
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
+    //구글 로그인
+    implementation 'com.google.android.gms:play-services-auth:20.5.0'
 }
