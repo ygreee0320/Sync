@@ -43,7 +43,7 @@
     <string name="편집">편집</string>
     <string name="이름">이름</string>
     <string name="성별">성별</string>
-    <string name="선호_인간관계">선호 인간관계</string>
+    <string name="성향">성향</string>
     <string name="관심사">관심사</string>
 
 </resources>

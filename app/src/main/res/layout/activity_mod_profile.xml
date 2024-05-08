@@ -126,7 +126,7 @@
             android:layout_marginBottom="8dp"
             style="@style/Body2_400"
             android:textColor="@color/gray_90"
-            android:text="@string/선호_인간관계" />
+            android:text="@string/성향" />
 
         <LinearLayout
             style="@style/edit_text_box"
