@@ -50,15 +50,259 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:padding="16dp">
 
-            <com.example.sync_front.CircleGraphView
-                android:id="@+id/circle"
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/sync_image"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:layout_height="240dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/img_sample_gathering"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/all_12dp" />
+
+            <!--싱크 소개-->
+            <LinearLayout
+                android:id="@+id/sync_linear1"
+                style="@style/sync_linear_vertical"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/sync_image">
+                <!--싱크 소개-->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="6dp">
+
+                    <TextView
+                        style="@style/Heading4"
+                        android:text="@string/popular_sync"
+                        android:textColor="@color/black" />
+
+                    <TextView
+                        android:id="@+id/sync_label1"
+                        style="@style/label_c"
+                        android:layout_marginStart="12dp"
+                        android:text="@string/persistence" />
+
+                    <TextView
+                        android:id="@+id/sync_label2"
+                        style="@style/label_c"
+                        android:layout_marginStart="6dp"
+                        android:text="@string/exchange_language" />
+
+                </LinearLayout>
+
+                <TextView
+                    style="@style/Body3_400"
+                    android:layout_marginStart="15dp"
+                    android:text="@string/어떤_유형의_모임을_찾으시나요" />
+
+                <!--정기 싱크 일정-->
+                <LinearLayout style="@style/sync_linear_vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="6dp">
+
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:background="@drawable/ic_calendar_gray" />
+
+                        <TextView
+                            style="@style/Body1_700"
+                            android:layout_marginStart="6dp"
+                            android:text="@string/popular_sync"
+                            android:textColor="@color/black" />
+                    </LinearLayout>
+
+                    <TextView
+                        style="@style/Body3_400"
+                        android:layout_marginStart="15dp"
+                        android:text="@string/어떤_유형의_모임을_찾으시나요" />
+                </LinearLayout>
+
+                <!--장소-->
+                <LinearLayout style="@style/sync_linear_vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="6dp">
+
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:background="@drawable/ic_map_pin_gray" />
+
+                        <TextView
+                            style="@style/Body1_700"
+                            android:layout_marginStart="6dp"
+                            android:text="@string/popular_sync"
+                            android:textColor="@color/black" />
+                    </LinearLayout>
+
+                    <TextView
+                        style="@style/Body3_400"
+                        android:layout_marginStart="15dp"
+                        android:text="@string/어떤_유형의_모임을_찾으시나요" />
+                </LinearLayout>
+
+                <!--인원-->
+                <LinearLayout style="@style/sync_linear_vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="6dp">
+
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:background="@drawable/ic_people_gray" />
+
+                        <TextView
+                            style="@style/Body1_700"
+                            android:layout_marginStart="6dp"
+                            android:text="@string/popular_sync"
+                            android:textColor="@color/black" />
+                    </LinearLayout>
+
+                    <TextView
+                        style="@style/Body3_400"
+                        android:layout_marginStart="15dp"
+                        android:text="@string/어떤_유형의_모임을_찾으시나요" />
+                </LinearLayout>
+
+            </LinearLayout>
+            <!--싱크장을 소개합니다-->
+            <LinearLayout
+                android:id="@+id/sync_linear2"
+                style="@style/sync_linear_vertical"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/sync_linear1">
+
+                <TextView
+                    style="@style/Heading4"
+                    android:text="@string/sync_introduce_host"
+                    android:textColor="@color/black" />
+
+            </LinearLayout>
+
+            <!--현재까지 모인 싱크 참여 멤버는-->
+            <LinearLayout
+                android:id="@+id/sync_linear3"
+                style="@style/sync_linear_vertical"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/sync_linear2">
+
+                <TextView
+                    style="@style/Heading4"
+                    android:text="@string/sync_now_member"
+                    android:textColor="@color/black" />
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/sync_tabs"
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/label_gray5"
+                    app:tabBackground="@drawable/tab_selected_selector"
+                    app:tabIndicatorHeight="0dp"
+                    app:tabPaddingEnd="18dp"
+                    app:tabPaddingStart="18dp"
+                    app:tabSelectedTextColor="@color/gray_70"
+                    app:tabTextAppearance="@style/Body3_700"
+                    app:tabTextColor="@color/gray_70">
+
+                </com.google.android.material.tabs.TabLayout>
+
+                <com.example.sync_front.ui.sync.CircleGraphView
+                    android:id="@+id/circle"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp" />
+
+            </LinearLayout>
+            <!--싱크 멤버들의 후기-->
+            <LinearLayout
+                android:id="@+id/sync_linear4"
+                style="@style/sync_linear_vertical"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/sync_linear3">
+
+                <TextView
+                    style="@style/Heading4"
+                    android:text="@string/sync_review_title"
+                    android:textColor="@color/black" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/sync_review_recycler_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp" />
+
+                <TextView
+                    style="@style/Body1_400"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_gray_10"
+                    android:gravity="center"
+                    android:paddingVertical="16dp"
+                    android:text="@string/more_view" />
+
+            </LinearLayout>
+            <!--내가 본 싱크와 같은 요일, 장소의 싱크-->
+            <LinearLayout
+                android:id="@+id/sync_linear5"
+                style="@style/sync_linear_vertical"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/sync_linear4">
+
+                <TextView
+                    style="@style/Heading4"
+                    android:text="@string/sync_same_day"
+                    android:textColor="@color/black" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/sync_same_day_recycler_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp" />
+
+                <TextView
+                    style="@style/Body1_400"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_gray_10"
+                    android:gravity="center"
+                    android:paddingVertical="16dp"
+                    android:text="@string/more_view" />
+
+            </LinearLayout>
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -73,7 +317,7 @@
         android:background="@drawable/btn_stroke"
         android:paddingHorizontal="16dp"
         android:paddingVertical="12dp"
-        android:src="@drawable/ic_bookmark_default"
+        android:src="@drawable/label_bookmark_selector"
         android:tint="@color/biscay_50"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

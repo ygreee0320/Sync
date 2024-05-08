@@ -21,7 +21,8 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_marginBottom="16dp">
 
                 <ImageView
                     android:layout_width="match_parent"
@@ -73,7 +74,7 @@
                     app:layout_constraintTop_toTopOf="@id/home_tv2" />
 
                 <androidx.viewpager2.widget.ViewPager2
-                    android:id="@+id/viewPager_sync"
+                    android:id="@+id/home_vp_1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:clipChildren="false"
@@ -87,10 +88,10 @@
                 <!--유형별 싱크-->
                 <LinearLayout
                     android:id="@+id/home_sync1"
-                    style="@style/home_linear"
+                    style="@style/home_linear_vertical"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/viewPager_sync">
+                    app:layout_constraintTop_toBottomOf="@id/home_vp_1">
 
                     <TextView
                         android:id="@+id/home_tv4"
@@ -168,7 +169,7 @@
                 <!--관심사 별 싱크-->
                 <LinearLayout
                     android:id="@+id/home_sync2"
-                    style="@style/home_linear"
+                    style="@style/home_linear_vertical"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/home_sync1">
@@ -310,7 +311,7 @@
                 <!--오늘의 인기 싱크-->
                 <LinearLayout
                     android:id="@+id/home_sync3"
-                    style="@style/home_linear"
+                    style="@style/home_linear_vertical"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/home_sync2">
@@ -318,14 +319,21 @@
                     <TextView
                         android:id="@+id/home_tv8"
                         style="@style/Body1_700"
-                        android:text="@string/interest_sync"
+                        android:text="@string/today_popular_sync"
                         android:textColor="@color/gray_90" />
 
                     <TextView
                         android:id="@+id/home_tv9"
                         style="@style/Detail_400"
-                        android:text="@string/interest_sync_how"
+                        android:text="@string/find_today_popular_sync"
                         android:textColor="@color/gray_50" />
+
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/home_recycler_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp" />
 
 
                 </LinearLayout>

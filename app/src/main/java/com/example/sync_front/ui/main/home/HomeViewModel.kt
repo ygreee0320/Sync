@@ -9,4 +9,5 @@ class HomeViewModel : ViewModel() {
         value = "박시윤"
     }
     val text: LiveData<String> = _text
+
 }

@@ -1,4 +1,4 @@
-package com.example.sync_front
+package com.example.sync_front.ui.sync
 
 import android.animation.ValueAnimator
 import android.content.Context
@@ -6,9 +6,8 @@ import android.graphics.*
 import android.util.AttributeSet
 import android.view.View
 import android.view.animation.LinearInterpolator
-import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
-import java.util.ResourceBundle
+import com.example.sync_front.R
 
 class CircleGraphView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
@@ -39,6 +38,21 @@ class CircleGraphView @JvmOverloads constructor(
                 invalidate() // 뷰를 다시 그리도록 요청
             }
             animator.start()
+        }
+    }
+
+    fun animateSections(first: Float, second: Float, third: Float? = null, fourth: Float? = null) {
+        animateSection(0, 0f, first) // 첫 번째 섹션
+        animateSection(1, 0f, second) // 두 번째 섹션
+
+        // 세 번째 섹션의 애니메이션은 파라미터가 있을 때만 적용
+        third?.let {
+            animateSection(2, 0f, it)
+        }
+
+        // 네 번째 섹션의 애니메이션은 파라미터가 있을 때만 적용
+        fourth?.let {
+            animateSection(3, 0f, it)
         }
     }
 

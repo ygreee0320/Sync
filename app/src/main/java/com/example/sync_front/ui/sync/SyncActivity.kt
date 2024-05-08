@@ -2,10 +2,9 @@ package com.example.sync_front.ui.sync
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.navigation.findNavController
-import androidx.navigation.ui.setupWithNavController
-import com.example.sync_front.CircleGraphView
+import android.view.View
 import com.example.sync_front.databinding.ActivitySyncBinding
+import com.google.android.material.tabs.TabLayout
 
 class SyncActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySyncBinding
@@ -16,6 +15,7 @@ class SyncActivity : AppCompatActivity() {
         binding = ActivitySyncBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setToolbarButton()
+        setupTabs(binding.root)
         setupCirCleGraphView()
     }
 
@@ -25,11 +25,41 @@ class SyncActivity : AppCompatActivity() {
         }
     }
 
+    private fun setupTabs(view: View) {
+        val tabLayout = binding.syncTabs
+        tabLayout.addTab(tabLayout.newTab().setText("내외국인"))
+        tabLayout.addTab(tabLayout.newTab().setText("성별"))
+        tabLayout.addTab(tabLayout.newTab().setText("대학"))
+        tabLayout.addTab(tabLayout.newTab().setText("참여수"))
+
+        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                // Handle tab selection
+                //updateRecyclerView(tab?.position ?: 0)
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+                // Optional
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+                // Optional
+            }
+        })
+    }
+
+    /*
+        private fun updateRecyclerView(index: Int) {
+            // Update the data for the RecyclerView based on tab selection
+            // This is just an example, replace it with actual data update logic
+            if (index == 1) {
+                // Change the dataset for 제휴할인
+            } else {
+                // Change the dataset for 인기싱크
+            }
+        }*/
     private fun setupCirCleGraphView() {
         circleGraphView = binding.circle
-        circleGraphView.animateSection(0, 0f, 25f) // 첫 번째 섹션을 0%에서 25%로 애니메이션 적용
-        circleGraphView.animateSection(1, 0f, 25f) // 두 번째 섹션을 0%에서 50%로 애니메이션 적용
-        circleGraphView.animateSection(2, 0f, 25f) // 세 번째 섹션을 0%에서 75%로 애니메이션 적용
-        circleGraphView.animateSection(3, 0f, 25f) // 세 번째 섹션을 0%에서 75%로 애니메이션 적용
+        circleGraphView.animateSections(25f, 25f, 25f, 25f)
     }
 }

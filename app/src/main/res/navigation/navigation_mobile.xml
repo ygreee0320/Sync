@@ -12,7 +12,7 @@
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/chattingFragment"
-        android:name="com.example.sync_front.ChattingFragment"
+        android:name="com.example.sync_front.chatting.ChattingFragment"
         android:label="fragment_chatting"
         tools:layout="@layout/fragment_chatting" />
     <fragment
