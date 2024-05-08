@@ -317,7 +317,7 @@
         android:background="@drawable/btn_stroke"
         android:paddingHorizontal="16dp"
         android:paddingVertical="12dp"
-        android:src="@drawable/ic_bookmark_default"
+        android:src="@drawable/label_bookmark_selector"
         android:tint="@color/biscay_50"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

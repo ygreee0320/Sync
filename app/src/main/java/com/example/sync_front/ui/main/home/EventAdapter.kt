@@ -12,7 +12,7 @@ data class Event(
     val participantCount: Int,
     val totalMembers: Int,
     val title: String,
-    val rotation: String,
+    val location: String,
     val date: String,
     val imageRes: Int
 )
@@ -34,8 +34,13 @@ class EventAdapter(private val events: List<Event>) :
             tvSyncTitle.text = event.title
             syncNumberOfGather.text = event.participantCount.toString()
             syncNumberOfTotal.text = event.totalMembers.toString()
-            tvSyncRotation.text = event.rotation
+            tvSyncLocation.text = event.location
             tvSyncCalendar.text = event.date
+
+            syncIcBookmark.setOnClickListener {
+                // 선택 상태를 현재 상태의 반대로 변경합니다.
+                it.isSelected = !it.isSelected
+            }
         }
         Log.d("RecyclerView", "Binding position $position with title ${event.title}")
     }

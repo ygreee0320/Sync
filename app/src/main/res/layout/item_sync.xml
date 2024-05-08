@@ -96,7 +96,7 @@
         app:layout_constraintTop_toBottomOf="@id/sync_label1" />
 
     <ImageView
-        android:id="@+id/sync_ic_rotation"
+        android:id="@+id/sync_ic_location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -106,14 +106,14 @@
         app:layout_constraintTop_toBottomOf="@id/tv_sync_title" />
 
     <TextView
-        android:id="@+id/tv_sync_rotation"
+        android:id="@+id/tv_sync_location"
         style="@style/Detail_400"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:layout_marginTop="6dp"
-        android:text="sync rotation"
-        app:layout_constraintStart_toEndOf="@id/sync_ic_rotation"
+        android:text="sync location"
+        app:layout_constraintStart_toEndOf="@id/sync_ic_location"
         app:layout_constraintTop_toBottomOf="@id/tv_sync_title" />
 
     <ImageView
@@ -123,7 +123,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="6dp"
         android:background="@drawable/ic_calendar_gray"
-        app:layout_constraintStart_toEndOf="@id/tv_sync_rotation"
+        app:layout_constraintStart_toEndOf="@id/tv_sync_location"
         app:layout_constraintTop_toBottomOf="@id/tv_sync_title" />
 
     <TextView
@@ -138,9 +138,10 @@
         app:layout_constraintTop_toBottomOf="@id/tv_sync_title" />
 
     <ImageView
+        android:id="@+id/sync_ic_bookmark"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/ic_bookmark_default"
+        android:background="@drawable/label_bookmark_selector"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
