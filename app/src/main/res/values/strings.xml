@@ -26,6 +26,11 @@
 
     <!--sync activity-->
     <string name="join">가입하기</string>
+    <string name="sync_introduce_host">싱크장을 소개합니다!</string>
+    <string name="sync_now_member">현재까지 모인 싱크 참여 멤버는</string>
+    <string name="sync_review_title">싱크 멤버들의 후기</string>
+    <string name="more_view">더보기</string>
+    <string name="sync_same_day">내가 본 싱크와 같은 요일, 장소의 싱크</string>
     <!--바텀 메뉴-->
     <string name="menu1">싱크</string>
     <string name="menu2">커뮤니티</string>

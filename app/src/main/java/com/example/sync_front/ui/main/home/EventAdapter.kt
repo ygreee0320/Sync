@@ -1,15 +1,10 @@
 package com.example.sync_front.ui.main.home
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.sync_front.R
 import android.util.Log
 import com.example.sync_front.databinding.ItemSyncBinding
-import org.w3c.dom.Text
 
 data class Event(
     val label1: String,
