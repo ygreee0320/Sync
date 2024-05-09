@@ -13,6 +13,16 @@ data class User(
     val sessionId: String
 )
 
+data class Profile(
+    val language: String,
+    val userName: String,
+    val countryName: String,
+    val gender: String,
+    val email: String,
+    val syncType: String,
+    val categoryTypes: String
+)
+
 data class Platform(
     val platform: String
 )
