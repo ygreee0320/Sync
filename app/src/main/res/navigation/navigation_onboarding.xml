@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_onboarding"
+    app:startDestination="@id/languageFragment">
+
+    <fragment
+        android:id="@+id/languageFragment"
+        android:name="com.example.sync_front.ui.onboarding.LanguageFragment"
+        android:label="fragment_language"
+        tools:layout="@layout/fragment_language" >
+        <action
+            android:id="@+id/action_languageFragment_to_ProfileFragment"
+            app:destination="@id/ProfileFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/ProfileFragment"
+        android:name="com.example.sync_front.ui.onboarding.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_ProfileFragment_to_languageFragment"
+            app:destination="@id/languageFragment" />
+        <action
+            android:id="@+id/action_ProfileFragment_to_NationalFragment"
+            app:destination="@id/NationalFragment" >
+            <argument
+                android:name="language"
+                app:argType="string" />
+            <argument
+                android:name="name"
+                app:argType="string" />
+        </action>
+
+        <argument
+            android:name="language"
+            app:argType="string"
+            android:defaultValue='"한국어"' />
+    </fragment>
+
+    <fragment
+        android:id="@+id/NationalFragment"
+        android:name="com.example.sync_front.ui.onboarding.NationalFragment"
+        android:label="fragment_national"
+        tools:layout="@layout/fragment_national" >
+        <action
+            android:id="@+id/action_NationalFragment_to_ProfileFragment"
+            app:destination="@id/ProfileFragment" />
+    </fragment>
+
+</navigation>

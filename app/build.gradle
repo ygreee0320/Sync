@@ -3,6 +3,8 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'    // Kotlin Annotation Processing Tool
     id("com.google.gms.google-services")
+    id 'androidx.navigation.safeargs.kotlin'
+    id 'kotlin-parcelize' // 네비게이션 시 데이터 전달
 }
 
 android {

@@ -59,5 +59,10 @@
     <string name="mod">수정 완료하기</string>
     <!-- ModInterestActivity-->
     <string name="관심사_변경">관심사 변경</string>
+    <!-- Onboarding -->
+    <string name="before">이전</string>
+    <string name="next">다음</string>
+    <string name="서비스_언어를_선택">서비스 언어를 선택해주세요.</string>
+    <string name="싱크_프로필_등록">싱크 프로필 등록을 해볼까요?</string>
 
 </resources>
