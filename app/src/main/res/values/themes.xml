@@ -193,6 +193,36 @@
         <item name="android:paddingBottom">9dp</item>
     </style>
 
+    <style name="label_gray_10">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/label_gray_10_8</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:paddingRight">8dp</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
+        <item name="android:fontFamily">@font/spoqahansansneo_regular</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:lineSpacingExtra">3.6sp</item>
+    </style>
+
+    <!-- 마이페이지 대학교명 테마 - 흰색 배경, 메인색 테두리 -->
+    <style name="label_white_primary">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/label_white_primary</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:paddingRight">8dp</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
+        <item name="android:fontFamily">@font/spoqahansansneo_bold</item>
+        <item name="android:textColor">@color/primary</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:lineSpacingExtra">3.6sp</item>
+    </style>
+
     <!--프로필 수정 텍스트 박스 테마-->
     <style name="edit_text_box">
         <item name="android:layout_width">match_parent</item>
@@ -200,6 +230,45 @@
         <item name="android:orientation">horizontal</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:paddingLeft">24dp</item>
+    </style>
+
+    <!-- 관심사 텍스트 박스 테마 - 메인 색상, 둥근 아이템 -->
+    <style name="label_primary">
+        <item name="android:layout_width">100dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/spoqahansansneo_regular</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:lineSpacingExtra">4.8sp</item>
+        <item name="android:background">@drawable/label_default</item>
+        <item name="android:paddingTop">10.5dp</item>
+        <item name="android:paddingBottom">10.5dp</item>
+    </style>
+
+    <!-- 관심사 텍스트 박스 테마 - 테두리 회색, 둥근 아이템 -->
+    <style name="label_white">
+        <item name="android:layout_width">100dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/spoqahansansneo_regular</item>
+        <item name="android:textColor">@color/gray_70</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:lineSpacingExtra">4.8sp</item>
+        <item name="android:background">@drawable/label_white_gray10</item>
+        <item name="android:paddingTop">10.5dp</item>
+        <item name="android:paddingBottom">10.5dp</item>
+    </style>
+
+    <!-- 투명 배경 설정 -->
+    <style name="Transparent" parent="@style/Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- 투명정도를 나타내는 색-->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation</item>
+        <!-- android:backgroundDimEnabled true - 반투명 검정 / false - 완전 투명 -->
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 
     <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">

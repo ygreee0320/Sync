@@ -49,5 +49,7 @@ class RetrofitClient {
 
     val loginService = retrofit.create(LoginService::class.java)
     val homeService: HomeService = retrofit.create(HomeService::class.java)
+    val countriesService = retrofit.create(CountriesService::class.java)
+    val emailService = retrofit.create(EmailService::class.java)
 
 }

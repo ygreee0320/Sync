@@ -5,6 +5,9 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="com.google.android.apps.photos.permission.GALLERY_PROVIDER" />
 
     <application
         android:allowBackup="true"
@@ -15,6 +18,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Syncfront"
         tools:targetApi="31">
+        <activity
+            android:name=".ui.onboarding.OnboardingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.my.ModInterestActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.my.SelectListActivity"
+            android:exported="false"
+            android:theme="@style/Transparent" />
         <activity
             android:name=".ui.main.my.BookmarkActivity"
             android:exported="false" />
