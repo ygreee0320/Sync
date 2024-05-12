@@ -4,6 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import android.util.Log
+import com.bumptech.glide.Glide
+import com.example.sync_front.data.model.Sync
 import com.example.sync_front.databinding.ItemSyncBinding
 
 data class Event(
@@ -17,36 +19,47 @@ data class Event(
     val imageRes: Int
 )
 
-class EventAdapter(private val events: List<Event>) :
-    RecyclerView.Adapter<EventAdapter.EventViewHolder>() {
+class SyncAdapter(private var syncs: List<Sync>) :
+    RecyclerView.Adapter<SyncAdapter.SyncViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventViewHolder {
-        val binding = ItemSyncBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return EventViewHolder(binding)
-    }
-
-    override fun onBindViewHolder(holder: EventViewHolder, position: Int) {
-        val event = events[position]
-        with(holder.binding) {
-            ivSyncImg.setImageResource(event.imageRes)
-            syncLabel1.text = event.label1
-            syncLabel2.text = event.label2
-            tvSyncTitle.text = event.title
-            syncNumberOfGather.text = event.participantCount.toString()
-            syncNumberOfTotal.text = event.totalMembers.toString()
-            tvSyncLocation.text = event.location
-            tvSyncCalendar.text = event.date
-
-            syncIcBookmark.setOnClickListener {
-                // 선택 상태를 현재 상태의 반대로 변경합니다.
-                it.isSelected = !it.isSelected
+    class SyncViewHolder(val binding: ItemSyncBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(sync: Sync) {
+            with(binding) {
+                Glide.with(ivSyncImg.context)
+                    .load(sync.image)
+                    .into(ivSyncImg)
+                syncLabel1.text = sync.syncType
+                syncLabel2.text = sync.type
+                tvSyncTitle.text = sync.syncName
+                syncNumberOfGather.text = sync.userCnt.toString()
+                syncNumberOfTotal.text = sync.totalCnt.toString()
+                tvSyncLocation.text = sync.location
+                tvSyncCalendar.text = sync.date
+                syncIcBookmark.setOnClickListener {
+                    it.isSelected = !it.isSelected
+                }
             }
         }
-        Log.d("RecyclerView", "Binding position $position with title ${event.title}")
     }
 
-    override fun getItemCount() = events.size
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SyncViewHolder {
+        val binding = ItemSyncBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return SyncViewHolder(binding)
+    }
 
-    inner class EventViewHolder(val binding: ItemSyncBinding) :
-        RecyclerView.ViewHolder(binding.root)
+    override fun onBindViewHolder(holder: SyncViewHolder, position: Int) {
+        holder.bind(syncs[position])
+        Log.d("SyncAdapter1", "Binding view holder for position $position")
+    }
+
+    override fun getItemCount(): Int {
+        Log.d("SyncAdapter2", "Item count: ${syncs.size}")
+        return syncs.size
+    }
+
+    fun updateSyncs(newSyncs: List<Sync>) {
+        this.syncs = newSyncs
+        notifyDataSetChanged()
+    }
 }
+

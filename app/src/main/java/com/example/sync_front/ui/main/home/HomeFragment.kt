@@ -1,5 +1,6 @@
 package com.example.sync_front.ui.main.home
 
+import SyncPagerAdapter
 import android.content.Intent
 import android.util.Log
 import android.os.Bundle
@@ -10,68 +11,32 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.example.sync_front.R
+import com.example.sync_front.data.model.Sync
 import com.example.sync_front.databinding.FragmentHomeBinding
 import com.example.sync_front.ui.sync.SyncActivity
-import com.google.android.material.tabs.TabLayout
 
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private lateinit var viewModel: HomeViewModel
     private lateinit var recyclerView: RecyclerView
-    private lateinit var eventAdapter: EventAdapter
+    private lateinit var syncAdapter: SyncAdapter
     private lateinit var events: List<Event>
+    private lateinit var syncs: List<Sync>
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
-        // 뷰모델 바인딩
-        binding.viewModel = viewModel
-        binding.lifecycleOwner = viewLifecycleOwner
-        //리사이클러뷰 바인딩
-        recyclerView = binding.homeRecyclerView
-        recyclerView.layoutManager = LinearLayoutManager(context)
-        events = listOf(
-            Event(
-                "지속성",
-                "언어교환",
-                2,
-                4,
-                "스페인어-한국어 언어교환 모임",
-                "서울 강남구",
-                "매주 토요일 오후 5-6시",
-                R.drawable.img_sample_gathering
-            ),
-            Event(
-                "지속성",
-                "언어교환",
-                3,
-                8,
-                "클라이밍 하러 가요!",
-                "서울 성북구",
-                "4/23(화) 오후 2:00",
-                R.drawable.img_sample_climbing
-            ),
-            Event(
-                "지속성",
-                "언어교환",
-                5,
-                6,
-                "미국인 친구랑 카페!!",
-                "서울 종로구",
-                "4/24(수) 오후 5:00",
-                R.drawable.img_sample_cafe
-            ),
-            // Add more events
-        )
-        eventAdapter = EventAdapter(events)
-        recyclerView.adapter = eventAdapter
+        binding.viewModel = viewModel  // ViewModel을 Binding에 연결
+        binding.lifecycleOwner = viewLifecycleOwner  // LifecycleOwner 설정
 
         return binding.root
     }
@@ -79,15 +44,40 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupViewPager()
+        setupRecyclerView()
+        subscribeUi()
         setupTouchListeners()
         setupClickListeners()
     }
 
+    private fun setupRecyclerView() {
+        syncAdapter = SyncAdapter(listOf())
+        binding.homeRecyclerView.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = syncAdapter
+        }
+        binding.homeDiscountRecyclerView.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = syncAdapter
+        }
+    }
+
+    private fun subscribeUi() {
+        viewModel.syncs.observe(viewLifecycleOwner) { syncs ->
+            Log.d("HomeFragment", "Syncs observed: ${syncs.size}")
+            syncAdapter.updateSyncs(syncs)
+        }
+        viewModel.errorMessage.observe(viewLifecycleOwner) { message ->
+            Log.e("HomeFragment", "Error observed: $message")
+        }
+        viewModel.fetchSyncs(3) // 데이터 가져오기 호출
+    }
 
     private fun setupViewPager() {
-        binding.homeVp1.adapter = ViewPagerAdapter(getSyncList())
+        val syncList = viewModel.syncs.value ?: listOf() // ViewModel에서 싱크 리스트를 가져옴
+        val adapter = SyncPagerAdapter(syncList)
+        binding.homeVp1.adapter = adapter
         binding.homeVp1.orientation = ViewPager2.ORIENTATION_HORIZONTAL
-        binding.homeVp1.offscreenPageLimit = 3
 
         // ViewPager에 패딩 추가 및 clipToPadding 설정
         val pageMarginPx = resources.getDimensionPixelOffset(R.dimen.pageMargin)
