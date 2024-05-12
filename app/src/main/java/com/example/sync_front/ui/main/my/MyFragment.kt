@@ -10,16 +10,16 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sync_front.R
+import com.example.sync_front.data.model.Sync
 import com.example.sync_front.databinding.FragmentMyBinding
-import com.example.sync_front.ui.main.home.Event
-import com.example.sync_front.ui.main.home.EventAdapter
+import com.example.sync_front.ui.main.home.SyncAdapter
 
 class MyFragment : Fragment() {
     private var _binding: FragmentMyBinding? = null
     private val binding get() = _binding!!
     private var listType: Int? = 1  // 1: 내가 개설한 2: 내가 참여한
-    lateinit var syncList: List<Event>
-    private lateinit var adapter: EventAdapter
+    lateinit var syncList: List<Sync>
+    private lateinit var adapter: SyncAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -71,8 +71,8 @@ class MyFragment : Fragment() {
 
         } else {
             // 어댑터를 설정하고 리사이클러뷰에 연결
-            syncList = emptyList<Event>()
-            adapter = EventAdapter(syncList)
+            syncList = emptyList<Sync>()
+            adapter = SyncAdapter(syncList)
             binding.syncRecyclerview.layoutManager = LinearLayoutManager(requireContext())
             binding.syncRecyclerview.adapter = adapter
         }
