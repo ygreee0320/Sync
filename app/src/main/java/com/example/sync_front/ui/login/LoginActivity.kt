@@ -11,6 +11,7 @@ import com.example.sync_front.BuildConfig.KAKAO_APP_KEY
 import com.example.sync_front.api_server.LoginManager
 import com.example.sync_front.api_server.Platform
 import com.example.sync_front.databinding.ActivityLoginBinding
+import com.example.sync_front.ui.onboarding.OnboardingActivity
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -128,7 +129,7 @@ class LoginActivity : AppCompatActivity() {
                 editor.putString("name", response.name)
                 editor.apply()
 
-                val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                val intent = Intent(this@LoginActivity, OnboardingActivity::class.java)
                 startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
                 finish()
             }

@@ -1,6 +1,8 @@
 package com.example.sync_front.api_server
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
 data class User(
     val userId: Int,
@@ -13,15 +15,17 @@ data class User(
     val sessionId: String
 )
 
-data class Profile(
-    val language: String,
-    val userName: String,
-    val countryName: String,
-    val gender: String,
-    val email: String,
-    val syncType: String,
-    val categoryTypes: String
-)
+@Parcelize
+data class Onboarding(
+    val language: String?,
+    val profile: String?,
+    val userName: String?,
+    val countryName: String?,
+    val gender: String?,
+    val university: String?,
+    val syncType: String?,
+    val categoryTypes: String?
+) : Parcelable
 
 data class Platform(
     val platform: String
@@ -76,6 +80,52 @@ data class RoomMessageElementResponseDto(
     val user: ChatUserResponseDto,
     val content: String,
     val time: String
+)
+
+data class CountriesRequestModel(
+    val page: String,
+    val perPage: String,
+    val language: String
+)
+data class CountriesResponse(
+    val status: Int,
+    val message: String,
+    val data: List<String>
+)
+
+data class EmailRequest( // 인증 코드 전송 시 요청 데이터
+    val email: String,
+    val univName: String
+)
+
+data class EmailResponse( // 인증 코드 전송 시 받는 데이터
+    val status: Int,
+    val message: String
+)
+
+data class CodeRequest( // 인증 코드 검증 요청
+    val email: String,
+    val univName: String,
+    val code: String
+)
+
+data class CodeResponseData(
+    val success: Boolean,
+    val univName: String,
+    val certified_email: String,
+    val certified_date: String
+)
+
+data class CodeResponse( // 인증 코드 검증 완료
+    val status: Int,
+    val message: String,
+    val data: CodeResponseData
+)
+
+data class CodeResetResponse(
+    val status: Int,
+    val message: String,
+    val data: Boolean
 )
 
 data class LoginGoogleRequestModel(

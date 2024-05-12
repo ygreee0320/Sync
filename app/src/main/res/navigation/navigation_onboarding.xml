@@ -26,12 +26,6 @@
         <action
             android:id="@+id/action_ProfileFragment_to_NationalFragment"
             app:destination="@id/NationalFragment" >
-            <argument
-                android:name="language"
-                app:argType="string" />
-            <argument
-                android:name="name"
-                app:argType="string" />
         </action>
 
         <argument
@@ -48,6 +42,99 @@
         <action
             android:id="@+id/action_NationalFragment_to_ProfileFragment"
             app:destination="@id/ProfileFragment" />
+        <action
+            android:id="@+id/action_NationalFragment_to_GenderFragment"
+            app:destination="@id/GenderFragment" />
+        <argument
+            android:name="onboarding"
+            app:argType="com.example.sync_front.api_server.Onboarding" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/GenderFragment"
+        android:name="com.example.sync_front.ui.onboarding.GenderFragment"
+        android:label="fragment_gender"
+        tools:layout="@layout/fragment_gender" >
+        <action
+            android:id="@+id/action_GenderFragment_to_NationalFragment"
+            app:destination="@id/NationalFragment" />
+        <action
+            android:id="@+id/action_GenderFragment_to_UnivFragment"
+            app:destination="@id/UnivFragment" />
+        <argument
+            android:name="onboarding"
+            app:argType="com.example.sync_front.api_server.Onboarding" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/UnivFragment"
+        android:name="com.example.sync_front.ui.onboarding.UnivFragment"
+        android:label="fragment_univ"
+        tools:layout="@layout/fragment_univ" >
+        <action
+            android:id="@+id/action_UnivFragment_to_GenderFragment"
+            app:destination="@id/GenderFragment" />
+        <action
+            android:id="@+id/action_UnivFragment_to_EmailFragment"
+            app:destination="@id/EmailFragment" />
+        <argument
+            android:name="onboarding"
+            app:argType="com.example.sync_front.api_server.Onboarding" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/EmailFragment"
+        android:name="com.example.sync_front.ui.onboarding.EmailFragment"
+        android:label="fragment_email"
+        tools:layout="@layout/fragment_email" >
+        <action
+            android:id="@+id/action_EmailFragment_to_UnivFragment"
+            app:destination="@id/UnivFragment" />
+        <action
+            android:id="@+id/action_EmailFragment_to_TypeFragment"
+            app:destination="@id/TypeFragment" />
+        <argument
+            android:name="onboarding"
+            app:argType="com.example.sync_front.api_server.Onboarding" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/TypeFragment"
+        android:name="com.example.sync_front.ui.onboarding.TypeFragment"
+        android:label="fragment_type"
+        tools:layout="@layout/fragment_type" >
+        <action
+            android:id="@+id/action_TypeFragment_to_EmailFragment"
+            app:destination="@id/EmailFragment" />
+        <action
+            android:id="@+id/action_TypeFragment_to_InterestFragment"
+            app:destination="@id/InterestFragment" />
+        <argument
+            android:name="onboarding"
+            app:argType="com.example.sync_front.api_server.Onboarding" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/InterestFragment"
+        android:name="com.example.sync_front.ui.onboarding.InterestFragment"
+        android:label="fragment_interest"
+        tools:layout="@layout/fragment_interest" >
+        <action
+            android:id="@+id/action_InterestFragment_to_TypeFragment"
+            app:destination="@id/TypeFragment" />
+        <action
+            android:id="@+id/action_InterestFragment_to_OnboardingDoneFragment"
+            app:destination="@id/OnboardingDoneFragment" />
+        <argument
+            android:name="onboarding"
+            app:argType="com.example.sync_front.api_server.Onboarding" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/OnboardingDoneFragment"
+        android:name="com.example.sync_front.ui.onboarding.OnboardingDoneFragment"
+        android:label="fragment_onboarding_done"
+        tools:layout="@layout/fragment_onboarding_done" >
     </fragment>
 
 </navigation>

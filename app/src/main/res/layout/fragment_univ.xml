@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.onboarding.ProfileFragment">
+    tools:context=".ui.onboarding.UnivFragment">
 
     <LinearLayout
         android:id="@+id/explain_layout"
@@ -18,67 +18,28 @@
             android:layout_width="match_parent"
             android:layout_height="12dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/progressbar2" />
+            android:background="@drawable/progressbar5" />
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/explain"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="63dp"
             android:layout_marginStart="30dp"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/explain_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/Heading3"
-                    android:textColor="@color/gray_90"
-                    android:text="이름" />
-
-                <TextView
-                    android:id="@+id/explain"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/Heading3"
-                    android:textColor="@color/gray_90"
-                    android:text="@string/환영합니다" />
-
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/explain2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/Heading3"
-                android:textColor="@color/gray_90"
-                android:text="@string/싱크_프로필_등록" />
-
-        </LinearLayout>
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/profile_img"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_marginTop="29dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/img_profile_default"
-            android:layout_gravity="center" />
+            style="@style/Heading3"
+            android:textColor="@color/gray_90"
+            android:text="@string/소속된_한국_대학교" />
 
         <TextView
-            android:id="@+id/name_txt"
+            android:id="@+id/school_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="30dp"
             android:layout_marginStart="17dp"
             android:layout_marginBottom="8dp"
             style="@style/Body2_400"
             android:textColor="@color/gray_90"
-            android:text="@string/이름" />
+            android:text="@string/학교" />
 
         <LinearLayout
             style="@style/edit_text_box"
@@ -87,14 +48,14 @@
             android:background="@drawable/bg_edit_text">
 
             <EditText
-                android:id="@+id/username"
+                android:id="@+id/univ"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 style="@style/Body1_400"
                 android:textColor="@color/gray_70"
                 android:background="@null"
-                android:hint="이름" />
-            
+                android:hint="대학교 이름을 입력하세요" />
+
             <ImageView
                 android:id="@+id/text_cancel"
                 android:layout_width="24dp"
@@ -133,11 +94,11 @@
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_weight="1"
-            android:background="@drawable/btn_default"
+            android:background="@drawable/btn_gray_10"
             android:gravity="center"
             android:layout_marginLeft="16dp"
             android:text="@string/next"
-            android:textColor="@color/white"
+            android:textColor="@color/gray_70"
             android:textSize="16sp" />
 
     </LinearLayout>

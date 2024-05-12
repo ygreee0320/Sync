@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/gray_5"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.onboarding.LanguageFragment">
+    tools:context=".ui.onboarding.GenderFragment">
 
     <LinearLayout
         android:id="@+id/explain_layout"
@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="12dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/progressbar1" />
+            android:background="@drawable/progressbar4" />
 
         <TextView
             android:id="@+id/explain"
@@ -30,7 +30,7 @@
             android:layout_marginTop="63dp"
             style="@style/Heading3"
             android:textColor="@color/gray_90"
-            android:text="@string/서비스_언어를_선택" />
+            android:text="@string/성별을_선택" />
 
     </LinearLayout>
 

@@ -19,7 +19,7 @@ class ModInterestActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setupClickListeners()
-        updateSyncList()
+        updateInterestList()
     }
 
     private fun setupClickListeners() {
@@ -42,7 +42,7 @@ class ModInterestActivity : AppCompatActivity() {
         }
     }
 
-    private fun updateSyncList() { // 북마크 리스트 출력
+    private fun updateInterestList() { // 관심사 선택 리스트 출력
         val interest1 = SelectInterest("@drawable/ic_exchange_language", "외국어", listOf("언어 교환", "튜터링", "스터디", "기타"))
         val interest2 = SelectInterest("@drawable/ic_culture", "문화·예술", listOf("문학·예술", "영화", "드라마", "미술·디자인", "공연·전시", "음악", "기타"))
         val interest3 = SelectInterest("@drawable/ic_travel", "여행·동행", listOf("관광지", "자연", "휴양", "기타"))

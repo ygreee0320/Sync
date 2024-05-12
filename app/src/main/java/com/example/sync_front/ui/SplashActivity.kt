@@ -6,7 +6,6 @@ import android.os.Bundle
 import androidx.core.content.ContextCompat
 import com.example.sync_front.ui.login.LoginActivity
 import com.example.sync_front.ui.main.MainActivity
-import com.example.sync_front.ui.onboarding.OnboardingActivity
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 import java.util.concurrent.ScheduledExecutorService
@@ -20,7 +19,7 @@ class SplashActivity : AppCompatActivity() {
         val mainExecutor: Executor = ContextCompat.getMainExecutor(this)
         backExecutor.schedule({
             mainExecutor.execute{
-                startActivity(Intent(applicationContext, OnboardingActivity::class.java))
+                startActivity(Intent(applicationContext, MainActivity::class.java))
                 finish()
             }
         }, 0, TimeUnit.SECONDS)

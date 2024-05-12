@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/gray_5"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.onboarding.LanguageFragment">
+    tools:context=".ui.onboarding.TypeFragment">
 
     <LinearLayout
         android:id="@+id/explain_layout"
@@ -20,17 +20,57 @@
             android:layout_width="match_parent"
             android:layout_height="12dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/progressbar1" />
+            android:background="@drawable/progressbar7" />
 
-        <TextView
-            android:id="@+id/explain"
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="63dp"
+            android:layout_marginStart="30dp"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/explain_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Heading3"
+                android:textColor="@color/gray_90"
+                android:text="이름" />
+
+            <TextView
+                android:id="@+id/explain"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Heading3"
+                android:textColor="@color/gray_90"
+                android:text="@string/님의_성향을_알려주세요" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="63dp"
-            style="@style/Heading3"
-            android:textColor="@color/gray_90"
-            android:text="@string/서비스_언어를_선택" />
+            android:layout_marginTop="4dp"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/explain_detail_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Body2_400"
+                android:textColor="@color/gray_50"
+                android:text="이름" />
+
+            <TextView
+                android:id="@+id/explain_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Body2_400"
+                android:textColor="@color/gray_50"
+                android:text="@string/딱_맞는_싱크를_추천" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
