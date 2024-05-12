@@ -21,9 +21,12 @@
     <string name="interest_sync_how">어떤 관심사의 모임을 찾으시나요?</string>
     <string name="today_popular_sync">오늘의 인기 싱크</string>
     <string name="find_today_popular_sync">요즘 인기있는 모임을 찾아보세요!</string>
+    <string name="friend_sync">내친소 싱크</string>
+    <string name="enjoy_friend_sync">내 친구를 소개해 부담없는 모임을 즐겨보세요!</string>
     <string name="popular_sync">인기싱크</string>
     <string name="discount_benefit">제휴할인</string>
-
+    <string name="discount_sync">제휴 싱크</string>
+    <string name="enjoy_discount_sync">제휴업체에서 개설한 모임의 할인혜택을 누려보세요!</string>
     <!--sync activity-->
     <string name="join">가입하기</string>
     <string name="sync_introduce_host">싱크장을 소개합니다!</string>

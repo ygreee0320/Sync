@@ -83,6 +83,15 @@
         <item name="android:lineSpacingExtra">4.2sp</item>
     </style>
 
+    <style name="Body2_700_white">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/spoqahansansneo_bold</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:lineSpacingExtra">4.2sp</item>
+    </style>
+
     <style name="Body3_400">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -108,6 +117,15 @@
         <item name="android:lineSpacingExtra">3.6sp</item>
     </style>
 
+    <style name="Detail_400_white">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/spoqahansansneo_regular</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:lineSpacingExtra">3.6sp</item>
+    </style>
+
     <style name="Detail_700">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -117,21 +135,30 @@
     </style>
 
     <!--홈 프래그먼트 박스 레이아웃 테마-->
-    <style name="home_box">
-        <item name="android:layout_width">110dp</item>
+    <style name="home_box1">
+        <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
         <item name="android:gravity">center</item>
         <item name="android:orientation">vertical</item>
-        <item name="android:paddingLeft">30dp</item>
-        <item name="android:paddingRight">30dp</item>
+        <item name="android:paddingTop">9dp</item>
+        <item name="android:paddingBottom">9dp</item>
+    </style>
+
+    <style name="home_box2">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:orientation">vertical</item>
         <item name="android:paddingTop">9dp</item>
         <item name="android:paddingBottom">9dp</item>
     </style>
 
     <style name="home_linear_vertical">
-        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">22dp</item>
+        <item name="android:layout_margin">20dp</item>
         <item name="android:orientation">vertical</item>
     </style>
 
@@ -154,7 +181,7 @@
         <item name="android:paddingRight">8dp</item>
         <item name="android:paddingTop">4dp</item>
         <item name="android:paddingBottom">4dp</item>
-      </style>
+    </style>
 
     <!--마이페이지 프래그먼트 박스 레이아웃 테마-->
     <style name="mypage_box">

@@ -107,7 +107,7 @@
 
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:orientation="horizontal"
@@ -117,8 +117,9 @@
 
                         <LinearLayout
                             android:id="@+id/box_onetime"
-                            style="@style/home_box"
-                            android:background="@drawable/bg_btn_box">
+                            style="@style/home_box1"
+                            android:background="@drawable/bg_btn_box"
+                            >
 
                             <ImageView
                                 android:layout_width="wrap_content"
@@ -133,7 +134,7 @@
 
                         <LinearLayout
                             android:id="@+id/box_persistence"
-                            style="@style/home_box"
+                            style="@style/home_box1"
                             android:layout_marginStart="10dp"
                             android:background="@drawable/bg_btn_box">
 
@@ -148,22 +149,6 @@
 
                         </LinearLayout>
 
-                        <LinearLayout
-                            android:id="@+id/box_myfriend"
-                            style="@style/home_box"
-                            android:layout_marginStart="10dp"
-                            android:background="@drawable/bg_btn_box">
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/ic_myfriend" />
-
-                            <TextView
-                                style="@style/Body3_400"
-                                android:text="@string/myfriend" />
-
-                        </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
                 <!--관심사 별 싱크-->
@@ -188,7 +173,7 @@
 
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:orientation="horizontal"
@@ -198,7 +183,7 @@
 
                         <LinearLayout
                             android:id="@+id/box_exchange_language"
-                            style="@style/home_box"
+                            style="@style/home_box2"
                             android:background="@drawable/bg_btn_box">
 
                             <ImageView
@@ -214,7 +199,7 @@
 
                         <LinearLayout
                             android:id="@+id/box_culture"
-                            style="@style/home_box"
+                            style="@style/home_box2"
                             android:layout_marginStart="10dp"
                             android:background="@drawable/bg_btn_box">
 
@@ -231,7 +216,7 @@
 
                         <LinearLayout
                             android:id="@+id/box_travel"
-                            style="@style/home_box"
+                            style="@style/home_box2"
                             android:layout_marginStart="10dp"
                             android:background="@drawable/bg_btn_box">
 
@@ -249,7 +234,7 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:orientation="horizontal"
@@ -259,7 +244,7 @@
 
                         <LinearLayout
                             android:id="@+id/box_activity"
-                            style="@style/home_box"
+                            style="@style/home_box2"
                             android:background="@drawable/bg_btn_box">
 
                             <ImageView
@@ -275,7 +260,7 @@
 
                         <LinearLayout
                             android:id="@+id/box_food"
-                            style="@style/home_box"
+                            style="@style/home_box2"
                             android:layout_marginStart="10dp"
                             android:background="@drawable/bg_btn_box">
 
@@ -292,7 +277,7 @@
 
                         <LinearLayout
                             android:id="@+id/box_etc"
-                            style="@style/home_box"
+                            style="@style/home_box2"
                             android:layout_marginStart="10dp"
                             android:background="@drawable/bg_btn_box">
 
@@ -308,7 +293,7 @@
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
-                <!--오늘의 인기 싱크-->
+                <!--내친소 싱크-->
                 <LinearLayout
                     android:id="@+id/home_sync3"
                     style="@style/home_linear_vertical"
@@ -319,24 +304,56 @@
                     <TextView
                         android:id="@+id/home_tv8"
                         style="@style/Body1_700"
-                        android:text="@string/today_popular_sync"
+                        android:text="@string/friend_sync"
                         android:textColor="@color/gray_90" />
 
                     <TextView
                         android:id="@+id/home_tv9"
                         style="@style/Detail_400"
-                        android:text="@string/find_today_popular_sync"
+                        android:text="@string/enjoy_friend_sync"
                         android:textColor="@color/gray_50" />
 
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/home_recycler_view"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp" />
 
 
                 </LinearLayout>
+
+                <!--내친소 싱크-->
+                <LinearLayout
+                    android:id="@+id/home_sync4"
+                    style="@style/home_linear_vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/home_sync3">
+
+                    <TextView
+                        android:id="@+id/home_tv10"
+                        style="@style/Body1_700"
+                        android:text="@string/discount_sync"
+                        android:textColor="@color/gray_90" />
+
+                    <TextView
+                        android:id="@+id/home_tv11"
+                        style="@style/Detail_400"
+                        android:text="@string/enjoy_discount_sync"
+                        android:textColor="@color/gray_50" />
+
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/home_discount_recycler_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:orientation="horizontal" />
+
+
+                </LinearLayout>
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
