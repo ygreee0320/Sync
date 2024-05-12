@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.onboarding.UnivFragment">
+
+    <LinearLayout
+        android:id="@+id/explain_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="12dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/progressbar5" />
+
+        <TextView
+            android:id="@+id/explain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="63dp"
+            android:layout_marginStart="30dp"
+            style="@style/Heading3"
+            android:textColor="@color/gray_90"
+            android:text="@string/소속된_한국_대학교" />
+
+        <TextView
+            android:id="@+id/school_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginStart="17dp"
+            android:layout_marginBottom="8dp"
+            style="@style/Body2_400"
+            android:textColor="@color/gray_90"
+            android:text="@string/학교" />
+
+        <LinearLayout
+            style="@style/edit_text_box"
+            android:layout_marginStart="17dp"
+            android:layout_marginEnd="15dp"
+            android:background="@drawable/bg_edit_text">
+
+            <EditText
+                android:id="@+id/univ"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                style="@style/Body1_400"
+                android:textColor="@color/gray_70"
+                android:background="@null"
+                android:hint="대학교 이름을 입력하세요" />
+
+            <ImageView
+                android:id="@+id/text_cancel"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="12dp"
+                android:src="@drawable/ic_text_cancel"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:layout_marginHorizontal="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/before_btn"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_gray_10"
+            style="@style/Body1_400"
+            android:textColor="@color/gray_70"
+            android:gravity="center"
+            android:text="@string/before" />
+
+        <TextView
+            android:id="@+id/done_btn"
+            style="@style/Body1_400"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_gray_10"
+            android:gravity="center"
+            android:layout_marginLeft="16dp"
+            android:text="@string/next"
+            android:textColor="@color/gray_70"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -55,5 +55,37 @@
     <string name="성별">성별</string>
     <string name="성향">성향</string>
     <string name="관심사">관심사</string>
+    <string name="cancel">취소</string>
+    <string name="mod">수정 완료하기</string>
+    <!-- ModInterestActivity-->
+    <string name="관심사_변경">관심사 변경</string>
+    <!-- Onboarding -->
+    <string name="before">이전</string>
+    <string name="next">다음</string>
+    <string name="서비스_언어를_선택">서비스 언어를 선택해주세요.</string>
+    <string name="환영합니다">님, 환영합니다!</string>
+    <string name="싱크_프로필_등록">싱크 프로필 등록을 해볼까요?</string>
+    <string name="국적을_선택">국적을 선택해주세요.</string>
+    <string name="성별을_선택">성별을 선택해주세요.</string>
+    <string name="소속된_한국_대학교">소속된 한국 대학교를 입력해주세요</string>
+    <string name="학교">학교</string>
+    <string name="학교_이메일_인증">학교 이메일</string>
+    <string name="학교_이메일_인증을_통해">학교 이메일 인증을 통해 안심하고 싱크할 수 있어요</string>
+    <string name="학교를_확인하는_용도로만">이메일 주소는 학교를 확인하는 용도로만 사용되며,</string>
+    <string name="다른_사용자에게는">다른 사용자에게는 공개되지 않습니다.</string>
+    <string name="인증번호_전송">인증번호 전송</string>
+    <string name="확인">확인</string>
+    <string name="님의_성향을_알려주세요">님의 성향을 알려주세요</string>
+    <string name="딱_맞는_싱크를_추천">님에게 딱 맞는 싱크를 추천드릴게요.</string>
+    <string name="님의_관심사를">님의 관심사를</string>
+    <string name="골라주세요">3개 이상 골라주세요</string>
+    <string name="님의_가입이_완료">님의 가입이 완료되었어요!</string>
+    <string name="싱크_시작하기">싱크 시작하기</string>
+    <string name="이제_싱크를_시작해볼까요">이제 싱크를 시작해볼까요?</string>
+    <string name="님만을_위한_맞춤_싱크를_확인">님만을 위한 맞춤 싱크를 확인해보세요.</string>
+    <!--성향 -->
+    <string name="성향1">소수의 사람과 깊고 지속적인 만남을 선호해요</string>
+    <string name="성향2">새로운 사람과의 다양한 만남을 선호해요</string>
+    <string name="성향3">보통 친구의 소개로 친해지는 편이에요</string>
 
 </resources>
