@@ -43,7 +43,6 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupViewPager()
         setupRecyclerView()
         subscribeUi()
         setupTouchListeners()
@@ -63,18 +62,20 @@ class HomeFragment : Fragment() {
     }
 
     private fun subscribeUi() {
+        viewModel.fetchSyncs(3) // 데이터 가져오기 호출
         viewModel.syncs.observe(viewLifecycleOwner) { syncs ->
             Log.d("HomeFragment", "Syncs observed: ${syncs.size}")
-            syncAdapter.updateSyncs(syncs)
+            if (syncs.isNotEmpty()) {
+                syncAdapter.updateSyncs(syncs)
+                setupViewPager(syncs)  // ViewPager 설정을 여기로 이동
+            }
         }
         viewModel.errorMessage.observe(viewLifecycleOwner) { message ->
             Log.e("HomeFragment", "Error observed: $message")
         }
-        viewModel.fetchSyncs(3) // 데이터 가져오기 호출
     }
 
-    private fun setupViewPager() {
-        val syncList = viewModel.syncs.value ?: listOf() // ViewModel에서 싱크 리스트를 가져옴
+    private fun setupViewPager(syncList: List<Sync>) {
         val adapter = SyncPagerAdapter(syncList)
         binding.homeVp1.adapter = adapter
         binding.homeVp1.orientation = ViewPager2.ORIENTATION_HORIZONTAL
