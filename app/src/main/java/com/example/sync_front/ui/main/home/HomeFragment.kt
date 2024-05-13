@@ -26,7 +26,7 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var viewModel: HomeViewModel
     private lateinit var syncAdapter: SyncAdapter
-    private lateinit var associateAdapter: SyncAdapter
+    private lateinit var associateAdapter: AssociateSyncAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -54,9 +54,9 @@ class HomeFragment : Fragment() {
             layoutManager = LinearLayoutManager(context)
             adapter = syncAdapter
         }
-        associateAdapter = SyncAdapter(listOf())
+        associateAdapter = AssociateSyncAdapter(listOf())
         binding.homeDiscountRecyclerView.apply {
-            layoutManager = LinearLayoutManager(context)
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = associateAdapter
         }
     }
@@ -64,21 +64,31 @@ class HomeFragment : Fragment() {
     private fun subscribeUi() {
         viewModel.fetchSyncs(3) // 데이터 가져오기 호출
         viewModel.fetchAssociateSyncs(3)  // Associate syncs 데이터 불러오기
+        viewModel.fetchRecommendSyncs(2)
+        // 추천 Syncs 데이터 관찰
+        viewModel.recommendSyncs.observe(viewLifecycleOwner) { recommendSyncs ->
+            Log.d("HomeFragment", "Recommended Syncs observed: ${recommendSyncs.size}")
+            if (recommendSyncs.isNotEmpty()) {
+                // ViewPager를 추천 Syncs로 설정
+                setupViewPager(recommendSyncs)
+            }
+        }
         viewModel.syncs.observe(viewLifecycleOwner) { syncs ->
             Log.d("HomeFragment", "Syncs observed: ${syncs.size}")
             if (syncs.isNotEmpty()) {
                 syncAdapter.updateSyncs(syncs)
-                setupViewPager(syncs)  // ViewPager 설정을 여기로 이동
+            }
+        }
+        viewModel.associateSyncs.observe(viewLifecycleOwner) { associateSyncs ->
+            if (associateSyncs.isNotEmpty()) {
+                associateAdapter.updateSyncs(associateSyncs)
             }
         }
         viewModel.errorMessage.observe(viewLifecycleOwner) { message ->
             Log.e("HomeFragment", "Error observed: $message")
         }
 
-        viewModel.associateSyncs.observe(viewLifecycleOwner) { syncs ->
-            Log.d("HomeFragment", "Associate Syncs observed: ${syncs.size}")
-            associateAdapter.updateSyncs(syncs)
-        }
+
     }
 
     private fun setupViewPager(syncList: List<Sync>) {
@@ -154,13 +164,6 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun getSyncList(): ArrayList<Int> {
-        return arrayListOf<Int>(
-            R.drawable.container_sync_box,
-            R.drawable.container_sync_box,
-            R.drawable.container_sync_box
-        )
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()

@@ -9,5 +9,6 @@ data class Sync(
     val totalCnt: Int,
     val syncName: String,
     val location: String,
-    val date: String
+    val date: String,
+    val associate: String?
 )

@@ -16,6 +16,8 @@ import retrofit2.Response
 class HomeViewModel : ViewModel() {
     val syncs = MutableLiveData<List<Sync>>()
     val associateSyncs = MutableLiveData<List<Sync>>()
+    val recommendSyncs = MutableLiveData<List<Sync>>()
+
     val errorMessage = MutableLiveData<String>()
     private val _text = MutableLiveData<String>().apply {
         value = "박시윤"
@@ -66,5 +68,23 @@ class HomeViewModel : ViewModel() {
 
     }
 
+    fun fetchRecommendSyncs(userId: Long) {
+        RetrofitClient.instance.homeService.getRecommendSyncs("application/json", userId)
+            .enqueue(object : Callback<SyncResponse> {
+                override fun onResponse(
+                    call: Call<SyncResponse>,
+                    response: Response<SyncResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        recommendSyncs.postValue(response.body()?.data ?: listOf())
+                    } else {
+                        errorMessage.postValue("Error: ${response.errorBody()?.string()}")
+                    }
+                }
 
+                override fun onFailure(call: Call<SyncResponse>, t: Throwable) {
+                    errorMessage.postValue(t.message ?: "Unknown error")
+                }
+            })
+    }
 }
