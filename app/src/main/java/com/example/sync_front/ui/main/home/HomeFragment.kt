@@ -25,10 +25,8 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private lateinit var viewModel: HomeViewModel
-    private lateinit var recyclerView: RecyclerView
     private lateinit var syncAdapter: SyncAdapter
-    private lateinit var events: List<Event>
-    private lateinit var syncs: List<Sync>
+    private lateinit var associateAdapter: SyncAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -47,6 +45,7 @@ class HomeFragment : Fragment() {
         subscribeUi()
         setupTouchListeners()
         setupClickListeners()
+
     }
 
     private fun setupRecyclerView() {
@@ -55,14 +54,16 @@ class HomeFragment : Fragment() {
             layoutManager = LinearLayoutManager(context)
             adapter = syncAdapter
         }
+        associateAdapter = SyncAdapter(listOf())
         binding.homeDiscountRecyclerView.apply {
             layoutManager = LinearLayoutManager(context)
-            adapter = syncAdapter
+            adapter = associateAdapter
         }
     }
 
     private fun subscribeUi() {
         viewModel.fetchSyncs(3) // 데이터 가져오기 호출
+        viewModel.fetchAssociateSyncs(3)  // Associate syncs 데이터 불러오기
         viewModel.syncs.observe(viewLifecycleOwner) { syncs ->
             Log.d("HomeFragment", "Syncs observed: ${syncs.size}")
             if (syncs.isNotEmpty()) {
@@ -72,6 +73,11 @@ class HomeFragment : Fragment() {
         }
         viewModel.errorMessage.observe(viewLifecycleOwner) { message ->
             Log.e("HomeFragment", "Error observed: $message")
+        }
+
+        viewModel.associateSyncs.observe(viewLifecycleOwner) { syncs ->
+            Log.d("HomeFragment", "Associate Syncs observed: ${syncs.size}")
+            associateAdapter.updateSyncs(syncs)
         }
     }
 
