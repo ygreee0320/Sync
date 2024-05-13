@@ -100,4 +100,10 @@
     <string name="어디서_싱크가_열리나요">어디서 싱크가 열리나요?</string>
     <string name="참여_인원_수를_설정해_주세요">참여 인원 수를 설정해 주세요</string>
     <string name="싱크장을_소개해_주세요">싱크장을 소개해 주세요</string>
+    <!--싱크상세-->
+    <string name="sync_intro">싱크 소개</string>
+    <string name="sync_routine_calendar">정기 싱크 일정</string>
+    <string name="location">장소</string>
+    <string name="personnel">인원</string>
+    <string name="test">test</string>
 </resources>
