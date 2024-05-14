@@ -50,7 +50,9 @@ class ModInterestActivity : AppCompatActivity() {
         val interest5 = SelectInterest("@drawable/ic_travel", "푸드·음료", listOf("맛집", "카페", "술", "기타"))
 
         interestList = listOf(interest1, interest2, interest3, interest4, interest5)
-        adapter = SelectInterestAdapter(interestList)
+        adapter = SelectInterestAdapter(interestList) {
+            // 완료 버튼 활성화 필요
+        }
         binding.recyclerview.layoutManager = LinearLayoutManager(this)
         binding.recyclerview.adapter = adapter
     }
