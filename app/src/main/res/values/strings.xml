@@ -90,5 +90,10 @@
     <string name="성향1">소수의 사람과 깊고 지속적인 만남을 선호해요</string>
     <string name="성향2">새로운 사람과의 다양한 만남을 선호해요</string>
     <string name="성향3">보통 친구의 소개로 친해지는 편이에요</string>
+    <!--  커뮤니티_글쓰기  -->
+    <string name="글쓰기">글쓰기</string>
+    <string name="category">카테고리</string>
+    <string name="title">제목</string>
+    <string name="content">내용</string>
 
 </resources>

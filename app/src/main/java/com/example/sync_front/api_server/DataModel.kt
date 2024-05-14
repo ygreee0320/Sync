@@ -15,6 +15,42 @@ data class User(
     val sessionId: String
 )
 
+data class Community(
+    val postId: Int,
+    val postType: String,
+    val writerImage: String,
+    val writerName: String,
+    val createdData: String,
+    val title: String,
+    val content: String,
+    val likeCnt: Int,
+    val commentCnt: Int,
+    val postedByUser: Boolean,
+    val likedByUser: Boolean
+)
+
+data class CommunityResponse(
+    val status: Int,
+    val message: String,
+    val data: Community
+)
+
+data class Comment(
+    val commentId: Int,
+    val writerImage: String,
+    val writerName: String,
+    val createdData: String,
+    val content: String,
+    val likeCnt: Int,
+    val commentedByUser: Boolean
+)
+
+data class CommentResponse(
+    val status: Int,
+    val message: String,
+    val data: Comment
+)
+
 @Parcelize
 data class Onboarding(
     val language: String?,

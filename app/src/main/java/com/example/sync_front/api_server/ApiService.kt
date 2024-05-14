@@ -19,6 +19,18 @@ interface LoginService {
 
 }
 
+interface CommunityService {
+    //게시글 조회
+    @GET("post")
+    fun getCommunity(
+        @Header("Content-Type") application: String,
+        @Header("Authorization") accessToken: String,
+        @Path("postType") postType: String,
+        @Path("page") page: Int,
+        @Path("size") size: String,
+    ): Call<CommunityResponse>
+}
+
 interface GoogleService {
     // 구글 액세스 토큰 발급
     @POST("oauth2/v4/token")
