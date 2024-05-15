@@ -232,6 +232,15 @@
         <item name="android:paddingLeft">24dp</item>
     </style>
 
+    <!--소개글 텍스트박스-->
+    <style name="edit_long_text_box">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">284dp</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:gravity">left</item>
+        <item name="android:paddingLeft">24dp</item>
+    </style>
+
     <!-- 관심사 텍스트 박스 테마 - 메인 색상, 둥근 아이템 -->
     <style name="label_primary">
         <item name="android:layout_width">100dp</item>

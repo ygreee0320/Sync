@@ -90,6 +90,27 @@
     <string name="성향1">소수의 사람과 깊고 지속적인 만남을 선호해요</string>
     <string name="성향2">새로운 사람과의 다양한 만남을 선호해요</string>
     <string name="성향3">보통 친구의 소개로 친해지는 편이에요</string>
+    <!--싱크개설-->
+    <string name="멤버들과_어떤_싱크를_하고_싶나요">멤버들과 어떤 싱크를 하고 싶나요?</string>
+    <string name="싱크_주제를_선택해주세요">싱크 주제를 선택해주세요</string>
+    <string name="싱크_제목을_작성해_주세요">싱크 제목을 작성해 주세요</string>
+    <string name="싱크_소개글을_작성해_주세요">싱크 소개글을 작성해 주세요</string>
+    <string name="언제_싱크가_열리나요">언제 싱크가 열리나요?</string>
+    <string name="언제_첫_싱크가_열리나요">언제 첫 싱크가 열리나요?</string>
+    <string name="어디서_싱크가_열리나요">어디서 싱크가 열리나요?</string>
+    <string name="참여_인원_수를_설정해_주세요">참여 인원 수를 설정해 주세요</string>
+    <string name="싱크장을_소개해_주세요">싱크장을 소개해 주세요</string>
+    <string name="일회성_싱크로_다양한_사람들과_부담없이_만나요">일회성 싱크로 다양한 사람들과 부담없이 만나요</string>
+    <string name="select_date">날짜를 선택해주세요</string>
+    <string name="select_time">시간을 선택해주세요</string>
+
+    <!--싱크상세-->
+    <string name="sync_intro">싱크 소개</string>
+    <string name="sync_routine_calendar">정기 싱크 일정</string>
+    <string name="location">장소</string>
+    <string name="personnel">인원</string>
+    <string name="test">test</string>
+
     <!--  커뮤니티_글쓰기  -->
     <string name="글쓰기">글쓰기</string>
     <string name="category">카테고리</string>

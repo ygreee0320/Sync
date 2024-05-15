@@ -2,6 +2,7 @@ package com.example.sync_front.api_server
 
 import com.example.sync_front.BuildConfig
 import com.example.sync_front.data.service.HomeService
+import com.example.sync_front.data.service.SyncDetailService
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import okhttp3.MediaType
@@ -49,6 +50,7 @@ class RetrofitClient {
 
     val loginService = retrofit.create(LoginService::class.java)
     val homeService: HomeService = retrofit.create(HomeService::class.java)
+    val syncDetailService: SyncDetailService = retrofit.create(SyncDetailService::class.java)
     val countriesService = retrofit.create(CountriesService::class.java)
     val emailService = retrofit.create(EmailService::class.java)
     val communityService = retrofit.create(CommunityService::class.java)

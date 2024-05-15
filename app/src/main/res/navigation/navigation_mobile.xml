@@ -30,4 +30,9 @@
         android:name="com.example.sync_front.ui.main.my.MyFragment"
         android:label="fragment_my"
         tools:layout="@layout/fragment_my" />
+    <activity
+        android:id="@+id/openActivity"
+        android:name="com.example.sync_front.ui.open.OpenActivity"
+        android:label="activity_open"
+        tools:layout="@layout/activity_open" />
 </navigation>

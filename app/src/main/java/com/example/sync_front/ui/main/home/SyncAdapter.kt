@@ -6,18 +6,9 @@ import androidx.recyclerview.widget.RecyclerView
 import android.util.Log
 import com.bumptech.glide.Glide
 import com.example.sync_front.data.model.Sync
+import com.example.sync_front.databinding.ItemAssociateBinding
 import com.example.sync_front.databinding.ItemSyncBinding
 
-data class Event(
-    val label1: String,
-    val label2: String,
-    val participantCount: Int,
-    val totalMembers: Int,
-    val title: String,
-    val location: String,
-    val date: String,
-    val imageRes: Int
-)
 
 class SyncAdapter(private var syncs: List<Sync>) :
     RecyclerView.Adapter<SyncAdapter.SyncViewHolder>() {
@@ -63,3 +54,40 @@ class SyncAdapter(private var syncs: List<Sync>) :
     }
 }
 
+class AssociateSyncAdapter(private var associateSyncs: List<Sync>) :
+    RecyclerView.Adapter<AssociateSyncAdapter.AssociateViewHolder>() {
+
+    class AssociateViewHolder(val binding: ItemAssociateBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(sync: Sync) {
+            with(binding) {
+                Glide.with(ivSyncImg.context)
+                    .load(sync.image)
+                    .into(ivSyncImg)
+                syncLabel1.text = sync.syncType
+                syncLabel2.text = sync.type
+                tvSyncAssociate.text = sync.associate
+                tvSyncTitle.text = sync.syncName
+                tvSyncLocation.text = sync.location
+                tvSyncCalendar.text = sync.date
+            }
+        }
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AssociateViewHolder {
+        val binding =
+            ItemAssociateBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return AssociateViewHolder(binding)
+    }
+
+    override fun onBindViewHolder(holder: AssociateViewHolder, position: Int) {
+        holder.bind(associateSyncs[position])
+    }
+
+    override fun getItemCount(): Int = associateSyncs.size
+
+    fun updateSyncs(newSyncs: List<Sync>) {
+        this.associateSyncs = newSyncs
+        notifyDataSetChanged()
+    }
+}

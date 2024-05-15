@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.open.OpenLocationFragment">
+
+    <LinearLayout
+        android:id="@+id/explain_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="12dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/progressbar6" />
+
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:navigationIcon="@drawable/ic_cancle" />
+
+        <TextView
+            android:id="@+id/explain"
+            style="@style/Heading3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/어디서_싱크가_열리나요"
+            android:textColor="@color/gray_90" />
+
+
+        <LinearLayout
+            style="@style/edit_text_box"
+            android:layout_marginStart="17dp"
+            android:layout_marginTop="48dp"
+            android:layout_marginEnd="15dp"
+            android:background="@drawable/bg_edit_text"
+            android:padding="12dp">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:background="@drawable/ic_map_pin_gray" />
+
+            <EditText
+                android:id="@+id/univ"
+                style="@style/Body1_400"
+                android:layout_width="0dp"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="장소를 입력해 주세요"
+                android:textColor="@color/gray_70" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <!--버튼-->
+    <LinearLayout
+        android:id="@+id/layout_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginBottom="30dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <TextView
+            android:id="@+id/before_btn"
+            style="@style/Body1_400"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_gray_10"
+            android:gravity="center"
+            android:text="@string/before"
+            android:textColor="@color/gray_70" />
+
+        <TextView
+            android:id="@+id/done_btn"
+            style="@style/Body1_400"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="16dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_gray_10"
+            android:gravity="center"
+            android:text="@string/next"
+            android:textColor="@color/gray_70"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

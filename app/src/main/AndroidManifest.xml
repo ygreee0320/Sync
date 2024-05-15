@@ -25,6 +25,7 @@
         android:theme="@style/Theme.Syncfront"
         tools:targetApi="31">
         <activity
+            android:name=".ui.open.OpenActivity"
             android:name=".ui.main.community.SearchCommunityActivity"
             android:exported="false" />
         <activity

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="160dp"
+    android:layout_height="240dp"
+    android:layout_marginEnd="6dp"
+    android:background="@drawable/btn_stroke">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/iv_sync_img"
+        android:layout_width="160dp"
+        android:layout_height="130dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/img_sample_gathering"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/top_12dp" />
+
+    <TextView
+        android:id="@+id/sync_label1"
+        style="@style/Detail_400"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/label_gray5"
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="4dp"
+        android:text="@string/persistence"
+        android:textColor="@color/gray_70"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/sync_label2"
+        style="@style/Detail_400"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/label_gray5"
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="4dp"
+        android:text="@string/exchange_language"
+        android:textColor="@color/gray_70"
+        app:layout_constraintStart_toEndOf="@id/sync_label1"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_sync_img">
+
+        <TextView
+            android:id="@+id/tv_sync_associate"
+            style="@style/Detail_400"
+            android:text="@string/확인" />
+
+        <TextView
+            android:id="@+id/tv_sync_title"
+            style="@style/Body2_700"
+            android:text="@string/확인"
+            android:textColor="@color/gray_90" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:background="@drawable/ic_map_pin_gray" />
+
+            <TextView
+                android:id="@+id/tv_sync_location"
+                style="@style/Detail_400"
+                android:layout_marginStart="2dp"
+                android:text="@string/popular_sync"
+                android:textColor="@color/gray_50" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:background="@drawable/ic_calendar_gray" />
+
+            <TextView
+                android:id="@+id/tv_sync_calendar"
+                style="@style/Detail_400"
+                android:layout_marginStart="2dp"
+                android:text="@string/popular_sync"
+                android:textColor="@color/gray_50" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

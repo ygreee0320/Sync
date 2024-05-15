@@ -25,10 +25,8 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private lateinit var viewModel: HomeViewModel
-    private lateinit var recyclerView: RecyclerView
     private lateinit var syncAdapter: SyncAdapter
-    private lateinit var events: List<Event>
-    private lateinit var syncs: List<Sync>
+    private lateinit var associateAdapter: AssociateSyncAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -43,11 +41,11 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupViewPager()
         setupRecyclerView()
         subscribeUi()
         setupTouchListeners()
         setupClickListeners()
+
     }
 
     private fun setupRecyclerView() {
@@ -56,25 +54,44 @@ class HomeFragment : Fragment() {
             layoutManager = LinearLayoutManager(context)
             adapter = syncAdapter
         }
+        associateAdapter = AssociateSyncAdapter(listOf())
         binding.homeDiscountRecyclerView.apply {
-            layoutManager = LinearLayoutManager(context)
-            adapter = syncAdapter
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            adapter = associateAdapter
         }
     }
 
     private fun subscribeUi() {
+        viewModel.fetchSyncs(3) // 데이터 가져오기 호출
+        viewModel.fetchAssociateSyncs(3)  // Associate syncs 데이터 불러오기
+        viewModel.fetchRecommendSyncs(2)
+        // 추천 Syncs 데이터 관찰
+        viewModel.recommendSyncs.observe(viewLifecycleOwner) { recommendSyncs ->
+            Log.d("HomeFragment", "Recommended Syncs observed: ${recommendSyncs.size}")
+            if (recommendSyncs.isNotEmpty()) {
+                // ViewPager를 추천 Syncs로 설정
+                setupViewPager(recommendSyncs)
+            }
+        }
         viewModel.syncs.observe(viewLifecycleOwner) { syncs ->
             Log.d("HomeFragment", "Syncs observed: ${syncs.size}")
-            syncAdapter.updateSyncs(syncs)
+            if (syncs.isNotEmpty()) {
+                syncAdapter.updateSyncs(syncs)
+            }
+        }
+        viewModel.associateSyncs.observe(viewLifecycleOwner) { associateSyncs ->
+            if (associateSyncs.isNotEmpty()) {
+                associateAdapter.updateSyncs(associateSyncs)
+            }
         }
         viewModel.errorMessage.observe(viewLifecycleOwner) { message ->
             Log.e("HomeFragment", "Error observed: $message")
         }
-        viewModel.fetchSyncs(3) // 데이터 가져오기 호출
+
+
     }
 
-    private fun setupViewPager() {
-        val syncList = viewModel.syncs.value ?: listOf() // ViewModel에서 싱크 리스트를 가져옴
+    private fun setupViewPager(syncList: List<Sync>) {
         val adapter = SyncPagerAdapter(syncList)
         binding.homeVp1.adapter = adapter
         binding.homeVp1.orientation = ViewPager2.ORIENTATION_HORIZONTAL
@@ -147,13 +164,6 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun getSyncList(): ArrayList<Int> {
-        return arrayListOf<Int>(
-            R.drawable.container_sync_box,
-            R.drawable.container_sync_box,
-            R.drawable.container_sync_box
-        )
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()
