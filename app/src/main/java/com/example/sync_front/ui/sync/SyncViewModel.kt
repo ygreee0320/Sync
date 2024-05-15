@@ -13,8 +13,10 @@ import retrofit2.Response
 import android.util.Log
 import com.example.sync_front.data.model.GraphDetails
 import com.example.sync_front.data.model.Review
+import com.example.sync_front.data.model.Sync
 import com.example.sync_front.data.service.GraphResponse
 import com.example.sync_front.data.service.ReviewResponse
+import com.example.sync_front.data.service.SyncResponse
 
 
 class SyncViewModel : ViewModel() {
@@ -27,6 +29,10 @@ class SyncViewModel : ViewModel() {
 
     private val reviewLiveData = MutableLiveData<List<Review>>()
     val reviews: LiveData<List<Review>> = reviewLiveData
+
+    private val sameSyncLiveData = MutableLiveData<List<Sync>>()
+    val sames: LiveData<List<Sync>> = sameSyncLiveData
+
 
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> = _errorMessage
@@ -106,6 +112,35 @@ class SyncViewModel : ViewModel() {
                     // Handle failure
                 }
             })
+    }
+
+    fun fetchSameSyncData(authToken: String, syncId: Long, take: Int) {
+        RetrofitClient.instance.syncDetailService.getSameSyncData(
+            contentType = "application/json",
+            authorization = authToken,
+            syncId = syncId,
+            take = take
+        ).enqueue(object : Callback<SyncResponse> {
+            override fun onResponse(call: Call<SyncResponse>, response: Response<SyncResponse>) {
+                if (response.isSuccessful) {
+                    response.body()?.data?.let { syncData ->
+                        sameSyncLiveData.postValue(syncData)
+                    } ?: run {
+                        _errorMessage.postValue("No sync data found")
+                    }
+                } else {
+                    _errorMessage.postValue(
+                        "Error fetching sync data: ${
+                            response.errorBody()?.string()
+                        }"
+                    )
+                }
+            }
+
+            override fun onFailure(call: Call<SyncResponse>, t: Throwable) {
+                _errorMessage.postValue(t.message ?: "Network error occurred")
+            }
+        })
     }
 
 }

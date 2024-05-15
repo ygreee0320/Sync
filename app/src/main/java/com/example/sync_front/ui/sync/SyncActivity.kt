@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sync_front.R
+import com.example.sync_front.ui.main.home.SyncAdapter
 
 
 class SyncActivity : AppCompatActivity() {
@@ -18,12 +19,13 @@ class SyncActivity : AppCompatActivity() {
     private lateinit var circleGraphView: CircleGraphView
     private lateinit var viewModel: SyncViewModel
     private lateinit var reviewAdapter: ReviewAdapter
+    private lateinit var sameSyncAdapter: SyncAdapter
+    private var smallerDataName: String = ""
     val token =
         "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI5IiwiaWF0IjoxNzE1NDQ1NTQxLCJleHAiOjE3MTYwNTAzNDF9._EpiWHCK94mi3m9sD4qUX8sYk-Uk2BaSKw8Pbm1U9pM "  // Bearer 키워드 추가
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_sync)
         viewModel = ViewModelProvider(this).get(SyncViewModel::class.java)
@@ -35,18 +37,23 @@ class SyncActivity : AppCompatActivity() {
         circleGraphView = binding.circle  // circleGraphView 초기화
         setToolbarButton()
         setupTabs(binding.root)
+        subscribeUi()
         setupRecyclerView()
         observeViewModel()
-        binding.syncTabs.getTabAt(0)?.select()
+    }
 
-
+    private fun subscribeUi() {
         viewModel.fetchReviews(token, 2, 3)
-        viewModel.reviews.observe(this, Observer {
-            reviewAdapter.updateReviews(it)
-        })
+        viewModel.fetchSameSyncData(token, 1, 3)
     }
 
     private fun observeViewModel() {
+        viewModel.reviews.observe(this, Observer {
+            reviewAdapter.updateReviews(it)
+        })
+        viewModel.sames.observe(this, Observer {
+            sameSyncAdapter.updateSyncs(it)
+        })
         // ViewModel의 LiveData 관찰자 설정
         viewModel.syncDetail.observe(this, Observer { syncDetail ->
             // regularDate가 null인지 체크
@@ -57,19 +64,24 @@ class SyncActivity : AppCompatActivity() {
             } else {
                 // regularDate가 null이 아니면, regularDate 값을 텍스트로 설정
                 binding.tvDate.text = "${syncDetail.regularDate}\n첫 모임 날짜: ${syncDetail.date}"
-
             }
             binding.tvCnt.text = "최소 ${syncDetail.userCnt}명 최대 ${syncDetail.totalCnt}명"
         })
 
         viewModel.graphDetails.observe(this, Observer { details ->
-            val sortedData =
-                details.data.sortedByDescending { it.percent }.map { it.percent.toFloat() }
+            val graphData = details.data.sortedByDescending { it.percent }
+            val sortedData = graphData.map { it.percent.toFloat() }
             Log.d("GraphUpdate", "Updating graph with data: $sortedData")
             when (sortedData.size) {
                 0 -> setupCirCleGraphView(0f, 0f)  // 모든 데이터가 없는 경우
                 1 -> setupCirCleGraphView(sortedData[0], 0f)
-                2 -> setupCirCleGraphView(sortedData[0], sortedData[1])
+                2 -> {
+                    setupCirCleGraphView(sortedData[0], sortedData[1])
+                    smallerDataName =
+                        if (graphData[0].percent > graphData[1].percent) graphData[1].name else graphData[0].name
+                    Log.d("GraphDetail", "Smaller data name: $smallerDataName")
+                }
+
                 3 -> setupCirCleGraphView(sortedData[0], sortedData[1], sortedData[2])
                 else -> {
                     val topThree = sortedData.take(3)
@@ -99,7 +111,7 @@ class SyncActivity : AppCompatActivity() {
                 when (tab?.position) {
                     0 -> {
                         viewModel.fetchGraphData("national", 1, token)
-                        updateGraphTextViews("내국인보다 ", "의 비율이 더 높은 편이에요")
+                        updateGraphTextViews("${smallerDataName}보다 ", "의 비율이 더 높은 편이에요")
                     }
 
                     1 -> {
@@ -122,6 +134,10 @@ class SyncActivity : AppCompatActivity() {
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
             override fun onTabReselected(tab: TabLayout.Tab?) {}
         })
+        // 첫 번째 탭을 프로그래매틱하게 선택
+        tabLayout.post {
+            tabLayout.getTabAt(0)?.select()
+        }
     }
 
     private fun updateGraphTextViews(prefix: String, suffix: String) {
@@ -151,6 +167,10 @@ class SyncActivity : AppCompatActivity() {
             adapter = reviewAdapter
             layoutManager = LinearLayoutManager(context)
         }
-
+        sameSyncAdapter = SyncAdapter(listOf())
+        binding.syncSameDayRecyclerView.apply {
+            adapter = sameSyncAdapter
+            layoutManager = LinearLayoutManager(context)
+        }
     }
 }

@@ -123,13 +123,7 @@ class HomeFragment : Fragment() {
                 page.scaleY = scaleFactor
                 page.alpha =
                     MIN_ALPHA + ((scaleFactor - MIN_SCALE) / (1 - MIN_SCALE) * (1 - MIN_ALPHA))
-                Log.d(
-                    "ViewPagerTransform",
-                    "Position: $position, Offset: $myOffset, Scale: $scaleFactor"
-                )
-
             }
-            // 화면에 보이는 중앙 페이지의 양쪽에 페이지가 보이도록 패딩 설정
             setPadding(offsetPx, 0, offsetPx, 0)
         }
     }

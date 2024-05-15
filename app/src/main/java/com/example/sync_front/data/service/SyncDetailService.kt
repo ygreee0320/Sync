@@ -33,7 +33,13 @@ interface SyncDetailService {
         @Query("take") take: Int
     ): Call<ReviewResponse>
 
-
+    @GET("sync/detail/recommend")
+    fun getSameSyncData(
+        @Header("Content-Type") contentType: String = "application/json",
+        @Header("Authorization") authorization: String,
+        @Query("syncId") syncId: Long,
+        @Query("take") take: Int
+    ): Call<SyncResponse>
 }
 
 
