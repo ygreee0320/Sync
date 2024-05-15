@@ -1,6 +1,7 @@
 package com.example.sync_front.ui.main.home
 
 import SyncPagerAdapter
+import android.content.Context
 import android.content.Intent
 import android.util.Log
 import android.os.Bundle
@@ -27,6 +28,7 @@ class HomeFragment : Fragment() {
     private lateinit var viewModel: HomeViewModel
     private lateinit var syncAdapter: SyncAdapter
     private lateinit var associateAdapter: AssociateSyncAdapter
+    private lateinit var name: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -41,11 +43,21 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupUser()
         setupRecyclerView()
         subscribeUi()
         setupTouchListeners()
         setupClickListeners()
 
+    }
+
+    private fun setupUser() {
+        // 소셜 로그인으로 얻은 유저이름, 프로필 꺼내기
+        val sharedPreferences =
+            requireActivity().getSharedPreferences("my_token", Context.MODE_PRIVATE)
+        name = sharedPreferences.getString("name", null)!!
+
+        binding.homeUsername.text = name
     }
 
     private fun setupRecyclerView() {

@@ -16,7 +16,8 @@ class SyncActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySyncBinding
     private lateinit var circleGraphView: CircleGraphView
     private lateinit var viewModel: SyncViewModel
-    val token = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI5IiwiaWF0IjoxNzE1NDQ1NTQxLCJleHAiOjE3MTYwNTAzNDF9._EpiWHCK94mi3m9sD4qUX8sYk-Uk2BaSKw8Pbm1U9pM "  // Bearer 키워드 추가
+    val token =
+        "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI5IiwiaWF0IjoxNzE1NDQ1NTQxLCJleHAiOjE3MTYwNTAzNDF9._EpiWHCK94mi3m9sD4qUX8sYk-Uk2BaSKw8Pbm1U9pM "  // Bearer 키워드 추가
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,9 +31,9 @@ class SyncActivity : AppCompatActivity() {
 
         viewModel.fetchSyncDetail(1, token)
         setContentView(binding.root)
+        circleGraphView = binding.circle  // circleGraphView 초기화
         setToolbarButton()
         setupTabs(binding.root)
-        setupCirCleGraphView()
         observeViewModel()
     }
 
@@ -56,21 +57,27 @@ class SyncActivity : AppCompatActivity() {
         tabLayout.addTab(tabLayout.newTab().setText("대학"))
         tabLayout.addTab(tabLayout.newTab().setText("참여수"))
 
+        // 탭 선택 리스너 추가
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                // Handle tab selection
-                //updateRecyclerView(tab?.position ?: 0)
+                when (tab?.position) {
+                    0 -> setupCirCleGraphView(60f, 40f)
+                    1 -> setupCirCleGraphView(48f, 10f, 42f)
+                    2 -> setupCirCleGraphView(40f, 10f, 25f, 25f)
+                    3 -> setupCirCleGraphView(50f, 20f, 30f)
+                }
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {
-                // Optional
+                // 탭 선택이 해제될 때 필요한 작업이 있다면 여기에 추가
             }
 
             override fun onTabReselected(tab: TabLayout.Tab?) {
-                // Optional
+                // 이미 선택된 탭을 다시 선택했을 때 필요한 작업이 있다면 여기에 추가
             }
         })
     }
+
 
     /*
         private fun updateRecyclerView(index: Int) {
@@ -82,8 +89,13 @@ class SyncActivity : AppCompatActivity() {
                 // Change the dataset for 인기싱크
             }
         }*/
-    private fun setupCirCleGraphView() {
+    private fun setupCirCleGraphView(
+        first: Float,
+        second: Float,
+        third: Float? = 0f,
+        fourth: Float? = 0f
+    ) {
         circleGraphView = binding.circle
-        circleGraphView.animateSections(25f, 25f, 25f, 25f)
+        circleGraphView.animateSections(first, second, third, fourth)
     }
 }
