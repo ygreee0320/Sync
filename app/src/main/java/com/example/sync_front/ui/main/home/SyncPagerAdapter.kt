@@ -11,7 +11,6 @@ class SyncPagerAdapter(private val syncList: List<Sync>) :
     class SyncViewHolder(val binding: ItemViewPagerBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(sync: Sync) {
             with(binding) {
-                // 데이터 바인딩 로직
                 syncLabel1.text = sync.syncType
                 syncLabel2.text = sync.type
                 syncLabel3.text = "1/7" // 예시

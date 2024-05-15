@@ -54,7 +54,7 @@ class SyncActivity : AppCompatActivity() {
         viewModel.sames.observe(this, Observer {
             sameSyncAdapter.updateSyncs(it)
         })
-        // ViewModel의 LiveData 관찰자 설정
+        // ViewModel 의 LiveData 관찰자 설정
         viewModel.syncDetail.observe(this, Observer { syncDetail ->
             // regularDate가 null인지 체크
             if (syncDetail.regularDate == null) {
@@ -67,7 +67,6 @@ class SyncActivity : AppCompatActivity() {
             }
             binding.tvCnt.text = "최소 ${syncDetail.userCnt}명 최대 ${syncDetail.totalCnt}명"
         })
-
         viewModel.graphDetails.observe(this, Observer { details ->
             val graphData = details.data.sortedByDescending { it.percent }
             val sortedData = graphData.map { it.percent.toFloat() }
