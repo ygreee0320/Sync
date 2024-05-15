@@ -44,8 +44,8 @@ class CommunityAdapter(private var list: List<Community>): RecyclerView.Adapter<
         init {
             itemView.setOnClickListener {
                 val clickedItem = list[adapterPosition]
-                val intent = Intent(itemView.context, SearchCommunityActivity::class.java)
-                intent.putExtra("selectedId", clickedItem.postId) // 클릭된 Id
+                val intent = Intent(itemView.context, CommunityDetailActivity::class.java)
+                intent.putExtra("communityId", clickedItem.postId) // 클릭된 Id
                 itemView.context.startActivity(intent)
             }
         }

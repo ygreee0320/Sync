@@ -3,12 +3,14 @@ package com.example.sync_front.ui.main.community
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sync_front.api_server.Community
+import com.example.sync_front.api_server.CommunityManager
 import com.example.sync_front.databinding.FragmentCommunityBinding
 import com.google.android.material.tabs.TabLayout
 
@@ -39,10 +41,10 @@ class CommunityFragment : Fragment() {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 when (tab?.position) {
                     0 -> {
-
+                        getCommunity("생활")
                     }
                     1 -> {
-
+                        getCommunity("질문")
                     }
                 }
             }
@@ -56,15 +58,26 @@ class CommunityFragment : Fragment() {
     private fun initialSetting() {
         // 저장된 토큰 읽어오기
         val sharedPreferences = requireActivity().getSharedPreferences("my_token", Context.MODE_PRIVATE)
-        authToken = sharedPreferences.getString("auth_token", null)
+        authToken = sharedPreferences.getString("access_token", null)
+
+        //임시 토큰 값 (추후 삭제)
+        authToken = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI5IiwiaWF0IjoxNzE1NDQ1NTQxLCJleHAiOjE3MTYwNTAzNDF9._EpiWHCK94mi3m9sD4qUX8sYk-Uk2BaSKw8Pbm1U9pM "
+
+        Log.d("my log", "현재 토큰 값: $authToken")
 
         adapter = CommunityAdapter(emptyList<Community>())
         binding.recyclerview.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerview.adapter = adapter
+        getCommunity("생활")
     }
 
-    private fun getCommunity() {
-
+    private fun getCommunity(type: String) {
+        CommunityManager.getCommunity(authToken!!, type) { response ->
+            response?.let {
+                Log.d("my log", "커뮤니티 목록")
+                adapter.updateData(it)
+            }
+        }
     }
 
     private fun setupClickListeners() {

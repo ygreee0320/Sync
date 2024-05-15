@@ -139,62 +139,61 @@
 
         </LinearLayout>
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingHorizontal="16dp"
-        android:paddingVertical="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:orientation="horizontal"
-        tools:ignore="MissingConstraints">
-
-        <FrameLayout
-            android:id="@+id/add_pic_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:layout_width="90dp"
-                android:layout_height="90dp"
-                android:layout_marginRight="4dp"
-                android:background="@drawable/btn_pic_add" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="54dp"
-                android:layout_marginLeft="35dp"
-                android:orientation="horizontal" >
-
-                <TextView
-                    android:id="@+id/pic_count"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/Detail_700"
-                    android:textColor="@color/gray_50"
-                    android:text="0" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/Detail_700"
-                    android:textColor="@color/gray_50"
-                    android:text="/5" />
-
-            </LinearLayout>
-
-        </FrameLayout>
-
-        <!--    이미지 리사이클러뷰  -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintHorizontal_bias="0.0" />
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:id="@+id/add_pic_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:layout_marginRight="4dp"
+                    android:background="@drawable/btn_pic_add" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="54dp"
+                    android:layout_marginLeft="35dp"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:id="@+id/pic_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/Detail_700"
+                        android:textColor="@color/gray_50"
+                        android:text="0" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/Detail_700"
+                        android:textColor="@color/gray_50"
+                        android:text="/5" />
+
+                </LinearLayout>
+
+            </FrameLayout>
+
+            <!--    이미지 리사이클러뷰  -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintHorizontal_bias="0.0" />
+
+        </LinearLayout>
 
     </LinearLayout>
 

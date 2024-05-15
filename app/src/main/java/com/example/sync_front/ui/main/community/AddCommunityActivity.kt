@@ -6,6 +6,7 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -15,14 +16,21 @@ import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sync_front.R
+import com.example.sync_front.api_server.AddCommunity
+import com.example.sync_front.api_server.CommunityManager
 import com.example.sync_front.databinding.ActivityAddCommunityBinding
 import com.example.sync_front.ui.main.my.SelectListActivity
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import java.io.File
 import java.util.ArrayList
 
 class AddCommunityActivity : AppCompatActivity() {
     lateinit var binding: ActivityAddCommunityBinding
     private lateinit var adapter: MultiImageAdapter
     private var uriList = ArrayList<Uri>()  // 선택한 이미지 uri
+    private var authToken: String ?= null // 로그인 토큰
 
     companion object {
         private val maxImage = 5
@@ -66,6 +74,13 @@ class AddCommunityActivity : AppCompatActivity() {
     private fun initialSetting() {
         binding.doneBtn.isEnabled = false
 
+        // 저장된 토큰 읽어오기
+        val sharedPreferences = getSharedPreferences("my_token", MODE_PRIVATE)
+        authToken = sharedPreferences.getString("access_token", null)
+
+        //임시 토큰 값 (추후 삭제)
+        authToken = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI5IiwiaWF0IjoxNzE1NDQ1NTQxLCJleHAiOjE3MTYwNTAzNDF9._EpiWHCK94mi3m9sD4qUX8sYk-Uk2BaSKw8Pbm1U9pM "
+
         binding.recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         adapter = MultiImageAdapter(uriList, this)
         binding.recyclerView.adapter = adapter
@@ -90,7 +105,36 @@ class AddCommunityActivity : AppCompatActivity() {
 
         binding.doneBtn.setOnClickListener {
             if (binding.doneBtn.isEnabled) {
-                // 커뮤니티 post api연결 필요
+                val type = binding.category.text.toString()
+                val title = binding.title.text.toString()
+                val content = binding.content.text.toString()
+                var imageParts: List<MultipartBody.Part> ?= null
+
+                val community = AddCommunity(type, title, content)
+
+                Log.d("my log", "$community")
+
+                if (uriList.isNotEmpty()) {
+                    imageParts = uriList.map { uri ->
+                        val file = File(getRealPathFromURI(uri))
+                        val requestFile = RequestBody.create("images/*".toMediaTypeOrNull(), file)
+                        MultipartBody.Part.createFormData("images", file.name, requestFile)
+                    }
+                } else {
+                    // 이미지가 없는 경우 빈 이미지를 생성하여 포함
+                    val emptyImageRequestBody = RequestBody.create("images/*".toMediaTypeOrNull(), "")
+                    imageParts = listOf(MultipartBody.Part.createFormData("images", "", emptyImageRequestBody))
+                }
+
+                Log.d("my log", "$imageParts")
+
+                CommunityManager.postCommunity(authToken!!, imageParts, community) { response ->
+                    if (response == 200) {
+                        Log.d("my log", "게시글 생성 완료!")
+                        Toast.makeText(this, "게시글 생성 완료!", Toast.LENGTH_LONG).show()
+                        finish()
+                    }
+                }
             }
         }
 
@@ -158,6 +202,18 @@ class AddCommunityActivity : AppCompatActivity() {
             btn.setTextColor(this.resources.getColor(R.color.gray_90))
             btn.setBackgroundResource(R.drawable.label_gray_10_8)
         }
+    }
+
+    private fun getRealPathFromURI(uri: Uri): String {
+        val cursor = contentResolver.query(uri, null, null, null, null)
+        cursor?.let {
+            it.moveToFirst()
+            val columnIndex = it.getColumnIndex(MediaStore.Images.ImageColumns.DATA)
+            val filePath = it.getString(columnIndex)
+            it.close()
+            return filePath ?: ""
+        }
+        return ""
     }
 
     private fun hideKeyboard() {

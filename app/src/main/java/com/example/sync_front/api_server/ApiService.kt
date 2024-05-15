@@ -1,6 +1,8 @@
 package com.example.sync_front.api_server
 
 import com.google.gson.annotations.SerializedName
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -25,10 +27,36 @@ interface CommunityService {
     fun getCommunity(
         @Header("Content-Type") application: String,
         @Header("Authorization") accessToken: String,
-        @Path("postType") postType: String,
-        @Path("page") page: Int,
-        @Path("size") size: String,
+        @Query("postType") postType: String,
+        @Query("page") page: Int,
+        @Query("size") size: Int,
     ): Call<CommunityResponse>
+
+    //게시글 상세 조회
+    @GET("post/{postId}")
+    fun getCommunityDetail(
+        @Header("Content-Type") application: String,
+        @Header("Authorization") accessToken: String,
+        @Path("postId") postId: Int
+    ): Call<CommunityDetailResponse>
+
+    //게시글 생성
+    @Multipart
+    @POST("post")
+    fun postCommunity(
+        @Header("Content-Type") application: String,
+        @Header("Authorization") accessToken: String,
+        @Part images: List<MultipartBody.Part>?,
+        @Part("requestDto") request: RequestBody
+    ): Call<AddCommunityResponse>
+
+    //댓글 조회
+    @GET("comment")
+    fun getComment(
+        @Header("Content-Type") application: String,
+        @Header("Authorization") accessToken: String,
+        @Path("postId") postId: Int
+    ): Call<CommentResponse>
 }
 
 interface GoogleService {
