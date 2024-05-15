@@ -1,6 +1,7 @@
 package com.example.sync_front.ui.onboarding
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.sync_front.R
 import com.example.sync_front.databinding.FragmentInterestBinding
 import com.example.sync_front.ui.main.my.SelectInterest
 import com.example.sync_front.ui.main.my.SelectInterestAdapter
@@ -41,7 +43,7 @@ class InterestFragment : Fragment() {
 
     private fun initSetting() {
         binding.doneBtn.isEnabled = false
-        adapter = SelectInterestAdapter(emptyList<SelectInterest>())
+        adapter = SelectInterestAdapter(emptyList<SelectInterest>()){}
 
         // 전달된 데이터 읽기
         language = args.onboarding.language!!
@@ -51,6 +53,9 @@ class InterestFragment : Fragment() {
         gender = args.onboarding.gender!!
         univ = args.onboarding.university!!
         type = args.onboarding.syncType!!
+
+        binding.explainName.setText(name)
+        binding.explainDetailName.setText(name)
     }
 
     private fun setupClickListeners() {
@@ -58,7 +63,7 @@ class InterestFragment : Fragment() {
             if (binding.doneBtn.isEnabled) {
                 // 온보딩 요청 API 필요
                 sendToServer()
-                val action = InterestFragmentDirections.actionInterestFragmentToOnboardingDoneFragment()
+                val action = InterestFragmentDirections.actionInterestFragmentToOnboardingDoneFragment(name)
                 findNavController().navigate(action)
             }
         }
@@ -69,7 +74,20 @@ class InterestFragment : Fragment() {
     }
 
     private fun sendToServer() { // 온보딩 요청
+        val clickedItems = adapter.getClickedItems()
+        Log.d("my log", "선택된 관심사- $clickedItems")
 
+
+    }
+
+    private fun updateDoneButtonBackground() {
+        if (binding.doneBtn.isEnabled) { // 다음 버튼 스타일 변경
+            binding.doneBtn.setTextColor(context!!.resources.getColor(R.color.white))
+            binding.doneBtn.setBackgroundResource(R.drawable.btn_default)
+        } else {
+            binding.doneBtn.setTextColor(context!!.resources.getColor(R.color.gray_70))
+            binding.doneBtn.setBackgroundResource(R.drawable.btn_gray_10)
+        }
     }
 
     private fun updateSelectList() { // 관심사 선택 리스트 출력
@@ -81,7 +99,10 @@ class InterestFragment : Fragment() {
         val interest6 = SelectInterest("@drawable/ic_etc", "기타", listOf("기타"))
 
         val interestList = listOf(interest1, interest2, interest3, interest4, interest5, interest6)
-        adapter = SelectInterestAdapter(interestList)
+        adapter = SelectInterestAdapter(interestList) { enable ->
+            binding.doneBtn.isEnabled = enable
+            updateDoneButtonBackground()
+        }
         binding.recyclerview.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerview.adapter = adapter
     }

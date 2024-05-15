@@ -18,7 +18,7 @@ data class SelectInterest(
     val list: List<String>
 )
 
-class SelectInterestAdapter(private var list: List<SelectInterest>): RecyclerView.Adapter<SelectInterestAdapter.SelectInterestViewHolder>(){
+class SelectInterestAdapter(private var list: List<SelectInterest>, private val doneButtonCallback: (Boolean) -> Unit): RecyclerView.Adapter<SelectInterestAdapter.SelectInterestViewHolder>(){
 
     private val clickedItems: MutableList<String> = mutableListOf() // 클릭된 관심사 리스트
 
@@ -125,6 +125,8 @@ class SelectInterestAdapter(private var list: List<SelectInterest>): RecyclerVie
             init {
                 select.setOnClickListener {
                     toggleItem()
+                    // 클릭된 아이템의 개수 확인
+                    doneButtonCallback.invoke(clickedItems.size >= 3)
                 }
             }
 

@@ -50,6 +50,9 @@ class TypeFragment : Fragment() {
         national = args.onboarding.countryName!!
         gender = args.onboarding.gender!!
         univ = args.onboarding.university!!
+
+        binding.explainName.setText(name)
+        binding.explainDetailName.setText(name)
     }
 
     private fun setupClickListeners() {

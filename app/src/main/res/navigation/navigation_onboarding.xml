@@ -135,6 +135,9 @@
         android:name="com.example.sync_front.ui.onboarding.OnboardingDoneFragment"
         android:label="fragment_onboarding_done"
         tools:layout="@layout/fragment_onboarding_done" >
+        <argument
+            android:name="name"
+            app:argType="string" />
     </fragment>
 
 </navigation>
