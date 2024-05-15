@@ -1,6 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/navigation_open">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_open"
+    app:startDestination="@id/openTypeFragment">
 
+    <fragment
+        android:id="@+id/openTypeFragment"
+        android:name="com.example.sync_front.ui.open.OpenTypeFragment"
+        android:label="fragment_open_type"
+        tools:layout="@layout/fragment_open_type" >
+        <action
+            android:id="@+id/action_openTypeFragment_to_openThemeFragment"
+            app:destination="@id/openThemeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/openThemeFragment"
+        android:name="com.example.sync_front.ui.open.OpenThemeFragment"
+        android:label="fragment_open_theme"
+        tools:layout="@layout/fragment_open_theme" >
+        <action
+            android:id="@+id/action_openThemeFragment_to_openTitleFragment"
+            app:destination="@id/openTitleFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/openTitleFragment"
+        android:name="com.example.sync_front.ui.open.OpenTitleFragment"
+        android:label="fragment_open_title"
+        tools:layout="@layout/fragment_open_title" >
+        <action
+            android:id="@+id/action_openTitleFragment_to_openIntroductionFragment"
+            app:destination="@id/openIntroductionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/openIntroductionFragment"
+        android:name="com.example.sync_front.ui.open.OpenIntroductionFragment"
+        android:label="fragment_open_introduction"
+        tools:layout="@layout/fragment_open_introduction" >
+        <action
+            android:id="@+id/action_openIntroductionFragment_to_openTimeFragment"
+            app:destination="@id/openTimeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/openTimeFragment"
+        android:name="com.example.sync_front.ui.open.OpenTimeFragment"
+        android:label="fragment_open_time"
+        tools:layout="@layout/fragment_open_time" >
+        <action
+            android:id="@+id/action_openTimeFragment_to_openLocationFragment"
+            app:destination="@id/openLocationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/openLocationFragment"
+        android:name="com.example.sync_front.ui.open.OpenLocationFragment"
+        android:label="fragment_open_location"
+        tools:layout="@layout/fragment_open_location" >
+        <action
+            android:id="@+id/action_openLocationFragment_to_openCntFragment"
+            app:destination="@id/openCntFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/openCntFragment"
+        android:name="com.example.sync_front.ui.open.OpenCntFragment"
+        android:label="fragment_open_cnt"
+        tools:layout="@layout/fragment_open_cnt" >
+        <action
+            android:id="@+id/action_openCntFragment_to_openLeaderFragment"
+            app:destination="@id/openLeaderFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/openLeaderFragment"
+        android:name="com.example.sync_front.ui.open.OpenLeaderFragment"
+        android:label="fragment_open_leader"
+        tools:layout="@layout/fragment_open_leader" />
 </navigation>

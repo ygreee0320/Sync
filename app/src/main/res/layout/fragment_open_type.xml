@@ -10,8 +10,8 @@
         android:id="@+id/explain_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:layout_width="match_parent"
@@ -25,15 +25,129 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:navigationIcon="@drawable/ic_cancle" />
+
         <TextView
             android:id="@+id/explain"
+            style="@style/Heading3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:layout_marginTop="20dp"
-            style="@style/Heading3"
-            android:textColor="@color/gray_90"
-            android:text="@string/멤버들과_어떤_싱크를_하고_싶나요" />
+            android:text="@string/멤버들과_어떤_싱크를_하고_싶나요"
+            android:textColor="@color/gray_90" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/box_onetime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:background="@drawable/type_selected_selector"
+        android:orientation="horizontal"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="16dp"
+        app:layout_constraintTop_toBottomOf="@id/explain_layout">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_onetime" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/Body1_700"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/onetime" />
+
+            <TextView
+                style="@style/Body2_400"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/일회성_싱크로_다양한_사람들과_부담없이_만나요" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/box_persistence"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/type_selected_selector"
+        android:orientation="horizontal"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="16dp"
+        app:layout_constraintTop_toBottomOf="@id/box_onetime">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_persistence" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/Body1_700"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/persistence" />
+
+            <TextView
+                style="@style/Body2_400"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/일회성_싱크로_다양한_사람들과_부담없이_만나요" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/box_friend"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/type_selected_selector"
+        android:orientation="horizontal"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="16dp"
+        app:layout_constraintTop_toBottomOf="@id/box_persistence">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_onetime" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/Body1_700"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/myfriend" />
+
+            <TextView
+                style="@style/Body2_400"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/일회성_싱크로_다양한_사람들과_부담없이_만나요" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -64,7 +178,8 @@
             android:layout_height="50dp"
             android:layout_marginLeft="16dp"
             android:layout_weight="1"
-            android:background="@drawable/btn_gray_10"
+            android:background="@drawable/bottom_btn_selected_selector"
+            android:enabled="false"
             android:gravity="center"
             android:text="@string/next"
             android:textColor="@color/gray_70"

@@ -36,8 +36,37 @@
             android:text="@string/어디서_싱크가_열리나요"
             android:textColor="@color/gray_90" />
 
+
+        <LinearLayout
+            style="@style/edit_text_box"
+            android:layout_marginStart="17dp"
+            android:layout_marginTop="48dp"
+            android:layout_marginEnd="15dp"
+            android:background="@drawable/bg_edit_text"
+            android:padding="12dp">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:background="@drawable/ic_map_pin_gray" />
+
+            <EditText
+                android:id="@+id/univ"
+                style="@style/Body1_400"
+                android:layout_width="0dp"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="장소를 입력해 주세요"
+                android:textColor="@color/gray_70" />
+
+
+        </LinearLayout>
+
     </LinearLayout>
 
+
+    <!--버튼-->
     <LinearLayout
         android:id="@+id/layout_button"
         android:layout_width="match_parent"

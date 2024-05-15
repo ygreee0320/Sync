@@ -16,6 +16,8 @@ class SyncActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySyncBinding
     private lateinit var circleGraphView: CircleGraphView
     private lateinit var viewModel: SyncViewModel
+    val token = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI5IiwiaWF0IjoxNzE1NDQ1NTQxLCJleHAiOjE3MTYwNTAzNDF9._EpiWHCK94mi3m9sD4qUX8sYk-Uk2BaSKw8Pbm1U9pM "  // Bearer 키워드 추가
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -26,7 +28,7 @@ class SyncActivity : AppCompatActivity() {
         binding.viewModel = viewModel  // ViewModel을 바인딩에 연결
         binding.lifecycleOwner = this  // LiveData를 위한 LifecycleOwner 설정
 
-        viewModel.fetchSyncDetail(1, "dfdf")
+        viewModel.fetchSyncDetail(1, token)
         setContentView(binding.root)
         setToolbarButton()
         setupTabs(binding.root)

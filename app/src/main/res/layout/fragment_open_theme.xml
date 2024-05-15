@@ -33,11 +33,31 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:layout_marginTop="20dp"
-            android:text="@string/싱크_제목을_작성해_주세요"
+            android:text="@string/싱크_주제를_선택해주세요"
             android:textColor="@color/gray_90" />
 
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/recyclerview_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:layout_gravity="center_horizontal"
+        app:layout_constraintTop_toBottomOf="@id/explain_layout"
+        app:layout_constraintBottom_toTopOf="@id/layout_button">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="28dp"
+            android:scrollbars="vertical" />
+
+    </LinearLayout>
+    <!--버튼-->
     <LinearLayout
         android:id="@+id/layout_button"
         android:layout_width="match_parent"

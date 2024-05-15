@@ -17,7 +17,7 @@ class TypeFragment : Fragment() {
     lateinit var binding: FragmentTypeBinding
     private lateinit var adapter: SelectOneAdapter
     private lateinit var language: String
-    private var profile: String ?= null
+    private var profile: String? = null
     private lateinit var name: String
     private lateinit var national: String
     private lateinit var gender: String
@@ -75,16 +75,17 @@ class TypeFragment : Fragment() {
         // 어댑터 내에서 선택된 아이템이 변경될 때마다 다음 활성화 여부 업데이트
         adapter.updateNextBtnListener { hasSelected ->
             binding.doneBtn.isEnabled = hasSelected
-            binding.doneBtn.setTextColor(context!!.resources.getColor(R.color.white))
+            binding.doneBtn.setTextColor(requireContext().resources.getColor(R.color.white))
             binding.doneBtn.setBackgroundResource(R.drawable.btn_default)
         }
     }
 
     private fun updateSelectList() { // 선택 리스트 출력
         val selectList = listOf<String>(
-            context!!.getString(R.string.성향1),
-            context!!.getString(R.string.성향2),
-            context!!.getString(R.string.성향3))
+            requireContext().getString(R.string.성향1),
+            requireContext().getString(R.string.성향2),
+            requireContext().getString(R.string.성향3)
+        )
 
         adapter = SelectOneAdapter(selectList)
         binding.recyclerview.layoutManager = LinearLayoutManager(requireContext())

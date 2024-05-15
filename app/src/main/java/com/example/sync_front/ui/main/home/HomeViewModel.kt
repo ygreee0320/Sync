@@ -17,6 +17,7 @@ class HomeViewModel : ViewModel() {
     val syncs = MutableLiveData<List<Sync>>()
     val associateSyncs = MutableLiveData<List<Sync>>()
     val recommendSyncs = MutableLiveData<List<Sync>>()
+    val token = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI5IiwiaWF0IjoxNzE1NDQ1NTQxLCJleHAiOjE3MTYwNTAzNDF9._EpiWHCK94mi3m9sD4qUX8sYk-Uk2BaSKw8Pbm1U9pM "  // Bearer 키워드 추가
 
     val errorMessage = MutableLiveData<String>()
     private val _text = MutableLiveData<String>().apply {
@@ -27,7 +28,7 @@ class HomeViewModel : ViewModel() {
 
     fun fetchSyncs(take: Int?, type: String? = null) {
         val request = SyncRequest(take, type)
-        RetrofitClient.instance.homeService.postFriendSyncs("application/json", request)
+        RetrofitClient.instance.homeService.postFriendSyncs("application/json", token, request)
             .enqueue(object : Callback<SyncResponse> {
                 override fun onResponse(
                     call: Call<SyncResponse>,
@@ -48,7 +49,7 @@ class HomeViewModel : ViewModel() {
 
     fun fetchAssociateSyncs(take: Int?, syncType: String? = null, type: String? = null) {
         val request = AssociateSyncRequest(take, syncType, type)
-        RetrofitClient.instance.homeService.postAssociateSyncs("application/json", request)
+        RetrofitClient.instance.homeService.postAssociateSyncs("application/json", token, request)
             .enqueue(object : Callback<SyncResponse> {
                 override fun onResponse(
                     call: Call<SyncResponse>,
@@ -65,11 +66,10 @@ class HomeViewModel : ViewModel() {
                     errorMessage.postValue(t.message ?: "Unknown error")
                 }
             })
-
     }
 
     fun fetchRecommendSyncs(userId: Long) {
-        RetrofitClient.instance.homeService.getRecommendSyncs("application/json", userId)
+        RetrofitClient.instance.homeService.getRecommendSyncs("application/json", token, userId)
             .enqueue(object : Callback<SyncResponse> {
                 override fun onResponse(
                     call: Call<SyncResponse>,
@@ -87,4 +87,5 @@ class HomeViewModel : ViewModel() {
                 }
             })
     }
+
 }

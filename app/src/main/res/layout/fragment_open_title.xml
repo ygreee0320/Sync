@@ -33,10 +33,41 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:layout_marginTop="20dp"
-            android:text="@string/싱크_주제를_선택해주세요"
+            android:text="@string/싱크_제목을_작성해_주세요"
             android:textColor="@color/gray_90" />
 
+
+
+        <LinearLayout
+            style="@style/edit_text_box"
+            android:layout_marginStart="17dp"
+            android:layout_marginTop="48dp"
+            android:layout_marginEnd="15dp"
+            android:background="@drawable/bg_edit_text">
+
+            <EditText
+                android:id="@+id/univ"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                style="@style/Body1_400"
+                android:textColor="@color/gray_70"
+                android:background="@null"
+                android:hint="싱크 제목을 작성해 주세요" />
+
+            <ImageView
+                android:id="@+id/text_cancel"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="12dp"
+                android:src="@drawable/ic_text_cancel"/>
+
+        </LinearLayout>
     </LinearLayout>
+
+
+
+
 
     <LinearLayout
         android:id="@+id/layout_button"
