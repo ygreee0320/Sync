@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.main.community.AddCommunityActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:ignore="MissingConstraints">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:padding="16dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/back_btn"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/ic_back" />
+
+            <TextView
+                android:id="@+id/write"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                style="@style/Heading3"
+                android:textColor="@color/gray_90"
+                android:text="@string/글쓰기" />
+
+            <TextView
+                android:id="@+id/done_btn"
+                android:layout_width="48dp"
+                android:layout_height="32dp"
+                android:layout_gravity="center_vertical"
+                android:gravity="center"
+                style="@style/Body3_400"
+                android:background="@drawable/label_gray_10_8"
+                android:textColor="@color/gray_90"
+                android:text="완료" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="16dp"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/category_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Body1_700"
+                android:layout_marginBottom="8dp"
+                android:textColor="@color/gray_90"
+                android:text="@string/category" />
+
+            <LinearLayout
+                android:id="@+id/category_btn"
+                style="@style/edit_text_box"
+                android:background="@drawable/bg_edit_text">
+
+                <TextView
+                    android:id="@+id/category"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    style="@style/Body1_400"
+                    android:textColor="@color/gray_50"
+                    android:text="카테고리를 선택해주세요" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/title_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Body1_700"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="8dp"
+                android:textColor="@color/gray_90"
+                android:text="@string/title" />
+
+            <LinearLayout
+                android:id="@+id/title_layout"
+                style="@style/edit_text_box"
+                android:background="@drawable/bg_edit_text">
+
+                <EditText
+                    android:id="@+id/title"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    style="@style/Body1_400"
+                    android:textColor="@color/gray_70"
+                    android:background="@null"
+                    android:textColorHint="@color/gray_50"
+                    android:hint="제목을 입력해주세요" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/content_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Body1_700"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="8dp"
+                android:textColor="@color/gray_90"
+                android:text="@string/content" />
+
+            <LinearLayout
+                android:id="@+id/content_layout"
+                android:layout_width="match_parent"
+                android:layout_height="264dp"
+                android:padding="16dp"
+                android:background="@drawable/bg_edit_text">
+
+                <EditText
+                    android:id="@+id/content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    style="@style/Body1_400"
+                    android:textColor="@color/gray_70"
+                    android:background="@null"
+                    android:textColorHint="@color/gray_50"
+                    android:hint="구체적으로 작성할 수록 멤버들이 안심하고 참여할 수 있어요!" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:id="@+id/add_pic_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:layout_marginRight="4dp"
+                    android:background="@drawable/btn_pic_add" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="54dp"
+                    android:layout_marginLeft="35dp"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:id="@+id/pic_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/Detail_700"
+                        android:textColor="@color/gray_50"
+                        android:text="0" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/Detail_700"
+                        android:textColor="@color/gray_50"
+                        android:text="/5" />
+
+                </LinearLayout>
+
+            </FrameLayout>
+
+            <!--    이미지 리사이클러뷰  -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintHorizontal_bias="0.0" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
