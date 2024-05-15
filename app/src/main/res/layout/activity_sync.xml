@@ -29,7 +29,7 @@
                 style="@style/Body1_700"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{viewModel.syncDetail.syncName}" />
+                android:text="@{viewModel.syncDetail.syncName ?? @string/test}" />
 
             <ImageView
                 android:id="@+id/sync_share"
@@ -111,7 +111,7 @@
                     <TextView
                         style="@style/Body3_400"
                         android:layout_marginStart="15dp"
-                        android:text="@{viewModel.syncDetail.syncIntro != null ? viewModel.syncDetail.syncIntro : @string/test}" />
+                        android:text="@{viewModel.syncDetail.syncIntro ?? @string/test}" />
 
                     <!--정기 싱크 일정-->
                     <LinearLayout style="@style/sync_linear_vertical">
@@ -138,7 +138,7 @@
                         <TextView
                             style="@style/Body3_400"
                             android:layout_marginStart="15dp"
-                            android:text="@{viewModel.syncDetail.date}" />
+                            android:text="@{viewModel.syncDetail.date ?? @string/test}" />
                     </LinearLayout>
 
                     <!--장소-->
@@ -166,7 +166,7 @@
                         <TextView
                             style="@style/Body3_400"
                             android:layout_marginStart="15dp"
-                            android:text="@{viewModel.syncDetail.location}" />
+                            android:text="@{viewModel.syncDetail.location ?? @string/test}" />
                     </LinearLayout>
 
                     <!--인원-->
@@ -194,7 +194,7 @@
                         <TextView
                             style="@style/Body3_400"
                             android:layout_marginStart="15dp"
-                            android:text="@{viewModel.syncDetail.userCnt}" />
+                            android:text="@{String.valueOf(viewModel.syncDetail.userCnt) ?? @string/test}" />
                     </LinearLayout>
 
                 </LinearLayout>
