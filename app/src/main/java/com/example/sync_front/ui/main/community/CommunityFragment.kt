@@ -9,8 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.sync_front.api_server.Community
 import com.example.sync_front.api_server.CommunityManager
+import com.example.sync_front.data.model.Community
 import com.example.sync_front.databinding.FragmentCommunityBinding
 import com.google.android.material.tabs.TabLayout
 

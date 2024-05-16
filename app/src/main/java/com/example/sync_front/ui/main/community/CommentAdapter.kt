@@ -1,6 +1,5 @@
 package com.example.sync_front.ui.main.community
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,8 +9,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.sync_front.R
-import com.example.sync_front.api_server.Comment
 import com.example.sync_front.api_server.CommunityManager
+import com.example.sync_front.data.model.Comment
 
 class CommentAdapter(private var list: List<Comment>,
                      private val authToken: String): RecyclerView.Adapter<CommentAdapter.CommentViewHolder>(){

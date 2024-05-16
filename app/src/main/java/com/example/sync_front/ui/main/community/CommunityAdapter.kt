@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.sync_front.R
-import com.example.sync_front.api_server.Community
+import com.example.sync_front.data.model.Community
 
 class CommunityAdapter(private var list: List<Community>): RecyclerView.Adapter<CommunityAdapter.CommunityViewHolder>(){
 

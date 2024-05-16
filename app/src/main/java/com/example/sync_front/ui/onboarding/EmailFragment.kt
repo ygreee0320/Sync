@@ -14,11 +14,10 @@ import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.sync_front.R
-import com.example.sync_front.api_server.CodeRequest
 import com.example.sync_front.api_server.EmailManager
-import com.example.sync_front.api_server.EmailManager.resetCode
-import com.example.sync_front.api_server.EmailRequest
 import com.example.sync_front.api_server.Onboarding
+import com.example.sync_front.data.model.CodeRequest
+import com.example.sync_front.data.model.EmailRequest
 import com.example.sync_front.databinding.FragmentEmailBinding
 
 class EmailFragment : Fragment() {

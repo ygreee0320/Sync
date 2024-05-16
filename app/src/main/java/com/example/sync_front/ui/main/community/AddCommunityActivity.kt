@@ -16,8 +16,8 @@ import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sync_front.R
-import com.example.sync_front.api_server.AddCommunity
 import com.example.sync_front.api_server.CommunityManager
+import com.example.sync_front.data.model.AddCommunity
 import com.example.sync_front.databinding.ActivityAddCommunityBinding
 import com.example.sync_front.ui.main.my.SelectListActivity
 import com.google.gson.Gson

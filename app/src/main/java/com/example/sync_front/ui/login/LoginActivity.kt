@@ -5,12 +5,11 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import androidx.core.content.ContextCompat.startActivity
 import com.example.sync_front.BuildConfig.GOOGLE_CLIENT_ID
 import com.example.sync_front.ui.main.MainActivity
 import com.example.sync_front.BuildConfig.KAKAO_APP_KEY
 import com.example.sync_front.api_server.LoginManager
-import com.example.sync_front.api_server.Platform
+import com.example.sync_front.data.model.Platform
 import com.example.sync_front.databinding.ActivityLoginBinding
 import com.example.sync_front.ui.onboarding.OnboardingActivity
 import com.google.android.gms.auth.api.Auth

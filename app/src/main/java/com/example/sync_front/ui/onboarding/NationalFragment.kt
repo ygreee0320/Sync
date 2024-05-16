@@ -11,8 +11,8 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sync_front.R
 import com.example.sync_front.api_server.CountriesManager
-import com.example.sync_front.api_server.CountriesRequestModel
 import com.example.sync_front.api_server.Onboarding
+import com.example.sync_front.data.model.CountriesRequestModel
 import com.example.sync_front.databinding.FragmentNationalBinding
 
 class NationalFragment : Fragment() {

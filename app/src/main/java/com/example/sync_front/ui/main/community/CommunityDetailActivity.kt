@@ -5,15 +5,14 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.sync_front.R
-import com.example.sync_front.api_server.Comment
 import com.example.sync_front.api_server.CommunityManager
-import com.example.sync_front.api_server.Content
+import com.example.sync_front.data.model.Comment
+import com.example.sync_front.data.model.Content
 import com.example.sync_front.databinding.ActivityCommunityDetailBinding
 
 class CommunityDetailActivity : AppCompatActivity() {

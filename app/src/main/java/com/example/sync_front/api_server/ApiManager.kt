@@ -3,12 +3,9 @@ package com.example.sync_front.api_server
 import android.util.Log
 import com.example.sync_front.BuildConfig.GOOGLE_CLIENT_ID
 import com.example.sync_front.BuildConfig.GOOGLE_CLIENT_SECRET
-import com.google.gson.Gson
-import com.kakao.sdk.common.KakaoSdk.type
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import com.example.sync_front.data.model.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
