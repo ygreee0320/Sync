@@ -262,6 +262,50 @@ object CommunityManager {
     }
 }
 
+object TranslationManager {
+    fun checkLanguage(authToken: String, query: CheckLanguageRequest, callback: (CheckLanguageResponse?) -> Unit) {
+        val apiService = RetrofitClient().translationService
+        val call = apiService.checkLanguage("application/json", authToken, query)
+
+        call.enqueue(object : Callback<CheckLanguageResponse> {
+            override fun onResponse(call: Call<CheckLanguageResponse>, response: Response<CheckLanguageResponse>) {
+                if (response.isSuccessful) {
+                    val data = response.body()
+                    callback(data) // 데이터 전달
+                } else {
+                    val errorBody = response.errorBody()?.string()
+                    Log.e("서버 테스트", "오류1: $errorBody")
+                }
+            }
+
+            override fun onFailure(call: Call<CheckLanguageResponse>, t: Throwable) {
+                Log.e("서버 테스트", "오류2: ${t.message}")
+            }
+        })
+    }
+
+    fun translate(authToken: String, request: TranslateRequest, callback: (TranslateResponse?) -> Unit) {
+        val apiService = RetrofitClient().translationService
+        val call = apiService.translate("application/json", authToken, request)
+
+        call.enqueue(object : Callback<TranslateResponse> {
+            override fun onResponse(call: Call<TranslateResponse>, response: Response<TranslateResponse>) {
+                if (response.isSuccessful) {
+                    val data = response.body()
+                    callback(data) // 데이터 전달
+                } else {
+                    val errorBody = response.errorBody()?.string()
+                    Log.e("서버 테스트", "오류1: $errorBody")
+                }
+            }
+
+            override fun onFailure(call: Call<TranslateResponse>, t: Throwable) {
+                Log.e("서버 테스트", "오류2: ${t.message}")
+            }
+        })
+    }
+}
+
 object CountriesManager {
     fun getCountries(requestModel: CountriesRequestModel, callback: (List<String>?) -> Unit) {
         val apiService = RetrofitClient().countriesService

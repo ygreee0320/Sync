@@ -11,8 +11,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.sync_front.R
 import com.example.sync_front.api_server.CommunityManager
+import com.example.sync_front.api_server.TranslationManager
+import com.example.sync_front.api_server.TranslationManager.translate
+import com.example.sync_front.data.model.CheckLanguageRequest
 import com.example.sync_front.data.model.Comment
 import com.example.sync_front.data.model.Content
+import com.example.sync_front.data.model.TranslateRequest
 import com.example.sync_front.databinding.ActivityCommunityDetailBinding
 
 class CommunityDetailActivity : AppCompatActivity() {
@@ -25,6 +29,9 @@ class CommunityDetailActivity : AppCompatActivity() {
     private var communityId: Int ?= -1
     private var likedByUser: Boolean = false
     private var likeCnt: Int ?= 0
+    private var trans: Boolean = false // 번역 중: true, 기본: false
+    private var originalTitle: String? = null // 원래 제목
+    private var originalContent: String? = null // 원래 내용
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,6 +72,14 @@ class CommunityDetailActivity : AppCompatActivity() {
             sendLike()
         }
 
+        binding.translateBtn.setOnClickListener {
+            if (!trans) {
+                getTranslate()
+            } else {
+                returnOriginalText()
+            }
+        }
+
         binding.backBtn.setOnClickListener {
             finish()
         }
@@ -87,6 +102,9 @@ class CommunityDetailActivity : AppCompatActivity() {
                     binding.content.text = it.content
                     binding.likeCount.text = it.likeCnt.toString()
                     binding.commentCount.text = it.commentCnt.toString()
+
+                    originalTitle = it.title
+                    originalContent = it.content
 
                     if (!it.writerImage.isNullOrEmpty()) {
                         Glide.with(this)
@@ -140,6 +158,59 @@ class CommunityDetailActivity : AppCompatActivity() {
         }
     }
 
+    private fun getTranslate() {
+        val title = binding.title.text.toString()
+        val content = binding.content.text.toString()
+
+        sendTranslate(title) { transTitle ->
+            sendTranslate(content) { transContent ->
+                binding.title.text = transTitle
+                binding.content.text = transContent
+                trans = !trans
+                setTransButtonState(trans)
+            }
+        }
+    }
+
+    private fun sendTranslate(text: String, callback: (String) -> Unit) {
+        TranslationManager.checkLanguage(authToken!!, CheckLanguageRequest(text)) { response ->
+            if (response != null && response.status == 200) {
+                val target = if (response.data.langCode == "en") {
+                    "ko"
+                } else { "en" }
+
+                val request = TranslateRequest(response.data.langCode, target, text)
+                translate(authToken!!, request) { translateResponse ->
+                    if (translateResponse != null && translateResponse.status == 200) {
+                        val result = translateResponse.data
+                        if (result != null) {
+                            callback(result.translatedText)
+                        } else {
+                            Log.e("TranslationError", "Translation result is null")
+                            Toast.makeText(applicationContext, "번역이 불가합니다.", Toast.LENGTH_LONG).show()
+                            callback(text)
+                        }
+                    } else {
+                        Log.e("TranslationError", "Translation response is null or status is not 200")
+                        Toast.makeText(applicationContext, "번역이 불가합니다.", Toast.LENGTH_LONG).show()
+                        callback(text)
+                    }
+                }
+            } else {
+                Log.e("TranslationError", "CheckLanguage response is null or status is not 200")
+                Toast.makeText(applicationContext, "번역이 불가합니다.", Toast.LENGTH_LONG).show()
+                callback(text)
+            }
+        }
+    }
+
+    private fun returnOriginalText() {
+        binding.title.text = originalTitle
+        binding.content.text = originalContent
+        trans = false
+        setTransButtonState(trans)
+    }
+
     private fun sendLike() {
         if (!likedByUser) {
             CommunityManager.postCommunityLike(authToken!!, communityId!!) { response ->
@@ -172,6 +243,19 @@ class CommunityDetailActivity : AppCompatActivity() {
             binding.likeIc.setBackgroundResource(R.drawable.ic_thumbs_up_gray)
             binding.likeCount.text = likeCnt.toString()
             binding.likeCount.setTextColor(this.resources.getColor(R.color.gray_50))
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun setTransButtonState(trans: Boolean) {
+        if (trans) {
+            binding.translateBtn.setBackgroundResource(R.drawable.label_white)
+            binding.translateIc.setBackgroundResource(R.drawable.ic_translation)
+            binding.translate.setTextColor(this.resources.getColor(R.color.primary))
+        } else {
+            binding.translateBtn.setBackgroundResource(R.drawable.label_gray10)
+            binding.translateIc.setBackgroundResource(R.drawable.ic_translation_gray)
+            binding.translate.setTextColor(this.resources.getColor(R.color.gray_50))
         }
     }
 
