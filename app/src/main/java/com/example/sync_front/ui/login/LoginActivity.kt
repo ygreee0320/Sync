@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.core.content.ContextCompat.startActivity
 import com.example.sync_front.BuildConfig.GOOGLE_CLIENT_ID
 import com.example.sync_front.ui.main.MainActivity
 import com.example.sync_front.BuildConfig.KAKAO_APP_KEY
@@ -125,13 +126,20 @@ class LoginActivity : AppCompatActivity() {
                 val editor = sharedPreferences.edit()
 
                 editor.putString("access_token", accessToken) // 액세스 토큰 저장
+                editor.putString("auth_token", "Bearer $accessToken") // api 요청할 authToken
                 editor.putString("email", response.email)
                 editor.putString("name", response.name)
                 editor.apply()
 
-                val intent = Intent(this@LoginActivity, OnboardingActivity::class.java)
-                startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
-                finish()
+                if (it.isFirst) {
+                    val intent = Intent(this@LoginActivity, OnboardingActivity::class.java)
+                    startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
+                    finish()
+                } else {
+                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                    startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
+                    finish()
+                }
             }
         }
     }

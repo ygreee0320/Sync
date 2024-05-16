@@ -72,6 +72,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="커뮤니티 제목"
+                        android:maxLines="1"
+                        android:ellipsize="end"
                         style="@style/Body3_700"
                         android:textColor="@color/gray_90" />
 
@@ -80,6 +82,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="커뮤니티 내용"
+                        android:maxLines="1"
+                        android:ellipsize="end"
                         style="@style/Body3_400"
                         android:textColor="@color/gray_90" />
 
@@ -137,6 +141,7 @@
                 android:layout_height="65dp"
                 android:layout_marginLeft="10dp"
                 android:visibility="gone"
+                android:scaleType="centerCrop"
                 android:layout_gravity="center_vertical" />
 
         </LinearLayout>

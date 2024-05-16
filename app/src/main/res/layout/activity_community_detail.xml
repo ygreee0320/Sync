@@ -9,76 +9,41 @@
     android:background="@color/gray_5"
     tools:context=".ui.main.community.CommunityDetailActivity">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/comment_layout"
         tools:ignore="MissingConstraints">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:padding="16dp"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/back_btn"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginRight="15dp"
-                android:background="@drawable/ic_back" />
-
-            <TextView
-                android:id="@+id/community"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/Heading3"
-                android:textColor="@color/gray_90"
-                android:text="@string/menu2" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:background="@color/gray_5"
-            android:paddingHorizontal="20dp"
-            android:paddingVertical="18dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            tools:ignore="MissingConstraints">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
+                android:background="@color/white"
+                android:padding="16dp"
                 android:orientation="horizontal">
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/profile"
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
-                    android:scaleType="centerCrop"
-                    android:layout_gravity="center"
-                    android:src="@drawable/img_profile_default" />
+                <ImageView
+                    android:id="@+id/back_btn"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/ic_back" />
 
                 <TextView
-                    android:id="@+id/name"
+                    android:id="@+id/community"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="4dp"
-                    android:text="작성자 명"
-                    style="@style/Detail_700"
-                    android:textColor="@color/gray_70" />
-
-                <TextView
-                    android:id="@+id/time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="08:00"
-                    style="@style/Detail_400"
-                    android:textColor="@color/gray_50" />
+                    style="@style/Heading3"
+                    android:textColor="@color/gray_90"
+                    android:text="@string/menu2" />
 
             </LinearLayout>
 
@@ -86,151 +51,195 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:layout_marginTop="5dp"
+                android:background="@color/gray_5"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="18dp"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/title"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="커뮤니티 제목"
-                    style="@style/Body3_700"
-                    android:textColor="@color/gray_90" />
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/content"
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/profile"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:scaleType="centerCrop"
+                        android:layout_gravity="center"
+                        android:src="@drawable/img_profile_default" />
+
+                    <TextView
+                        android:id="@+id/name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="4dp"
+                        android:text="작성자 명"
+                        style="@style/Detail_700"
+                        android:textColor="@color/gray_70" />
+
+                    <TextView
+                        android:id="@+id/time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="08:00"
+                        style="@style/Detail_400"
+                        android:textColor="@color/gray_50" />
+
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="커뮤니티 내용"
-                    style="@style/Body3_400"
-                    android:textColor="@color/gray_90" />
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="5dp"
+                    android:orientation="vertical">
 
-                <!--    이미지 리사이클러뷰  -->
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/img_recyclerView"
-                    android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="커뮤니티 제목"
+                        style="@style/Body3_700"
+                        android:textColor="@color/gray_90" />
+
+                    <TextView
+                        android:id="@+id/content"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="커뮤니티 내용"
+                        style="@style/Body3_400"
+                        android:textColor="@color/gray_90" />
+
+                    <!--    이미지 리사이클러뷰  -->
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/img_recyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintHorizontal_bias="0.0" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:orientation="horizontal"
-                    app:layout_constraintHorizontal_bias="0.0" />
+                    android:orientation="horizontal">
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:id="@+id/like_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingHorizontal="8dp"
-                    android:paddingVertical="4dp"
-                    android:background="@drawable/label_gray10"
-                    android:layout_marginRight="4dp">
-
-                    <ImageView
-                        android:id="@+id/like_ic"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_marginRight="4dp"
-                        android:background="@drawable/ic_thumbs_up_gray" />
-
-                    <TextView
-                        android:id="@+id/like_count"
-                        style="@style/Detail_400"
-                        android:layout_gravity="center_vertical"
-                        android:textColor="@color/gray_50"
-                        android:text="0" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingHorizontal="8dp"
-                    android:paddingVertical="4dp"
-                    android:background="@drawable/label_gray10"
-                    android:layout_marginRight="4dp">
-
-                    <FrameLayout
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
+                    <LinearLayout
+                        android:id="@+id/like_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="4dp"
+                        android:background="@drawable/label_gray10"
                         android:layout_marginRight="4dp">
+
                         <ImageView
-                            android:id="@+id/comment_ic"
-                            android:layout_width="16dp"
-                            android:layout_height="16dp"
-                            android:layout_gravity="center"
-                            android:background="@drawable/ic_comment_gray" />
-                    </FrameLayout>
+                            android:id="@+id/like_ic"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_marginRight="4dp"
+                            android:background="@drawable/ic_thumbs_up_gray" />
 
-                    <TextView
-                        android:id="@+id/comment_count"
-                        style="@style/Detail_400"
-                        android:textColor="@color/gray_50"
-                        android:layout_gravity="center_vertical"
-                        android:text="0" />
+                        <TextView
+                            android:id="@+id/like_count"
+                            style="@style/Detail_400"
+                            android:layout_gravity="center_vertical"
+                            android:textColor="@color/gray_50"
+                            android:text="0" />
 
-                </LinearLayout>
+                    </LinearLayout>
 
-                <LinearLayout
-                    android:id="@+id/translate_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingHorizontal="8dp"
-                    android:paddingVertical="4dp"
-                    android:background="@drawable/label_gray10">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="4dp"
+                        android:background="@drawable/label_gray10"
+                        android:layout_marginRight="4dp">
 
-                    <ImageView
-                        android:id="@+id/translate_ic"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_marginRight="4dp"
-                        android:background="@drawable/ic_translation_gray" />
+                        <FrameLayout
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_marginRight="4dp">
+                            <ImageView
+                                android:id="@+id/comment_ic"
+                                android:layout_width="16dp"
+                                android:layout_height="16dp"
+                                android:layout_gravity="center"
+                                android:background="@drawable/ic_comment_gray" />
+                        </FrameLayout>
 
-                    <TextView
-                        android:id="@+id/translate"
-                        style="@style/Detail_400"
-                        android:textColor="@color/gray_50"
-                        android:layout_gravity="center_vertical"
-                        android:text="번역하기" />
+                        <TextView
+                            android:id="@+id/comment_count"
+                            style="@style/Detail_400"
+                            android:textColor="@color/gray_50"
+                            android:layout_gravity="center_vertical"
+                            android:text="0" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/translate_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="4dp"
+                        android:background="@drawable/label_gray10">
+
+                        <ImageView
+                            android:id="@+id/translate_ic"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_marginRight="4dp"
+                            android:background="@drawable/ic_translation_gray" />
+
+                        <TextView
+                            android:id="@+id/translate"
+                            style="@style/Detail_400"
+                            android:textColor="@color/gray_50"
+                            android:layout_gravity="center_vertical"
+                            android:text="번역하기" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.6dp"
+                android:background="@color/gray_10" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" >
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/comment_recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scrollbars="vertical" />
+
+            </FrameLayout>
 
         </LinearLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.6dp"
-            android:background="@color/gray_10" />
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1" >
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/comment_recyclerview"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scrollbars="vertical"
-                android:padding="18dp"/>
-
-        </FrameLayout>
-
-    </LinearLayout>
+    </ScrollView>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/comment_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/gray_5"
-        android:padding="16dp"
+        android:paddingHorizontal="16dp"
+        android:paddingTop="16dp"
         app:labelVisibilityMode="unlabeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

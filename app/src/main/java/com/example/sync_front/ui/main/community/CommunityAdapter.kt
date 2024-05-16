@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.sync_front.R
 import com.example.sync_front.api_server.Community
 
@@ -40,6 +41,7 @@ class CommunityAdapter(private var list: List<Community>): RecyclerView.Adapter<
         private val content: TextView = itemView.findViewById(R.id.content)
         private val likeCount: TextView = itemView.findViewById(R.id.like_count)
         private val commentCount: TextView = itemView.findViewById(R.id.comment_count)
+        private val firstImage: ImageView = itemView.findViewById(R.id.main_img)
 
         init {
             itemView.setOnClickListener {
@@ -52,11 +54,32 @@ class CommunityAdapter(private var list: List<Community>): RecyclerView.Adapter<
 
         fun bind(item: Community) {
             name.text = item.writerName
-            time.text = item.createdData
+            time.text = item.createdDate ?: "Unknown"
             title.text = item.title
             content.text = item.content
             likeCount.text = item.likeCnt.toString()
             commentCount.text = item.commentCnt.toString()
+
+            if (!item.representativeImage.isNullOrEmpty()) {
+                firstImage.visibility = View.VISIBLE
+
+                Glide.with(itemView.context)
+                    .load(item.representativeImage)
+                    .into(firstImage)
+            } else {
+                // 대표 이미지 없으면 숨김
+                firstImage.visibility = View.GONE
+            }
+
+            if (!item.writerImage.isNullOrEmpty()) {
+                Glide.with(itemView.context)
+                    .load(item.writerImage)
+                    .placeholder(R.drawable.img_profile_default)
+                    .error(R.drawable.img_profile_default)
+                    .into(profile)
+            } else {
+                profile.setImageResource(R.drawable.img_profile_default)
+            }
         }
     }
 }

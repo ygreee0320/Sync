@@ -1,12 +1,19 @@
 package com.example.sync_front.ui.main.community
 
+import android.annotation.SuppressLint
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
+import com.example.sync_front.R
 import com.example.sync_front.api_server.Comment
 import com.example.sync_front.api_server.CommunityManager
+import com.example.sync_front.api_server.Content
 import com.example.sync_front.databinding.ActivityCommunityDetailBinding
 
 class CommunityDetailActivity : AppCompatActivity() {
@@ -17,6 +24,8 @@ class CommunityDetailActivity : AppCompatActivity() {
     private lateinit var imageList: List<String>
     private var authToken: String ?= null // 로그인 토큰
     private var communityId: Int ?= -1
+    private var likedByUser: Boolean = false
+    private var likeCnt: Int ?= 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,12 +41,12 @@ class CommunityDetailActivity : AppCompatActivity() {
 
         // 저장된 토큰 읽어오기
         val sharedPreferences = getSharedPreferences("my_token", Context.MODE_PRIVATE)
-        authToken = sharedPreferences.getString("access_token", null)
+        authToken = sharedPreferences.getString("auth_token", null)
 
         //임시 토큰 값 (추후 삭제)
         authToken = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI5IiwiaWF0IjoxNzE1NDQ1NTQxLCJleHAiOjE3MTYwNTAzNDF9._EpiWHCK94mi3m9sD4qUX8sYk-Uk2BaSKw8Pbm1U9pM "
 
-        commentAdapter = CommentAdapter(emptyList<Comment>())
+        commentAdapter = CommentAdapter(emptyList<Comment>(), authToken!!)
         binding.commentRecyclerview.layoutManager = LinearLayoutManager(this)
         binding.commentRecyclerview.adapter = commentAdapter
 
@@ -49,8 +58,20 @@ class CommunityDetailActivity : AppCompatActivity() {
     }
 
     private fun setupClickListeners() {
+        binding.sendBtn.setOnClickListener {
+            sendComment()
+        }
+
+        binding.likeBtn.setOnClickListener {
+            sendLike()
+        }
+
         binding.backBtn.setOnClickListener {
             finish()
+        }
+
+        binding.root.setOnClickListener {
+            hideKeyboard()
         }
     }
 
@@ -62,14 +83,31 @@ class CommunityDetailActivity : AppCompatActivity() {
                     Log.d("my log", "커뮤니티 상세")
 
                     binding.name.text = it.writerName
-                    binding.time.text = it.createdData
+                    binding.time.text = it.createdDate
                     binding.title.text = it.title
                     binding.content.text = it.content
                     binding.likeCount.text = it.likeCnt.toString()
                     binding.commentCount.text = it.commentCnt.toString()
-                    //프로필, 사진들 출력 필요
 
-                    //loadComment() // 댓글 목록 불러오기
+                    if (!it.writerImage.isNullOrEmpty()) {
+                        Glide.with(this)
+                            .load(it.writerImage)
+                            .into(binding.profile)
+                    }
+
+                    if (!it.imageUrls.isNullOrEmpty()) {
+                        val imageString = it.imageUrls
+
+                        imageAdapter = MultiImageLoadAdapter(imageString, applicationContext)
+                        binding.imgRecyclerView.adapter = imageAdapter
+                    }
+
+                    likeCnt = it.likeCnt
+
+                    likedByUser = it.likedByUser // 좋아요 클릭 여부
+                    setLikeButtonState(likedByUser)
+
+                    loadComment() // 댓글 목록 불러오기
                 }
             }
         }
@@ -77,29 +115,73 @@ class CommunityDetailActivity : AppCompatActivity() {
 
     private fun loadComment() {
         if (communityId != -1) {
-//            CommunityManager.getCommentList(authToken!!, communityId!!) { response ->
-//                response?.let {
-//                    Log.d("my log", "댓글 목록")
-//
-//                    commentAdapter.updateData(it)
-//                }
-//            }
+            CommunityManager.getCommentList(authToken!!, communityId!!) { response ->
+                response?.let {
+                    Log.d("my log", "댓글 목록")
+
+                    commentAdapter.updateData(it)
+                }
+            }
         }
     }
 
-    private fun extractImage(imageString: String): List<String> {
-        // 문자열에서 "[https://"로 시작하고 "," 또는 "]" 전까지의 부분을 추출
-        val startIndex = imageString.indexOf("[")
-        val endIndex = imageString.indexOf("]", startIndex)
+    private fun sendComment() {
+        val content = binding.addCommentText.text.toString()
 
-        if (startIndex != -1 && endIndex != -1) {
-            val substring = imageString.substring(startIndex, endIndex)
-            // "["와  "]"를 제거하고 공백 기준으로 분리하여 리스트로 변환
-            return substring.replace("[", "").split(",").map { it.trim() }
+        if (!content.isNullOrEmpty()) {
+            CommunityManager.postComment(authToken!!, communityId!!, Content(content)) { response ->
+                if (response == 200) {
+                    hideKeyboard()
+                    binding.addCommentText.text.clear()
+                    loadComment()
+                }
+            }
+        } else {
+            Toast.makeText(applicationContext, "댓글을 입력해주세요", Toast.LENGTH_LONG).show()
         }
-
-        return emptyList()
     }
+
+    private fun sendLike() {
+        if (!likedByUser) {
+            CommunityManager.postCommunityLike(authToken!!, communityId!!) { response ->
+                if (response == 200 ) {
+                    likeCnt = likeCnt?.plus(1)
+                    likedByUser = !likedByUser
+                    setLikeButtonState(likedByUser)
+                }
+            }
+        } else {
+            CommunityManager.deleteCommunityLike(authToken!!, communityId!!) { response ->
+                if (response == 200) {
+                    likeCnt = likeCnt?.minus(1)
+                    likedByUser = !likedByUser
+                    setLikeButtonState(likedByUser)
+                }
+            }
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun setLikeButtonState(liked: Boolean) {
+        if (liked) {
+            binding.likeBtn.setBackgroundResource(R.drawable.label_white)
+            binding.likeIc.setBackgroundResource(R.drawable.ic_thumbs_up)
+            binding.likeCount.text = likeCnt.toString()
+            binding.likeCount.setTextColor(this.resources.getColor(R.color.primary))
+        } else {
+            binding.likeBtn.setBackgroundResource(R.drawable.label_gray10)
+            binding.likeIc.setBackgroundResource(R.drawable.ic_thumbs_up_gray)
+            binding.likeCount.text = likeCnt.toString()
+            binding.likeCount.setTextColor(this.resources.getColor(R.color.gray_50))
+        }
+    }
+
+    private fun hideKeyboard() {
+        binding.addCommentText.clearFocus()
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(binding.root.windowToken, 0)
+    }
+
 
     override fun onResume() {
         super.onResume()

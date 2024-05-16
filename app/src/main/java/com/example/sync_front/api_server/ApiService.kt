@@ -9,7 +9,7 @@ import retrofit2.http.*
 interface LoginService {
 
     // 소셜 로그인
-    @POST("user/signin")
+    @POST("auth/signin")
     fun signIn(
         @Header("Content-Type") application: String,
         @Header("Authorization") accessToken: String,
@@ -23,17 +23,15 @@ interface LoginService {
 
 interface CommunityService {
     //게시글 조회
-    @GET("post")
+    @GET("community/post")
     fun getCommunity(
         @Header("Content-Type") application: String,
         @Header("Authorization") accessToken: String,
-        @Query("postType") postType: String,
-        @Query("page") page: Int,
-        @Query("size") size: Int,
+        @Query("postType") postType: String
     ): Call<CommunityResponse>
 
     //게시글 상세 조회
-    @GET("post/{postId}")
+    @GET("community/post/{postId}")
     fun getCommunityDetail(
         @Header("Content-Type") application: String,
         @Header("Authorization") accessToken: String,
@@ -42,21 +40,61 @@ interface CommunityService {
 
     //게시글 생성
     @Multipart
-    @POST("post")
+    @POST("community/post")
     fun postCommunity(
-        @Header("Content-Type") application: String,
         @Header("Authorization") accessToken: String,
         @Part images: List<MultipartBody.Part>?,
         @Part("requestDto") request: RequestBody
     ): Call<AddCommunityResponse>
 
     //댓글 조회
-    @GET("comment")
+    @GET("community/comment/{postId}")
     fun getComment(
         @Header("Content-Type") application: String,
         @Header("Authorization") accessToken: String,
         @Path("postId") postId: Int
     ): Call<CommentResponse>
+
+    // 댓글 작성
+    @POST("community/comment/{postId}")
+    fun postComment(
+        @Header("Content-Type") application: String,
+        @Header("Authorization") accessToken: String,
+        @Path("postId") postId: Int,
+        @Body content: Content
+    ): Call<WriteCommentResponse>
+
+    // 게시글 좋아요 생성
+    @POST("community/post/like/{postId}")
+    fun postCommunityLike(
+        @Header("Content-Type") application: String,
+        @Header("Authorization") accessToken: String,
+        @Path("postId") postId: Int
+    ): Call<LikeResponse>
+
+    // 게시글 좋아요 취소
+    @DELETE("community/post/like/{postId}")
+    fun deleteCommunityLike(
+        @Header("Content-Type") application: String,
+        @Header("Authorization") accessToken: String,
+        @Path("postId") postId: Int
+    ): Call<LikeResponse>
+
+    // 댓글 좋아요 생성
+    @POST("community/comment/like/{commentId}")
+    fun postCommentLike(
+        @Header("Content-Type") application: String,
+        @Header("Authorization") accessToken: String,
+        @Path("commentId") commentId: Int
+    ): Call<Void>
+
+    // 댓글 좋아요 취소
+    @DELETE("community/comment/like/{commentId}")
+    fun deleteCommentLike(
+        @Header("Content-Type") application: String,
+        @Header("Authorization") accessToken: String,
+        @Path("commentId") commentId: Int
+    ): Call<Void>
 }
 
 interface GoogleService {
@@ -68,7 +106,7 @@ interface GoogleService {
 }
 
 interface CountriesService { //국가 조회
-    @POST("user/countries")
+    @POST("auth/countries")
     fun getCountries(
         @Header("Content-Type") application: String,
         @Body request: CountriesRequestModel
@@ -76,19 +114,19 @@ interface CountriesService { //국가 조회
 }
 
 interface EmailService { // 학교 이메일 인증
-    @POST("user/school-emails/verification-requests")
+    @POST("auth/school-emails/verification-requests")
     fun sendEmail(
         @Header("Content-Type") application: String,
         @Body request: EmailRequest
     ): Call<EmailResponse>
 
-    @POST("user/school-emails/verifications")
+    @POST("auth/school-emails/verifications")
     fun sendCode(
         @Header("Content-Type") application: String,
         @Body request: CodeRequest
     ): Call<CodeResponse>
 
-    @POST("user/school-emails/reset")
+    @POST("auth/school-emails/reset")
     fun sendReset(
         @Header("Content-Type") application: String
     ): Call<CodeResetResponse>

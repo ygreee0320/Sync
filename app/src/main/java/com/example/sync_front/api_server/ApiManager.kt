@@ -66,7 +66,7 @@ object LoginManager {
 object CommunityManager {
     fun getCommunity(authToken: String, type: String, callback: (List<Community>?) -> Unit) {
         val apiService = RetrofitClient().communityService
-        val call = apiService.getCommunity("application/json", authToken, type, 0, 10)
+        val call = apiService.getCommunity("application/json", authToken, type)
 
         call.enqueue(object : Callback<CommunityResponse> {
             override fun onResponse(call: Call<CommunityResponse>, response: Response<CommunityResponse>) {
@@ -110,14 +110,9 @@ object CommunityManager {
         })
     }
 
-    fun postCommunity(authToken: String, images: List<MultipartBody.Part>?, community: AddCommunity, callback: (Int?) -> Unit) {
+    fun postCommunity(authToken: String, images: List<MultipartBody.Part>?, community: RequestBody, callback: (Int?) -> Unit) {
         val apiService = RetrofitClient().communityService
-        // AddCommunity 객체를 JSON으로 변환
-        val gson = Gson()
-        val communityJson = gson.toJson(community)
-        val communityRequestBody = communityJson.toRequestBody("application/json".toMediaTypeOrNull())
-
-        val call = apiService.postCommunity("multipart/form-data", authToken, images, communityRequestBody)
+        val call = apiService.postCommunity(authToken, images, community)
 
         //val call = apiService.postCommunity("multipart/form-data", authToken, images, community)
 
@@ -159,6 +154,112 @@ object CommunityManager {
             override fun onFailure(call: Call<CommentResponse>, t: Throwable) {
                 Log.e("서버 테스트", "오류2: ${t.message}")
                 callback(null)
+            }
+        })
+    }
+
+    fun postComment(authToken: String, postId: Int, content: Content, callback: (Int?) -> Unit) {
+        val apiService = RetrofitClient().communityService
+        val call = apiService.postComment("application/json", authToken, postId, content)
+
+        call.enqueue(object : Callback<WriteCommentResponse> {
+            override fun onResponse(call: Call<WriteCommentResponse>, response: Response<WriteCommentResponse>) {
+                if (response.isSuccessful) {
+                    Log.d("my log", "댓글 작성 완료")
+                    val data = response.body()?.status
+                    callback(data!!) // 데이터 전달
+                } else {
+                    val errorBody = response.errorBody()?.string()
+                    Log.e("서버 테스트", "오류1: $errorBody")
+                }
+            }
+
+            override fun onFailure(call: Call<WriteCommentResponse>, t: Throwable) {
+                Log.e("서버 테스트", "오류2: ${t.message}")
+            }
+        })
+    }
+
+    fun postCommunityLike(authToken: String, postId: Int, callback: (Int?) -> Unit) {
+        val apiService = RetrofitClient().communityService
+        val call = apiService.postCommunityLike("application/json", authToken, postId)
+
+        call.enqueue(object : Callback<LikeResponse> {
+            override fun onResponse(call: Call<LikeResponse>, response: Response<LikeResponse>) {
+                if (response.isSuccessful) {
+                    Log.d("my log", "좋아요 등록")
+                    val data = response.body()?.status
+                    callback(data!!) // 데이터 전달
+                } else {
+                    val errorBody = response.errorBody()?.string()
+                    Log.e("서버 테스트", "오류1: $errorBody")
+                }
+            }
+
+            override fun onFailure(call: Call<LikeResponse>, t: Throwable) {
+                Log.e("서버 테스트", "오류2: ${t.message}")
+            }
+        })
+    }
+
+    fun deleteCommunityLike(authToken: String, postId: Int, callback: (Int?) -> Unit) {
+        val apiService = RetrofitClient().communityService
+        val call = apiService.deleteCommunityLike("application/json", authToken, postId)
+
+        call.enqueue(object : Callback<LikeResponse> {
+            override fun onResponse(call: Call<LikeResponse>, response: Response<LikeResponse>) {
+                if (response.isSuccessful) {
+                    Log.d("my log", "좋아요 취소")
+                    val data = response.body()?.status
+                    callback(data!!) // 데이터 전달
+                } else {
+                    val errorBody = response.errorBody()?.string()
+                    Log.e("서버 테스트", "오류1: $errorBody")
+                }
+            }
+
+            override fun onFailure(call: Call<LikeResponse>, t: Throwable) {
+                Log.e("서버 테스트", "오류2: ${t.message}")
+            }
+        })
+    }
+
+    fun postCommentLike(authToken: String, commentId: Int) {
+        val apiService = RetrofitClient().communityService
+        val call = apiService.postCommentLike("application/json", authToken, commentId)
+
+        call.enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if (response.isSuccessful) {
+                    Log.d("my log", "좋아요 등록")
+                } else {
+                    val errorBody = response.errorBody()?.string()
+                    Log.e("서버 테스트", "오류1: $errorBody")
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Log.e("서버 테스트", "오류2: ${t.message}")
+            }
+        })
+    }
+
+    fun deleteCommentLike(authToken: String, commentId: Int) {
+        val apiService = RetrofitClient().communityService
+        val call = apiService.deleteCommentLike("application/json", authToken, commentId)
+
+        call.enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if (response.isSuccessful) {
+                    Log.d("my log", "좋아요 취소")
+                } else {
+                    val errorBody = response.errorBody()?.string()
+                    Log.e("서버 테스트", "오류1: $errorBody")
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Log.e("서버 테스트", "오류2: ${t.message}")
             }
         })
     }
