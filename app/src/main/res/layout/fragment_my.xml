@@ -63,7 +63,8 @@
                 android:layout_height="68dp"
                 android:layout_marginRight="18dp"
                 android:scaleType="centerCrop"
-                android:layout_gravity="center" />
+                android:layout_gravity="center"
+                android:src="@drawable/img_profile_default" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -262,6 +263,46 @@
 
                 </LinearLayout>
                 
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/empty2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="54dp"
+                android:visibility="gone"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/ic_empty_sync"/>
+
+                <TextView
+                    android:id="@+id/empty2_txt"
+                    style="@style/Body2_400"
+                    android:textColor="@color/gray_50"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="28dp"
+                    android:text="@string/참여한_싱크가_없어요" />
+
+                <LinearLayout
+                    android:id="@+id/empty2_btn"
+                    android:layout_width="266dp"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:background="@drawable/bg_btn_box">
+
+                    <TextView
+                        android:id="@+id/empty2_btn_txt"
+                        style="@style/Body1_700"
+                        android:textColor="@color/primary"
+                        android:text="@string/싱크_참여하러_가기" />
+
+                </LinearLayout>
+
             </LinearLayout>
 
         </FrameLayout>

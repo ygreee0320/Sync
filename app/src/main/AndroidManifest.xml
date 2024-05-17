@@ -33,6 +33,9 @@
             android:label="@string/title_activity_type"
             android:theme="@style/Theme.Syncfront" />
         <activity
+            android:name=".ui.main.my.SettingActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.open.OpenActivity"
             android:exported="false" />
         <activity

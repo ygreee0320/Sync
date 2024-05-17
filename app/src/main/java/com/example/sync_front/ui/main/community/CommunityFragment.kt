@@ -9,8 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.sync_front.api_server.Community
 import com.example.sync_front.api_server.CommunityManager
+import com.example.sync_front.data.model.Community
 import com.example.sync_front.databinding.FragmentCommunityBinding
 import com.google.android.material.tabs.TabLayout
 
@@ -58,10 +58,7 @@ class CommunityFragment : Fragment() {
     private fun initialSetting() {
         // 저장된 토큰 읽어오기
         val sharedPreferences = requireActivity().getSharedPreferences("my_token", Context.MODE_PRIVATE)
-        authToken = sharedPreferences.getString("access_token", null)
-
-        //임시 토큰 값 (추후 삭제)
-        authToken = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI5IiwiaWF0IjoxNzE1NDQ1NTQxLCJleHAiOjE3MTYwNTAzNDF9._EpiWHCK94mi3m9sD4qUX8sYk-Uk2BaSKw8Pbm1U9pM "
+        authToken = sharedPreferences.getString("auth_token", null)
 
         Log.d("my log", "현재 토큰 값: $authToken")
 

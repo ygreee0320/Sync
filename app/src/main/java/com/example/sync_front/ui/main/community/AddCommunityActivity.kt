@@ -16,10 +16,11 @@ import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sync_front.R
-import com.example.sync_front.api_server.AddCommunity
 import com.example.sync_front.api_server.CommunityManager
+import com.example.sync_front.data.model.AddCommunity
 import com.example.sync_front.databinding.ActivityAddCommunityBinding
 import com.example.sync_front.ui.main.my.SelectListActivity
+import com.google.gson.Gson
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -76,10 +77,7 @@ class AddCommunityActivity : AppCompatActivity() {
 
         // 저장된 토큰 읽어오기
         val sharedPreferences = getSharedPreferences("my_token", MODE_PRIVATE)
-        authToken = sharedPreferences.getString("access_token", null)
-
-        //임시 토큰 값 (추후 삭제)
-        authToken = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI5IiwiaWF0IjoxNzE1NDQ1NTQxLCJleHAiOjE3MTYwNTAzNDF9._EpiWHCK94mi3m9sD4qUX8sYk-Uk2BaSKw8Pbm1U9pM "
+        authToken = sharedPreferences.getString("auth_token", null)
 
         binding.recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         adapter = MultiImageAdapter(uriList, this)
@@ -111,24 +109,31 @@ class AddCommunityActivity : AppCompatActivity() {
                 var imageParts: List<MultipartBody.Part> ?= null
 
                 val community = AddCommunity(type, title, content)
+                val gson = Gson()
+                val communityJson = gson.toJson(community)
+                val requestDtoBody = RequestBody.create("application/json".toMediaTypeOrNull(), communityJson)
 
-                Log.d("my log", "$community")
+                Log.d("my log", "$communityJson $requestDtoBody")
 
                 if (uriList.isNotEmpty()) {
                     imageParts = uriList.map { uri ->
                         val file = File(getRealPathFromURI(uri))
-                        val requestFile = RequestBody.create("images/*".toMediaTypeOrNull(), file)
+                        val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
                         MultipartBody.Part.createFormData("images", file.name, requestFile)
                     }
-                } else {
-                    // 이미지가 없는 경우 빈 이미지를 생성하여 포함
-                    val emptyImageRequestBody = RequestBody.create("images/*".toMediaTypeOrNull(), "")
-                    imageParts = listOf(MultipartBody.Part.createFormData("images", "", emptyImageRequestBody))
+                }
+                else {
+                    imageParts = null
+//                    // 이미지가 없는 경우 빈 이미지를 생성하여 포함
+//                    val emptyImageRequestBody = RequestBody.create("image/*".toMediaTypeOrNull(), "")
+//                    imageParts = listOf(MultipartBody.Part.createFormData("images", "", emptyImageRequestBody))
+//                    val emptyImageRequestBody = RequestBody.create("images/\*".toMediaTypeOrNull(), "")
+//                    imageParts = listOf(MultipartBody.Part.createFormData("images[]", "", emptyImageRequestBody))
                 }
 
                 Log.d("my log", "$imageParts")
 
-                CommunityManager.postCommunity(authToken!!, imageParts, community) { response ->
+                CommunityManager.postCommunity(authToken!!, imageParts, requestDtoBody) { response ->
                     if (response == 200) {
                         Log.d("my log", "게시글 생성 완료!")
                         Toast.makeText(this, "게시글 생성 완료!", Toast.LENGTH_LONG).show()
