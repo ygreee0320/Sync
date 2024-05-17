@@ -64,12 +64,18 @@ class SyncAdapter(
     }
 }
 
-class AssociateSyncAdapter(private var associateSyncs: List<Sync>) :
+class AssociateSyncAdapter(
+    private var associateSyncs: List<Sync>,
+    private val onSyncClickListener: SyncAdapter.OnSyncClickListener
+) :
     RecyclerView.Adapter<AssociateSyncAdapter.AssociateViewHolder>() {
+    interface OnSyncClickListener {
+        fun onSyncClick(sync: Sync)
+    }
 
     class AssociateViewHolder(val binding: ItemAssociateBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(sync: Sync) {
+        fun bind(sync: Sync, onSyncClickListener: SyncAdapter.OnSyncClickListener) {
             with(binding) {
                 Glide.with(ivSyncImg.context)
                     .load(sync.image)
@@ -80,6 +86,9 @@ class AssociateSyncAdapter(private var associateSyncs: List<Sync>) :
                 tvSyncTitle.text = sync.syncName
                 tvSyncLocation.text = sync.location
                 tvSyncCalendar.text = sync.date
+                itemView.setOnClickListener {
+                    onSyncClickListener.onSyncClick(sync)
+                }
             }
         }
     }
@@ -91,7 +100,7 @@ class AssociateSyncAdapter(private var associateSyncs: List<Sync>) :
     }
 
     override fun onBindViewHolder(holder: AssociateViewHolder, position: Int) {
-        holder.bind(associateSyncs[position])
+        holder.bind(associateSyncs[position], onSyncClickListener)
     }
 
     override fun getItemCount(): Int = associateSyncs.size

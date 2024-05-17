@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sync_front.R
 import com.example.sync_front.data.model.Sync
 import com.example.sync_front.ui.main.home.SyncAdapter
+import java.util.function.LongFunction
 
 
 class SyncActivity : AppCompatActivity() {
@@ -22,13 +23,14 @@ class SyncActivity : AppCompatActivity() {
     private lateinit var viewModel: SyncViewModel
     private lateinit var reviewAdapter: ReviewAdapter
     private lateinit var sameSyncAdapter: SyncAdapter
+    private var syncId: Long = 0
     private var smallerDataName: String = ""
     val token =
         "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI5IiwiaWF0IjoxNzE1NDQ1NTQxLCJleHAiOjE3MTYwNTAzNDF9._EpiWHCK94mi3m9sD4qUX8sYk-Uk2BaSKw8Pbm1U9pM "  // Bearer 키워드 추가
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val syncId = intent.getLongExtra("syncId", -1L)
+        syncId = intent.getLongExtra("syncId", -1L)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_sync)
         viewModel = ViewModelProvider(this).get(SyncViewModel::class.java)
 
@@ -45,8 +47,8 @@ class SyncActivity : AppCompatActivity() {
     }
 
     private fun subscribeUi() {
-        viewModel.fetchReviews(token, 2, 3)
-        viewModel.fetchSameSyncData(token, 1, 3)
+        viewModel.fetchReviews(token, syncId, 3)
+        viewModel.fetchSameSyncData(token, syncId, 3)
     }
 
     private fun observeViewModel() {
@@ -111,22 +113,22 @@ class SyncActivity : AppCompatActivity() {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 when (tab?.position) {
                     0 -> {
-                        viewModel.fetchGraphData("national", 1, token)
+                        viewModel.fetchGraphData("national", syncId, token)
                         updateGraphTextViews("${smallerDataName}보다 ", "의 비율이 더 높은 편이에요")
                     }
 
                     1 -> {
-                        viewModel.fetchGraphData("gender", 1, token)
+                        viewModel.fetchGraphData("gender", syncId, token)
                         updateGraphTextViews("", "의 참여율이 더 높은 편이에요.")
                     }
 
                     2 -> {
-                        viewModel.fetchGraphData("university", 1, token)
+                        viewModel.fetchGraphData("university", syncId, token)
                         updateGraphTextViews("", "의 참여율이 더 높은 편이에요.")
                     }
 
                     3 -> {
-                        viewModel.fetchGraphData("participate", 1, token)
+                        viewModel.fetchGraphData("participate", syncId, token)
                         updateGraphTextViews("싱크에 ", " 멤버들이 가장 많은 편이에요.")
                     }
                 }
