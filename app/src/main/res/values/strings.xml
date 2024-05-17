@@ -111,7 +111,9 @@
     <string name="일회성_싱크로_다양한_사람들과_부담없이_만나요">일회성 싱크로 다양한 사람들과 부담없이 만나요</string>
     <string name="select_date">날짜를 선택해주세요</string>
     <string name="select_time">시간을 선택해주세요</string>
-
+    <string name="min">최소</string>
+    <string name="max">최대</string>
+    <string name="cnt">명</string>
     <!--싱크상세-->
     <string name="sync_intro">싱크 소개</string>
     <string name="sync_routine_calendar">정기 싱크 일정</string>
