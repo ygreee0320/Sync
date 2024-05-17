@@ -40,7 +40,17 @@
                 android:textColor="@color/gray_70"
                 android:background="@null"
                 android:textColorHint="@color/gray_50"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
                 android:hint="글 제목, 내용" />
+
+            <ImageView
+                android:id="@+id/text_cancel"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginLeft="4dp"
+                android:visibility="gone"
+                android:src="@drawable/ic_text_cancel"/>
 
         </LinearLayout>
 

@@ -1,6 +1,7 @@
 package com.example.sync_front.api_server
 
 import com.example.sync_front.BuildConfig
+import com.example.sync_front.data.service.GoogleService
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient

@@ -9,7 +9,7 @@ import com.example.sync_front.BuildConfig.GOOGLE_CLIENT_ID
 import com.example.sync_front.ui.main.MainActivity
 import com.example.sync_front.BuildConfig.KAKAO_APP_KEY
 import com.example.sync_front.api_server.LoginManager
-import com.example.sync_front.api_server.Platform
+import com.example.sync_front.data.model.Platform
 import com.example.sync_front.databinding.ActivityLoginBinding
 import com.example.sync_front.ui.onboarding.OnboardingActivity
 import com.google.android.gms.auth.api.Auth
@@ -34,7 +34,16 @@ class LoginActivity : AppCompatActivity() {
 
         // 저장된 토큰 꺼내기
         val sharedPreferences = getSharedPreferences("my_token", Context.MODE_PRIVATE)
-        val accessToken = sharedPreferences.getString("access_token", null)
+        val authToken = sharedPreferences.getString("auth_token", null)
+
+        if (authToken != null) {
+            Log.d("my log", "$authToken")
+
+            val intent = Intent(this, MainActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+            this.finish()
+        }
 
         // GoogleSignInOptions 설정
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -125,13 +134,21 @@ class LoginActivity : AppCompatActivity() {
                 val editor = sharedPreferences.edit()
 
                 editor.putString("access_token", accessToken) // 액세스 토큰 저장
+                editor.putString("auth_token", "Bearer ${response.accessToken}") // api 요청할 authToken
                 editor.putString("email", response.email)
                 editor.putString("name", response.name)
                 editor.apply()
 
-                val intent = Intent(this@LoginActivity, OnboardingActivity::class.java)
-                startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
-                finish()
+                if (it.isFirst) {
+//                    val intent = Intent(this@LoginActivity, OnboardingActivity::class.java)
+                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                    startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
+                    finish()
+                } else {
+                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                    startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
+                    finish()
+                }
             }
         }
     }

@@ -1,96 +1,7 @@
 package com.example.sync_front.api_server
 
 import android.os.Parcelable
-import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
-import org.checkerframework.checker.units.qual.A
-
-data class User(
-    val userId: Int,
-    val email: String,
-    val name: String,
-    val picture: String,
-    val accessToken: String,
-    val refreshToken: String,
-    val isFirst: Int,
-    val sessionId: String
-)
-
-data class Community(
-    val postId: Int,
-    val postType: String,
-    val writerImage: String,
-    val writerName: String,
-    val createdData: String,
-    val title: String,
-    val content: String,
-    val representativeImage: String,
-    val likeCnt: Int,
-    val commentCnt: Int,
-    val postedByUser: Boolean,
-    val likedByUser: Boolean
-)
-
-data class CommunityResponse(
-    val status: Int,
-    val message: String,
-    val data: List<Community>
-)
-
-data class AddCommunity(
-    val postType: String,
-    val title: String,
-    val content: String
-)
-
-data class AddCommunityRequestData(
-    val postType: String,
-    val title: String,
-    val content: String,
-    val imageUrls: String
-)
-
-data class AddCommunityResponse(
-    val status: Int,
-    val message: String,
-    val data: AddCommunityRequestData
-)
-
-data class CommunityDetail(
-    val postType: String,
-    val writerImage: String,
-    val writerName: String,
-    val createdData: String,
-    val title: String,
-    val content: String,
-    val likeCnt: Int,
-    val commentCnt: Int,
-    val imageUrls: List<String>,
-    val postedByUser: Boolean,
-    val likedByUser: Boolean
-)
-
-data class CommunityDetailResponse(
-    val status: Int,
-    val message: String,
-    val data: CommunityDetail
-)
-
-data class Comment(
-    val commentId: Int,
-    val writerImage: String,
-    val writerName: String,
-    val createdData: String,
-    val content: String,
-    val likeCnt: Int,
-    val commentedByUser: Boolean
-)
-
-data class CommentResponse(
-    val status: Int,
-    val message: String,
-    val data: List<Comment>
-)
 
 @Parcelize
 data class Onboarding(
@@ -103,16 +14,6 @@ data class Onboarding(
     val syncType: String?,
     val categoryTypes: String?
 ) : Parcelable
-
-data class Platform(
-    val platform: String
-)
-
-data class LogInResponse(
-    val status: Int,
-    val message: String,
-    val data: User
-)
 
 data class Chatting(
     var chattingId: String? = null,
@@ -157,65 +58,4 @@ data class RoomMessageElementResponseDto(
     val user: ChatUserResponseDto,
     val content: String,
     val time: String
-)
-
-data class CountriesRequestModel(
-    val page: String,
-    val perPage: String,
-    val language: String
-)
-data class CountriesResponse(
-    val status: Int,
-    val message: String,
-    val data: List<String>
-)
-
-data class EmailRequest( // 인증 코드 전송 시 요청 데이터
-    val email: String,
-    val univName: String
-)
-
-data class EmailResponse( // 인증 코드 전송 시 받는 데이터
-    val status: Int,
-    val message: String
-)
-
-data class CodeRequest( // 인증 코드 검증 요청
-    val email: String,
-    val univName: String,
-    val code: String
-)
-
-data class CodeResponseData(
-    val success: Boolean,
-    val univName: String,
-    val certified_email: String,
-    val certified_date: String
-)
-
-data class CodeResponse( // 인증 코드 검증 완료
-    val status: Int,
-    val message: String,
-    val data: CodeResponseData
-)
-
-data class CodeResetResponse(
-    val status: Int,
-    val message: String,
-    val data: Boolean
-)
-
-data class LoginGoogleRequestModel(
-    @SerializedName("grant_type")
-    private val grant_type: String,
-    @SerializedName("client_id")
-    private val client_id: String,
-    @SerializedName("client_secret")
-    private val client_secret: String,
-    @SerializedName("code")
-    private val code: String
-)
-
-data class LoginGoogleResponseModel(
-    @SerializedName("access_token") var access_token: String,
 )
