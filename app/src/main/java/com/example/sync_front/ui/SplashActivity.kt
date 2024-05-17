@@ -9,6 +9,7 @@ import com.example.sync_front.ui.main.MainActivity
 import com.example.sync_front.ui.onboarding.OnboardingActivity
 import com.example.sync_front.ui.open.OpenActivity
 import com.example.sync_front.ui.sync.SyncActivity
+import com.example.sync_front.ui.type.ListActivity
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 import java.util.concurrent.ScheduledExecutorService

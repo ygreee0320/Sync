@@ -1,6 +1,7 @@
 package com.example.sync_front.ui.main.home
 
 import SyncPagerAdapter
+import android.content.Context
 import android.content.Intent
 import android.util.Log
 import android.os.Bundle
@@ -11,10 +12,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.example.sync_front.R
 import com.example.sync_front.data.model.Sync
@@ -27,6 +26,7 @@ class HomeFragment : Fragment() {
     private lateinit var viewModel: HomeViewModel
     private lateinit var syncAdapter: SyncAdapter
     private lateinit var associateAdapter: AssociateSyncAdapter
+    private lateinit var name: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -41,25 +41,48 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupUser()
         setupRecyclerView()
         subscribeUi()
-        setupTouchListeners()
-        setupClickListeners()
+    }
 
+    private fun setupUser() {
+        // 소셜 로그인으로 얻은 유저이름, 프로필 꺼내기
+        val sharedPreferences =
+            requireActivity().getSharedPreferences("my_token", Context.MODE_PRIVATE)
+        name = sharedPreferences.getString("name", null)!!
+
+        binding.homeUsername.text = name
     }
 
     private fun setupRecyclerView() {
-        syncAdapter = SyncAdapter(listOf())
+        syncAdapter = SyncAdapter(listOf(), object : SyncAdapter.OnSyncClickListener {
+            override fun onSyncClick(sync: Sync) {
+                openSyncActivity(sync)
+            }
+        })
         binding.homeRecyclerView.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = syncAdapter
         }
-        associateAdapter = AssociateSyncAdapter(listOf())
+        associateAdapter = AssociateSyncAdapter(listOf(), object : SyncAdapter.OnSyncClickListener {
+            override fun onSyncClick(sync: Sync) {
+                openSyncActivity(sync)
+            }
+        })
         binding.homeDiscountRecyclerView.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = associateAdapter
         }
     }
+
+    private fun openSyncActivity(sync: Sync) {
+        val intent = Intent(context, SyncActivity::class.java).apply {
+            putExtra("syncId", sync.syncId)
+        }
+        startActivity(intent)
+    }
+
 
     private fun subscribeUi() {
         viewModel.fetchSyncs(3) // 데이터 가져오기 호출
@@ -92,7 +115,11 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupViewPager(syncList: List<Sync>) {
-        val adapter = SyncPagerAdapter(syncList)
+        val adapter = SyncPagerAdapter(syncList, object : SyncAdapter.OnSyncClickListener {
+            override fun onSyncClick(sync: Sync) {
+                openSyncActivity(sync)
+            }
+        })
         binding.homeVp1.adapter = adapter
         binding.homeVp1.orientation = ViewPager2.ORIENTATION_HORIZONTAL
 
@@ -113,54 +140,8 @@ class HomeFragment : Fragment() {
                 page.scaleY = scaleFactor
                 page.alpha =
                     MIN_ALPHA + ((scaleFactor - MIN_SCALE) / (1 - MIN_SCALE) * (1 - MIN_ALPHA))
-                Log.d(
-                    "ViewPagerTransform",
-                    "Position: $position, Offset: $myOffset, Scale: $scaleFactor"
-                )
-
             }
-            // 화면에 보이는 중앙 페이지의 양쪽에 페이지가 보이도록 패딩 설정
             setPadding(offsetPx, 0, offsetPx, 0)
-        }
-    }
-
-    private fun setupTouchListeners() {
-        binding.boxOnetime.setOnTouchListener { view, event ->
-            when (event.action) {
-                MotionEvent.ACTION_DOWN -> {
-                    // 손가락이 뷰에 닿았을 때 실행되는 애니메이션
-                    val scaleDown =
-                        AnimationUtils.loadAnimation(requireContext(), R.anim.scale_down)
-                    view.startAnimation(scaleDown)
-                    true // 이벤트 처리가 완료되었음을 시스템에 알림
-                }
-
-                MotionEvent.ACTION_UP -> {
-                    // 손가락이 뷰에서 떨어졌을 때 실행되는 애니메이션
-                    val scaleUp = AnimationUtils.loadAnimation(requireContext(), R.anim.scale_up)
-                    scaleUp.setAnimationListener(object : Animation.AnimationListener {
-                        override fun onAnimationStart(animation: Animation?) {}
-                        override fun onAnimationEnd(animation: Animation?) {
-                            // 애니메이션 종료 후에 다른 작업 수행
-                        }
-
-                        override fun onAnimationRepeat(animation: Animation?) {}
-                    })
-                    view.startAnimation(scaleUp)
-                    true // 이벤트 처리가 완료되었음을 시스템에 알림
-                }
-            }
-            false // 여기서 false를 반환하면 onTouchEvent가 이벤트를 계속해서 받지 않음
-        }
-    }
-
-    private fun setupClickListeners() {
-        binding.homeSync3.setOnClickListener {
-            // 새로운 Intent 생성. 현재 Fragment의 context와 목표 Activity(SyncActivity::class.java)를 지정
-            val intent = Intent(context, SyncActivity::class.java)
-
-            // Intent를 사용하여 Activity 시작
-            startActivity(intent)
         }
     }
 

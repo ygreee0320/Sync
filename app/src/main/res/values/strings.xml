@@ -118,11 +118,13 @@
     <string name="location">장소</string>
     <string name="personnel">인원</string>
     <string name="test">test</string>
+    <string name="translation">번역하기</string>
 
     <!--  커뮤니티_글쓰기  -->
     <string name="글쓰기">글쓰기</string>
     <string name="category">카테고리</string>
     <string name="title">제목</string>
     <string name="content">내용</string>
+    <string name="title_activity_type">TypeActivity</string>
 
 </resources>

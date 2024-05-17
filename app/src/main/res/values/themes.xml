@@ -183,6 +183,19 @@
         <item name="android:paddingBottom">4dp</item>
     </style>
 
+    <style name="label_green">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/spoqahansansneo_regular</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:lineSpacingExtra">3.6sp</item>
+        <item name="android:background">@drawable/label_outlined_gray</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:paddingRight">8dp</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
+    </style>
+
     <!--마이페이지 프래그먼트 박스 레이아웃 테마-->
     <style name="mypage_box">
         <item name="android:layout_width">103dp</item>

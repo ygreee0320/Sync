@@ -111,6 +111,7 @@
                     <TextView
                         style="@style/Body3_400"
                         android:layout_marginStart="15dp"
+                        android:layout_marginTop="8dp"
                         android:text="@{viewModel.syncDetail.syncIntro ?? @string/test}" />
 
                     <!--정기 싱크 일정-->
@@ -129,6 +130,7 @@
                                 android:background="@drawable/ic_calendar_gray" />
 
                             <TextView
+                                android:id="@+id/tv_date_title"
                                 style="@style/Body1_700"
                                 android:layout_marginStart="6dp"
                                 android:text="@string/sync_routine_calendar"
@@ -136,9 +138,11 @@
                         </LinearLayout>
 
                         <TextView
+                            android:id="@+id/tv_date"
                             style="@style/Body3_400"
                             android:layout_marginStart="15dp"
-                            android:text="@{viewModel.syncDetail.date ?? @string/test}" />
+                            android:layout_marginTop="8dp"
+                            android:text="@string/test" />
                     </LinearLayout>
 
                     <!--장소-->
@@ -166,6 +170,7 @@
                         <TextView
                             style="@style/Body3_400"
                             android:layout_marginStart="15dp"
+                            android:layout_marginTop="8dp"
                             android:text="@{viewModel.syncDetail.location ?? @string/test}" />
                     </LinearLayout>
 
@@ -192,9 +197,11 @@
                         </LinearLayout>
 
                         <TextView
+                            android:id="@+id/tv_cnt"
                             style="@style/Body3_400"
                             android:layout_marginStart="15dp"
-                            android:text="@{String.valueOf(viewModel.syncDetail.userCnt) ?? @string/test}" />
+                            android:layout_marginTop="8dp"
+                            android:text="@string/test" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -202,7 +209,7 @@
                 <LinearLayout
                     android:id="@+id/sync_linear2"
                     style="@style/sync_linear_vertical"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="24dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/sync_linear1">
@@ -212,6 +219,56 @@
                         android:text="@string/sync_introduce_host"
                         android:textColor="@color/black" />
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="16dp"
+                        android:paddingVertical="12dp">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/profile_img"
+                            android:layout_width="68dp"
+                            android:layout_height="68dp"
+                            android:layout_gravity="center"
+                            android:layout_marginRight="18dp"
+                            android:scaleType="centerCrop" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:id="@+id/username"
+                                    style="@style/Body2_700"
+                                    android:text="@{String.valueOf(viewModel.syncDetail.userName) ?? @string/test}"
+                                    android:textColor="@color/gray_90" />
+
+                                <TextView
+                                    android:id="@+id/userschool"
+                                    style="@style/label_white_primary"
+                                    android:layout_marginStart="8dp"
+                                    android:text="@{String.valueOf(viewModel.syncDetail.university) ?? @string/test}" />
+
+                            </LinearLayout>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:text="@{String.valueOf(viewModel.syncDetail.userIntro) ?? @string/test}" />
+                        </LinearLayout>
+
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
@@ -219,7 +276,9 @@
                 <LinearLayout
                     android:id="@+id/sync_linear3"
                     style="@style/sync_linear_vertical"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="24dp"
+                    android:paddingTop="16dp"
+                    android:paddingBottom="14dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/sync_linear2">
@@ -234,7 +293,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="35dp"
                         android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="16dp"
                         android:background="@drawable/label_gray5"
                         app:tabBackground="@drawable/tab_selected_selector"
                         app:tabIndicatorHeight="0dp"
@@ -249,7 +308,34 @@
                     <com.example.sync_front.ui.sync.CircleGraphView
                         android:id="@+id/circle"
                         android:layout_width="match_parent"
-                        android:layout_height="150dp" />
+                        android:layout_height="150dp"
+                        android:layout_marginTop="29dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tv_graph_1"
+                            style="@style/Body3_700"
+                            android:text="@string/test" />
+
+                        <TextView
+                            android:id="@+id/tv_graph_2"
+                            style="@style/Body3_700"
+                            android:text="@string/test"
+                            android:textColor="@color/biscay_50" />
+
+                        <TextView
+                            android:id="@+id/tv_graph_3"
+                            style="@style/Body3_700"
+                            android:text="@string/test" />
+
+                    </LinearLayout>
+
 
                 </LinearLayout>
                 <!--싱크 멤버들의 후기-->
@@ -268,7 +354,7 @@
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/sync_review_recycler_view"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp" />
 
@@ -276,6 +362,7 @@
                         style="@style/Body1_400"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
                         android:background="@drawable/btn_gray_10"
                         android:gravity="center"
                         android:paddingVertical="16dp"
@@ -298,7 +385,7 @@
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/sync_same_day_recycler_view"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp" />
 
@@ -306,6 +393,7 @@
                         style="@style/Body1_400"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
                         android:background="@drawable/btn_gray_10"
                         android:gravity="center"
                         android:paddingVertical="16dp"

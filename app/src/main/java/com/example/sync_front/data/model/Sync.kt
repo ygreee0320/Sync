@@ -20,6 +20,7 @@ data class SyncDetail(
     val type: String,
     val syncIntro: String,
     val date: String,
+    val regularDate: String?,
     val location: String,
     val userCnt: Int,
     val totalCnt: Int,
@@ -28,3 +29,22 @@ data class SyncDetail(
     val university: String,
     val userIntro: String
 )
+
+data class GraphData(
+    val name: String,
+    val percent: Int
+)
+
+data class GraphDetails(
+    val data: List<GraphData>,
+    val status: String
+)
+data class Review(
+    val image: String,
+    val name: String,
+    val university: String,
+    val content: String,
+    val date: String
+)
+
+

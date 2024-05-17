@@ -10,11 +10,18 @@ import com.example.sync_front.databinding.ItemAssociateBinding
 import com.example.sync_front.databinding.ItemSyncBinding
 
 
-class SyncAdapter(private var syncs: List<Sync>) :
+class SyncAdapter(
+    private var syncs: List<Sync>,
+    private val onSyncClickListener: OnSyncClickListener
+) :
     RecyclerView.Adapter<SyncAdapter.SyncViewHolder>() {
 
+    interface OnSyncClickListener {
+        fun onSyncClick(sync: Sync)
+    }
+
     class SyncViewHolder(val binding: ItemSyncBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(sync: Sync) {
+        fun bind(sync: Sync, onSyncClickListener: OnSyncClickListener) {
             with(binding) {
                 Glide.with(ivSyncImg.context)
                     .load(sync.image)
@@ -29,6 +36,9 @@ class SyncAdapter(private var syncs: List<Sync>) :
                 syncIcBookmark.setOnClickListener {
                     it.isSelected = !it.isSelected
                 }
+                itemView.setOnClickListener {
+                    onSyncClickListener.onSyncClick(sync)
+                }
             }
         }
     }
@@ -39,7 +49,7 @@ class SyncAdapter(private var syncs: List<Sync>) :
     }
 
     override fun onBindViewHolder(holder: SyncViewHolder, position: Int) {
-        holder.bind(syncs[position])
+        holder.bind(syncs[position], onSyncClickListener)
         Log.d("SyncAdapter1", "Binding view holder for position $position")
     }
 
@@ -54,12 +64,18 @@ class SyncAdapter(private var syncs: List<Sync>) :
     }
 }
 
-class AssociateSyncAdapter(private var associateSyncs: List<Sync>) :
+class AssociateSyncAdapter(
+    private var associateSyncs: List<Sync>,
+    private val onSyncClickListener: SyncAdapter.OnSyncClickListener
+) :
     RecyclerView.Adapter<AssociateSyncAdapter.AssociateViewHolder>() {
+    interface OnSyncClickListener {
+        fun onSyncClick(sync: Sync)
+    }
 
     class AssociateViewHolder(val binding: ItemAssociateBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(sync: Sync) {
+        fun bind(sync: Sync, onSyncClickListener: SyncAdapter.OnSyncClickListener) {
             with(binding) {
                 Glide.with(ivSyncImg.context)
                     .load(sync.image)
@@ -70,6 +86,9 @@ class AssociateSyncAdapter(private var associateSyncs: List<Sync>) :
                 tvSyncTitle.text = sync.syncName
                 tvSyncLocation.text = sync.location
                 tvSyncCalendar.text = sync.date
+                itemView.setOnClickListener {
+                    onSyncClickListener.onSyncClick(sync)
+                }
             }
         }
     }
@@ -81,7 +100,7 @@ class AssociateSyncAdapter(private var associateSyncs: List<Sync>) :
     }
 
     override fun onBindViewHolder(holder: AssociateViewHolder, position: Int) {
-        holder.bind(associateSyncs[position])
+        holder.bind(associateSyncs[position], onSyncClickListener)
     }
 
     override fun getItemCount(): Int = associateSyncs.size
