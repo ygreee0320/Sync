@@ -13,6 +13,7 @@ import com.example.sync_front.R
 import com.example.sync_front.data.model.Sync
 import com.example.sync_front.databinding.FragmentMyBinding
 import com.example.sync_front.ui.main.home.SyncAdapter
+import com.example.sync_front.ui.sync.SyncActivity
 
 class MyFragment : Fragment() {
     private var _binding: FragmentMyBinding? = null
@@ -72,12 +73,21 @@ class MyFragment : Fragment() {
         } else {
             // 어댑터를 설정하고 리사이클러뷰에 연결
             syncList = emptyList<Sync>()
-            adapter = SyncAdapter(syncList)
+            adapter = SyncAdapter(syncList, object : SyncAdapter.OnSyncClickListener {
+                override fun onSyncClick(sync: Sync) {
+                    openSyncActivity(sync)
+                }
+            })
             binding.syncRecyclerview.layoutManager = LinearLayoutManager(requireContext())
             binding.syncRecyclerview.adapter = adapter
         }
     }
-
+    private fun openSyncActivity(sync: Sync) {
+        val intent = Intent(context, SyncActivity::class.java).apply {
+            putExtra("syncId", sync.syncId)
+        }
+        startActivity(intent)
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

@@ -1,5 +1,6 @@
 package com.example.sync_front.ui.sync
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -11,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sync_front.R
+import com.example.sync_front.data.model.Sync
 import com.example.sync_front.ui.main.home.SyncAdapter
 
 
@@ -26,14 +28,14 @@ class SyncActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        val syncId = intent.getLongExtra("syncId", -1L)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_sync)
         viewModel = ViewModelProvider(this).get(SyncViewModel::class.java)
 
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        viewModel.fetchSyncDetail(1, token)
+        viewModel.fetchSyncDetail(syncId, token)
         circleGraphView = binding.circle  // circleGraphView 초기화
         setToolbarButton()
         setupTabs(binding.root)
@@ -166,10 +168,21 @@ class SyncActivity : AppCompatActivity() {
             adapter = reviewAdapter
             layoutManager = LinearLayoutManager(context)
         }
-        sameSyncAdapter = SyncAdapter(listOf())
+        sameSyncAdapter = SyncAdapter(listOf(), object : SyncAdapter.OnSyncClickListener {
+            override fun onSyncClick(sync: Sync) {
+                openSyncActivity(sync)
+            }
+        })
         binding.syncSameDayRecyclerView.apply {
             adapter = sameSyncAdapter
             layoutManager = LinearLayoutManager(context)
         }
+    }
+
+    private fun openSyncActivity(sync: Sync) {
+        val intent = Intent(this, SyncActivity::class.java).apply {
+            putExtra("syncId", sync.syncId)
+        }
+        startActivity(intent)
     }
 }

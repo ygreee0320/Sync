@@ -59,7 +59,11 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        syncAdapter = SyncAdapter(listOf())
+        syncAdapter = SyncAdapter(listOf(), object : SyncAdapter.OnSyncClickListener {
+            override fun onSyncClick(sync: Sync) {
+                openSyncActivity(sync)
+            }
+        })
         binding.homeRecyclerView.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = syncAdapter
@@ -70,6 +74,14 @@ class HomeFragment : Fragment() {
             adapter = associateAdapter
         }
     }
+
+    private fun openSyncActivity(sync: Sync) {
+        val intent = Intent(context, SyncActivity::class.java).apply {
+            putExtra("syncId", sync.syncId)
+        }
+        startActivity(intent)
+    }
+
 
     private fun subscribeUi() {
         viewModel.fetchSyncs(3) // 데이터 가져오기 호출
