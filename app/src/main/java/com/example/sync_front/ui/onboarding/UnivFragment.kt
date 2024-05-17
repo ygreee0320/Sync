@@ -9,11 +9,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.sync_front.R
+import com.example.sync_front.api_server.EmailManager
 import com.example.sync_front.api_server.Onboarding
+import com.example.sync_front.data.model.UnivName
 import com.example.sync_front.databinding.FragmentUnivBinding
+import com.google.android.material.internal.ViewUtils.hideKeyboard
 
 class UnivFragment : Fragment() {
     lateinit var binding: FragmentUnivBinding
@@ -24,6 +29,7 @@ class UnivFragment : Fragment() {
     private lateinit var gender: String
     private lateinit var univ: String
     private val args: UnivFragmentArgs by navArgs()
+    private var authToken: String ?= null // 로그인 토큰
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -44,6 +50,10 @@ class UnivFragment : Fragment() {
         national = args.onboarding.countryName!!
         gender = args.onboarding.gender!!
 
+        // 저장된 토큰 읽어오기
+        val sharedPreferences = requireActivity().getSharedPreferences("my_token", AppCompatActivity.MODE_PRIVATE)
+        authToken = sharedPreferences.getString("auth_token", null)
+
         setupClickListeners()
         setUpChangedListener()
     }
@@ -54,10 +64,17 @@ class UnivFragment : Fragment() {
                 univ = binding.univ.text.toString()
                 // 대학명 확인 요청 API 추가
 
-                val action = UnivFragmentDirections.actionUnivFragmentToEmailFragment(
-                    Onboarding(language, profile, name, national, gender, univ, null, null)
-                )
-                findNavController().navigate(action)
+                EmailManager.validUniv(authToken!!, UnivName(univ)) { response ->
+                    if (response == 200) {
+                        val action = UnivFragmentDirections.actionUnivFragmentToEmailFragment(
+                            Onboarding(language, profile, name, national, gender, univ, null, null)
+                        )
+                        findNavController().navigate(action)
+                    } else {
+                        Toast.makeText(requireContext(), "대학명을 다시 확인해주세요.", Toast.LENGTH_LONG).show()
+                    }
+                }
+
             }
         }
 
@@ -83,6 +100,14 @@ class UnivFragment : Fragment() {
             override fun afterTextChanged(s: Editable?) {
                 binding.doneBtn.isEnabled = s?.isNotBlank() ?: false
                 updateDoneButtonBackground()
+
+                if (s.isNullOrEmpty()) {
+                    binding.textCancel.visibility = View.GONE
+                    binding.textLayout.setBackgroundResource(R.drawable.bg_edit_text)
+                } else {
+                    binding.textCancel.visibility = View.VISIBLE
+                    binding.textLayout.setBackgroundResource(R.drawable.label_white_primary)
+                }
             }
         })
     }

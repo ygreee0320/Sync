@@ -6,13 +6,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sync_front.R
 import com.example.sync_front.api_server.CountriesManager
-import com.example.sync_front.api_server.CountriesRequestModel
 import com.example.sync_front.api_server.Onboarding
+import com.example.sync_front.data.model.CountriesRequestModel
 import com.example.sync_front.databinding.FragmentNationalBinding
 
 class NationalFragment : Fragment() {
@@ -23,6 +24,7 @@ class NationalFragment : Fragment() {
     private lateinit var name: String
     private lateinit var national: String
     private val args: NationalFragmentArgs by navArgs()
+    private var authToken: String ?= null // 로그인 토큰
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -44,7 +46,9 @@ class NationalFragment : Fragment() {
         profile = args.onboarding.profile
         name = args.onboarding.userName!!
 
-        Log.d("my log", "전달 받은값 $language $profile $name")
+        // 저장된 토큰 읽어오기
+        val sharedPreferences = requireActivity().getSharedPreferences("my_token", AppCompatActivity.MODE_PRIVATE)
+        authToken = sharedPreferences.getString("auth_token", null)
 
         updateSelectList()
         setupClickListeners()
@@ -81,7 +85,7 @@ class NationalFragment : Fragment() {
 
     private fun updateSelectList() { // 선택 리스트 출력
         val countriesRequest = CountriesRequestModel("1", "196", "korean")
-        CountriesManager.getCountries(countriesRequest) { response ->
+        CountriesManager.getCountries(authToken!!, countriesRequest) { response ->
             response?.let {
                 Log.d("my log", "국가 리스트 요청 성공")
 

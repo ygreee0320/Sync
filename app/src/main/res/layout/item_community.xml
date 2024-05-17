@@ -3,7 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginBottom="2dp"
+    android:background="@color/white"
     android:layout_height="wrap_content">
 
     <LinearLayout
@@ -58,6 +60,16 @@
                         style="@style/Detail_400"
                         android:textColor="@color/gray_50"/>
 
+                    <TextView
+                        android:id="@+id/type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="4dp"
+                        android:text="생활"
+                        style="@style/Detail_400"
+                        android:visibility="gone"
+                        android:textColor="@color/primary"/>
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -72,6 +84,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="커뮤니티 제목"
+                        android:maxLines="1"
+                        android:ellipsize="end"
                         style="@style/Body3_700"
                         android:textColor="@color/gray_90" />
 
@@ -80,6 +94,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="커뮤니티 내용"
+                        android:maxLines="1"
+                        android:ellipsize="end"
                         style="@style/Body3_400"
                         android:textColor="@color/gray_90" />
 
@@ -132,12 +148,21 @@
             </LinearLayout>
 
             <ImageView
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:layout_marginLeft="10dp"
+                android:visibility="gone"
+                android:scaleType="centerCrop"
+                android:layout_gravity="center_vertical" />
+
+            <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/main_img"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
                 android:layout_marginLeft="10dp"
                 android:visibility="gone"
-                android:layout_gravity="center_vertical" />
+                android:scaleType="centerCrop"
+                app:shapeAppearanceOverlay="@style/all_8dp" />
 
         </LinearLayout>
 

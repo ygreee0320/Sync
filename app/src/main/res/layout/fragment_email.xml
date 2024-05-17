@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/gray_5"
     tools:context=".ui.onboarding.EmailFragment">
 
     <LinearLayout
@@ -49,6 +50,7 @@
             android:orientation="horizontal" >
 
             <LinearLayout
+                android:id="@+id/email_layout"
                 style="@style/edit_text_box"
                 android:layout_width="0dp"
                 android:layout_weight="1"
@@ -88,6 +90,7 @@
             android:orientation="horizontal" >
 
             <LinearLayout
+                android:id="@+id/code_layout"
                 style="@style/edit_text_box"
                 android:layout_width="0dp"
                 android:layout_weight="1"
