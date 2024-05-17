@@ -52,6 +52,13 @@
     <string name="북마크가_없어요">저장된 북마크가 없어요</string>
     <string name="싱크_개설하러_가기">싱크 개설하러 가기</string>
     <string name="싱크_참여하러_가기">싱크 참여하러 가기</string>
+    <string name="setting">설정</string>
+    <string name="알림_설정">알림 설정</string>
+    <string name="모임_리마인드">모임 리마인드</string>
+    <string name="커뮤니티_댓글">커뮤니티 댓글</string>
+    <string name="언어_설정">언어 설정</string>
+    <string name="로그아웃">로그아웃</string>
+    <string name="회원탈퇴">회원 탈퇴</string>
     <!-- ModProfileActivity-->
     <string name="my_profile">내 프로필</string>
     <string name="편집">편집</string>
