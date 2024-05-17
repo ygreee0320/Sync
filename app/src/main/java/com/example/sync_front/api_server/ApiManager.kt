@@ -4,6 +4,7 @@ import android.util.Log
 import com.example.sync_front.BuildConfig.GOOGLE_CLIENT_ID
 import com.example.sync_front.BuildConfig.GOOGLE_CLIENT_SECRET
 import com.example.sync_front.data.model.*
+import com.kakao.sdk.common.KakaoSdk.type
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -132,6 +133,29 @@ object CommunityManager {
         })
     }
 
+    fun searchCommunity(authToken: String, keyword: String, callback: (CommunitySearchResponse?) -> Unit) {
+        val apiService = RetrofitClient().communityService
+        val call = apiService.searchCommunity("application/json", authToken, keyword)
+
+        call.enqueue(object : Callback<CommunitySearchResponse> {
+            override fun onResponse(call: Call<CommunitySearchResponse>, response: Response<CommunitySearchResponse>) {
+                if (response.isSuccessful) {
+                    val data = response.body()
+                    callback(data!!) // 데이터 전달
+                } else {
+                    val errorBody = response.errorBody()?.string()
+                    Log.e("서버 테스트", "오류1: $errorBody")
+                    callback(null)
+                }
+            }
+
+            override fun onFailure(call: Call<CommunitySearchResponse>, t: Throwable) {
+                Log.e("서버 테스트", "오류2: ${t.message}")
+                callback(null)
+            }
+        })
+    }
+
     fun getCommentList(authToken: String, postId: Int, callback: (List<Comment>?) -> Unit) {
         val apiService = RetrofitClient().communityService
         val call = apiService.getComment("application/json", authToken, postId)
@@ -221,41 +245,45 @@ object CommunityManager {
         })
     }
 
-    fun postCommentLike(authToken: String, commentId: Int) {
+    fun postCommentLike(authToken: String, commentId: Int, callback: (Int?) -> Unit) {
         val apiService = RetrofitClient().communityService
         val call = apiService.postCommentLike("application/json", authToken, commentId)
 
-        call.enqueue(object : Callback<Void> {
-            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+        call.enqueue(object : Callback<CodeResetResponse> {
+            override fun onResponse(call: Call<CodeResetResponse>, response: Response<CodeResetResponse>) {
                 if (response.isSuccessful) {
                     Log.d("my log", "좋아요 등록")
+                    val data = response.body()?.status
+                    callback(data!!) // 데이터 전달
                 } else {
                     val errorBody = response.errorBody()?.string()
                     Log.e("서버 테스트", "오류1: $errorBody")
                 }
             }
 
-            override fun onFailure(call: Call<Void>, t: Throwable) {
+            override fun onFailure(call: Call<CodeResetResponse>, t: Throwable) {
                 Log.e("서버 테스트", "오류2: ${t.message}")
             }
         })
     }
 
-    fun deleteCommentLike(authToken: String, commentId: Int) {
+    fun deleteCommentLike(authToken: String, commentId: Int, callback: (Int?) -> Unit) {
         val apiService = RetrofitClient().communityService
         val call = apiService.deleteCommentLike("application/json", authToken, commentId)
 
-        call.enqueue(object : Callback<Void> {
-            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+        call.enqueue(object : Callback<CodeResetResponse> {
+            override fun onResponse(call: Call<CodeResetResponse>, response: Response<CodeResetResponse>) {
                 if (response.isSuccessful) {
                     Log.d("my log", "좋아요 취소")
+                    val data = response.body()?.status
+                    callback(data!!) // 데이터 전달
                 } else {
                     val errorBody = response.errorBody()?.string()
                     Log.e("서버 테스트", "오류1: $errorBody")
                 }
             }
 
-            override fun onFailure(call: Call<Void>, t: Throwable) {
+            override fun onFailure(call: Call<CodeResetResponse>, t: Throwable) {
                 Log.e("서버 테스트", "오류2: ${t.message}")
             }
         })
@@ -307,9 +335,9 @@ object TranslationManager {
 }
 
 object CountriesManager {
-    fun getCountries(requestModel: CountriesRequestModel, callback: (List<String>?) -> Unit) {
+    fun getCountries(authToken: String, requestModel: CountriesRequestModel, callback: (List<String>?) -> Unit) {
         val apiService = RetrofitClient().countriesService
-        val call = apiService.getCountries("application/json", requestModel)
+        val call = apiService.getCountries("application/json", authToken, requestModel)
 
         call.enqueue(object : Callback<CountriesResponse> {
             override fun onResponse(call: Call<CountriesResponse>, response: Response<CountriesResponse>) {
@@ -332,9 +360,9 @@ object CountriesManager {
 }
 
 object EmailManager {
-    fun sendEmail(request: EmailRequest, callback: (Int?) -> Unit) {
+    fun sendEmail(authToken: String, request: EmailRequest, callback: (Int?) -> Unit) {
         val apiService = RetrofitClient().emailService
-        val call = apiService.sendEmail("application/json", request)
+        val call = apiService.sendEmail("application/json", authToken, request)
 
         call.enqueue(object : Callback<EmailResponse> {
             override fun onResponse(call: Call<EmailResponse>, response: Response<EmailResponse>) {
@@ -355,9 +383,9 @@ object EmailManager {
         })
     }
 
-    fun sendCode(request: CodeRequest, callback: (Int?) -> Unit) {
+    fun sendCode(authToken: String, request: CodeRequest, callback: (Int?) -> Unit) {
         val apiService = RetrofitClient().emailService
-        val call = apiService.sendCode("application/json", request)
+        val call = apiService.sendCode("application/json", authToken, request)
 
         call.enqueue(object : Callback<CodeResponse> {
             override fun onResponse(call: Call<CodeResponse>, response: Response<CodeResponse>) {
@@ -378,9 +406,9 @@ object EmailManager {
         })
     }
 
-    fun resetCode() {
+    fun resetCode(authToken: String) {
         val apiService = RetrofitClient().emailService
-        val call = apiService.sendReset("application/json")
+        val call = apiService.sendReset("application/json", authToken)
 
         call.enqueue(object : Callback<CodeResetResponse> {
             override fun onResponse(call: Call<CodeResetResponse>, response: Response<CodeResetResponse>) {
@@ -395,6 +423,29 @@ object EmailManager {
 
             override fun onFailure(call: Call<CodeResetResponse>, t: Throwable) {
                 Log.e("서버 테스트", "오류2: ${t.message}")
+            }
+        })
+    }
+
+    fun validUniv(authToken: String, univName: UnivName, callback: (Int?) -> Unit) {
+        val apiService = RetrofitClient().emailService
+        val call = apiService.validUniv("application/json", authToken, univName)
+
+        call.enqueue(object : Callback<CodeResetResponse> {
+            override fun onResponse(call: Call<CodeResetResponse>, response: Response<CodeResetResponse>) {
+                if (response.isSuccessful) {
+                    val data = response.body()?.status
+                    callback(data!!) // 데이터 전달
+                } else {
+                    val errorBody = response.errorBody()?.string()
+                    Log.e("서버 테스트", "오류1: $errorBody")
+                    callback(null)
+                }
+            }
+
+            override fun onFailure(call: Call<CodeResetResponse>, t: Throwable) {
+                Log.e("서버 테스트", "오류2: ${t.message}")
+                callback(null)
             }
         })
     }

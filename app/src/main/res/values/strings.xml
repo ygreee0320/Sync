@@ -74,7 +74,7 @@
     <string name="학교">학교</string>
     <string name="학교_이메일_인증">학교 이메일</string>
     <string name="학교_이메일_인증을_통해">학교 이메일 인증을 통해 안심하고 싱크할 수 있어요</string>
-    <string name="학교를_확인하는_용도로만">이메일 주소는 학교를 확인하는 용도로만 사용되며,</string>
+    <string name="학교를_확인하는_용도로만">학교 이메일 주소는 소속 학교를 확인하는 용도로만 사용되며,</string>
     <string name="다른_사용자에게는">다른 사용자에게는 공개되지 않습니다.</string>
     <string name="인증번호_전송">인증번호 전송</string>
     <string name="확인">확인</string>

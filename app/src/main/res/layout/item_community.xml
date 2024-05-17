@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_marginBottom="2dp"
+    android:background="@color/white"
     android:layout_height="wrap_content">
 
     <LinearLayout
@@ -57,6 +58,16 @@
                         android:text="08:00"
                         style="@style/Detail_400"
                         android:textColor="@color/gray_50"/>
+
+                    <TextView
+                        android:id="@+id/type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="4dp"
+                        android:text="생활"
+                        style="@style/Detail_400"
+                        android:visibility="gone"
+                        android:textColor="@color/primary"/>
 
                 </LinearLayout>
 

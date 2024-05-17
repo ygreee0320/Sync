@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.sync_front.R
@@ -30,6 +31,7 @@ class EmailFragment : Fragment() {
     private lateinit var univ: String
     private lateinit var email: String
     private val args: EmailFragmentArgs by navArgs()
+    private var authToken: String ?= null // 로그인 토큰
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -60,7 +62,11 @@ class EmailFragment : Fragment() {
         gender = args.onboarding.gender!!
         univ = args.onboarding.university!!
 
-        EmailManager.resetCode()
+        // 저장된 토큰 읽어오기
+        val sharedPreferences = requireActivity().getSharedPreferences("my_token", AppCompatActivity.MODE_PRIVATE)
+        authToken = sharedPreferences.getString("auth_token", null)
+
+        EmailManager.resetCode(authToken!!)
     }
 
     private fun setupClickListeners() {
@@ -97,7 +103,7 @@ class EmailFragment : Fragment() {
     private fun sendRequest() { // 인증 코드 전송
         email = binding.email.text.toString()
 
-        EmailManager.sendEmail(EmailRequest(email, univ)) { response ->
+        EmailManager.sendEmail(authToken!!, EmailRequest(email, univ)) { response ->
             response?.let {
                 if (response == 200) {
                     Log.d("my log", "이메일로 인증 코드 요청 완료")
@@ -113,7 +119,7 @@ class EmailFragment : Fragment() {
     private fun verifyCodeRequest() { // 인증 코드 확인
         val code = binding.code.text.toString()
 
-        EmailManager.sendCode(CodeRequest(email, univ, code)) { response ->
+        EmailManager.sendCode(authToken!!, CodeRequest(email, univ, code)) { response ->
             response?.let {
                 if (response == 200) {
                     Log.d("my log", "인증 성공!")
@@ -138,6 +144,12 @@ class EmailFragment : Fragment() {
             override fun afterTextChanged(s: Editable?) {
                 binding.sendBtn.isEnabled = s?.isNotBlank() ?: false
                 updateSendButtonBackground()
+
+                if (s.isNullOrEmpty()) {
+                    binding.emailLayout.setBackgroundResource(R.drawable.bg_edit_text)
+                } else {
+                    binding.emailLayout.setBackgroundResource(R.drawable.label_white_primary)
+                }
             }
         })
     }
@@ -151,6 +163,12 @@ class EmailFragment : Fragment() {
             override fun afterTextChanged(s: Editable?) {
                 binding.okayBtn.isEnabled = s?.isNotBlank() ?: false
                 updateOkayButtonBackground()
+
+                if (s.isNullOrEmpty()) {
+                    binding.codeLayout.setBackgroundResource(R.drawable.bg_edit_text)
+                } else {
+                    binding.codeLayout.setBackgroundResource(R.drawable.label_white_primary)
+                }
             }
         })
     }

@@ -8,9 +8,10 @@ import retrofit2.http.Header
 import retrofit2.http.POST
 
 interface CountriesService { //국가 조회
-    @POST("auth/countries")
+    @POST("user/countries")
     fun getCountries(
         @Header("Content-Type") application: String,
+        @Header("Authorization") accessToken: String,
         @Body request: CountriesRequestModel
     ): Call<CountriesResponse>
 }

@@ -35,3 +35,7 @@ data class CodeResetResponse(
     val message: String,
     val data: Boolean
 )
+
+data class UnivName(
+    val univName: String
+)

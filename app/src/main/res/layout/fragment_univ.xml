@@ -42,6 +42,7 @@
             android:text="@string/학교" />
 
         <LinearLayout
+            android:id="@+id/text_layout"
             style="@style/edit_text_box"
             android:layout_marginStart="17dp"
             android:layout_marginEnd="15dp"

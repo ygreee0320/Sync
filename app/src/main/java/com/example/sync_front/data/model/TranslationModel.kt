@@ -31,10 +31,3 @@ data class TranslateResponseData(
     val tarLangType: String,
     val translatedText: String
 )
-//
-//data class TranslateResponseMessage(
-//    val result: TranslateResponseResult
-//)
-//
-//data class TranslateResponseResult(
-//)

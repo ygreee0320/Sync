@@ -49,9 +49,6 @@ class CommunityDetailActivity : AppCompatActivity() {
         val sharedPreferences = getSharedPreferences("my_token", Context.MODE_PRIVATE)
         authToken = sharedPreferences.getString("auth_token", null)
 
-        //임시 토큰 값 (추후 삭제)
-        authToken = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI5IiwiaWF0IjoxNzE1NDQ1NTQxLCJleHAiOjE3MTYwNTAzNDF9._EpiWHCK94mi3m9sD4qUX8sYk-Uk2BaSKw8Pbm1U9pM "
-
         commentAdapter = CommentAdapter(emptyList<Comment>(), authToken!!)
         binding.commentRecyclerview.layoutManager = LinearLayoutManager(this)
         binding.commentRecyclerview.adapter = commentAdapter

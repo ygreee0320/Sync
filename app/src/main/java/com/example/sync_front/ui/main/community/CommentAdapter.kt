@@ -42,6 +42,7 @@ class CommentAdapter(private var list: List<Comment>,
         private val content: TextView = itemView.findViewById(R.id.content)
         private val likeCount: TextView = itemView.findViewById(R.id.like_count)
         private val likeBtn: LinearLayout = itemView.findViewById(R.id.like_btn)
+        private val likeIc: ImageView = itemView.findViewById(R.id.like_ic)
         private var likedByUser: Boolean = false
         private var likeCnt: Int ?= 0
 
@@ -50,9 +51,21 @@ class CommentAdapter(private var list: List<Comment>,
                 val clicked = list[adapterPosition].commentId
 
                 if (!likedByUser) {
-                    CommunityManager.postCommentLike(authToken, clicked)
+                    CommunityManager.postCommentLike(authToken, clicked) {
+                        if (it == 200) {
+                            likedByUser = true
+                            updateLikeButtonState()
+                            likeCnt = likeCnt?.plus(1)
+                            likeCount.text = likeCnt.toString()
+                        }
+                    }
                 } else {
-                    CommunityManager.deleteCommentLike(authToken, clicked)
+                    CommunityManager.deleteCommentLike(authToken, clicked) {
+                        likedByUser = false
+                        updateLikeButtonState()
+                        likeCnt = likeCnt?.minus(1)
+                        likeCount.text = likeCnt.toString()
+                    }
                 }
             }
         }
@@ -62,11 +75,29 @@ class CommentAdapter(private var list: List<Comment>,
             time.text = item.createdDate
             content.text = item.content
             likeCount.text = item.likeCnt.toString()
+            likedByUser = item.likedByUser
+            likeCnt = item.likeCnt
+
+            updateLikeButtonState()
 
             if (!item.writerImage.isNullOrEmpty()) {
                 Glide.with(itemView.context)
                     .load(item.writerImage)
+                    .placeholder(R.drawable.img_profile_default)
+                    .error(R.drawable.img_profile_default)
                     .into(profile)
+            } else {
+                profile.setImageResource(R.drawable.img_profile_default)
+            }
+        }
+
+        private fun updateLikeButtonState() {
+            if (likedByUser) {
+                likeIc.setBackgroundResource(R.drawable.ic_thumbs_up)
+                likeCount.setTextColor(itemView.context.resources.getColor(R.color.primary))
+            } else {
+                likeIc.setBackgroundResource(R.drawable.ic_thumbs_up_gray)
+                likeCount.setTextColor(itemView.context.resources.getColor(R.color.gray_50))
             }
         }
     }

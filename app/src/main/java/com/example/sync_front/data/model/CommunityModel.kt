@@ -60,3 +60,19 @@ data class CommunityDetailResponse(
     val message: String,
     val data: CommunityDetail
 )
+
+data class CommunitySearchResponse(
+    val status: Int,
+    val message: String,
+    val data: List<CommunitySearchResponseData>
+)
+
+data class CommunitySearchResponseData(
+    val postId: Int,
+    val postType: String,
+    val userImage: String,
+    val userName: String,
+    val title: String,
+    val content: String,
+    val createdDate: String,
+)

@@ -32,6 +32,14 @@ interface CommunityService {
         @Part("requestDto") request: RequestBody
     ): Call<AddCommunityResponse>
 
+    // 게시글 검색
+    @GET("community/post/search")
+    fun searchCommunity(
+        @Header("Content-Type") application: String,
+        @Header("Authorization") accessToken: String,
+        @Query("keyword") keyword: String
+    ): Call<CommunitySearchResponse>
+
     //댓글 조회
     @GET("community/comment/{postId}")
     fun getComment(
@@ -71,7 +79,7 @@ interface CommunityService {
         @Header("Content-Type") application: String,
         @Header("Authorization") accessToken: String,
         @Path("commentId") commentId: Int
-    ): Call<Void>
+    ): Call<CodeResetResponse>
 
     // 댓글 좋아요 취소
     @DELETE("community/comment/like/{commentId}")
@@ -79,5 +87,5 @@ interface CommunityService {
         @Header("Content-Type") application: String,
         @Header("Authorization") accessToken: String,
         @Path("commentId") commentId: Int
-    ): Call<Void>
+    ): Call<CodeResetResponse>
 }

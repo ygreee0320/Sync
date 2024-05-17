@@ -7,7 +7,19 @@ data class Comment(
     val createdDate: String,
     val content: String,
     val likeCnt: Int,
+    val reportedCnt: Int,
+    val replyList: List<Reply>,
+    val likedByUser: Boolean,
     val commentedByUser: Boolean
+)
+
+data class Reply(
+    val replyId: Int,
+    val writerImage: String,
+    val writerName: String,
+    val createdDate: String,
+    val content: String,
+    val repliedByUser: Boolean
 )
 
 data class CommentResponse(
