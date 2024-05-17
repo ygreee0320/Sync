@@ -180,13 +180,7 @@ class CommunityDetailActivity : AppCompatActivity() {
                 translate(authToken!!, request) { translateResponse ->
                     if (translateResponse != null && translateResponse.status == 200) {
                         val result = translateResponse.data
-                        if (result != null) {
-                            callback(result.translatedText)
-                        } else {
-                            Log.e("TranslationError", "Translation result is null")
-                            Toast.makeText(applicationContext, "번역이 불가합니다.", Toast.LENGTH_LONG).show()
-                            callback(text)
-                        }
+                        callback(result.translatedText)
                     } else {
                         Log.e("TranslationError", "Translation response is null or status is not 200")
                         Toast.makeText(applicationContext, "번역이 불가합니다.", Toast.LENGTH_LONG).show()

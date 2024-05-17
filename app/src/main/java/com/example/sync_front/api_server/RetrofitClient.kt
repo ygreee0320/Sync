@@ -50,5 +50,6 @@ class RetrofitClient {
     val emailService = retrofit.create(EmailService::class.java)
     val communityService = retrofit.create(CommunityService::class.java)
     val translationService = retrofit.create(TranslationService::class.java)
+    val mypageService = retrofit.create(MypageService::class.java)
 
 }

@@ -450,3 +450,97 @@ object EmailManager {
         })
     }
 }
+
+object MypageManager {
+    fun mypage(authToken: String, callback: (MypageResponse?) -> Unit) {
+        val apiService = RetrofitClient().mypageService
+        val call = apiService.mypage("application/json", authToken)
+
+        call.enqueue(object : Callback<MypageResponse> {
+            override fun onResponse(call: Call<MypageResponse>, response: Response<MypageResponse>) {
+                if (response.isSuccessful) {
+                    val userData = response.body()
+                    callback(userData!!) // 사용자 데이터 전달
+                } else {
+                    val errorBody = response.errorBody()?.string()
+                    Log.e("서버 테스트", "오류1: $errorBody")
+                    callback(null)
+                }
+            }
+
+            override fun onFailure(call: Call<MypageResponse>, t: Throwable) {
+                Log.e("서버 테스트", "오류2: ${t.message}")
+                callback(null)
+            }
+        })
+    }
+
+    fun mySyncList(authToken: String, callback: (MySyncResponse?) -> Unit) {
+        val apiService = RetrofitClient().mypageService
+        val call = apiService.mySyncList("application/json", authToken)
+
+        call.enqueue(object : Callback<MySyncResponse> {
+            override fun onResponse(call: Call<MySyncResponse>, response: Response<MySyncResponse>) {
+                if (response.isSuccessful) {
+                    val userData = response.body()
+                    callback(userData!!) // 사용자 데이터 전달
+                } else {
+                    val errorBody = response.errorBody()?.string()
+                    Log.e("서버 테스트", "오류1: $errorBody")
+                    callback(null)
+                }
+            }
+
+            override fun onFailure(call: Call<MySyncResponse>, t: Throwable) {
+                Log.e("서버 테스트", "오류2: ${t.message}")
+                callback(null)
+            }
+        })
+    }
+
+    fun myJoinList(authToken: String, callback: (MySyncResponse?) -> Unit) {
+        val apiService = RetrofitClient().mypageService
+        val call = apiService.myJoinList("application/json", authToken)
+
+        call.enqueue(object : Callback<MySyncResponse> {
+            override fun onResponse(call: Call<MySyncResponse>, response: Response<MySyncResponse>) {
+                if (response.isSuccessful) {
+                    val userData = response.body()
+                    callback(userData!!) // 사용자 데이터 전달
+                } else {
+                    val errorBody = response.errorBody()?.string()
+                    Log.e("서버 테스트", "오류1: $errorBody")
+                    callback(null)
+                }
+            }
+
+            override fun onFailure(call: Call<MySyncResponse>, t: Throwable) {
+                Log.e("서버 테스트", "오류2: ${t.message}")
+                callback(null)
+            }
+        })
+    }
+
+    fun bookmarkList(authToken: String, callback: (MySyncResponse?) -> Unit) {
+        val apiService = RetrofitClient().mypageService
+        val call = apiService.bookmarkList("application/json", authToken)
+
+        call.enqueue(object : Callback<MySyncResponse> {
+            override fun onResponse(call: Call<MySyncResponse>, response: Response<MySyncResponse>) {
+                if (response.isSuccessful) {
+                    val userData = response.body()
+                    callback(userData!!) // 사용자 데이터 전달
+                } else {
+                    val errorBody = response.errorBody()?.string()
+                    Log.e("서버 테스트", "오류1: $errorBody")
+                    callback(null)
+                }
+            }
+
+            override fun onFailure(call: Call<MySyncResponse>, t: Throwable) {
+                Log.e("서버 테스트", "오류2: ${t.message}")
+                callback(null)
+            }
+        })
+    }
+}
