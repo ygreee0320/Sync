@@ -46,7 +46,12 @@ class MyFragment : Fragment() {
         val sharedPreferences = requireActivity().getSharedPreferences("my_token", Context.MODE_PRIVATE)
         authToken = sharedPreferences.getString("auth_token", null)
 
-        adapter = SyncAdapter(emptyList<Sync>())
+        adapter = SyncAdapter(emptyList<Sync>(), object : SyncAdapter.OnSyncClickListener {
+            override fun onSyncClick(sync: Sync) {
+                openSyncActivity(sync)
+            }
+        })
+
         binding.syncRecyclerview.layoutManager = LinearLayoutManager(requireContext())
         binding.syncRecyclerview.adapter = adapter
 
