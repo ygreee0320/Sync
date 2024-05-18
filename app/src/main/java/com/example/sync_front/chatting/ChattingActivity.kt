@@ -27,6 +27,7 @@ class ChattingActivity : AppCompatActivity() {
     lateinit var myName : String
     lateinit var chattingList: MutableList<RoomMessageElementResponseDto>
     private lateinit var adapter: ChattingAdapter
+    private var authToken: String ?= null // 로그인 토큰
 
     private lateinit var stompClient: StompClient
     private val compositeDisposable = CompositeDisposable()
@@ -45,6 +46,8 @@ class ChattingActivity : AppCompatActivity() {
 
         val sharedPreferences = getSharedPreferences("my_token", Context.MODE_PRIVATE)
         myName = sharedPreferences.getString("name", "익명")!!
+
+        initialSetting()
 
         roomName = "eksxhr"  //채팅방 이름
 
@@ -79,6 +82,12 @@ class ChattingActivity : AppCompatActivity() {
         binding.chattingRecyclerview.addOnLayoutChangeListener { v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom ->
             binding.chattingRecyclerview.scrollToPosition(adapter.itemCount - 1)
         }
+    }
+
+    private fun initialSetting() {
+        // 저장된 토큰 읽어오기
+        val sharedPreferences = this.getSharedPreferences("my_token", Context.MODE_PRIVATE)
+        authToken = sharedPreferences.getString("auth_token", null)
     }
 
     @SuppressLint("CheckResult")
