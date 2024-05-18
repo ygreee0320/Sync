@@ -40,14 +40,8 @@ class ChattingActivity : AppCompatActivity() {
         binding = ActivityChattingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setSupportActionBar(binding.toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true) // 뒤로가기 버튼 활성화
-        supportActionBar?.setDisplayShowTitleEnabled(false) //타이틀 없애기
-
-        val sharedPreferences = getSharedPreferences("my_token", Context.MODE_PRIVATE)
-        myName = sharedPreferences.getString("name", "익명")!!
-
         initialSetting()
+        setupClickListeners()
 
         roomName = "eksxhr"  //채팅방 이름
 
@@ -88,6 +82,13 @@ class ChattingActivity : AppCompatActivity() {
         // 저장된 토큰 읽어오기
         val sharedPreferences = this.getSharedPreferences("my_token", Context.MODE_PRIVATE)
         authToken = sharedPreferences.getString("auth_token", null)
+        myName = sharedPreferences.getString("name", "익명")!!
+    }
+
+    private fun setupClickListeners() {
+        binding.backBtn.setOnClickListener {
+            finish()
+        }
     }
 
     @SuppressLint("CheckResult")
@@ -123,11 +124,11 @@ class ChattingActivity : AppCompatActivity() {
         binding.sendTxt.setText("") // 텍스트창 초기화
 
         val chatMessage = ChatMessageRequestDto(
-            "100433582158242230829_334837",
-            "배현서",
+            "113828093759900814627_ef4a27",
+            myName,
             roomName,
             message
-        )
+        ) // 채팅 보내는 사람 정보, 텍스트
         val json = Gson().toJson(chatMessage)
         Log.d("my log","보내는 정보 - ${json}")
 
@@ -160,7 +161,6 @@ class ChattingActivity : AppCompatActivity() {
                         val user = ChatUserResponseDto(
                             sessionId = userObject.getString("sessionId"),
                             name = userObject.getString("name"),
-                            type = userObject.getString("type"),
                             profile = userObject.getString("profile")
                         )
                         val content = chatMessageObject.getString("content")
@@ -176,8 +176,7 @@ class ChattingActivity : AppCompatActivity() {
                     val user = ChatUserResponseDto( // 수정 필요
                         sessionId = "",
                         name = jsonObject.getString("userName"),
-                        type = "null",
-                        profile = ""
+                        profile = jsonObject.getString("profile")
                     )
                     val content = jsonObject.getString("content")
                     val time = jsonObject.getString("time")

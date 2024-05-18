@@ -50,7 +50,6 @@ data class RoomMessageListResponseDto(
 data class ChatUserResponseDto(
     val sessionId: String,
     val name: String,
-    val type: String,
     val profile: String
 )
 
