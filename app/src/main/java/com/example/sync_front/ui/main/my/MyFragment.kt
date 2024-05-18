@@ -83,7 +83,7 @@ class MyFragment : Fragment() {
             if (response?.status == 200 && response.data.isNotEmpty()) {
                 response.data.let {
                     Log.d("my log", "내가 개설한 싱크 목록")
-                    //adapter.updateData(it)
+                    adapter.updateSyncs(it)
 
                     binding.empty1.visibility = View.GONE
                     binding.empty2.visibility = View.GONE
@@ -99,7 +99,7 @@ class MyFragment : Fragment() {
             if (response?.status == 200 && response.data.isNotEmpty()) {
                 response.data.let {
                     Log.d("my log", "내가 참여한 싱크 목록")
-                    //adapter.updateData(it)
+                    adapter.updateSyncs(it)
 
                     binding.empty1.visibility = View.GONE
                     binding.empty2.visibility = View.GONE
@@ -113,6 +113,11 @@ class MyFragment : Fragment() {
     private fun setupClickListeners() {
         binding.myProfileBtn.setOnClickListener {
             val intent = Intent(context, ModProfileActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.settingBtn.setOnClickListener {
+            val intent = Intent(context, SettingActivity::class.java)
             startActivity(intent)
         }
 

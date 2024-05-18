@@ -94,6 +94,9 @@
     <string name="싱크_시작하기">싱크 시작하기</string>
     <string name="이제_싱크를_시작해볼까요">이제 싱크를 시작해볼까요?</string>
     <string name="님만을_위한_맞춤_싱크를_확인">님만을 위한 맞춤 싱크를 확인해보세요.</string>
+    <!-- 언어 -->
+    <string name="korean">한국어</string>
+    <string name="english">English</string>
     <!--성향 -->
     <string name="성향1">소수의 사람과 깊고 지속적인 만남을 선호해요</string>
     <string name="성향2">새로운 사람과의 다양한 만남을 선호해요</string>

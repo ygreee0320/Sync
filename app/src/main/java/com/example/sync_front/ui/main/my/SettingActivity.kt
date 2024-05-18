@@ -39,7 +39,8 @@ class SettingActivity : AppCompatActivity() {
 
         binding.languageLayout.setOnClickListener {
             val itemList = listOf(
-                "보통 친구의 소개로 친해지는 편이에요")
+                getString(R.string.korean),
+                getString(R.string.english),)
             val intent = Intent(this, SelectListActivity::class.java)
             intent.putStringArrayListExtra("itemList", ArrayList(itemList))
             startActivityForResult(intent, REQUEST_CODE)
