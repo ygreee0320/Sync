@@ -59,6 +59,14 @@
     <string name="언어_설정">언어 설정</string>
     <string name="로그아웃">로그아웃</string>
     <string name="회원탈퇴">회원 탈퇴</string>
+    <!--  성별  -->
+    <string name="woman">여성</string>
+    <string name="man">남성</string>
+    <string name="closed">비공개</string>
+    <!--  타입  -->
+    <string name="type1">소수의 사람과 깊고 지속적인 만남을 선호해요</string>
+    <string name="type2">새로운 사람과의 다양한 만남을 선호해요</string>
+    <string name="type3">보통 친구의 소개로 친해지는 편이에요</string>
     <!--관심사1-->
     <string name="foreignLanguage">외국어</string>
     <string name="languageExchange">언어교환</string>
@@ -114,12 +122,20 @@
     <string name="성별을_선택">성별을 선택해주세요.</string>
     <string name="소속된_한국_대학교">소속된 한국 대학교를 입력해주세요</string>
     <string name="학교">학교</string>
+    <string name="input_univ">대학교 이름을 입력하세요</string>
+    <string name="re_univ">대학명을 다시 확인해주세요.</string>
     <string name="학교_이메일_인증">학교 이메일</string>
     <string name="학교_이메일_인증을_통해">학교 이메일 인증을 통해 안심하고 싱크할 수 있어요</string>
     <string name="학교를_확인하는_용도로만">학교 이메일 주소는 소속 학교를 확인하는 용도로만 사용되며,</string>
     <string name="다른_사용자에게는">다른 사용자에게는 공개되지 않습니다.</string>
+    <string name="input_email">학교 이메일 입력</string>
     <string name="인증번호_전송">인증번호 전송</string>
+    <string name="input_code">인증번호 입력</string>
     <string name="확인">확인</string>
+    <string name="send_done">전송되었습니다.</string>
+    <string name="not_exist_email">대학과 일치하지 않는 메일 도메인입니다.</string>
+    <string name="certify_done">인증 성공!</string>
+    <string name="re_code">인증 코드를 다시 확인해주세요</string>
     <string name="님의_성향을_알려주세요">님의 성향을 알려주세요</string>
     <string name="딱_맞는_싱크를_추천">님에게 딱 맞는 싱크를 추천드릴게요.</string>
     <string name="님의_관심사를">님의 관심사를</string>
@@ -131,6 +147,7 @@
     <!-- 언어 -->
     <string name="korean">한국어</string>
     <string name="english">English</string>
+    <string name="korea">대한민국</string>
     <!--성향 -->
     <string name="성향1">소수의 사람과 깊고 지속적인 만남을 선호해요</string>
     <string name="성향2">새로운 사람과의 다양한 만남을 선호해요</string>
@@ -162,8 +179,25 @@
     <!--  커뮤니티_글쓰기  -->
     <string name="글쓰기">글쓰기</string>
     <string name="category">카테고리</string>
+    <string name="input_category">카테고리를 선택해주세요</string>
     <string name="title">제목</string>
+    <string name="input_title">제목을 입력해주세요</string>
     <string name="content">내용</string>
+    <string name="input_community_content">구체적으로 작성할 수록 멤버들이 안심하고 참여할 수 있어요!</string>
     <string name="title_activity_type">TypeActivity</string>
+    <string name="done">완료</string>
+    <string name="done_add_community">게시글 생성 완료!</string>
+    <string name="didnt_select_img">이미지를 선택하지 않았습니다.</string>
+    <!--  커뮤니티  -->
+    <string name="input_comment">댓글을 입력해주세요</string>
+    <string name="cant_trans">번역이 불가합니다.</string>
+    <string name="translate">변역하기</string>
+    <string name="input_search">검색어를 입력하세요</string>
+    <string name="search_hint">글, 제목, 내용</string>
+    <string name="search_empty">커뮤니티의 글을 검색해보세요!</string>
+
+    <!--  채팅  -->
+    <string name="chattingRooms">나의 싱크 채팅방</string>
+    <string name="input_message">메세지를 입력하세요.</string>
 
 </resources>

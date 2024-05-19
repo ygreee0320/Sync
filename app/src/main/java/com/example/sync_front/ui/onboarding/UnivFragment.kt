@@ -71,7 +71,7 @@ class UnivFragment : Fragment() {
                         )
                         findNavController().navigate(action)
                     } else {
-                        Toast.makeText(requireContext(), "대학명을 다시 확인해주세요.", Toast.LENGTH_LONG).show()
+                        Toast.makeText(requireContext(), getString(R.string.re_univ), Toast.LENGTH_LONG).show()
                     }
                 }
 

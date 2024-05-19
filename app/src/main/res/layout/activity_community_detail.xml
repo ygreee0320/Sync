@@ -202,7 +202,7 @@
                             style="@style/Detail_400"
                             android:textColor="@color/gray_50"
                             android:layout_gravity="center_vertical"
-                            android:text="번역하기" />
+                            android:text="@string/translate" />
 
                     </LinearLayout>
 
@@ -255,7 +255,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:hint="댓글을 입력하세요."
+                android:hint="@string/input_comment"
                 style="@style/Body2_400"
                 android:textColor="@color/gray_90"
                 android:textColorHint="@color/gray_50"

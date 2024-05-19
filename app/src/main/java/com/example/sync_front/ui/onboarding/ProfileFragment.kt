@@ -38,7 +38,7 @@ class ProfileFragment : Fragment() {
                 val flag = Intent.FLAG_GRANT_READ_URI_PERMISSION
                 requireContext().contentResolver.takePersistableUriPermission(uri, flag)
             } else {
-                Toast.makeText(requireContext(), "이미지를 선택하지 않았습니다.", Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), getString(R.string.didnt_select_img), Toast.LENGTH_LONG).show()
             }
         }
 

@@ -77,7 +77,7 @@ class ChattingActivity : AppCompatActivity() {
             val message = binding.sendTxt.text.toString().trim()
 
             if (message.isEmpty()) {
-                Toast.makeText(this@ChattingActivity, "메시지를 입력하세요.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@ChattingActivity, getString(R.string.input_message), Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
             else { // 메세지가 있다면 전송

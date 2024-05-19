@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
-            android:text="나의 싱크 채팅방"
+            android:text="@string/chattingRooms"
             android:textColor="@color/gray_90"
             style="@style/Heading3"
             android:layout_gravity="center_vertical" />

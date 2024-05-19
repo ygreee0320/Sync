@@ -90,6 +90,7 @@ class MyFragment : Fragment() {
                 }
             } else {
                 binding.empty1.visibility = View.VISIBLE
+                binding.empty2.visibility = View.GONE
             }
         }
     }
@@ -106,6 +107,7 @@ class MyFragment : Fragment() {
                 }
             } else {
                 binding.empty2.visibility = View.VISIBLE
+                binding.empty1.visibility = View.GONE
             }
         }
     }

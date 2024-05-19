@@ -42,7 +42,7 @@
                 android:textColorHint="@color/gray_50"
                 android:imeOptions="actionSearch"
                 android:inputType="text"
-                android:hint="글 제목, 내용" />
+                android:hint="@string/search_hint" />
 
             <ImageView
                 android:id="@+id/text_cancel"
@@ -62,7 +62,7 @@
             android:layout_gravity="center_vertical"
             android:gravity="center"
             android:background="@drawable/bg_edit_text"
-            android:text="취소" />
+            android:text="@string/cancel" />
 
     </LinearLayout>
 
@@ -91,7 +91,7 @@
                 android:layout_marginTop="17dp"
                 style="@style/Body2_400"
                 android:textColor="@color/gray_50"
-                android:text="커뮤니티의 글을 검색해보세요!" />
+                android:text="@string/search_empty" />
 
         </LinearLayout>
 

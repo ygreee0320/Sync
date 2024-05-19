@@ -75,7 +75,7 @@ class GenderFragment : Fragment() {
     }
 
     private fun updateSelectList() { // 선택 리스트 출력
-        val selectList = listOf<String>("여성", "남성", "비공개")
+        val selectList = listOf<String>(getString(R.string.woman), getString(R.string.man), getString(R.string.closed))
 
         adapter = SelectOneAdapter(selectList)
         binding.recyclerview.layoutManager = LinearLayoutManager(requireContext())

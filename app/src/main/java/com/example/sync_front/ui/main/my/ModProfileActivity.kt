@@ -11,6 +11,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import com.example.sync_front.R
 import com.example.sync_front.databinding.ActivityModProfileBinding
 
 class ModProfileActivity : AppCompatActivity() {
@@ -31,7 +32,7 @@ class ModProfileActivity : AppCompatActivity() {
                 val flag = Intent.FLAG_GRANT_READ_URI_PERMISSION
                 applicationContext.contentResolver.takePersistableUriPermission(uri, flag)
             } else {
-                Toast.makeText(applicationContext, "이미지를 선택하지 않았습니다.", Toast.LENGTH_LONG).show()
+                Toast.makeText(applicationContext, getString(R.string.didnt_select_img), Toast.LENGTH_LONG).show()
             }
         }
 
@@ -49,7 +50,7 @@ class ModProfileActivity : AppCompatActivity() {
         }
 
         binding.genderLayout.setOnClickListener {
-            val itemList = listOf("여성", "남성", "비공개")
+            val itemList = listOf(getString(R.string.woman), getString(R.string.man), getString(R.string.closed))
             val intent = Intent(this, SelectListActivity::class.java)
             intent.putStringArrayListExtra("itemList", ArrayList(itemList))
             startActivityForResult(intent, REQUEST_CODE)
@@ -57,9 +58,9 @@ class ModProfileActivity : AppCompatActivity() {
 
         binding.likePeopleLayout.setOnClickListener {
             val itemList = listOf(
-                "소수의 사람과 깊고 지속적인 만남을 선호해요",
-                "새로운 사람과의 다양한 만남을 선호해요",
-                "보통 친구의 소개로 친해지는 편이에요")
+                getString(R.string.type1),
+                getString(R.string.type2),
+                getString(R.string.type3))
             val intent = Intent(this, SelectListActivity::class.java)
             intent.putStringArrayListExtra("itemList", ArrayList(itemList))
             startActivityForResult(intent, REQUEST_CODE2)

@@ -98,7 +98,7 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="5dp"
                 android:background="@android:color/transparent"
-                android:hint="메세지를 입력하세요."
+                android:hint="@string/input_message"
                 android:textSize="16dp"
                 android:textColorHint="#D8D8D8"
                 android:inputType="textMultiLine"
