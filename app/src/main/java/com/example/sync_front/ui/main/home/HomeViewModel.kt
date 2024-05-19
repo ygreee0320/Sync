@@ -17,7 +17,8 @@ class HomeViewModel : ViewModel() {
     val syncs = MutableLiveData<List<Sync>>()
     val associateSyncs = MutableLiveData<List<Sync>>()
     val recommendSyncs = MutableLiveData<List<Sync>>()
-    val token = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI5IiwiaWF0IjoxNzE1NDQ1NTQxLCJleHAiOjE3MTYwNTAzNDF9._EpiWHCK94mi3m9sD4qUX8sYk-Uk2BaSKw8Pbm1U9pM "  // Bearer 키워드 추가
+    val token =
+        "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMCIsImlhdCI6MTcxNTk3MDk0MSwiZXhwIjoxNzE2NTc1NzQxfQ.ojgMuwzEDLxRXnWTAmHHgzXx48KSZv9LZMdYP_w0X2A"  // Bearer 키워드 추가
 
     val errorMessage = MutableLiveData<String>()
     private val _text = MutableLiveData<String>().apply {
@@ -37,7 +38,11 @@ class HomeViewModel : ViewModel() {
                     if (response.isSuccessful) {
                         syncs.postValue(response.body()?.data ?: listOf())
                     } else {
-                        errorMessage.postValue("Error: ${response.errorBody()?.string()}")
+                        if (response.code() == 401) { // 토큰 만료 체크
+                            errorMessage.postValue("Token expired. Please log in again.")
+                        } else {
+                            errorMessage.postValue("Error: ${response.errorBody()?.string()}")
+                        }
                     }
                 }
 
@@ -58,7 +63,11 @@ class HomeViewModel : ViewModel() {
                     if (response.isSuccessful) {
                         associateSyncs.postValue(response.body()?.data ?: listOf())
                     } else {
-                        errorMessage.postValue("Error: ${response.errorBody()?.string()}")
+                        if (response.code() == 401) { // 토큰 만료 체크
+                            errorMessage.postValue("Token expired. Please log in again.")
+                        } else {
+                            errorMessage.postValue("Error: ${response.errorBody()?.string()}")
+                        }
                     }
                 }
 
@@ -78,7 +87,11 @@ class HomeViewModel : ViewModel() {
                     if (response.isSuccessful) {
                         recommendSyncs.postValue(response.body()?.data ?: listOf())
                     } else {
-                        errorMessage.postValue("Error: ${response.errorBody()?.string()}")
+                        if (response.code() == 401) { // 토큰 만료 체크
+                            errorMessage.postValue("Token expired. Please log in again.")
+                        } else {
+                            errorMessage.postValue("Error: ${response.errorBody()?.string()}")
+                        }
                     }
                 }
 
