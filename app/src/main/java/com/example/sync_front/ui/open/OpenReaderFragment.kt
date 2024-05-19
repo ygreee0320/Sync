@@ -5,11 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.sync_front.R
 import com.example.sync_front.databinding.FragmentOpenLeaderBinding
-import com.example.sync_front.databinding.FragmentOpenTypeBinding
 
-class OpenLeaderFragment : Fragment() {
+class OpenReaderFragment : Fragment() {
     private var _binding: FragmentOpenLeaderBinding? = null
     private val binding get() = _binding!!
 
