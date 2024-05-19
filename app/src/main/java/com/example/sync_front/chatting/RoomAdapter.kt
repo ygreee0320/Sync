@@ -41,8 +41,12 @@ class RoomAdapter(private var rooms: List<ChattingRoom>): RecyclerView.Adapter<R
             itemView.setOnClickListener {
                 val clickedRoom = rooms[adapterPosition]
                 val roomName = clickedRoom.roomName // 클릭된 Id를 가져옴
+                val syncName = clickedRoom.syncName
+                val total = clickedRoom.total
                 val intent = Intent(itemView.context, ChattingActivity::class.java)
                 intent.putExtra("roomName", roomName)
+                intent.putExtra("syncName", syncName)
+                intent.putExtra("total", total)
                 itemView.context.startActivity(intent)
             }
         }

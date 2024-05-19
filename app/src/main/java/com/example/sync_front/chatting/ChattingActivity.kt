@@ -36,6 +36,7 @@ class ChattingActivity : AppCompatActivity() {
     private val compositeDisposable = CompositeDisposable()
     val isUnexpectedClosed = AtomicBoolean(false)
     private var roomName: String ?= "eksxhr"
+    private var sessionId: String ?= null // 세션id
 
     @SuppressLint("CheckResult")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,7 +47,16 @@ class ChattingActivity : AppCompatActivity() {
         initialSetting()
         setupClickListeners()
 
-        //roomName = "eksxhr"  //채팅방 이름
+        initStomp()
+    }
+
+    private fun initialSetting() {
+        // 저장된 토큰 읽어오기
+        val sharedPreferences = this.getSharedPreferences("my_token", Context.MODE_PRIVATE)
+        authToken = sharedPreferences.getString("auth_token", null)
+        myName = sharedPreferences.getString("name", "익명")!!
+        //roomName = intent.getStringExtra("roomName")
+        sessionId = sharedPreferences.getString("sessionId", null)
 
         // 어댑터를 설정하고 리사이클러뷰에 연결
         chattingList = mutableListOf<RoomMessageElementResponseDto>()
@@ -54,9 +64,14 @@ class ChattingActivity : AppCompatActivity() {
         binding.chattingRecyclerview.layoutManager = LinearLayoutManager(this@ChattingActivity)
         binding.chattingRecyclerview.adapter = adapter
 
-        //val headerList = arrayListOf<StompHeader>()
-        initStomp()
+        val syncName = intent.getStringExtra("syncName")
+        binding.chattingTitle.text = syncName
 
+        val total = intent.getIntExtra("total", 0)
+        binding.memberCount.text = total.toString()
+    }
+
+    private fun setupClickListeners() {
         // 메세지 전송 버튼 클릭 시
         binding.sendBtn.setOnClickListener {
             val message = binding.sendTxt.text.toString().trim()
@@ -79,17 +94,7 @@ class ChattingActivity : AppCompatActivity() {
         binding.chattingRecyclerview.addOnLayoutChangeListener { v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom ->
             binding.chattingRecyclerview.scrollToPosition(adapter.itemCount - 1)
         }
-    }
 
-    private fun initialSetting() {
-        // 저장된 토큰 읽어오기
-        val sharedPreferences = this.getSharedPreferences("my_token", Context.MODE_PRIVATE)
-        authToken = sharedPreferences.getString("auth_token", null)
-        myName = sharedPreferences.getString("name", "익명")!!
-        roomName = intent.getStringExtra("roomName")
-    }
-
-    private fun setupClickListeners() {
         binding.plusBtn.setOnClickListener {
             if (!plusToggle) {
                 plusToggle = !plusToggle
