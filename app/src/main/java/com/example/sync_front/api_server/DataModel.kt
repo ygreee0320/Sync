@@ -23,8 +23,9 @@ data class Chatting(
 )
 
 data class ChattingRoom(
-    var roomId: String? = null,
-    var title: String? = null,
+    val roomName: String? = null,
+    val syncName: String? = null,
+    val total: Int,
     var lastText: String? = null,
     var lastTime: String? = null
 )
@@ -57,4 +58,22 @@ data class RoomMessageElementResponseDto(
     val user: ChatUserResponseDto,
     val content: String,
     val time: String
+)
+
+data class ChattingList(
+    val syncName: String,
+    val total: Int,
+    val content: String,
+    val time: String
+)
+
+data class ChattingRoomListData(
+    val sessionId: String,
+    val chatList: List<ChattingList>
+)
+
+data class ChattingRoomListResponse(
+    val code: Int,
+    val messageType: String,
+    val data: ChattingRoomListData
 )

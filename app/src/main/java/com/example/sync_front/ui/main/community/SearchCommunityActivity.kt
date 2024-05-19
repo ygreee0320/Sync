@@ -94,7 +94,7 @@ class SearchCommunityActivity : AppCompatActivity() {
             if (response!!.status == 200 && response.data.isNotEmpty()) {
                 response.data.let {
                     Log.d("my log", "커뮤니티 목록")
-                    //adapter.updateData(it)
+                    adapter.updateData(it)
                 }
                 binding.initLayout.visibility = View.GONE
             } else {

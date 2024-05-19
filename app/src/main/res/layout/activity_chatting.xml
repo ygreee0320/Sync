@@ -44,14 +44,30 @@
 
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/chatting_recyclerview"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="#F0F0F0"
-        android:scrollbars="vertical"
-        android:padding="10dp" />
+        android:layout_weight="1" >
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/chatting_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#F0F0F0"
+            android:scrollbars="vertical"
+            android:paddingHorizontal="10dp" />
+
+        <ImageView
+            android:id="@+id/pic_btn"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="8dp"
+            android:layout_marginBottom="8dp"
+            android:visibility="gone"
+            android:background="@drawable/btn_chatting_add_image" />
+
+    </FrameLayout>
 
     <LinearLayout
         android:id="@+id/edit_layout"

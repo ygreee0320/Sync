@@ -7,9 +7,11 @@ import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.sync_front.R
 import com.example.sync_front.api_server.*
 import com.example.sync_front.databinding.ActivityChattingBinding
 import com.google.gson.Gson
@@ -28,11 +30,12 @@ class ChattingActivity : AppCompatActivity() {
     lateinit var chattingList: MutableList<RoomMessageElementResponseDto>
     private lateinit var adapter: ChattingAdapter
     private var authToken: String ?= null // 로그인 토큰
+    private var plusToggle: Boolean = false // 사진 추가 버튼 활성화
 
     private lateinit var stompClient: StompClient
     private val compositeDisposable = CompositeDisposable()
     val isUnexpectedClosed = AtomicBoolean(false)
-    private lateinit var roomName: String
+    private var roomName: String ?= "eksxhr"
 
     @SuppressLint("CheckResult")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,7 +46,7 @@ class ChattingActivity : AppCompatActivity() {
         initialSetting()
         setupClickListeners()
 
-        roomName = "eksxhr"  //채팅방 이름
+        //roomName = "eksxhr"  //채팅방 이름
 
         // 어댑터를 설정하고 리사이클러뷰에 연결
         chattingList = mutableListOf<RoomMessageElementResponseDto>()
@@ -83,9 +86,21 @@ class ChattingActivity : AppCompatActivity() {
         val sharedPreferences = this.getSharedPreferences("my_token", Context.MODE_PRIVATE)
         authToken = sharedPreferences.getString("auth_token", null)
         myName = sharedPreferences.getString("name", "익명")!!
+        roomName = intent.getStringExtra("roomName")
     }
 
     private fun setupClickListeners() {
+        binding.plusBtn.setOnClickListener {
+            if (!plusToggle) {
+                plusToggle = !plusToggle
+                binding.picBtn.visibility = View.VISIBLE
+                //binding.plusBtn.setBackgroundResource(R.drawable.)
+            } else {
+                plusToggle = !plusToggle
+                binding.picBtn.visibility = View.GONE
+            }
+        }
+
         binding.backBtn.setOnClickListener {
             finish()
         }
@@ -99,7 +114,7 @@ class ChattingActivity : AppCompatActivity() {
             when (lifecycleEvent.type) {
                 LifecycleEvent.Type.OPENED -> {
                     Log.d(TAG, "Stomp connection opened")
-                    requestAndSubscribeToChatDetails(roomName)
+                    requestAndSubscribeToChatDetails(roomName!!)
                 }
                 LifecycleEvent.Type.ERROR -> {
                     Log.e(TAG, "Error", lifecycleEvent.exception)
@@ -126,7 +141,7 @@ class ChattingActivity : AppCompatActivity() {
         val chatMessage = ChatMessageRequestDto(
             "113828093759900814627_ef4a27",
             myName,
-            roomName,
+            roomName!!,
             message
         ) // 채팅 보내는 사람 정보, 텍스트
         val json = Gson().toJson(chatMessage)

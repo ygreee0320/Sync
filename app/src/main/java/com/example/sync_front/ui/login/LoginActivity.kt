@@ -137,6 +137,7 @@ class LoginActivity : AppCompatActivity() {
                 editor.putString("auth_token", "Bearer ${response.accessToken}") // api 요청할 authToken
                 editor.putString("email", response.email)
                 editor.putString("name", response.name)
+                editor.putString("sessionId", response.sessionId)
                 editor.apply()
 
                 if (it.isFirst) {
