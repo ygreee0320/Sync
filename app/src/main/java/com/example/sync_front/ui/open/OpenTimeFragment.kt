@@ -20,7 +20,8 @@ class OpenTimeFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var datePickerDialog: DatePickerDialog
     private lateinit var timePickerDialog: TimePickerDialog
-
+    private var dateSelected = false
+    private var timeSelected = false
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -33,7 +34,7 @@ class OpenTimeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initializeDatePickerDialog()
         initializeTimePickerDialog()
-        nextButton()
+        setupClickListeners()
     }
 
     private fun initializeDatePickerDialog() {
@@ -51,17 +52,20 @@ class OpenTimeFragment : Fragment() {
 
                 // 텍스트 뷰에 날짜를 설정합니다.
                 binding.dateText.text = formattedDate
+                dateSelected = true
+                checkIfDateTimeSelected()
             },
             calendar.get(Calendar.YEAR),
             calendar.get(Calendar.MONTH),
             calendar.get(Calendar.DAY_OF_MONTH)
         )
 
-        // 날짜 선택 박스에 클릭 리스너를 설정합니다.
+        // 날짜 선택 박스에 클릭 리스너
         binding.boxDate.setOnClickListener {
             datePickerDialog.show()
         }
     }
+
     private fun initializeTimePickerDialog() {
         val calendar = Calendar.getInstance()
         val hour = calendar.get(Calendar.HOUR_OF_DAY)
@@ -78,13 +82,37 @@ class OpenTimeFragment : Fragment() {
 
             // 선택된 시간을 TextView에 표시
             binding.timeText.text = formattedTime
-        }, hour, minute, false) // false로 설정하여 12시간제로 표시
+            timeSelected = true
+            checkIfDateTimeSelected()
+
+
+        }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false)
 
         binding.boxTime.setOnClickListener {
             timePickerDialog.show()
         }
     }
-    private fun nextButton() {
+
+    private fun checkIfDateTimeSelected() {
+        if(dateSelected){
+            binding.boxDate.setBackgroundResource(R.drawable.label_white_primary)
+        }
+        if(timeSelected){
+            binding.boxTime.setBackgroundResource(R.drawable.label_white_primary)
+        }
+        binding.doneBtn.isEnabled = dateSelected && timeSelected
+        if (binding.doneBtn.isEnabled) {
+            binding.doneBtn.setTextColor(resources.getColor(R.color.white))  // 활성화 시 텍스트 색상 변경
+            binding.doneBtn.setBackgroundResource(R.drawable.btn_default)
+        } else {
+            binding.doneBtn.setTextColor(resources.getColor(R.color.gray_70))  // 비활성화 시 텍스트 색상 변경
+        }
+    }
+
+    private fun setupClickListeners() {
+        binding.beforeBtn.setOnClickListener {
+            findNavController().navigateUp() // 이전 프래그먼트로
+        }
         binding.doneBtn.setOnClickListener {
             findNavController().navigate(R.id.action_openTimeFragment_to_openLocationFragment)
         }

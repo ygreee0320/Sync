@@ -36,6 +36,15 @@
             android:text="@string/싱크장을_소개해_주세요"
             android:textColor="@color/gray_90" />
 
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_img"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="29dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/img_profile_default" />
+
     </LinearLayout>
 
     <LinearLayout

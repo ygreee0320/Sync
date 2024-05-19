@@ -26,7 +26,7 @@ class SyncActivity : AppCompatActivity() {
     private var syncId: Long = 0
     private var smallerDataName: String = ""
     val token =
-        "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI5IiwiaWF0IjoxNzE1NDQ1NTQxLCJleHAiOjE3MTYwNTAzNDF9._EpiWHCK94mi3m9sD4qUX8sYk-Uk2BaSKw8Pbm1U9pM "  // Bearer 키워드 추가
+        "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMCIsImlhdCI6MTcxNTk3MDk0MSwiZXhwIjoxNzE2NTc1NzQxfQ.ojgMuwzEDLxRXnWTAmHHgzXx48KSZv9LZMdYP_w0X2A"  // Bearer 키워드 추가
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
