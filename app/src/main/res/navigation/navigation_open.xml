@@ -70,7 +70,7 @@
     </fragment>
     <fragment
         android:id="@+id/openLeaderFragment"
-        android:name="com.example.sync_front.ui.open.OpenLeaderFragment"
+        android:name="com.example.sync_front.ui.open.OpenReaderFragment"
         android:label="fragment_open_leader"
-        tools:layout="@layout/fragment_open_leader" />
+        tools:layout="@layout/fragment_open_reader" />
 </navigation>
