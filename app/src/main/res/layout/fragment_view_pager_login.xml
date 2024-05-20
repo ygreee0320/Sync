@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_5"
+    tools:context=".ui.login.login_viewpager.ViewPagerLoginFragment">
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="157dp"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/ic_splash"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="320dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Body1_700"
+            android:gravity="center"
+            android:textColor="@color/gray_50"
+            android:text="@string/서로_다른_다양한_문화가" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Body1_700"
+            android:gravity="center"
+            android:textColor="@color/gray_50"
+            android:text="@string/하나로_화합하는" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="4dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Body1_700"
+                android:gravity="center"
+                android:layout_marginRight="4dp"
+                android:textColor="@color/gray_50"
+                android:text="@string/싱크에서" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Body1_700"
+                android:gravity="center"
+                android:textColor="@color/gray_90"
+                android:text="@string/싱크를_맞춰봐요" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/login_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginBottom="120dp"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:id="@+id/kakao_login_btn"
+            android:layout_width="328dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:background="@drawable/bg_btn_kakao_login">
+
+            <ImageView
+                android:layout_width="150dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_login_kakao"/>
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/google_login_btn"
+            android:layout_width="328dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_btn_google_login">
+
+            <ImageView
+                android:layout_width="145dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_login_google"/>
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

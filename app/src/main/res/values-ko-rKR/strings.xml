@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Sync-front</string>
     <!-- TODO: Remove or change this placeholder text -->
@@ -58,8 +59,6 @@
     <string name="커뮤니티_댓글">커뮤니티 댓글</string>
     <string name="언어_설정">언어 설정</string>
     <string name="로그아웃">로그아웃</string>
-    <string name="check_logout">로그아웃 하시겠어요?</string>
-    <string name="logout_message">언제든 싱크에 로그인할 수 있어요</string>
     <string name="no">아니요</string>
     <string name="yes">네</string>
     <string name="회원탈퇴">회원 탈퇴</string>
@@ -203,8 +202,8 @@
     <!--  채팅  -->
     <string name="chattingRooms">나의 싱크 채팅방</string>
     <string name="input_message">메세지를 입력하세요.</string>
-    
-    <!--  로그인 뷰페이저  -->
+    <string name="check_logout">로그아웃 하시겠어요?</string>
+    <string name="logout_message">언제든 싱크에 로그인할 수 있어요</string>
     <string name="내가_원하는_시간에">내가 원하는 시간에</string>
     <string name="싱크를_개설">싱크를 개설하고 참여해보세요!</string>
     <string name="온보딩에서_고른_성향과">온보딩에서 고른 성향과 관심사에 따라</string>

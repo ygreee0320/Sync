@@ -2,6 +2,7 @@ package com.example.sync_front.api_server
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
+import okhttp3.RequestBody
 
 @Parcelize
 data class Onboarding(
@@ -34,7 +35,12 @@ data class ChatMessageRequestDto(
     val chatSession: String,
     val fromUserName: String,
     val toRoomName: String,
-    val content: String
+    val content: String,
+    val image: String
+)
+
+data class image(
+    val image: ByteArray
 )
 
 data class ChatMessageListRequestDto(

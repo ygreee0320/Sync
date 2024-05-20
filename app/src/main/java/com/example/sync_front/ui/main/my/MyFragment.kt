@@ -60,7 +60,7 @@ class MyFragment : Fragment() {
     }
 
     private fun loadMe() {
-        MypageManager.mypage(authToken!!) { response ->
+        MypageManager.mypage(authToken!!, "한국어") { response ->
             if (response?.status == 200) {
                 binding.username.text = response.data.name
                 binding.userschool.text = response.data.university

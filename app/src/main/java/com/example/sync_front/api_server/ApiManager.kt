@@ -10,6 +10,7 @@ import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import retrofit2.http.Url
 
 object LoginManager {
     fun sendLogin(authToken: String, platform: Platform, callback: (User?) -> Unit) {
@@ -62,6 +63,26 @@ object LoginManager {
 }
 
 object CommunityManager {
+    fun getImage(authToken: String, type: RequestBody) {
+        val apiService = RetrofitClient().communityService
+        val call = apiService.getImage("https://kusitms28.store/test", "application/json", authToken, type)
+
+        call.enqueue(object : Callback<String> {
+            override fun onResponse(call: Call<String>, response: Response<String>) {
+                if (response.isSuccessful) {
+
+                } else {
+                    val errorBody = response.errorBody()?.string()
+                    Log.e("서버 테스트", "오류1: $errorBody")
+                }
+            }
+
+            override fun onFailure(call: Call<String>, t: Throwable) {
+                Log.e("서버 테스트", "오류2: ${t.message}")
+            }
+        })
+    }
+
     fun getCommunity(authToken: String, type: String, callback: (List<Community>?) -> Unit) {
         val apiService = RetrofitClient().communityService
         val call = apiService.getCommunity("application/json", authToken, type)
@@ -452,9 +473,9 @@ object EmailManager {
 }
 
 object MypageManager {
-    fun mypage(authToken: String, callback: (MypageResponse?) -> Unit) {
+    fun mypage(authToken: String, language: String, callback: (MypageResponse?) -> Unit) {
         val apiService = RetrofitClient().mypageService
-        val call = apiService.mypage("application/json", authToken)
+        val call = apiService.mypage("application/json", authToken, language)
 
         call.enqueue(object : Callback<MypageResponse> {
             override fun onResponse(call: Call<MypageResponse>, response: Response<MypageResponse>) {

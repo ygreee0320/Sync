@@ -12,7 +12,8 @@ interface MypageService {
     @GET("mypage")
     fun mypage(
         @Header("Content-Type") application: String,
-        @Header("Authorization") accessToken: String
+        @Header("Authorization") accessToken: String,
+        @Query("language") language: String,
     ): Call<MypageResponse>
 
     @GET("mypage/mysync")

@@ -6,8 +6,11 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AlertDialog
 import com.example.sync_front.R
 import com.example.sync_front.databinding.ActivitySettingBinding
+import com.example.sync_front.databinding.PopupLogoutBinding
+import com.example.sync_front.ui.login.LoginActivity
 
 class SettingActivity : AppCompatActivity() {
     lateinit var binding: ActivitySettingBinding
@@ -45,6 +48,10 @@ class SettingActivity : AppCompatActivity() {
             intent.putStringArrayListExtra("itemList", ArrayList(itemList))
             startActivityForResult(intent, REQUEST_CODE)
         }
+
+        binding.logout.setOnClickListener {
+            showPopup()
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -54,6 +61,42 @@ class SettingActivity : AppCompatActivity() {
             val selectedItem = data?.getStringExtra("selectedItem")
             Log.d("my log", "전달 받은 값: $selectedItem")
             binding.language.setText(selectedItem)
+        }
+    }
+
+    private fun showPopup() {
+        val popupLayoutBinding = PopupLogoutBinding.inflate(layoutInflater)
+        val popupView = popupLayoutBinding.root
+
+        val alertDialogBuilder = AlertDialog.Builder(this)
+        alertDialogBuilder.setView(popupView)
+
+        val alertDialog = alertDialogBuilder.create()
+        alertDialog.show()
+
+        // 팝업 레이아웃 내의 버튼에 대한 클릭 리스너
+        popupLayoutBinding.doneBtn.setOnClickListener {
+
+            val sharedPreferences = this.getSharedPreferences("my_token", Context.MODE_PRIVATE)
+            val editor = sharedPreferences.edit()
+
+            editor.putString("access_token", null) // 리셋
+            editor.putString("auth_token", null)
+            editor.putString("email", null)
+            editor.putString("name", null)
+            editor.putString("sessionId", null)
+            editor.apply()
+
+            alertDialog.dismiss() // 팝업 닫기
+
+            // Launch LoginActivity and clear the activity stack
+            val intent = Intent(this, LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+        }
+
+        popupLayoutBinding.cancelBtn.setOnClickListener {
+            alertDialog.dismiss() // 팝업 닫기
         }
     }
 
