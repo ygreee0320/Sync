@@ -132,8 +132,8 @@ class MyFragment : Fragment() {
             startActivity(intent)
         }
         binding.questionBtn.setOnClickListener {
-            //val intent = Intent(context, SyncActivity::class.java)
-            //startActivity(intent)
+            val intent = Intent(context, QuestionActivity::class.java)
+            startActivity(intent)
         }
         binding.mySync1.setOnClickListener { // 내가 개설한 싱크 목록
             binding.mySync1Txt.setTextColor(Color.WHITE)

@@ -63,6 +63,18 @@
     <string name="no">아니요</string>
     <string name="yes">네</string>
     <string name="회원탈퇴">회원 탈퇴</string>
+    <string name="자주_묻는_질문">자주 묻는 질문</string>
+    <string name="싱크_이용_방법">싱크 이용 방법</string>
+    <string name="싱크에_오신">싱크에 오신 걸 환영해요!</string>
+    <string name="싱크는_외국인과">싱크는 외국인과 한국인의 지속적인 네트워킹을 할 수 있는 서비스입니다:)</string>
+    <string name="먼저_싱크에">먼저 싱크에 참여해보실래요?</string>
+    <string name="싱크는_모임">싱크는 \'모임\'을 말합니다. 맞춤 추천되는 싱크 중 하나에 가입해보세요!</string>
+    <string name="원하는_싱크가">원하는 싱크가 없나요?</string>
+    <string name="하고_싶은_콘텐츠">하고 싶은 콘텐츠를 담은 싱크를 개설하여 싱크장이 되어보세요!</string>
+    <string name="한국생활에_대한">한국 생활에 대한 정보를 공유하고 싶나요?</string>
+    <string name="커뮤니티에서_한국">커뮤니티에서 한국 생활에 대한 정보를 공유하며 도움을 주고 받아보세요.</string>
+    <string name="온보딩_설정_변경">온보딩 설정 변경</string>
+    <string name="마이페이지_내프로필">마이페이지 - 내프로필 을 선택하면 온보딩 때 설정한 정보를 변경할 수 있어요.</string>
     <!--  성별  -->
     <string name="woman">여성</string>
     <string name="man">남성</string>
@@ -203,7 +215,7 @@
     <!--  채팅  -->
     <string name="chattingRooms">나의 싱크 채팅방</string>
     <string name="input_message">메세지를 입력하세요.</string>
-    
+
     <!--  로그인 뷰페이저  -->
     <string name="내가_원하는_시간에">내가 원하는 시간에</string>
     <string name="싱크를_개설">싱크를 개설하고 참여해보세요!</string>
