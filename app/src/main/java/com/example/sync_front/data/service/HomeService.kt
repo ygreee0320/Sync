@@ -12,14 +12,14 @@ interface HomeService {
     @POST("sync/friend")
     fun postFriendSyncs(
         @Header("Content-Type") application: String,
-        @Header("Authorization") authorization: String,
+        @Header("Authorization") authorization: String?,
         @Body request: SyncRequest
     ): Call<SyncResponse>
 
     @POST("sync/associate")
     fun postAssociateSyncs(
         @Header("Content-Type") application: String,
-        @Header("Authorization") authorization: String,
+        @Header("Authorization") authorization: String?,
         @Body request: AssociateSyncRequest
     ): Call<SyncResponse>
 
@@ -27,7 +27,7 @@ interface HomeService {
     @GET("sync/recommend")
     fun getRecommendSyncs(
         @Header("Content-Type") contentType: String = "application/json",
-        @Header("Authorization") authorization: String,
+        @Header("Authorization") authorization: String?,
         @Query("userId") userId: Long
     ): Call<SyncResponse>
 

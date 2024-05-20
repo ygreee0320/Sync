@@ -57,6 +57,9 @@ class HomeFragment : Fragment() {
         name = sharedPreferences.getString("name", null)!!
 
         binding.homeUsername.text = name
+
+
+
     }
 
     private fun setupRecyclerView() {
@@ -150,8 +153,8 @@ class HomeFragment : Fragment() {
 
     private fun setupClickListeners() {
         binding.fabOpen.setOnClickListener {
-            viewModel.token?.let { token ->
-                openOpenActivity(token)
+            viewModel.authToken?.let { authToken ->
+                openOpenActivity(authToken)
             }
         }
     }

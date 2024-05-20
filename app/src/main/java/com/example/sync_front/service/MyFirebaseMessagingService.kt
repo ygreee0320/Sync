@@ -69,12 +69,36 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
         // Android Oreo 이상에서는 알림 채널을 설정합니다.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(
-                "MyNotifications",
-                "My Notifications",
+            val chatChannel = NotificationChannel(
+                "ChatChannel",
+                "Chat Notifications",
                 NotificationManager.IMPORTANCE_DEFAULT
             )
-            notificationManager.createNotificationChannel(channel)
+            val communityChannel = NotificationChannel(
+                "CommunityChannel",
+                "Community Notifications",
+                NotificationManager.IMPORTANCE_DEFAULT
+            )
+            val openChatChannel = NotificationChannel(
+                "OpenChatChannel",
+                "OpenChat Notifications",
+                NotificationManager.IMPORTANCE_DEFAULT
+            )
+            val remindChannel = NotificationChannel(
+                "RemindChannel",
+                "Remind Notifications",
+                NotificationManager.IMPORTANCE_DEFAULT
+            )
+            val reviewChannel = NotificationChannel(
+                "ReviewChannel",
+                "Review Notifications",
+                NotificationManager.IMPORTANCE_DEFAULT
+            )
+            notificationManager.createNotificationChannel(chatChannel)
+            notificationManager.createNotificationChannel(communityChannel)
+            notificationManager.createNotificationChannel(openChatChannel)
+            notificationManager.createNotificationChannel(remindChannel)
+            notificationManager.createNotificationChannel(reviewChannel)
         }
 
         // 알림을 클릭했을 때 열릴 액티비티 설정
@@ -91,7 +115,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         }
 
         // 알림 구성
-        val notification = NotificationCompat.Builder(this, "MyNotifications")
+        val notification = NotificationCompat.Builder(this, "ChatChannel")
             .setContentTitle(title)
             .setContentText(message)
             .setSmallIcon(R.drawable.ic_notification)
