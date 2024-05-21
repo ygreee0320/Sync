@@ -5,15 +5,19 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sync_front.R
 import com.example.sync_front.databinding.FragmentOpenThemeBinding
+import android.util.Log
 
 
 class OpenThemeFragment : Fragment() {
     private var _binding: FragmentOpenThemeBinding? = null
     private val binding get() = _binding!!
+    private val openViewModel: OpenViewModel by activityViewModels()
+
     private lateinit var adapter: SelectThemeAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,6 +30,7 @@ class OpenThemeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupClickListeners()
+        observeViewModel()
         initSetting()
         updateSelectList()
     }
@@ -33,15 +38,21 @@ class OpenThemeFragment : Fragment() {
     private fun initSetting() {
         binding.doneBtn.isEnabled = false
         adapter = SelectThemeAdapter(emptyList<SelectTheme>()) {}
+    }
 
+    private fun observeViewModel() {
+        openViewModel.sharedData.observe(viewLifecycleOwner) { data ->
+            Log.d("OpenThemeFragment", "Received sync type: ${data.syncType}")
+            // 데이터를 기반으로 UI 업데이트나 다른 로직 수행
+        }
     }
 
     private fun updateDoneButtonBackground() {
         if (binding.doneBtn.isEnabled) { // 다음 버튼 스타일 변경
-            binding.doneBtn.setTextColor(context!!.resources.getColor(R.color.white))
+            binding.doneBtn.setTextColor(requireContext().resources.getColor(R.color.white))
             binding.doneBtn.setBackgroundResource(R.drawable.btn_default)
         } else {
-            binding.doneBtn.setTextColor(context!!.resources.getColor(R.color.gray_70))
+            binding.doneBtn.setTextColor(requireContext().resources.getColor(R.color.gray_70))
             binding.doneBtn.setBackgroundResource(R.drawable.btn_gray_10)
         }
     }

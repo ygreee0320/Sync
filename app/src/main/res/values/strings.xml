@@ -245,4 +245,13 @@
     <string name="all">전체</string>
     <string name="foreign_language">외국어</string>
     <string name="all_see">전체보기 ></string>
+    <string name="routine_explain1">매주 싱크가 열리는</string>
+    <string name="routine_explain2">요일과 시간을 알려주세요</string>
+    <string name="월">월</string>
+    <string name="화">화</string>
+    <string name="수">수</string>
+    <string name="목">목</string>
+    <string name="금">금</string>
+    <string name="토">토</string>
+    <string name="일">일</string>
 </resources>

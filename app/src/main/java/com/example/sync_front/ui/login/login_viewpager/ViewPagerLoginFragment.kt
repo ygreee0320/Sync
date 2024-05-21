@@ -92,7 +92,7 @@ class ViewPagerLoginFragment : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        when(requestCode) {
+        when (requestCode) {
             GOOGLE_LOGIN -> {
                 try {
                     val task = GoogleSignIn.getSignedInAccountFromIntent(data)
@@ -105,7 +105,7 @@ class ViewPagerLoginFragment : Fragment() {
                     Log.d("my log", account.email ?: "")
                     Log.d("my log", "id 토큰 ${account.idToken}")
 
-                    LoginManager.getAccessToken(authCode!!){ response ->
+                    LoginManager.getAccessToken(authCode!!) { response ->
                         response?.let {
                             Log.d("my log", "$response")
 
@@ -123,7 +123,8 @@ class ViewPagerLoginFragment : Fragment() {
 
     private fun sendLoginToServer(platform: String, accessToken: String) {
         // 저장된 fcm토큰 읽어오기
-        val sharedPreferences = requireActivity().getSharedPreferences("my_token", Context.MODE_PRIVATE)
+        val sharedPreferences =
+            requireActivity().getSharedPreferences("my_token", Context.MODE_PRIVATE)
         val fcmToken = sharedPreferences.getString("fcm_token", "1234")
         Log.d("my log", "현재 토큰 값: $fcmToken")
 
@@ -134,11 +135,15 @@ class ViewPagerLoginFragment : Fragment() {
                 Log.d("my log", "서버 - 로그인 성공")
 
                 // 토큰 저장
-                val sharedPreferences = requireContext().getSharedPreferences("my_token", Context.MODE_PRIVATE)
+                val sharedPreferences =
+                    requireContext().getSharedPreferences("my_token", Context.MODE_PRIVATE)
                 val editor = sharedPreferences.edit()
 
                 editor.putString("access_token", accessToken) // 액세스 토큰 저장
-                editor.putString("auth_token", "Bearer ${response.accessToken}") // api 요청할 authToken
+                editor.putString(
+                    "auth_token",
+                    "Bearer ${response.accessToken}"
+                ) // api 요청할 authToken
                 editor.putString("email", response.email)
                 editor.putString("name", response.name)
                 editor.putString("sessionId", response.sessionId)
@@ -150,8 +155,8 @@ class ViewPagerLoginFragment : Fragment() {
                     startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
                     //finish()
                 } else {
-                    val intent = Intent(requireContext(), OnboardingActivity::class.java)
-//                    val intent = Intent(requireContext(), MainActivity::class.java)
+//                    val intent = Intent(requireContext(), OnboardingActivity::class.java)
+                    val intent = Intent(requireContext(), MainActivity::class.java)
                     startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
                     //finish()
                 }

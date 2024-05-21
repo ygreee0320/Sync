@@ -3,13 +3,16 @@ package com.example.sync_front.ui.open
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.DatePicker
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.sync_front.R
+import com.example.sync_front.data.model.SharedOpenSyncData
 import com.example.sync_front.databinding.FragmentOpenTimeBinding
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -22,6 +25,9 @@ class OpenTimeFragment : Fragment() {
     private lateinit var timePickerDialog: TimePickerDialog
     private var dateSelected = false
     private var timeSelected = false
+    private val openViewModel: OpenViewModel by activityViewModels()
+    private var selectedDateTime: String = ""
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -33,8 +39,19 @@ class OpenTimeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initializeDatePickerDialog()
+        observeViewModel()
         initializeTimePickerDialog()
         setupClickListeners()
+    }
+
+    private fun observeViewModel() {
+        openViewModel.sharedData.observe(viewLifecycleOwner) { data ->
+            Log.d("OpenTimeFragment", "Received sync type: ${data.syncType}")
+            Log.d("OpenTimeFragment", "Received sync type: ${data.syncName}")
+            Log.d("OpenTimeFragment", "Received sync type: ${data.image}")
+            Log.d("OpenTimeFragment", "Received sync type: ${data.syncIntro}")
+            // 데이터를 기반으로 UI 업데이트나 다른 로직 수행
+        }
     }
 
     private fun initializeDatePickerDialog() {
@@ -46,7 +63,15 @@ class OpenTimeFragment : Fragment() {
                 // 날짜 객체를 생성합니다.
                 val date = Calendar.getInstance()
                 date.set(year, month, dayOfMonth)
-
+                // 시간이 이미 선택되었는지 확인하고 날짜와 시간을 결합
+                if (timeSelected) {
+                    selectedDateTime =
+                        SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(date.time) +
+                                " " + SimpleDateFormat(
+                            "HH:mm",
+                            Locale.getDefault()
+                        ).format(calendar.time)
+                }
                 // 날짜와 요일을 함께 표시하는 포맷을 설정합니다.
                 val dateFormat = SimpleDateFormat("M월 d일 (E)", Locale.KOREA)
                 val formattedDate = dateFormat.format(date.time)
@@ -80,7 +105,15 @@ class OpenTimeFragment : Fragment() {
                 // 캘린더 객체에 선택된 시간을 설정
                 calendar.set(Calendar.HOUR_OF_DAY, selectedHour)
                 calendar.set(Calendar.MINUTE, selectedMinute)
-
+                // 날짜가 이미 선택되었는지 확인하고 날짜와 시간을 결합
+                if (dateSelected) {
+                    selectedDateTime =
+                        SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(calendar.time) +
+                                " " + SimpleDateFormat(
+                            "HH:mm",
+                            Locale.getDefault()
+                        ).format(calendar.time)
+                }
                 // "a h:mm" 포맷으로 시간 형식 지정 (예: 오후 11:30)
                 val format = SimpleDateFormat("a h:mm", Locale.getDefault())
                 val formattedTime = format.format(calendar.time)
@@ -124,6 +157,9 @@ class OpenTimeFragment : Fragment() {
             findNavController().navigateUp() // 이전 프래그먼트로
         }
         binding.doneBtn.setOnClickListener {
+            val currentData = openViewModel.sharedData.value?: SharedOpenSyncData()
+            currentData.date = selectedDateTime
+            openViewModel.updateData(currentData)
             findNavController().navigate(R.id.action_openTimeFragment_to_openLocationFragment)
         }
     }

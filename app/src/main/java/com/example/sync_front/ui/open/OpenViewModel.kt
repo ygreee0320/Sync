@@ -28,9 +28,9 @@ class OpenViewModel : ViewModel() {
     val sharedData = MutableLiveData<SharedOpenSyncData>()
 
     fun updateData(data: SharedOpenSyncData) {
-        sharedData.value = data
+        sharedData.postValue(data)
     }
-
+/*
     //여기부터는 아직 안 함
     var authToken: String? = null
     var profileUri: Uri? = null
@@ -114,4 +114,7 @@ class OpenViewModel : ViewModel() {
             detailType = "languageExchange"
         )
     }
+
+    */
+
 }

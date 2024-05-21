@@ -14,6 +14,8 @@ import android.net.Uri
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.net.toUri
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.sync_front.api_server.RetrofitClient
 import com.example.sync_front.databinding.FragmentOpenReaderBinding
@@ -39,9 +41,9 @@ class OpenReaderFragment : Fragment() {
     private var _binding: FragmentOpenReaderBinding? = null
     private val binding get() = _binding!!
     private var authToken: String? = null // 로그인 토큰
-
-
-    private var profileUri: Uri? = null  // 프로필 uri
+    private val openViewModel: OpenViewModel by activityViewModels()
+    private var profileUri: Uri? = openViewModel.sharedData.value?.image.toString().toUri()
+   /* private var profileUri: Uri? = null  // 프로필 uri
     private val singleImagePicker =
         registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri: Uri? ->
             if (uri != null) {
@@ -56,7 +58,7 @@ class OpenReaderFragment : Fragment() {
                 Toast.makeText(requireContext(), "이미지를 선택하지 않았습니다.", Toast.LENGTH_LONG).show()
             }
         }
-
+*/
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -67,17 +69,30 @@ class OpenReaderFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        observeViewModel()
         binding.doneBtn.setOnClickListener {
             uploadData()
         }
 
-        binding.profileImg.setOnClickListener {
+       /* binding.profileImg.setOnClickListener {
             singleImagePicker.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageAndVideo))
-        }
+        }*/
     }
 
-
+    private fun observeViewModel() {
+        openViewModel.sharedData.observe(viewLifecycleOwner) { data ->
+            Log.d("OpenReaderFragment", "Received sync type: ${data.syncType}")
+            Log.d("OpenReaderFragment", "Received sync type: ${data.syncName}")
+            Log.d("OpenReaderFragment", "Received sync type: ${data.image}")
+            Log.d("OpenReaderFragment", "Received sync type: ${data.syncIntro}")
+            Log.d("OpenReaderFragment", "Received sync type: ${data.date}")
+            Log.d("OpenReaderFragment", "Received sync type: ${data.regularDay}")
+            Log.d("OpenReaderFragment", "Received sync type: ${data.regularTime}")
+            Log.d("OpenReaderFragment", "Received sync type: ${data.location}")
+            Log.d("OpenReaderFragment", "Received sync type: ${data.member_min}")
+            Log.d("OpenReaderFragment", "Received sync type: ${data.member_max}")
+        }
+    }
     private fun uploadData() {
         val sharedPreferences =
             requireActivity().getSharedPreferences("my_token", Context.MODE_PRIVATE)
@@ -113,23 +128,23 @@ class OpenReaderFragment : Fragment() {
                         compressedImage.name,
                         requestFile
                     )
-
+                    val currentData = openViewModel.sharedData.value ?: SharedOpenSyncData()
                     // Prepare the OpenSync object as before
                     val sync = SharedOpenSyncData(
-                        userIntro = "사용자 소개",
-                        syncIntro = "모임 소개",
-                        syncType = "내친소",
-                        syncName = "모임 이름",
+                        userIntro = currentData.userIntro,
+                        syncIntro = currentData.syncIntro,
+                        syncType = currentData.syncType,
+                        syncName = currentData.syncName,
                         image = compressedImage.absolutePath,
-                        location = "서울시 성북구",
-                        date = "2023-04-13 15:30",
-                        regularDay = "수",
-                        regularTime = "15:30",
-                        routineDate = "2023-04-13 15:30",
-                        member_min = 5,
-                        member_max = 10,
-                        type = "외국어",
-                        detailType = "languageExchange"
+                        location = currentData.location,
+                        date = currentData.date,
+                        regularDay = currentData.regularDay,
+                        regularTime = currentData.regularTime,
+                        routineDate = currentData.routineDate,
+                        member_min = currentData.member_min,
+                        member_max = currentData.member_max,
+                        type = "액티비티",
+                        detailType = "tennis"
                     )
 
                     val gson = Gson()

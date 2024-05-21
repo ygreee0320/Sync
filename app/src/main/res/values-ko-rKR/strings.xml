@@ -242,5 +242,7 @@
     <string name="foreign_language">외국어</string>
     <string name="all_see">전체보기 ></string>
     <string name="내친소_싱크로_실제_친구들끼리_함께_만나요">내친소 싱크로 실제 친구들끼리 함께 만나요</string>
+    <string name="routine_explain1">매주 싱크가 열리는</string>
+    <string name="routine_explain2">요일과 시간을 알려주세요</string>
 
 </resources>

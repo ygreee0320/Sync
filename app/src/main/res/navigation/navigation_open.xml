@@ -40,6 +40,9 @@
         <action
             android:id="@+id/action_openIntroductionFragment_to_openTimeFragment"
             app:destination="@id/openTimeFragment" />
+        <action
+            android:id="@+id/action_openIntroductionFragment_to_openFirstFragment"
+            app:destination="@id/openFirstFragment" />
     </fragment>
     <fragment
         android:id="@+id/openTimeFragment"
@@ -73,4 +76,22 @@
         android:name="com.example.sync_front.ui.open.OpenReaderFragment"
         android:label="fragment_open_leader"
         tools:layout="@layout/fragment_open_reader" />
+    <fragment
+        android:id="@+id/openFirstFragment"
+        android:name="com.example.sync_front.ui.open.OpenFirstFragment"
+        android:label="fragment_open_first"
+        tools:layout="@layout/fragment_open_first" >
+        <action
+            android:id="@+id/action_openFirstFragment_to_openRoutineFragment"
+            app:destination="@id/openRoutineFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/openRoutineFragment"
+        android:name="com.example.sync_front.ui.open.OpenRoutineFragment"
+        android:label="fragment_open_routine"
+        tools:layout="@layout/fragment_open_routine" >
+        <action
+            android:id="@+id/action_openRoutineFragment_to_openLocationFragment"
+            app:destination="@id/openLocationFragment" />
+    </fragment>
 </navigation>

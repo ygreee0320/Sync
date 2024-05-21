@@ -1,6 +1,7 @@
 package com.example.sync_front.ui.open
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.sync_front.R
+import com.example.sync_front.data.model.SharedOpenSyncData
 import com.example.sync_front.databinding.FragmentOpenTypeBinding
 import com.google.android.material.internal.ViewUtils.hideKeyboard
 
@@ -57,6 +59,10 @@ class OpenTypeFragment : Fragment() {
         binding.doneBtn.setOnClickListener {
             if (binding.doneBtn.isEnabled) {
                 updateSyncType()
+                Log.d(
+                    "OpenTypeFragment",
+                    "Received sync type: ${openViewModel.sharedData}"
+                )
                 findNavController().navigate(R.id.action_openTypeFragment_to_openThemeFragment)
             }
         }
@@ -69,13 +75,13 @@ class OpenTypeFragment : Fragment() {
             binding.boxFriend.isSelected -> "내친소"
             else -> ""
         }
+        Log.d("OpenTypeFragment", "Updating sync type: $newSyncType")
 
-        // ViewModel에 있는 sharedData의 현재 값에 접근하여 업데이트
-        openViewModel.sharedData.value?.let {
-            it.syncType = newSyncType
-            openViewModel.updateData(it)
-        }
+        val currentData = openViewModel.sharedData.value ?: SharedOpenSyncData()
+        currentData.syncType = newSyncType
+        openViewModel.updateData(currentData)
     }
+
 
     private fun checkNextButtonState() {
         val isAnySubscribeSelected = listOf(

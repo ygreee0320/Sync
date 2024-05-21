@@ -3,17 +3,21 @@ package com.example.sync_front.ui.open
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.sync_front.R
+import com.example.sync_front.data.model.SharedOpenSyncData
 import com.example.sync_front.databinding.FragmentOpenTitleBinding
 
 class OpenTitleFragment : Fragment() {
     private var _binding: FragmentOpenTitleBinding? = null
     private val binding get() = _binding!!
+    private val openViewModel: OpenViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,16 +29,26 @@ class OpenTitleFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        observeViewModel()
         setUpChangedListener()
         setupClickListeners()
     }
-
+    private fun observeViewModel() {
+        openViewModel.sharedData.observe(viewLifecycleOwner) { data ->
+            Log.d("OpenTitleFragment", "Received sync type: ${data.syncType}")
+            Log.d("OpenTitleFragment", "Received sync type: ${data.syncName}")
+            // 데이터를 기반으로 UI 업데이트나 다른 로직 수행
+        }
+    }
     private fun setupClickListeners() {
         binding.beforeBtn.setOnClickListener {
             findNavController().navigateUp() // 이전 프래그먼트로
         }
 
         binding.doneBtn.setOnClickListener {
+            val currentData = openViewModel.sharedData.value ?: SharedOpenSyncData()
+            currentData.syncName = binding.title.text.toString()
+            openViewModel.updateData(currentData)
             findNavController().navigate(R.id.action_openTitleFragment_to_openIntroductionFragment)
         }
     }
