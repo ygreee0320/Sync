@@ -11,6 +11,7 @@ import com.google.android.material.tabs.TabLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.example.sync_front.R
 import com.example.sync_front.data.model.Sync
 import com.example.sync_front.ui.main.home.SyncAdapter
@@ -25,8 +26,6 @@ class SyncActivity : AppCompatActivity() {
     private lateinit var sameSyncAdapter: SyncAdapter
     private var syncId: Long = 0
     private var smallerDataName: String = ""
-    val token =
-        "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMCIsImlhdCI6MTcxNTk3MDk0MSwiZXhwIjoxNzE2NTc1NzQxfQ.ojgMuwzEDLxRXnWTAmHHgzXx48KSZv9LZMdYP_w0X2A"  // Bearer 키워드 추가
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +36,7 @@ class SyncActivity : AppCompatActivity() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        viewModel.fetchSyncDetail(syncId, token)
+        viewModel.fetchSyncDetail(syncId)
         circleGraphView = binding.circle  // circleGraphView 초기화
         setToolbarButton()
         setupTabs(binding.root)
@@ -47,8 +46,8 @@ class SyncActivity : AppCompatActivity() {
     }
 
     private fun subscribeUi() {
-        viewModel.fetchReviews(token, syncId, 3)
-        viewModel.fetchSameSyncData(token, syncId, 3)
+        viewModel.fetchReviews(syncId, 3)
+        viewModel.fetchSameSyncData(syncId, 3)
     }
 
     private fun observeViewModel() {
@@ -60,6 +59,10 @@ class SyncActivity : AppCompatActivity() {
         })
         // ViewModel 의 LiveData 관찰자 설정
         viewModel.syncDetail.observe(this, Observer { syncDetail ->
+            Glide.with(binding.ivSyncImg.context)
+                .load(syncDetail.syncImage)
+                .into(binding.ivSyncImg)
+
             // regularDate가 null인지 체크
             if (syncDetail.regularDate == null) {
                 // regularDate가 null이면, "일시"로 텍스트 설정
@@ -113,22 +116,22 @@ class SyncActivity : AppCompatActivity() {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 when (tab?.position) {
                     0 -> {
-                        viewModel.fetchGraphData("national", syncId, token)
+                        viewModel.fetchGraphData("national", syncId)
                         updateGraphTextViews("${smallerDataName}보다 ", "의 비율이 더 높은 편이에요")
                     }
 
                     1 -> {
-                        viewModel.fetchGraphData("gender", syncId, token)
+                        viewModel.fetchGraphData("gender", syncId)
                         updateGraphTextViews("", "의 참여율이 더 높은 편이에요.")
                     }
 
                     2 -> {
-                        viewModel.fetchGraphData("university", syncId, token)
+                        viewModel.fetchGraphData("university", syncId)
                         updateGraphTextViews("", "의 참여율이 더 높은 편이에요.")
                     }
 
                     3 -> {
-                        viewModel.fetchGraphData("participate", syncId, token)
+                        viewModel.fetchGraphData("participate", syncId)
                         updateGraphTextViews("싱크에 ", " 멤버들이 가장 많은 편이에요.")
                     }
                 }
