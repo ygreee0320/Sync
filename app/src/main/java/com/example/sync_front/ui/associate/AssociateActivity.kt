@@ -45,8 +45,8 @@ class AssociateActivity : AppCompatActivity() {
     }
 
     private fun setToolbarButton() {
-        binding.listToolbar.setNavigationOnClickListener {
-            onBackPressedDispatcher.onBackPressed()
+        binding.backBtn.setOnClickListener {
+            finish()
         }
     }
 
