@@ -1,5 +1,6 @@
 package com.example.sync_front.ui.onboarding
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -10,9 +11,16 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sync_front.R
+import com.example.sync_front.api_server.LoginManager.sendOnboarding
+import com.example.sync_front.data.model.OnboardingRequest
 import com.example.sync_front.databinding.FragmentInterestBinding
+import com.example.sync_front.ui.main.my.ModProfileActivity
 import com.example.sync_front.ui.main.my.SelectInterest
 import com.example.sync_front.ui.main.my.SelectInterestAdapter
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import java.io.File
 
 class InterestFragment : Fragment() {
     lateinit var binding: FragmentInterestBinding
@@ -25,6 +33,7 @@ class InterestFragment : Fragment() {
     private lateinit var univ: String
     private lateinit var type: String
     private val args: InterestFragmentArgs by navArgs()
+    private var authToken: String ?= null // 로그인 토큰
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -45,6 +54,10 @@ class InterestFragment : Fragment() {
         binding.doneBtn.isEnabled = false
         adapter = SelectInterestAdapter(emptyList<SelectInterest>()){}
 
+        // 저장된 토큰 읽어오기
+        val sharedPreferences = requireActivity().getSharedPreferences("my_token", Context.MODE_PRIVATE)
+        authToken = sharedPreferences.getString("auth_token", null)
+
         // 전달된 데이터 읽기
         language = args.onboarding.language!!
         profile = args.onboarding.profile
@@ -63,8 +76,6 @@ class InterestFragment : Fragment() {
             if (binding.doneBtn.isEnabled) {
                 // 온보딩 요청 API 필요
                 sendToServer()
-                val action = InterestFragmentDirections.actionInterestFragmentToOnboardingDoneFragment(name)
-                findNavController().navigate(action)
             }
         }
 
@@ -77,7 +88,26 @@ class InterestFragment : Fragment() {
         val clickedItems = adapter.getClickedItems()
         Log.d("my log", "선택된 관심사- $clickedItems")
 
+        val imagePart: MultipartBody.Part? = profile?.let {
+            val file = File(it)
+            if (file.exists()) {
+                val requestBody = RequestBody.create("image/*".toMediaTypeOrNull(), file)
+                MultipartBody.Part.createFormData("image", file.name, requestBody)
+            } else {
+                null
+            }
+        }
 
+        val request = OnboardingRequest(language, name, national, gender, univ, "", type, clickedItems)
+
+        sendOnboarding(authToken!!, imagePart, request) {
+            if (it == 201) {
+                Log.d("my log", "온보딩 완료!")
+
+                val action = InterestFragmentDirections.actionInterestFragmentToOnboardingDoneFragment(name)
+                findNavController().navigate(action)
+            }
+        }
     }
 
     private fun updateDoneButtonBackground() {

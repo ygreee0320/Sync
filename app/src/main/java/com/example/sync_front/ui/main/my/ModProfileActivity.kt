@@ -3,9 +3,11 @@ package com.example.sync_front.ui.main.my
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.database.Cursor
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
@@ -15,6 +17,10 @@ import com.bumptech.glide.Glide
 import com.example.sync_front.R
 import com.example.sync_front.api_server.MypageManager
 import com.example.sync_front.databinding.ActivityModProfileBinding
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import java.io.File
 
 class ModProfileActivity : AppCompatActivity() {
     lateinit var binding: ActivityModProfileBinding
@@ -63,6 +69,9 @@ class ModProfileActivity : AppCompatActivity() {
                 binding.gender.text = response.data.gender
                 binding.likePeople.text = response.data.syncType
 
+                val detailTypesString = response.data.detailTypes?.joinToString(", ") ?: ""
+                binding.like.text = detailTypesString
+
                 if (!response.data.image.isNullOrEmpty()) {
                     Glide.with(this)
                         .load(response.data.image)
@@ -104,7 +113,7 @@ class ModProfileActivity : AppCompatActivity() {
         }
 
         binding.doneBtn.setOnClickListener { // 수정 완료
-
+            modMypage()
         }
 
         binding.cancelBtn.setOnClickListener {
@@ -118,6 +127,44 @@ class ModProfileActivity : AppCompatActivity() {
 
         binding.backBtn.setOnClickListener {
             finish()
+        }
+    }
+
+    private fun modMypage() {
+        val name = binding.nameTxt.text.toString()
+        val gender = binding.gender.text.toString()
+        val syncType = binding.likePeople.text.toString()
+        val detailTypes = binding.like.text.toString().split(", ").map { it.trim() }
+
+        // Prepare the image file if it exists
+        val imagePart: MultipartBody.Part? = profile?.let {
+            val file = File(URIPathHelper().getPath(this, it) ?: return@let null)
+            val requestBody = RequestBody.create("image/*".toMediaTypeOrNull(), file)
+            MultipartBody.Part.createFormData("image", file.name, requestBody)
+        }
+
+        if (authToken != null) {
+            MypageManager.modMypage(authToken!!, name, gender, syncType, detailTypes, imagePart) { response ->
+                if (response != null) {
+                    Log.d("수정 완료", "")
+                } else {
+                }
+            }
+        } else {
+            }
+    }
+
+    class URIPathHelper {
+        fun getPath(context: Context, uri: Uri): String? {
+            val projection = arrayOf(MediaStore.Images.Media.DATA)
+            val cursor: Cursor? = context.contentResolver.query(uri, projection, null, null, null)
+            cursor?.use {
+                val columnIndex = it.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+                if (it.moveToFirst()) {
+                    return it.getString(columnIndex)
+                }
+            }
+            return null
         }
     }
 

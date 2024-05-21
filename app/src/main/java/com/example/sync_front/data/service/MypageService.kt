@@ -1,11 +1,10 @@
 package com.example.sync_front.data.service
 
-import com.example.sync_front.data.model.MySyncResponse
-import com.example.sync_front.data.model.MypageResponse
+import com.example.sync_front.data.model.*
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
-import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface MypageService {
 
@@ -15,6 +14,18 @@ interface MypageService {
         @Header("Authorization") accessToken: String,
         @Query("language") language: String,
     ): Call<MypageResponse>
+
+    @Multipart
+    @PATCH("mypage")
+    fun modMypage(
+        @Header("Content-Type") contentType: String,
+        @Header("Authorization") accessToken: String,
+        @Part image: MultipartBody.Part?,
+        @Part("name") name: ModName,
+        @Part("gender") gender: ModGender,
+        @Part("syncType") syncType: ModSyncType,
+        @Part("detailTypes") detailTypes: ModDetailTypes
+    ): Call<ModMypageResponse>
 
     @GET("mypage/mysync")
     fun mySyncList(

@@ -33,6 +33,10 @@ class SettingActivity : AppCompatActivity() {
         // 저장된 토큰 읽어오기
         val sharedPreferences = getSharedPreferences("my_token", Context.MODE_PRIVATE)
         authToken = sharedPreferences.getString("auth_token", null)
+
+        binding.chattingToggle.isChecked = true
+        binding.remindToggle.isChecked = true
+        binding.commentToggle.isChecked = true
     }
 
     private fun setupClickListeners() {

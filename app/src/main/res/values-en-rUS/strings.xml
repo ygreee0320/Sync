@@ -64,6 +64,10 @@
     <string name="회원탈퇴">회원 탈퇴</string>
     <!--  성별  -->
     <string name="자주_묻는_질문">자주 묻는 질문</string>
+    <string name="리뷰작성">리뷰 작성</string>
+    <string name="님">님,</string>
+    <string name="싱크_어떠셨나요">싱크 어떠셨나요?</string>
+    <string name="남겨주신_리뷰는">남겨 주신 리뷰는 싱크 소개 페이지에 공개됩니다.</string>
     <string name="woman">여성</string>
     <string name="man">남성</string>
     <string name="closed">비공개</string>
@@ -232,5 +236,7 @@
     <string name="커뮤니티에서_한국">커뮤니티에서 한국 생활에 대한 정보를 공유하며 도움을 주고 받아보세요.</string>
     <string name="온보딩_설정_변경">온보딩 설정 변경</string>
     <string name="마이페이지_내프로필">마이페이지 - 내프로필 을 선택하면 온보딩 때 설정한 정보를 변경할 수 있어요.</string>
+    <string name="작성완료">작성 완료</string>
+    <string name="리뷰를_작성해주세요">리뷰를 작성해 주세요.</string>
 
 </resources>

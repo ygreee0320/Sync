@@ -36,6 +36,29 @@ object LoginManager {
         })
     }
 
+    fun sendOnboarding(authToken: String, image: MultipartBody.Part?, request: OnboardingRequest, callback: (Int?) -> Unit) {
+        val apiService = RetrofitClient().loginService
+        val call = apiService.onboarding("application/json", authToken, image, request)
+
+        call.enqueue(object : Callback<OnboardingResponse> {
+            override fun onResponse(call: Call<OnboardingResponse>, response: Response<OnboardingResponse>) {
+                if (response.isSuccessful) {
+                    val userData = response.body()?.status
+                    callback(userData!!) // 사용자 데이터 전달
+                } else {
+                    val errorBody = response.errorBody()?.string()
+                    Log.e("서버 테스트", "오류1: $errorBody")
+                    callback(null)
+                }
+            }
+
+            override fun onFailure(call: Call<OnboardingResponse>, t: Throwable) {
+                Log.e("서버 테스트", "오류2: ${t.message}")
+                callback(null)
+            }
+        })
+    }
+
     fun getAccessToken(authCode:String, callback: (String?) -> Unit) { // 구글 액세스 토큰 요청
         val apiService = GoogleClient().loginService
 
@@ -496,6 +519,39 @@ object MypageManager {
         })
     }
 
+    fun modMypage(authToken: String, name: String, gender: String, syncType: String, detailTypes: List<String>, image: MultipartBody.Part?,
+                  callback: (ModMypageResponse?) -> Unit) {
+        val apiService = RetrofitClient().mypageService
+
+        val call = apiService.modMypage(
+            "multipart/form-data",
+            authToken,
+            image,
+            ModName(name),
+            ModGender(gender),
+            ModSyncType(syncType),
+            ModDetailTypes(detailTypes)
+        )
+
+        call.enqueue(object : Callback<ModMypageResponse> {
+            override fun onResponse(call: Call<ModMypageResponse>, response: Response<ModMypageResponse>) {
+                if (response.isSuccessful) {
+                    val userData = response.body()
+                    callback(userData) // 사용자 데이터 전달
+                } else {
+                    val errorBody = response.errorBody()?.string()
+                    Log.e("서버 테스트", "오류1: $errorBody")
+                    callback(null)
+                }
+            }
+
+            override fun onFailure(call: Call<ModMypageResponse>, t: Throwable) {
+                Log.e("서버 테스트", "오류2: ${t.message}")
+                callback(null)
+            }
+        })
+    }
+
     fun mySyncList(authToken: String, callback: (MySyncResponse?) -> Unit) {
         val apiService = RetrofitClient().mypageService
         val call = apiService.mySyncList("application/json", authToken)
@@ -559,6 +615,31 @@ object MypageManager {
             }
 
             override fun onFailure(call: Call<MySyncResponse>, t: Throwable) {
+                Log.e("서버 테스트", "오류2: ${t.message}")
+                callback(null)
+            }
+        })
+    }
+}
+
+object ReviewManager {
+    fun sendReview(authToken: String, request: ReviewModel, callback: (ReviewResponse?) -> Unit) {
+        val apiService = RetrofitClient().reviewService
+        val call = apiService.sendReview("application/json", authToken, request)
+
+        call.enqueue(object : Callback<ReviewResponse> {
+            override fun onResponse(call: Call<ReviewResponse>, response: Response<ReviewResponse>) {
+                if (response.isSuccessful) {
+                    val userData = response.body()
+                    callback(userData) // 사용자 데이터 전달
+                } else {
+                    val errorBody = response.errorBody()?.string()
+                    Log.e("서버 테스트", "오류1: $errorBody")
+                    callback(null)
+                }
+            }
+
+            override fun onFailure(call: Call<ReviewResponse>, t: Throwable) {
                 Log.e("서버 테스트", "오류2: ${t.message}")
                 callback(null)
             }

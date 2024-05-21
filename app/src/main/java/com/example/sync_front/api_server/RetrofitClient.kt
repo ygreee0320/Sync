@@ -8,6 +8,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -51,5 +52,6 @@ class RetrofitClient {
     val communityService = retrofit.create(CommunityService::class.java)
     val translationService = retrofit.create(TranslationService::class.java)
     val mypageService = retrofit.create(MypageService::class.java)
+    val reviewService = retrofit.create(ReviewService::class.java)
 
 }

@@ -54,11 +54,18 @@
         android:orientation="horizontal" >
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             style="@style/Body1_400"
             android:textColor="@color/gray_90"
             android:text="@string/menu4" />
+
+        <Switch
+            android:id="@+id/chatting_toggle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
 
     </LinearLayout>
 
@@ -72,11 +79,18 @@
         android:orientation="horizontal" >
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             style="@style/Body1_400"
             android:textColor="@color/gray_90"
             android:text="@string/모임_리마인드" />
+
+        <Switch
+            android:id="@+id/remind_toggle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
 
     </LinearLayout>
 
@@ -89,11 +103,18 @@
         android:orientation="horizontal" >
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             style="@style/Body1_400"
             android:textColor="@color/gray_90"
             android:text="@string/커뮤니티_댓글" />
+
+        <Switch
+            android:id="@+id/comment_toggle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
 
     </LinearLayout>
 
