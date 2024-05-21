@@ -398,10 +398,11 @@
 
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_open"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="10dp"
             android:backgroundTint="@color/biscay_50"
-            android:padding="10dp"
             android:src="@drawable/ic_fab_plus"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
