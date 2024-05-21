@@ -49,6 +49,7 @@ class OpenIntroductionFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.doneBtn.isEnabled = false
         setupClickListeners()
         setUpChangedListener()
     }
@@ -83,6 +84,11 @@ class OpenIntroductionFragment : Fragment() {
             override fun afterTextChanged(s: Editable?) {
                 binding.doneBtn.isEnabled = s?.isNotBlank() ?: false
                 updateDoneButtonBackground()
+                if (s.isNullOrEmpty()) {
+                    binding.textLayout.setBackgroundResource(R.drawable.bg_edit_text)
+                } else {
+                    binding.textLayout.setBackgroundResource(R.drawable.label_white_primary)
+                }
             }
         })
     }
