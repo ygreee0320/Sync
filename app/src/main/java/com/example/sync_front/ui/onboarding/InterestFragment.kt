@@ -17,6 +17,7 @@ import com.example.sync_front.databinding.FragmentInterestBinding
 import com.example.sync_front.ui.main.my.ModProfileActivity
 import com.example.sync_front.ui.main.my.SelectInterest
 import com.example.sync_front.ui.main.my.SelectInterestAdapter
+import com.google.gson.Gson
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -92,7 +93,7 @@ class InterestFragment : Fragment() {
             val file = File(it)
             if (file.exists()) {
                 val requestBody = RequestBody.create("image/*".toMediaTypeOrNull(), file)
-                MultipartBody.Part.createFormData("image", file.name, requestBody)
+                MultipartBody.Part.createFormData("profileImage", file.name, requestBody)
             } else {
                 null
             }
@@ -100,7 +101,11 @@ class InterestFragment : Fragment() {
 
         val request = OnboardingRequest(language, name, national, gender, univ, "", type, clickedItems)
 
-        sendOnboarding(authToken!!, imagePart, request) {
+        val gson = Gson()
+        val requestJson = gson.toJson(request)
+        val requestDtoBody = RequestBody.create("application/json".toMediaTypeOrNull(), requestJson)
+
+        sendOnboarding(authToken!!, imagePart, requestDtoBody) {
             if (it == 201) {
                 Log.d("my log", "온보딩 완료!")
 

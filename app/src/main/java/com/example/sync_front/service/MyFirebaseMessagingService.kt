@@ -57,6 +57,13 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         super.onNewToken(token)
         Log.d("FCM", "New token: $token")
 
+        // 토큰 저장
+        val sharedPreferences = this.getSharedPreferences("my_token", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+
+        editor.putString("fcm_token", token) // 액세스 토큰 저장
+        editor.apply()
+
         // 서버에 토큰 업데이트 API 호출
         val call = apiService.updateToken(TokenUpdateRequest(token))
         call.enqueue(object : retrofit2.Callback<Void> {

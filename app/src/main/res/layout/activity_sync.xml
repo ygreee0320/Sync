@@ -29,6 +29,7 @@
                 style="@style/Body1_700"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/gray_90"
                 android:text="@{viewModel.syncDetail.syncName ?? @string/test}" />
 
             <ImageView
@@ -61,6 +62,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@color/gray_5"
                 android:padding="16dp">
 
                 <com.google.android.material.imageview.ShapeableImageView
@@ -233,6 +235,7 @@
                             android:layout_height="68dp"
                             android:layout_gravity="center"
                             android:layout_marginRight="18dp"
+                            android:src="@drawable/img_profile_default"
                             android:scaleType="centerCrop" />
 
                         <LinearLayout
@@ -264,6 +267,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="4dp"
+                                android:textColor="@color/gray_50"
                                 android:text="@{String.valueOf(viewModel.syncDetail.userIntro) ?? @string/test}" />
                         </LinearLayout>
 
@@ -369,6 +373,7 @@
                         android:text="@string/more_view" />
 
                 </LinearLayout>
+
                 <!--내가 본 싱크와 같은 요일, 장소의 싱크-->
                 <LinearLayout
                     android:id="@+id/sync_linear5"

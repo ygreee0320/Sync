@@ -1,5 +1,6 @@
 package com.example.sync_front.ui.sync
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -26,6 +27,7 @@ class SyncActivity : AppCompatActivity() {
     private lateinit var sameSyncAdapter: SyncAdapter
     private var syncId: Long = 0
     private var smallerDataName: String = ""
+    private var token: String ?= null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +39,15 @@ class SyncActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
 
         viewModel.fetchSyncDetail(syncId)
+        
+        // 저장된 토큰 읽어오기
+        val sharedPreferences = getSharedPreferences("my_token", Context.MODE_PRIVATE)
+        token = sharedPreferences.getString("auth_token", null)
+
+        viewModel.fetchGraphData("national", syncId, token!!)
+        updateGraphTextViews("${smallerDataName}보다 ", "의 비율이 더 높은 편이에요")
+
+        viewModel.fetchSyncDetail(syncId, token!!)
         circleGraphView = binding.circle  // circleGraphView 초기화
         setToolbarButton()
         setupTabs(binding.root)
@@ -68,6 +79,7 @@ class SyncActivity : AppCompatActivity() {
                 // regularDate가 null이면, "일시"로 텍스트 설정
                 binding.tvDateTitle.text = "일시"
                 binding.tvDate.text = syncDetail.date
+                binding.syncLinear4.visibility = View.GONE // 일회성은 리뷰 제거
             } else {
                 // regularDate가 null이 아니면, regularDate 값을 텍스트로 설정
                 binding.tvDate.text = "${syncDetail.regularDate}\n첫 모임 날짜: ${syncDetail.date}"
@@ -96,6 +108,12 @@ class SyncActivity : AppCompatActivity() {
                 }
             }
         })
+    }
+
+    private fun setupClickListeners() {
+        binding.btnBookmark.setOnClickListener {
+
+        }
     }
 
     private fun setToolbarButton() {
@@ -168,7 +186,7 @@ class SyncActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerView() {
-        reviewAdapter = ReviewAdapter(listOf())
+        reviewAdapter = ReviewAdapter(listOf(), token!!)
         binding.syncReviewRecyclerView.apply {
             adapter = reviewAdapter
             layoutManager = LinearLayoutManager(context)
