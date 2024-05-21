@@ -27,7 +27,7 @@ class SyncActivity : AppCompatActivity() {
     private lateinit var sameSyncAdapter: SyncAdapter
     private var syncId: Long = 0
     private var smallerDataName: String = ""
-    private var token: String ?= null
+    private var token: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,15 +39,15 @@ class SyncActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
 
         viewModel.fetchSyncDetail(syncId)
-        
+
         // 저장된 토큰 읽어오기
         val sharedPreferences = getSharedPreferences("my_token", Context.MODE_PRIVATE)
         token = sharedPreferences.getString("auth_token", null)
 
-        viewModel.fetchGraphData("national", syncId, token!!)
+        viewModel.fetchGraphData("national", syncId)
         updateGraphTextViews("${smallerDataName}보다 ", "의 비율이 더 높은 편이에요")
 
-        viewModel.fetchSyncDetail(syncId, token!!)
+        viewModel.fetchSyncDetail(syncId)
         circleGraphView = binding.circle  // circleGraphView 초기화
         setToolbarButton()
         setupTabs(binding.root)
