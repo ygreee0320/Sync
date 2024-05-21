@@ -4,8 +4,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.content.ContextCompat
-import com.example.sync_front.chatting.ChattingActivity
-import com.example.sync_front.ui.login.LoginActivity
+import com.example.sync_front.ui.friend.FriendActivity
+import com.example.sync_front.ui.type.TypeListActivity
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 import java.util.concurrent.ScheduledExecutorService
@@ -19,7 +19,7 @@ class SplashActivity : AppCompatActivity() {
         val mainExecutor: Executor = ContextCompat.getMainExecutor(this)
         backExecutor.schedule({
             mainExecutor.execute{
-                startActivity(Intent(applicationContext, LoginActivity::class.java))
+                startActivity(Intent(applicationContext, TypeListActivity::class.java))
                 finish()
             }
         }, 0, TimeUnit.SECONDS)
