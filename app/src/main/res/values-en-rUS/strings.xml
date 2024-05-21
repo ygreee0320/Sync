@@ -238,5 +238,9 @@
     <string name="마이페이지_내프로필">마이페이지 - 내프로필 을 선택하면 온보딩 때 설정한 정보를 변경할 수 있어요.</string>
     <string name="작성완료">작성 완료</string>
     <string name="리뷰를_작성해주세요">리뷰를 작성해 주세요.</string>
+    <string name="all">전체</string>
+    <string name="foreign_language">외국어</string>
+    <string name="all_see">전체보기 ></string>
+    <string name="내친소_싱크로_실제_친구들끼리_함께_만나요">내친소 싱크로 실제 친구들끼리 함께 만나요</string>
 
 </resources>
