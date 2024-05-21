@@ -25,6 +25,9 @@
         android:theme="@style/Theme.Syncfront"
         tools:targetApi="31">
         <activity
+            android:name=".ui.associate.AssociateActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.interest.InterestActivity"
             android:exported="false" />
         <activity

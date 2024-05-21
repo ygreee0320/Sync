@@ -19,6 +19,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.sync_front.R
 import com.example.sync_front.data.model.Sync
 import com.example.sync_front.databinding.FragmentHomeBinding
+import com.example.sync_front.ui.associate.AssociateActivity
 import com.example.sync_front.ui.friend.FriendActivity
 import com.example.sync_front.ui.interest.InterestActivity
 import com.example.sync_front.ui.login.LoginActivity
@@ -213,7 +214,8 @@ class HomeFragment : Fragment() {
             startActivity(intent)
         }
         binding.associateAll.setOnClickListener {
-
+            val intent = Intent(context, AssociateActivity::class.java)
+            startActivity(intent)
         }
     }
 
