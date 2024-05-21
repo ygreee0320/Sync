@@ -19,6 +19,7 @@ import com.example.sync_front.api_server.RetrofitClient
 import com.example.sync_front.databinding.FragmentOpenReaderBinding
 import com.example.sync_front.ui.main.MainActivity
 import com.example.sync_front.data.model.OpenSync
+import com.example.sync_front.data.model.PostOpenSync
 import com.example.sync_front.data.service.OpenResponse
 import com.google.gson.Gson
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -113,8 +114,7 @@ class OpenReaderFragment : Fragment() {
                     )
 
                     // Prepare the OpenSync object as before
-                    val sync = OpenSync(
-                        syncId = 123,
+                    val sync = PostOpenSync(
                         userIntro = "사용자 소개",
                         syncIntro = "모임 소개",
                         syncType = "내친소",
