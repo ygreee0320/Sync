@@ -23,6 +23,7 @@ import com.example.sync_front.ui.friend.FriendActivity
 import com.example.sync_front.ui.login.LoginActivity
 import com.example.sync_front.ui.open.OpenActivity
 import com.example.sync_front.ui.sync.SyncActivity
+import com.example.sync_front.ui.type.TypeListActivity
 
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
@@ -58,7 +59,6 @@ class HomeFragment : Fragment() {
         name = sharedPreferences.getString("name", null)!!
 
         binding.homeUsername.text = name
-
 
 
     }
@@ -159,11 +159,23 @@ class HomeFragment : Fragment() {
             }
         }
 
-        binding.friendAll.setOnClickListener{
+        binding.boxOnetime.setOnClickListener {
+            val intent = Intent(context, TypeListActivity::class.java).apply {
+                putExtra("selectedTab", "일회성") // "onetime" 탭 선택
+            }
+            startActivity(intent)
+        }
+        binding.boxPersistence.setOnClickListener {
+            val intent = Intent(context, TypeListActivity::class.java).apply {
+                putExtra("selectedTab", "지속성") // "persistence" 탭 선택
+            }
+            startActivity(intent)
+        }
+        binding.friendAll.setOnClickListener {
             val intent = Intent(context, FriendActivity::class.java)
             startActivity(intent)
         }
-        binding.associateAll.setOnClickListener{
+        binding.associateAll.setOnClickListener {
 
         }
     }

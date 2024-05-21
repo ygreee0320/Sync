@@ -21,11 +21,16 @@ class FriendActivity : AppCompatActivity() {
         binding = ActivityFriendBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setToolbarButton()
         setupRecyclerView()
         setupViewModel()
         viewModel.fetchSyncs(null, null)
     }
-
+    private fun setToolbarButton() {
+        binding.listToolbar.setNavigationOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
+    }
     private fun setupRecyclerView() {
         syncAdapter = SyncSquareAdapter(listOf(), object : SyncSquareAdapter.OnSyncClickListener {
             override fun onSyncClick(sync: Sync) {
