@@ -1,6 +1,7 @@
 package com.example.sync_front.ui.main.community
 
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.sync_front.R
+import com.example.sync_front.ui.main.community.image.ImageDetailActivity
 
 class MultiImageLoadAdapter(private val mData: List<String>, private val mContext: Context) :
     RecyclerView.Adapter<MultiImageLoadAdapter.ViewHolder>() {
@@ -34,6 +36,18 @@ class MultiImageLoadAdapter(private val mData: List<String>, private val mContex
             .skipMemoryCache(true)  // 예외처리(필수x)
             .diskCacheStrategy(DiskCacheStrategy.NONE)  // 예외처리(필수x)
             .into(holder.image)
+
+        holder.itemView.setOnClickListener {
+            val intent = Intent(mContext, ImageDetailActivity::class.java)
+            intent.putExtra("imageUri", imageUri.toString())
+
+            // Context가 Activity가 아닌 경우 FLAG_ACTIVITY_NEW_TASK 추가
+            if (mContext !is android.app.Activity) {
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            }
+
+            mContext.startActivity(intent)
+        }
     }
 
     override fun getItemCount(): Int {
