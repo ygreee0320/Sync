@@ -42,7 +42,7 @@ class OpenReaderFragment : Fragment() {
     private val binding get() = _binding!!
     private var authToken: String? = null // 로그인 토큰
     private val openViewModel: OpenViewModel by activityViewModels()
-    private var profileUri: Uri? = openViewModel.sharedData.value?.image.toString().toUri()
+    private var profileUri: Uri? = null  // 프로필 uri
    /* private var profileUri: Uri? = null  // 프로필 uri
     private val singleImagePicker =
         registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri: Uri? ->
@@ -92,6 +92,7 @@ class OpenReaderFragment : Fragment() {
             Log.d("OpenReaderFragment", "Received sync type: ${data.member_min}")
             Log.d("OpenReaderFragment", "Received sync type: ${data.member_max}")
         }
+        profileUri= openViewModel.sharedData.value?.image.toString().toUri()
     }
     private fun uploadData() {
         val sharedPreferences =
@@ -129,6 +130,8 @@ class OpenReaderFragment : Fragment() {
                         requestFile
                     )
                     val currentData = openViewModel.sharedData.value ?: SharedOpenSyncData()
+                    currentData.userIntro = binding.introduce.text.toString()
+                    openViewModel.updateData(currentData)
                     // Prepare the OpenSync object as before
                     val sync = SharedOpenSyncData(
                         userIntro = currentData.userIntro,
