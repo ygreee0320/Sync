@@ -32,6 +32,9 @@ class OpenTypeFragment : Fragment() {
     }
 
     private fun setupClickListeners() {
+        binding.beforeBtn.setOnClickListener {
+            activity?.finish()
+        }
         binding.boxOnetime.setOnClickListener {
             it.isSelected = true
             binding.boxPersistence.isSelected = false
