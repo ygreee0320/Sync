@@ -71,10 +71,12 @@
         style="@style/Body3_400"
         android:layout_marginTop="10dp"
         android:text="@string/test"
+        android:textColor="@color/gray_70"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/box_profile" />
 
     <LinearLayout
+        android:id="@+id/translate_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
@@ -83,14 +85,17 @@
         app:layout_constraintTop_toBottomOf="@id/tv_review">
 
         <TextView
+            android:id="@+id/translate_text"
             style="@style/Body3_400"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/gray_50"
             android:text="@string/translation" />
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/translate_ic"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:layout_marginStart="10dp"
             android:background="@drawable/ic_trans" />
 

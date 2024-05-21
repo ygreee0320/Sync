@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import android.util.Log
 import com.bumptech.glide.Glide
+import com.example.sync_front.R
 import com.example.sync_front.data.model.Sync
 import com.example.sync_front.databinding.ItemAssociateBinding
 import com.example.sync_front.databinding.ItemSyncBinding
@@ -25,6 +26,8 @@ class SyncAdapter(
             with(binding) {
                 Glide.with(ivSyncImg.context)
                     .load(sync.image)
+                    .placeholder(R.drawable.img_sample_gathering)
+                    .error(R.drawable.img_sample_gathering)
                     .into(ivSyncImg)
                 syncLabel1.text = sync.syncType
                 syncLabel2.text = sync.type

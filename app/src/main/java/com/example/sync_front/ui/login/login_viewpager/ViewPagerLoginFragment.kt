@@ -122,8 +122,13 @@ class ViewPagerLoginFragment : Fragment() {
     }
 
     private fun sendLoginToServer(platform: String, accessToken: String) {
+        // 저장된 fcm토큰 읽어오기
+        val sharedPreferences = requireActivity().getSharedPreferences("my_token", Context.MODE_PRIVATE)
+        val fcmToken = sharedPreferences.getString("fcm_token", "1234")
+        Log.d("my log", "현재 토큰 값: $fcmToken")
+
         LoginManager.sendLogin(
-            accessToken, Platform(platform)
+            accessToken, Platform(platform), fcmToken!!
         ) { response ->
             response?.let {
                 Log.d("my log", "서버 - 로그인 성공")
@@ -145,7 +150,8 @@ class ViewPagerLoginFragment : Fragment() {
                     startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
                     //finish()
                 } else {
-                    val intent = Intent(requireContext(), MainActivity::class.java)
+                    val intent = Intent(requireContext(), OnboardingActivity::class.java)
+//                    val intent = Intent(requireContext(), MainActivity::class.java)
                     startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
                     //finish()
                 }

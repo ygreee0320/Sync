@@ -1,5 +1,6 @@
 package com.example.sync_front.ui.sync
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -25,8 +26,7 @@ class SyncActivity : AppCompatActivity() {
     private lateinit var sameSyncAdapter: SyncAdapter
     private var syncId: Long = 0
     private var smallerDataName: String = ""
-    val token =
-        "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMCIsImlhdCI6MTcxNTk3MDk0MSwiZXhwIjoxNzE2NTc1NzQxfQ.ojgMuwzEDLxRXnWTAmHHgzXx48KSZv9LZMdYP_w0X2A"  // Bearer 키워드 추가
+    private var token: String ?= null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +37,14 @@ class SyncActivity : AppCompatActivity() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        viewModel.fetchSyncDetail(syncId, token)
+        // 저장된 토큰 읽어오기
+        val sharedPreferences = getSharedPreferences("my_token", Context.MODE_PRIVATE)
+        token = sharedPreferences.getString("auth_token", null)
+
+        viewModel.fetchGraphData("national", syncId, token!!)
+        updateGraphTextViews("${smallerDataName}보다 ", "의 비율이 더 높은 편이에요")
+
+        viewModel.fetchSyncDetail(syncId, token!!)
         circleGraphView = binding.circle  // circleGraphView 초기화
         setToolbarButton()
         setupTabs(binding.root)
@@ -47,8 +54,8 @@ class SyncActivity : AppCompatActivity() {
     }
 
     private fun subscribeUi() {
-        viewModel.fetchReviews(token, syncId, 3)
-        viewModel.fetchSameSyncData(token, syncId, 3)
+        viewModel.fetchReviews(token!!, syncId, 3)
+        viewModel.fetchSameSyncData(token!!, syncId, 3)
     }
 
     private fun observeViewModel() {
@@ -65,6 +72,7 @@ class SyncActivity : AppCompatActivity() {
                 // regularDate가 null이면, "일시"로 텍스트 설정
                 binding.tvDateTitle.text = "일시"
                 binding.tvDate.text = syncDetail.date
+                binding.syncLinear4.visibility = View.GONE // 일회성은 리뷰 제거
             } else {
                 // regularDate가 null이 아니면, regularDate 값을 텍스트로 설정
                 binding.tvDate.text = "${syncDetail.regularDate}\n첫 모임 날짜: ${syncDetail.date}"
@@ -95,6 +103,12 @@ class SyncActivity : AppCompatActivity() {
         })
     }
 
+    private fun setupClickListeners() {
+        binding.btnBookmark.setOnClickListener {
+
+        }
+    }
+
     private fun setToolbarButton() {
         binding.syncToolbar.setNavigationOnClickListener {
             onBackPressedDispatcher.onBackPressed()
@@ -113,22 +127,22 @@ class SyncActivity : AppCompatActivity() {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 when (tab?.position) {
                     0 -> {
-                        viewModel.fetchGraphData("national", syncId, token)
+                        viewModel.fetchGraphData("national", syncId, token!!)
                         updateGraphTextViews("${smallerDataName}보다 ", "의 비율이 더 높은 편이에요")
                     }
 
                     1 -> {
-                        viewModel.fetchGraphData("gender", syncId, token)
+                        viewModel.fetchGraphData("gender", syncId, token!!)
                         updateGraphTextViews("", "의 참여율이 더 높은 편이에요.")
                     }
 
                     2 -> {
-                        viewModel.fetchGraphData("university", syncId, token)
+                        viewModel.fetchGraphData("university", syncId, token!!)
                         updateGraphTextViews("", "의 참여율이 더 높은 편이에요.")
                     }
 
                     3 -> {
-                        viewModel.fetchGraphData("participate", syncId, token)
+                        viewModel.fetchGraphData("participate", syncId, token!!)
                         updateGraphTextViews("싱크에 ", " 멤버들이 가장 많은 편이에요.")
                     }
                 }
@@ -165,7 +179,7 @@ class SyncActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerView() {
-        reviewAdapter = ReviewAdapter(listOf())
+        reviewAdapter = ReviewAdapter(listOf(), token!!)
         binding.syncReviewRecyclerView.apply {
             adapter = reviewAdapter
             layoutManager = LinearLayoutManager(context)
