@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Sync-front</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- Home Fragment-->
+    <string name="username">김서윤</string>
+    <string name="님을_위한">님을 위한</string>
+    <string name="싱크를_추천드려요">싱크를 추천드려요!</string>
+    <string name="유형_별_싱크">유형 별 싱크</string>
+    <string name="어떤_유형의_모임을_찾으시나요">어떤 유형의 모임을 찾으시나요?</string>
+    <string name="onetime">일회성</string>
+    <string name="persistence">지속성</string>
+    <string name="myfriend">내친소</string>
+    <string name="exchange_language">언어교환</string>
+    <string name="culture">문화예술</string>
+    <string name="travel">여행/동행</string>
+    <string name="activity">액티비티</string>
+    <string name="food">푸드/음료</string>
+    <string name="etc">기타</string>
+    <string name="interest_sync">관심사 별 싱크</string>
+    <string name="interest_sync_how">어떤 관심사의 모임을 찾으시나요?</string>
+    <string name="today_popular_sync">오늘의 인기 싱크</string>
+    <string name="find_today_popular_sync">요즘 인기있는 모임을 찾아보세요!</string>
+    <string name="friend_sync">내친소 싱크</string>
+    <string name="enjoy_friend_sync">내 친구를 소개해 부담없는 모임을 즐겨보세요!</string>
+    <string name="popular_sync">인기싱크</string>
+    <string name="discount_benefit">제휴할인</string>
+    <string name="discount_sync">제휴 싱크</string>
+    <string name="enjoy_discount_sync">제휴업체에서 개설한 모임의 할인혜택을 누려보세요!</string>
+    <!--sync activity-->
+    <string name="join">가입하기</string>
+    <string name="sync_introduce_host">싱크장을 소개합니다!</string>
+    <string name="sync_now_member">현재까지 모인 싱크 참여 멤버는</string>
+    <string name="sync_review_title">싱크 멤버들의 후기</string>
+    <string name="more_view">더보기</string>
+    <string name="sync_same_day">내가 본 싱크와 같은 요일, 장소의 싱크</string>
+    <!--바텀 메뉴-->
+    <string name="menu1">싱크</string>
+    <string name="menu2">커뮤니티</string>
+    <string name="menu3">개설</string>
+    <string name="menu4">채팅</string>
+    <string name="menu5">마이</string>
+    <!--My Fragment-->
+    <string name="mypage">마이페이지</string>
+    <string name="review">내 리뷰</string>
+    <string name="bookmark">북마크</string>
+    <string name="question">자주 묻는 질문</string>
+    <string name="내가_개설한_싱크">내가 개설한 싱크</string>
+    <string name="내가_참여한_싱크">내가 참여한 싱크</string>
+    <string name="개설한_싱크가_없어요">내가 개설한 싱크가 없어요</string>
+    <string name="참여한_싱크가_없어요">내가 참여한 싱크가 없어요</string>
+    <string name="북마크가_없어요">저장된 북마크가 없어요</string>
+    <string name="싱크_개설하러_가기">싱크 개설하러 가기</string>
+    <string name="싱크_참여하러_가기">싱크 참여하러 가기</string>
+    <string name="setting">설정</string>
+    <string name="알림_설정">알림 설정</string>
+    <string name="모임_리마인드">모임 리마인드</string>
+    <string name="커뮤니티_댓글">커뮤니티 댓글</string>
+    <string name="언어_설정">언어 설정</string>
+    <string name="로그아웃">로그아웃</string>
+    <string name="no">아니요</string>
+    <string name="yes">네</string>
+    <string name="회원탈퇴">회원 탈퇴</string>
+    <!--  성별  -->
+    <string name="자주_묻는_질문">자주 묻는 질문</string>
+    <string name="리뷰작성">리뷰 작성</string>
+    <string name="님">님,</string>
+    <string name="싱크_어떠셨나요">싱크 어떠셨나요?</string>
+    <string name="남겨주신_리뷰는">남겨 주신 리뷰는 싱크 소개 페이지에 공개됩니다.</string>
+    <string name="woman">여성</string>
+    <string name="man">남성</string>
+    <string name="closed">비공개</string>
+    <!--  타입  -->
+    <string name="type1">소수의 사람과 깊고 지속적인 만남을 선호해요</string>
+    <string name="type2">새로운 사람과의 다양한 만남을 선호해요</string>
+    <string name="type3">보통 친구의 소개로 친해지는 편이에요</string>
+    <!--관심사1-->
+    <string name="foreignLanguage">외국어</string>
+    <string name="languageExchange">언어교환</string>
+    <string name="tutoring">튜터링</string>
+    <string name="study">스터디</string>
+    <!--관심사2-->
+    <string name="cultureArt">문화예술</string>
+    <string name="movie">영화</string>
+    <string name="drama">드라마</string>
+    <string name="art">미술·디자인</string>
+    <string name="performance">공연·전시</string>
+    <string name="music">음악</string>
+    <!--관심사3-->
+    <string name="travelCompanion">여행·동행</string>
+    <string name="sightseeing">관광지</string>
+    <string name="nature">자연</string>
+    <string name="vacation">휴양</string>
+    <!--관심사4-->
+    <!--    <string name="activity">액티비티</string>-->
+    <string name="running">러닝·산책</string>
+    <string name="hiking">등산</string>
+    <string name="climbing">클라이밍</string>
+    <string name="bike">자전거</string>
+    <string name="soccer">축구</string>
+    <string name="surfing">서핑</string>
+    <string name="tennis">테니스</string>
+    <string name="bowling">볼링</string>
+    <string name="tableTennis">탁구</string>
+    <!--관심사5-->
+    <string name="foodAndDrink">푸드·음료</string>
+    <string name="restaurant">맛집</string>
+    <string name="cafe">카페</string>
+    <string name="drink">술</string>
+    <!--    <string name="etc">기타</string>-->
+    <!-- ModProfileActivity-->
+    <string name="my_profile">내 프로필</string>
+    <string name="편집">편집</string>
+    <string name="이름">이름</string>
+    <string name="성별">성별</string>
+    <string name="성향">성향</string>
+    <string name="관심사">관심사</string>
+    <string name="cancel">취소</string>
+    <string name="mod">수정 완료하기</string>
+    <!-- ModInterestActivity-->
+    <string name="관심사_변경">관심사 변경</string>
+    <!-- Onboarding -->
+    <string name="before">이전</string>
+    <string name="next">다음</string>
+    <string name="서비스_언어를_선택">서비스 언어를 선택해주세요.</string>
+    <string name="환영합니다">님, 환영합니다!</string>
+    <string name="싱크_프로필_등록">싱크 프로필 등록을 해볼까요?</string>
+    <string name="국적을_선택">국적을 선택해주세요.</string>
+    <string name="성별을_선택">성별을 선택해주세요.</string>
+    <string name="소속된_한국_대학교">소속된 한국 대학교를 입력해주세요</string>
+    <string name="학교">학교</string>
+    <string name="input_univ">대학교 이름을 입력하세요</string>
+    <string name="re_univ">대학명을 다시 확인해주세요.</string>
+    <string name="학교_이메일_인증">학교 이메일</string>
+    <string name="학교_이메일_인증을_통해">학교 이메일 인증을 통해 안심하고 싱크할 수 있어요</string>
+    <string name="학교를_확인하는_용도로만">학교 이메일 주소는 소속 학교를 확인하는 용도로만 사용되며,</string>
+    <string name="다른_사용자에게는">다른 사용자에게는 공개되지 않습니다.</string>
+    <string name="input_email">학교 이메일 입력</string>
+    <string name="인증번호_전송">인증번호 전송</string>
+    <string name="input_code">인증번호 입력</string>
+    <string name="확인">확인</string>
+    <string name="send_done">전송되었습니다.</string>
+    <string name="not_exist_email">대학과 일치하지 않는 메일 도메인입니다.</string>
+    <string name="certify_done">인증 성공!</string>
+    <string name="re_code">인증 코드를 다시 확인해주세요</string>
+    <string name="님의_성향을_알려주세요">님의 성향을 알려주세요</string>
+    <string name="딱_맞는_싱크를_추천">님에게 딱 맞는 싱크를 추천드릴게요.</string>
+    <string name="님의_관심사를">님의 관심사를</string>
+    <string name="골라주세요">3개 이상 골라주세요</string>
+    <string name="님의_가입이_완료">님의 가입이 완료되었어요!</string>
+    <string name="싱크_시작하기">싱크 시작하기</string>
+    <string name="이제_싱크를_시작해볼까요">이제 싱크를 시작해볼까요?</string>
+    <string name="님만을_위한_맞춤_싱크를_확인">님만을 위한 맞춤 싱크를 확인해보세요.</string>
+    <!-- 언어 -->
+    <string name="korean">한국어</string>
+    <string name="english">English</string>
+    <string name="korea">대한민국</string>
+    <!--성향 -->
+    <string name="성향1">소수의 사람과 깊고 지속적인 만남을 선호해요</string>
+    <string name="성향2">새로운 사람과의 다양한 만남을 선호해요</string>
+    <string name="성향3">보통 친구의 소개로 친해지는 편이에요</string>
+    <!--싱크개설-->
+    <string name="멤버들과_어떤_싱크를_하고_싶나요">멤버들과 어떤 싱크를 하고 싶나요?</string>
+    <string name="싱크_주제를_선택해주세요">싱크 주제를 선택해주세요</string>
+    <string name="싱크_제목을_작성해_주세요">싱크 제목을 작성해 주세요</string>
+    <string name="싱크_소개글을_작성해_주세요">싱크 소개글을 작성해 주세요</string>
+    <string name="언제_싱크가_열리나요">언제 싱크가 열리나요?</string>
+    <string name="언제_첫_싱크가_열리나요">언제 첫 싱크가 열리나요?</string>
+    <string name="어디서_싱크가_열리나요">어디서 싱크가 열리나요?</string>
+    <string name="참여_인원_수를_설정해_주세요">참여 인원 수를 설정해 주세요</string>
+    <string name="싱크장을_소개해_주세요">싱크장을 소개해 주세요</string>
+    <string name="일회성_싱크로_다양한_사람들과_부담없이_만나요">일회성 싱크로 다양한 사람들과 부담없이 만나요</string>
+    <string name="select_date">날짜를 선택해주세요</string>
+    <string name="select_time">시간을 선택해주세요</string>
+    <string name="min">최소</string>
+    <string name="max">최대</string>
+    <string name="cnt">명</string>
+    <!--싱크상세-->
+    <string name="sync_intro">싱크 소개</string>
+    <string name="sync_routine_calendar">정기 싱크 일정</string>
+    <string name="location">장소</string>
+    <string name="personnel">인원</string>
+    <string name="test">test</string>
+    <string name="translation">번역하기</string>
+
+    <!--  커뮤니티_글쓰기  -->
+    <string name="글쓰기">글쓰기</string>
+    <string name="category">카테고리</string>
+    <string name="input_category">카테고리를 선택해주세요</string>
+    <string name="title">제목</string>
+    <string name="input_title">제목을 입력해주세요</string>
+    <string name="content">내용</string>
+    <string name="input_community_content">구체적으로 작성할 수록 멤버들이 안심하고 참여할 수 있어요!</string>
+    <string name="title_activity_type">TypeActivity</string>
+    <string name="done">완료</string>
+    <string name="done_add_community">게시글 생성 완료!</string>
+    <string name="didnt_select_img">이미지를 선택하지 않았습니다.</string>
+    <!--  커뮤니티  -->
+    <string name="input_comment">댓글을 입력해주세요</string>
+    <string name="cant_trans">번역이 불가합니다.</string>
+    <string name="translate">변역하기</string>
+    <string name="input_search">검색어를 입력하세요</string>
+    <string name="search_hint">글, 제목, 내용</string>
+    <string name="search_empty">커뮤니티의 글을 검색해보세요!</string>
+
+    <!--  채팅  -->
+    <string name="chattingRooms">나의 싱크 채팅방</string>
+    <string name="input_message">메세지를 입력하세요.</string>
+    <string name="check_logout">로그아웃 하시겠어요?</string>
+    <string name="logout_message">언제든 싱크에 로그인할 수 있어요</string>
+    <string name="내가_원하는_시간에">내가 원하는 시간에</string>
+    <string name="싱크를_개설">싱크를 개설하고 참여해보세요!</string>
+    <string name="온보딩에서_고른_성향과">온보딩에서 고른 성향과 관심사에 따라</string>
+    <string name="맞춤_싱크를">맞춤 싱크를 추천받을 수 있어요</string>
+    <string name="채팅을_통해_마음이">채팅을 통해 마음이 맞는 멤버들과</string>
+    <string name="언제_어디서든">언제 어디서든 소통해보세요!</string>
+    <string name="성향_관심사가_유사한">성향, 관심사가 유사한 멤버들과 소통하며</string>
+    <string name="지속적인_만남">지속적인 만남을 이어가봐요</string>
+    <string name="커뮤니티를_통해">커뮤니티를 통해</string>
+    <string name="여러분의_일상을">여러분의 일상을 공유해보세요!</string>
+    <string name="생활정보_그리고">생활 정보, 그리고 궁금한 점을</string>
+    <string name="빠르게_묻고">빠르게 묻고 답할 수 있어요</string>
+    <string name="서로_다른_다양한_문화가">서로 다른 다양한 문화가 만나</string>
+    <string name="하나로_화합하는">하나로 화합하는 곳,</string>
+    <string name="싱크에서">싱크에서</string>
+    <string name="싱크를_맞춰봐요">싱크를 맞춰봐요!</string>
+    <string name="싱크_이용_방법">싱크 이용 방법</string>
+    <string name="싱크에_오신">싱크에 오신 걸 환영해요!</string>
+    <string name="싱크는_외국인과">싱크는 외국인과 한국인의 지속적인 네트워킹을 할 수 있는 서비스입니다:)</string>
+    <string name="먼저_싱크에">먼저 싱크에 참여해보실래요?</string>
+    <string name="싱크는_모임">싱크는 \'모임\'을 말합니다. 맞춤 추천되는 싱크 중 하나에 가입해보세요!</string>
+    <string name="원하는_싱크가">원하는 싱크가 없나요?</string>
+    <string name="하고_싶은_콘텐츠">하고 싶은 콘텐츠를 담은 싱크를 개설하여 싱크장이 되어보세요!</string>
+    <string name="한국생활에_대한">한국 생활에 대한 정보를 공유하고 싶나요?</string>
+    <string name="커뮤니티에서_한국">커뮤니티에서 한국 생활에 대한 정보를 공유하며 도움을 주고 받아보세요.</string>
+    <string name="온보딩_설정_변경">온보딩 설정 변경</string>
+    <string name="마이페이지_내프로필">마이페이지 - 내프로필 을 선택하면 온보딩 때 설정한 정보를 변경할 수 있어요.</string>
+    <string name="작성완료">작성 완료</string>
+    <string name="리뷰를_작성해주세요">리뷰를 작성해 주세요.</string>
+
+</resources>

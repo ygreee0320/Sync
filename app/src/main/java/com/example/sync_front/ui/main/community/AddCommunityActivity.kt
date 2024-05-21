@@ -58,7 +58,7 @@ class AddCommunityActivity : AppCompatActivity() {
                     binding.picCount.text = uriList.size.toString()
                 }
             } else {
-                Toast.makeText(applicationContext, "이미지를 선택하지 않았습니다.", Toast.LENGTH_LONG).show()
+                Toast.makeText(applicationContext, getString(R.string.didnt_select_img), Toast.LENGTH_LONG).show()
             }
         }
 
@@ -135,8 +135,8 @@ class AddCommunityActivity : AppCompatActivity() {
 
                 CommunityManager.postCommunity(authToken!!, imageParts, requestDtoBody) { response ->
                     if (response == 200) {
-                        Log.d("my log", "게시글 생성 완료!")
-                        Toast.makeText(this, "게시글 생성 완료!", Toast.LENGTH_LONG).show()
+                        Log.d("my log", getString(R.string.done_add_community))
+                        Toast.makeText(this, getString(R.string.done_add_community), Toast.LENGTH_LONG).show()
                         finish()
                     }
                 }

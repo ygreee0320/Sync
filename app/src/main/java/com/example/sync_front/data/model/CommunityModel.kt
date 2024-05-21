@@ -64,7 +64,7 @@ data class CommunityDetailResponse(
 data class CommunitySearchResponse(
     val status: Int,
     val message: String,
-    val data: List<CommunitySearchResponseData>
+    val data: List<Community>
 )
 
 data class CommunitySearchResponseData(

@@ -35,19 +35,25 @@ class RoomAdapter(private var rooms: List<ChattingRoom>): RecyclerView.Adapter<R
         private val titleTextView: TextView = itemView.findViewById(R.id.room_title)
         private val chattingTextView: TextView = itemView.findViewById(R.id.last_chatting)
         private val timeTextView: TextView = itemView.findViewById(R.id.last_time)
+        private val totalTextView: TextView = itemView.findViewById(R.id.member_count)
 
         init {
             itemView.setOnClickListener {
                 val clickedRoom = rooms[adapterPosition]
-                val roomId = clickedRoom.roomId // 클릭된 Id를 가져옴
+                val roomName = clickedRoom.roomName // 클릭된 Id를 가져옴
+                val syncName = clickedRoom.syncName
+                val total = clickedRoom.total
                 val intent = Intent(itemView.context, ChattingActivity::class.java)
-                intent.putExtra("roomId", roomId)
+                intent.putExtra("roomName", roomName)
+                intent.putExtra("syncName", syncName)
+                intent.putExtra("total", total)
                 itemView.context.startActivity(intent)
             }
         }
 
         fun bind(roomList: ChattingRoom) {
-            titleTextView.text = roomList.title
+            titleTextView.text = roomList.syncName
+            totalTextView.text = roomList.total.toString()
             chattingTextView.text = roomList.lastText
             timeTextView.text = roomList.lastTime
         }

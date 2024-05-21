@@ -151,7 +151,7 @@ class CommunityDetailActivity : AppCompatActivity() {
                 }
             }
         } else {
-            Toast.makeText(applicationContext, "댓글을 입력해주세요", Toast.LENGTH_LONG).show()
+            Toast.makeText(applicationContext, getString(R.string.input_comment), Toast.LENGTH_LONG).show()
         }
     }
 
@@ -183,13 +183,13 @@ class CommunityDetailActivity : AppCompatActivity() {
                         callback(result.translatedText)
                     } else {
                         Log.e("TranslationError", "Translation response is null or status is not 200")
-                        Toast.makeText(applicationContext, "번역이 불가합니다.", Toast.LENGTH_LONG).show()
+                        Toast.makeText(applicationContext, getString(R.string.cant_trans), Toast.LENGTH_LONG).show()
                         callback(text)
                     }
                 }
             } else {
                 Log.e("TranslationError", "CheckLanguage response is null or status is not 200")
-                Toast.makeText(applicationContext, "번역이 불가합니다.", Toast.LENGTH_LONG).show()
+                Toast.makeText(applicationContext, getString(R.string.cant_trans), Toast.LENGTH_LONG).show()
                 callback(text)
             }
         }

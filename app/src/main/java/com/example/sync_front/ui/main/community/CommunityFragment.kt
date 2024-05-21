@@ -51,7 +51,10 @@ class CommunityFragment : Fragment() {
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
 
-            override fun onTabReselected(tab: TabLayout.Tab?) {}
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+                // 현재 선택된 탭을 다시 선택하면 리사이클러뷰를 맨 처음으로 스크롤
+                binding.recyclerview.scrollToPosition(0)
+            }
         })
     }
 
@@ -87,6 +90,11 @@ class CommunityFragment : Fragment() {
             val intent = Intent(activity, SearchCommunityActivity::class.java)
             startActivity(intent)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.recyclerview.scrollToPosition(0)
     }
 
     override fun onDestroyView() {

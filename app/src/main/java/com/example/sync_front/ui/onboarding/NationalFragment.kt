@@ -90,7 +90,7 @@ class NationalFragment : Fragment() {
                 Log.d("my log", "국가 리스트 요청 성공")
 
                 val countriesList: List<String> = ArrayList<String>().apply {
-                    add("대한민국")
+                    add(getString(R.string.korea))
                     addAll(response)
                 }.toList()
 

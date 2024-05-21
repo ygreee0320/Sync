@@ -63,7 +63,7 @@
                     android:textColor="@color/gray_90"
                     android:background="@null"
                     android:textColorHint="@color/gray_30"
-                    android:hint="학교 이메일 입력" />
+                    android:hint="@string/input_email" />
 
             </LinearLayout>
 
@@ -103,7 +103,7 @@
                     android:textColor="@color/gray_90"
                     android:background="@null"
                     android:textColorHint="@color/gray_30"
-                    android:hint="인증번호 입력" />
+                    android:hint="@string/input_code" />
 
             </LinearLayout>
 
