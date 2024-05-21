@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.type.TypeListActivity">
+    tools:context=".ui.interest.InterestActivity">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/list_toolbar"
@@ -17,7 +17,7 @@
 
         <TextView
             style="@style/Body1_700"
-            android:text="@string/유형_별_싱크" />
+            android:text="@string/interest_sync" />
 
 
     </com.google.android.material.appbar.MaterialToolbar>
@@ -30,43 +30,12 @@
         app:tabIndicatorColor="@color/primary"
         app:tabIndicatorFullWidth="true"
         app:tabIndicatorHeight="2dp"
+        app:tabMode="scrollable"
         app:tabSelectedTextColor="@color/primary"
         app:tabTextAppearance="@style/Body2_700"
         app:tabTextColor="@color/gray_50"
         tools:ignore="MissingConstraints">
 
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/onetime" />
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/persistence" />
-
-    </com.google.android.material.tabs.TabLayout>
-
-<!--    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabLayout2"
-        android:layout_width="wrap_content"
-        android:layout_height="60dp"
-        android:padding="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tabLayout1"
-        app:tabBackground="@drawable/tab_selected_selector_green"
-        app:tabIndicatorHeight="0dp"
-        app:tabMode="scrollable"
-        app:tabPaddingEnd="8dp"
-        app:tabPaddingStart="8dp"
-        app:tabSelectedTextColor="@color/white"
-        app:tabTextAppearance="@style/Detail_400"
-        app:tabTextColor="@color/gray_70">
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/all" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
@@ -97,7 +66,60 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/etc" />
-    </com.google.android.material.tabs.TabLayout>-->
+
+    </com.google.android.material.tabs.TabLayout>
+
+    <!--    <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout2"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:padding="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tabLayout1"
+            app:tabBackground="@drawable/tab_selected_selector_green"
+            app:tabIndicatorHeight="0dp"
+            app:tabMode="scrollable"
+            app:tabPaddingEnd="8dp"
+            app:tabPaddingStart="8dp"
+            app:tabSelectedTextColor="@color/white"
+            app:tabTextAppearance="@style/Detail_400"
+            app:tabTextColor="@color/gray_70">
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/all" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/foreign_language" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/culture" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/travel" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/activity" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/food" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/etc" />
+        </com.google.android.material.tabs.TabLayout>-->
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
@@ -105,5 +127,4 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintTop_toBottomOf="@id/tabLayout1" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -181,7 +181,7 @@
                         app:layout_constraintTop_toBottomOf="@id/home_tv5">
 
                         <LinearLayout
-                            android:id="@+id/box_exchange_language"
+                            android:id="@+id/box_foreign_language"
                             style="@style/home_box2"
                             android:background="@drawable/bg_btn_box">
 
@@ -192,7 +192,7 @@
 
                             <TextView
                                 style="@style/Body3_400"
-                                android:text="@string/exchange_language" />
+                                android:text="@string/foreignLanguage" />
 
                         </LinearLayout>
 

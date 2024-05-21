@@ -20,6 +20,7 @@ import com.example.sync_front.R
 import com.example.sync_front.data.model.Sync
 import com.example.sync_front.databinding.FragmentHomeBinding
 import com.example.sync_front.ui.friend.FriendActivity
+import com.example.sync_front.ui.interest.InterestActivity
 import com.example.sync_front.ui.login.LoginActivity
 import com.example.sync_front.ui.open.OpenActivity
 import com.example.sync_front.ui.sync.SyncActivity
@@ -168,6 +169,42 @@ class HomeFragment : Fragment() {
         binding.boxPersistence.setOnClickListener {
             val intent = Intent(context, TypeListActivity::class.java).apply {
                 putExtra("selectedTab", "지속성") // "persistence" 탭 선택
+            }
+            startActivity(intent)
+        }
+        binding.boxForeignLanguage.setOnClickListener {
+            val intent = Intent(context, InterestActivity::class.java).apply {
+                putExtra("selectedTab", "외국어")
+            }
+            startActivity(intent)
+        }
+        binding.boxCulture.setOnClickListener {
+            val intent = Intent(context, InterestActivity::class.java).apply {
+                putExtra("selectedTab", "엔터테인먼트/예술")
+            }
+            startActivity(intent)
+        }
+        binding.boxTravel.setOnClickListener {
+            val intent = Intent(context, InterestActivity::class.java).apply {
+                putExtra("selectedTab", "여행/동행")
+            }
+            startActivity(intent)
+        }
+        binding.boxActivity.setOnClickListener {
+            val intent = Intent(context, InterestActivity::class.java).apply {
+                putExtra("selectedTab", "액티비티")
+            }
+            startActivity(intent)
+        }
+        binding.boxFood.setOnClickListener {
+            val intent = Intent(context, InterestActivity::class.java).apply {
+                putExtra("selectedTab", "푸드드링크")
+            }
+            startActivity(intent)
+        }
+        binding.boxEtc.setOnClickListener {
+            val intent = Intent(context, InterestActivity::class.java).apply {
+                putExtra("selectedTab", "")
             }
             startActivity(intent)
         }
