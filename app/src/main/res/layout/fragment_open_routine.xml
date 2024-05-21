@@ -58,7 +58,7 @@
             android:id="@+id/explain3"
             style="@style/Body1_700"
             android:layout_marginStart="14dp"
-            android:text="@string/routine_explain2"
+            android:text="@string/select_day"
             android:textColor="@color/gray_90" />
 
         <LinearLayout
@@ -72,9 +72,8 @@
             <TextView
                 android:id="@+id/date_text1"
                 style="@style/Body1_400"
-                android:layout_marginStart="10dp"
                 android:background="@drawable/btn_day_selector"
-                android:paddingHorizontal="11dp"
+                android:paddingHorizontal="12dp"
                 android:paddingVertical="8dp"
                 android:text="@string/월" />
 
@@ -83,7 +82,7 @@
                 style="@style/Body1_400"
                 android:layout_marginStart="10dp"
                 android:background="@drawable/btn_day_selector"
-                android:paddingHorizontal="11dp"
+                android:paddingHorizontal="12dp"
                 android:paddingVertical="8dp"
                 android:text="@string/화" />
 
@@ -92,7 +91,7 @@
                 style="@style/Body1_400"
                 android:layout_marginStart="10dp"
                 android:background="@drawable/btn_day_selector"
-                android:paddingHorizontal="11dp"
+                android:paddingHorizontal="12dp"
                 android:paddingVertical="8dp"
                 android:text="@string/수" />
 
@@ -101,7 +100,7 @@
                 style="@style/Body1_400"
                 android:layout_marginStart="10dp"
                 android:background="@drawable/btn_day_selector"
-                android:paddingHorizontal="11dp"
+                android:paddingHorizontal="12dp"
                 android:paddingVertical="8dp"
                 android:text="@string/목" />
 
@@ -110,7 +109,7 @@
                 style="@style/Body1_400"
                 android:layout_marginStart="10dp"
                 android:background="@drawable/btn_day_selector"
-                android:paddingHorizontal="11dp"
+                android:paddingHorizontal="12dp"
                 android:paddingVertical="8dp"
                 android:text="@string/금" />
 
@@ -119,7 +118,7 @@
                 style="@style/Body1_400"
                 android:layout_marginStart="10dp"
                 android:background="@drawable/btn_day_selector"
-                android:paddingHorizontal="11dp"
+                android:paddingHorizontal="12dp"
                 android:paddingVertical="8dp"
                 android:text="@string/토" />
 
@@ -128,7 +127,7 @@
                 style="@style/Body1_400"
                 android:layout_marginStart="10dp"
                 android:background="@drawable/btn_day_selector"
-                android:paddingHorizontal="11dp"
+                android:paddingHorizontal="12dp"
                 android:paddingVertical="8dp"
                 android:text="@string/일" />
         </LinearLayout>
@@ -138,7 +137,7 @@
             style="@style/Body1_700"
             android:layout_marginStart="14dp"
             android:layout_marginTop="36dp"
-            android:text="@string/routine_explain2"
+            android:text="@string/select_time"
             android:textColor="@color/gray_90" />
 
         <LinearLayout

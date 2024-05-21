@@ -254,4 +254,6 @@
     <string name="금">금</string>
     <string name="토">토</string>
     <string name="일">일</string>
+    <string name="select_day">요일을 선택해주세요</string>
+    <string name="select_time">시간을 선택해주세요</string>
 </resources>

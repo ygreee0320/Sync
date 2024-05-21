@@ -1,60 +1,61 @@
 package com.example.sync_front.ui.open
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.example.sync_front.R
+import com.example.sync_front.databinding.FragmentOpenRoutineBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [OpenRoutineFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class OpenRoutineFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private var _binding: FragmentOpenRoutineBinding? = null
+    private val binding get() = _binding!!
+    private val openViewModel: OpenViewModel by activityViewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_open_routine, container, false)
+        _binding = FragmentOpenRoutineBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment OpenRoutineFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            OpenRoutineFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        initSetting()
+        setupClickListeners()
+        observeViewModel()
+    }
+    private fun initSetting() {
+     //   binding.doneBtn.isEnabled = false
+    }
+    private fun observeViewModel() {
+        openViewModel.sharedData.observe(viewLifecycleOwner) { data ->
+            Log.d("OpenRoutineFragment", "Received syncType: ${data.syncType}")
+        }
+    }
+    private fun updateDoneButtonBackground() {
+        if (binding.doneBtn.isEnabled) { // 다음 버튼 스타일 변경
+            binding.doneBtn.setTextColor(requireContext().resources.getColor(R.color.white))
+            binding.doneBtn.setBackgroundResource(R.drawable.btn_default)
+        } else {
+            binding.doneBtn.setTextColor(requireContext().resources.getColor(R.color.gray_70))
+            binding.doneBtn.setBackgroundResource(R.drawable.btn_gray_10)
+        }
+    }
+    private fun setupClickListeners() {
+        binding.beforeBtn.setOnClickListener {
+            findNavController().navigateUp() // 이전 프래그먼트로
+        }
+        binding.doneBtn.setOnClickListener {
+            findNavController().navigate(R.id.action_openRoutineFragment_to_openLocationFragment)
+        }
     }
 }
