@@ -41,6 +41,7 @@ class OpenTimeFragment : Fragment() {
         val calendar = Calendar.getInstance()
         datePickerDialog = DatePickerDialog(
             requireContext(),
+            android.R.style.Theme_Holo_Light_Dialog_MinWidth,
             { _, year, month, dayOfMonth ->
                 // 날짜 객체를 생성합니다.
                 val date = Calendar.getInstance()
@@ -59,6 +60,7 @@ class OpenTimeFragment : Fragment() {
             calendar.get(Calendar.MONTH),
             calendar.get(Calendar.DAY_OF_MONTH)
         )
+        datePickerDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)  // 배경 투명 처리
 
         // 날짜 선택 박스에 클릭 리스너
         binding.boxDate.setOnClickListener {
@@ -71,22 +73,30 @@ class OpenTimeFragment : Fragment() {
         val hour = calendar.get(Calendar.HOUR_OF_DAY)
         val minute = calendar.get(Calendar.MINUTE)
 
-        timePickerDialog = TimePickerDialog(context, { _, selectedHour, selectedMinute ->
-            // 캘린더 객체에 선택된 시간을 설정
-            calendar.set(Calendar.HOUR_OF_DAY, selectedHour)
-            calendar.set(Calendar.MINUTE, selectedMinute)
+        timePickerDialog = TimePickerDialog(
+            context,
+            android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+            { _, selectedHour, selectedMinute ->
+                // 캘린더 객체에 선택된 시간을 설정
+                calendar.set(Calendar.HOUR_OF_DAY, selectedHour)
+                calendar.set(Calendar.MINUTE, selectedMinute)
 
-            // "a h:mm" 포맷으로 시간 형식 지정 (예: 오후 11:30)
-            val format = SimpleDateFormat("a h:mm", Locale.getDefault())
-            val formattedTime = format.format(calendar.time)
+                // "a h:mm" 포맷으로 시간 형식 지정 (예: 오후 11:30)
+                val format = SimpleDateFormat("a h:mm", Locale.getDefault())
+                val formattedTime = format.format(calendar.time)
 
-            // 선택된 시간을 TextView에 표시
-            binding.timeText.text = formattedTime
-            timeSelected = true
-            checkIfDateTimeSelected()
+                // 선택된 시간을 TextView에 표시
+                binding.timeText.text = formattedTime
+                timeSelected = true
+                checkIfDateTimeSelected()
 
 
-        }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false)
+            },
+            calendar.get(Calendar.HOUR_OF_DAY),
+            calendar.get(Calendar.MINUTE),
+            false
+        )
+        timePickerDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)  // 배경 투명 처리
 
         binding.boxTime.setOnClickListener {
             timePickerDialog.show()
@@ -94,10 +104,10 @@ class OpenTimeFragment : Fragment() {
     }
 
     private fun checkIfDateTimeSelected() {
-        if(dateSelected){
+        if (dateSelected) {
             binding.boxDate.setBackgroundResource(R.drawable.label_white_primary)
         }
-        if(timeSelected){
+        if (timeSelected) {
             binding.boxTime.setBackgroundResource(R.drawable.label_white_primary)
         }
         binding.doneBtn.isEnabled = dateSelected && timeSelected

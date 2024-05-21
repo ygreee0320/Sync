@@ -1,4 +1,4 @@
-package com.example.sync_front.ui.type
+package com.example.sync_front.ui.interest
 
 import android.app.Application
 import android.content.Context
@@ -12,8 +12,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class TypeViewModel(application: Application) : AndroidViewModel(application) {
-    val typeSyncs = MutableLiveData<List<Sync>>()
+class InterestViewModel(application: Application) : AndroidViewModel(application) {
+    val interestSyncs = MutableLiveData<List<Sync>>()
     val authToken: String?
 
     init {
@@ -23,7 +23,7 @@ class TypeViewModel(application: Application) : AndroidViewModel(application) {
 
     val errorMessage = MutableLiveData<String>()
 
-    fun fetchTypeSyncs(take: Int? = null, syncType: String? = null, type: String? = null) {
+    fun fetchInterestSyncs(take: Int? = null, syncType: String? = null, type: String? = null) {
         val request = AssociateSyncRequest(take, syncType, type)
         RetrofitClient.instance.homeService.postTypeSyncs(
             "application/json",
@@ -36,7 +36,7 @@ class TypeViewModel(application: Application) : AndroidViewModel(application) {
                     response: Response<SyncResponse>
                 ) {
                     if (response.isSuccessful) {
-                        typeSyncs.postValue(response.body()?.data ?: listOf())
+                        interestSyncs.postValue(response.body()?.data ?: listOf())
                     } else {
                         if (response.code() == 401) { // 토큰 만료 체크
                             errorMessage.postValue("Token expired. Please log in again.")

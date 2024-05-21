@@ -1,36 +1,40 @@
-package com.example.sync_front.ui.type
+package com.example.sync_front.ui.interest
 
 import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.sync_front.R
 import com.example.sync_front.data.model.Sync
-import com.example.sync_front.databinding.ActivityTypeListBinding
+import com.example.sync_front.databinding.ActivityInterestBinding
 import com.example.sync_front.ui.sync.SyncActivity
+import com.example.sync_front.ui.type.SyncSquareAdapter
 import com.google.android.material.tabs.TabLayout
 
-class TypeListActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityTypeListBinding
+class InterestActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityInterestBinding
     private lateinit var recyclerView: RecyclerView
-    private lateinit var syncAdapter: SyncSquareAdapter
-    private val typeViewModel: TypeViewModel by viewModels()
+    private lateinit var syncAdapter: SyncSquareAdapter2
+    private val interestViewModel: InterestViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityTypeListBinding.inflate(layoutInflater)
+        binding = ActivityInterestBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         setToolbarButton()
-        setupRecyclerView()
-        observeViewModel()
+
         // 인텐트에서 탭 선택 정보 받기
         val selectedTab = intent.getStringExtra("selectedTab")
         setupTabs(selectedTab)
+        interestViewModel.fetchInterestSyncs(type = selectedTab)
 
-        typeViewModel.fetchTypeSyncs(syncType = selectedTab) // 해당 타입에 맞게 데이터 요청
+        setupRecyclerView()
+        observeViewModel()
+
     }
 
     private fun setToolbarButton() {
@@ -42,22 +46,28 @@ class TypeListActivity : AppCompatActivity() {
     private fun setupTabs(selectedTab: String?) {
         binding.tabLayout1.apply {
             val tabIndex = when (selectedTab) {
-                "일회성" -> 0
-                "지속성" -> 1
-                else -> 0
+                "외국어" -> 0
+                "엔터테인먼트/예술" -> 1
+                "여행/동행" -> 2
+                "액티비티" -> 3
+                "푸드드링크" -> 4
+                else -> 5
             }
             selectTab(getTabAt(tabIndex)) // 탭 활성화
         }
         binding.tabLayout1.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 val type = when (tab?.position) {
-                    0 -> "일회성"
-                    1 -> "지속성"
+                    0 -> "외국어"
+                    1 -> "엔터테인먼트/예술"
+                    2 -> "여행/동행"
+                    3 -> "액티비티"
+                    4 -> "푸드드링크"
                     else -> null
                 }
                 type?.let {
                     // 타입에 따라 ViewModel에서 데이터 불러오기
-                    typeViewModel.fetchTypeSyncs(syncType = it)
+                    interestViewModel.fetchInterestSyncs(type = it)
                 }
             }
 
@@ -73,13 +83,13 @@ class TypeListActivity : AppCompatActivity() {
 
     private fun setupRecyclerView() {
         recyclerView = binding.recyclerView
-        syncAdapter = SyncSquareAdapter(listOf(), object : SyncSquareAdapter.OnSyncClickListener {
+        syncAdapter = SyncSquareAdapter2(listOf(), object : SyncSquareAdapter2.OnSyncClickListener {
             override fun onSyncClick(sync: Sync) {
                 openSyncActivity(sync)
             }
         })
         recyclerView.apply {
-            layoutManager = LinearLayoutManager(this@TypeListActivity)
+            layoutManager = LinearLayoutManager(this@InterestActivity)
             adapter = syncAdapter
         }
     }
@@ -92,13 +102,12 @@ class TypeListActivity : AppCompatActivity() {
     }
 
     private fun observeViewModel() {
-        typeViewModel.typeSyncs.observe(this, { syncs ->
+        interestViewModel.interestSyncs.observe(this, { syncs ->
             syncAdapter.updateSyncs(syncs)
         })
-
-        typeViewModel.errorMessage.observe(this, { error ->
-            // 에러 메시지 처리, 예를 들어 Toast 메시지를 표시
-            Toast.makeText(this, error, Toast.LENGTH_SHORT).show()
-        })
+        interestViewModel.errorMessage.observe(
+            this,
+            { error -> Toast.makeText(this, error, Toast.LENGTH_SHORT).show() }
+        )
     }
 }

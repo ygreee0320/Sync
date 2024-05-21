@@ -38,6 +38,7 @@
 
 
         <LinearLayout
+            android:id="@+id/text_layout"
             style="@style/edit_text_box"
             android:layout_marginStart="17dp"
             android:layout_marginTop="48dp"
@@ -51,7 +52,7 @@
                 android:background="@drawable/ic_map_pin_gray" />
 
             <EditText
-                android:id="@+id/univ"
+                android:id="@+id/location"
                 style="@style/Body1_400"
                 android:layout_width="0dp"
                 android:layout_marginStart="10dp"

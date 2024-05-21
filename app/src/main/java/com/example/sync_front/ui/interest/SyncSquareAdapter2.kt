@@ -1,4 +1,4 @@
-package com.example.sync_front.ui.type
+package com.example.sync_front.ui.interest
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,20 +6,21 @@ import androidx.recyclerview.widget.RecyclerView
 import android.util.Log
 import com.bumptech.glide.Glide
 import com.example.sync_front.data.model.Sync
+import com.example.sync_front.databinding.ItemSyncSquare2Binding
 import com.example.sync_front.databinding.ItemSyncSquareBinding
 
 
-class SyncSquareAdapter(
+class SyncSquareAdapter2(
     private var syncs: List<Sync>,
     private val onSyncClickListener: OnSyncClickListener
 ) :
-    RecyclerView.Adapter<SyncSquareAdapter.SyncViewHolder>() {
+    RecyclerView.Adapter<SyncSquareAdapter2.SyncViewHolder>() {
 
     interface OnSyncClickListener {
         fun onSyncClick(sync: Sync)
     }
 
-    class SyncViewHolder(val binding: ItemSyncSquareBinding) : RecyclerView.ViewHolder(binding.root) {
+    class SyncViewHolder(val binding: ItemSyncSquare2Binding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(sync: Sync, onSyncClickListener: OnSyncClickListener) {
             with(binding) {
                 Glide.with(ivSyncImg.context)
@@ -43,7 +44,7 @@ class SyncSquareAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SyncViewHolder {
-        val binding = ItemSyncSquareBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemSyncSquare2Binding.inflate(LayoutInflater.from(parent.context), parent, false)
         return SyncViewHolder(binding)
     }
 

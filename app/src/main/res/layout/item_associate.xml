@@ -17,6 +17,16 @@
         app:layout_constraintTop_toTopOf="parent"
         app:shapeAppearanceOverlay="@style/top_12dp" />
 
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/iv_gradient"
+        android:layout_width="160dp"
+        android:layout_height="130dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg_gradient_associate"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/top_12dp" />
+
     <TextView
         android:id="@+id/sync_label1"
         style="@style/Detail_400"
@@ -47,8 +57,52 @@
         app:layout_constraintStart_toEndOf="@id/sync_label1"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/sync_ic_people"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/ic_people_gray"
+        android:backgroundTint="@color/white"
+        app:layout_constraintBottom_toTopOf="@id/detail"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/sync_number_of_gather"
+        style="@style/Detail_400"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="2"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@id/detail"
+        app:layout_constraintStart_toEndOf="@id/sync_ic_people" />
+
+    <TextView
+        android:id="@+id/slash"
+        style="@style/Detail_400"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="/"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@id/detail"
+        app:layout_constraintStart_toEndOf="@id/sync_number_of_gather" />
+
+    <TextView
+        android:id="@+id/sync_number_of_total"
+        style="@style/Detail_400"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="4"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@id/detail"
+        app:layout_constraintStart_toEndOf="@id/slash" />
 
     <LinearLayout
+        android:id="@+id/detail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"

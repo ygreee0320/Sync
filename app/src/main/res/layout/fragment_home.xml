@@ -181,7 +181,7 @@
                         app:layout_constraintTop_toBottomOf="@id/home_tv5">
 
                         <LinearLayout
-                            android:id="@+id/box_exchange_language"
+                            android:id="@+id/box_foreign_language"
                             style="@style/home_box2"
                             android:background="@drawable/bg_btn_box">
 
@@ -192,7 +192,7 @@
 
                             <TextView
                                 style="@style/Body3_400"
-                                android:text="@string/exchange_language" />
+                                android:text="@string/foreignLanguage" />
 
                         </LinearLayout>
 
@@ -300,18 +300,37 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/home_sync2">
 
-                    <TextView
-                        android:id="@+id/home_tv8"
-                        style="@style/Body1_700"
-                        android:text="@string/friend_sync"
-                        android:textColor="@color/gray_90" />
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/friend_all"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
-                    <TextView
-                        android:id="@+id/home_tv9"
-                        style="@style/Detail_400"
-                        android:text="@string/enjoy_friend_sync"
-                        android:textColor="@color/gray_50" />
+                        <TextView
+                            android:id="@+id/home_tv8"
+                            style="@style/Body1_700"
+                            android:text="@string/friend_sync"
+                            android:textColor="@color/gray_90"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
+                        <TextView
+                            android:id="@+id/home_tv9"
+                            style="@style/Detail_400"
+                            android:text="@string/enjoy_friend_sync"
+                            android:textColor="@color/gray_50"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/home_tv8" />
+
+                        <TextView
+                            android:id="@+id/home_tv12"
+                            style="@style/Detail_400"
+                            android:text="@string/all_see"
+                            android:textColor="@color/gray_50"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/home_recycler_view"
@@ -330,17 +349,37 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/home_sync3">
 
-                    <TextView
-                        android:id="@+id/home_tv10"
-                        style="@style/Body1_700"
-                        android:text="@string/discount_sync"
-                        android:textColor="@color/gray_90" />
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/associate_all"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
-                    <TextView
-                        android:id="@+id/home_tv11"
-                        style="@style/Detail_400"
-                        android:text="@string/enjoy_discount_sync"
-                        android:textColor="@color/gray_50" />
+                        <TextView
+                            android:id="@+id/home_tv10"
+                            style="@style/Body1_700"
+                            android:text="@string/discount_sync"
+                            android:textColor="@color/gray_90"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/home_tv11"
+                            style="@style/Detail_400"
+                            android:text="@string/enjoy_discount_sync"
+                            android:textColor="@color/gray_50"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/home_tv10" />
+
+                        <TextView
+                            android:id="@+id/home_tv13"
+                            style="@style/Detail_400"
+                            android:text="@string/all_see"
+                            android:textColor="@color/gray_50"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
                     <androidx.recyclerview.widget.RecyclerView
@@ -361,6 +400,8 @@
             android:id="@+id/fab_open"
             android:layout_width="56dp"
             android:layout_height="56dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="10dp"
             android:backgroundTint="@color/biscay_50"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="10dp"

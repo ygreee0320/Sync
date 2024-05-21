@@ -28,7 +28,7 @@ interface HomeService {
         @Header("Content-Type") application: String,
         @Header("Authorization") authorization: String?,
         @Body request: AssociateSyncRequest
-    ): Call<TypeSyncRequest>
+    ): Call<SyncResponse>
 
     @GET("sync/recommend")
     fun getRecommendSyncs(
@@ -49,6 +49,8 @@ data class AssociateSyncRequest(
     val syncType: String?,
     val type: String?
 )
+
+
 
 data class TypeSyncRequest(
     val take: Int?,

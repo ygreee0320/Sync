@@ -19,7 +19,7 @@ data class SelectTheme(
     val list: List<String>
 )
 
-class SelectThemeAdapter(private var list: List<SelectTheme>) :
+class SelectThemeAdapter(private var list: List<SelectTheme>, private val doneButtonCallback: (Boolean) -> Unit) :
     RecyclerView.Adapter<SelectThemeAdapter.SelectThemeViewHolder>() {
 
     private val clickedItems: MutableList<String> = mutableListOf() // 클릭된 관심사 리스트
@@ -135,6 +135,8 @@ class SelectThemeAdapter(private var list: List<SelectTheme>) :
             init {
                 select.setOnClickListener {
                     toggleItem()
+                    doneButtonCallback.invoke(clickedItems.size >= 1)
+
                 }
             }
 

@@ -1,5 +1,7 @@
 package com.example.sync_front.ui.sync
 
+import android.app.Application
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,6 +13,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import android.util.Log
+import androidx.lifecycle.AndroidViewModel
 import com.example.sync_front.data.model.GraphDetails
 import com.example.sync_front.data.model.Review
 import com.example.sync_front.data.model.Sync
@@ -19,7 +22,7 @@ import com.example.sync_front.data.service.ReviewResponse
 import com.example.sync_front.data.service.SyncResponse
 
 
-class SyncViewModel : ViewModel() {
+class SyncViewModel(application: Application) : AndroidViewModel(application) {
     private val _syncDetail = MutableLiveData<SyncDetail>()
     val syncDetail: LiveData<SyncDetail> = _syncDetail
 
@@ -37,7 +40,14 @@ class SyncViewModel : ViewModel() {
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> = _errorMessage
 
-    fun fetchSyncDetail(syncId: Long, authToken: String) {
+    val authToken: String?
+
+    init {
+        val sharedPreferences = application.getSharedPreferences("my_token", Context.MODE_PRIVATE)
+        authToken = sharedPreferences.getString("auth_token", null)
+    }
+
+    fun fetchSyncDetail(syncId: Long) {
         RetrofitClient.instance.syncDetailService.getSyncDetail(
             "application/json",
             authToken,
@@ -65,8 +75,8 @@ class SyncViewModel : ViewModel() {
             })
     }
 
-    fun fetchGraphData(graphType: String, syncId: Long, token: String) {
-        RetrofitClient.instance.syncDetailService.getGraphData(graphType, syncId, token)
+    fun fetchGraphData(graphType: String, syncId: Long) {
+        RetrofitClient.instance.syncDetailService.getGraphData(graphType, syncId, authToken)
             .enqueue(object : Callback<GraphResponse> {
                 override fun onResponse(
                     call: Call<GraphResponse>,
@@ -89,10 +99,10 @@ class SyncViewModel : ViewModel() {
             })
     }
 
-    fun fetchReviews(token: String, syncId: Long, take: Int) {
+    fun fetchReviews(syncId: Long, take: Int) {
         RetrofitClient.instance.syncDetailService.getReviewData(
             "application/json",
-            token,
+            authToken,
             syncId,
             take
         )
@@ -114,7 +124,7 @@ class SyncViewModel : ViewModel() {
             })
     }
 
-    fun fetchSameSyncData(authToken: String, syncId: Long, take: Int) {
+    fun fetchSameSyncData(syncId: Long, take: Int) {
         RetrofitClient.instance.syncDetailService.getSameSyncData(
             contentType = "application/json",
             authorization = authToken,

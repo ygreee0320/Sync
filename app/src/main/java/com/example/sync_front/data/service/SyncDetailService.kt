@@ -14,7 +14,7 @@ interface SyncDetailService {
     @GET("sync/detail")
     fun getSyncDetail(
         @Header("Content-Type") contentType: String = "application/json",
-        @Header("Authorization") authorization: String,
+        @Header("Authorization") authorization: String?,
         @Query("syncId") userId: Long
     ): Call<SyncDetailResponse>
 
@@ -22,13 +22,13 @@ interface SyncDetailService {
     fun getGraphData(
         @Path("graph") graphType: String,
         @Query("syncId") syncId: Long,
-        @Header("Authorization") authorization: String
+        @Header("Authorization") authorization: String?
     ): Call<GraphResponse>
 
     @GET("sync/detail/review")
     fun getReviewData(
         @Header("Content-Type") contentType: String = "application/json",
-        @Header("Authorization") authorization: String,
+        @Header("Authorization") authorization: String?,
         @Query("syncId") syncId: Long,
         @Query("take") take: Int
     ): Call<ReviewResponse>
@@ -36,7 +36,7 @@ interface SyncDetailService {
     @GET("sync/detail/recommend")
     fun getSameSyncData(
         @Header("Content-Type") contentType: String = "application/json",
-        @Header("Authorization") authorization: String,
+        @Header("Authorization") authorization: String?,
         @Query("syncId") syncId: Long,
         @Query("take") take: Int
     ): Call<SyncResponse>
