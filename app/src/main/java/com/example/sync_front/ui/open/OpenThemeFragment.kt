@@ -25,16 +25,17 @@ class OpenThemeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        nextButton()
+        setupClickListeners()
         initSetting()
         updateSelectList()
     }
 
     private fun initSetting() {
         binding.doneBtn.isEnabled = false
-        adapter = SelectThemeAdapter(emptyList<SelectTheme>()){}
+        adapter = SelectThemeAdapter(emptyList<SelectTheme>()) {}
 
     }
+
     private fun updateDoneButtonBackground() {
         if (binding.doneBtn.isEnabled) { // 다음 버튼 스타일 변경
             binding.doneBtn.setTextColor(context!!.resources.getColor(R.color.white))
@@ -44,6 +45,7 @@ class OpenThemeFragment : Fragment() {
             binding.doneBtn.setBackgroundResource(R.drawable.btn_gray_10)
         }
     }
+
     private fun updateSelectList() { // 관심사 선택 리스트 출력
         val interest1 =
             SelectTheme("@drawable/ic_exchange_language", "외국어", listOf("언어 교환", "튜터링", "스터디"))
@@ -62,18 +64,23 @@ class OpenThemeFragment : Fragment() {
         val interest6 = SelectTheme("@drawable/ic_etc", "기타", listOf("기타"))
 
         val themeList = listOf(interest1, interest2, interest3, interest4, interest5, interest6)
-        adapter = SelectThemeAdapter(themeList){ enable ->
+        adapter = SelectThemeAdapter(themeList) { enable ->
             binding.doneBtn.isEnabled = enable
             updateDoneButtonBackground()
         }
         binding.recyclerview.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerview.adapter = adapter
     }
-    private fun nextButton(){
+
+    private fun setupClickListeners() {
+        binding.beforeBtn.setOnClickListener {
+            findNavController().navigateUp() // 이전 프래그먼트로
+        }
         binding.doneBtn.setOnClickListener {
             findNavController().navigate(R.id.action_openThemeFragment_to_openTitleFragment)
         }
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null // 메모리 누수 방지
