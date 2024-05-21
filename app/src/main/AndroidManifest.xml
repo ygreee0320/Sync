@@ -29,13 +29,8 @@
             android:required="false" />
 
         <activity
-            android:name=".ui.type.ListActivity"
+            android:name=".ui.type.TypeListActivity"
             android:exported="false" />
-        <activity
-            android:name=".ui.type.TypeActivity"
-            android:exported="false"
-            android:label="@string/title_activity_type"
-            android:theme="@style/Theme.Syncfront" />
         <activity
             android:name=".ui.main.my.SettingActivity"
             android:exported="false" />

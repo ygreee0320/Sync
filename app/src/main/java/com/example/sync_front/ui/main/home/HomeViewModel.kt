@@ -28,7 +28,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
     val errorMessage = MutableLiveData<String>()
     private val _text = MutableLiveData<String>().apply {
-        value = "박시윤"
+        value = "test"
 
     }
     val text: LiveData<String> = _text

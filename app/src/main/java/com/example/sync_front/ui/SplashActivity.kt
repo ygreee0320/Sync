@@ -5,11 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.content.ContextCompat
 import com.example.sync_front.ui.login.LoginActivity
-import com.example.sync_front.ui.main.MainActivity
-import com.example.sync_front.ui.onboarding.OnboardingActivity
-import com.example.sync_front.ui.open.OpenActivity
-import com.example.sync_front.ui.sync.SyncActivity
-import com.example.sync_front.ui.type.ListActivity
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 import java.util.concurrent.ScheduledExecutorService
