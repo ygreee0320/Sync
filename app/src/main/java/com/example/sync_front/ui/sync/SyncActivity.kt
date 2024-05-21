@@ -103,6 +103,12 @@ class SyncActivity : AppCompatActivity() {
         })
     }
 
+    private fun setupClickListeners() {
+        binding.btnBookmark.setOnClickListener {
+
+        }
+    }
+
     private fun setToolbarButton() {
         binding.syncToolbar.setNavigationOnClickListener {
             onBackPressedDispatcher.onBackPressed()

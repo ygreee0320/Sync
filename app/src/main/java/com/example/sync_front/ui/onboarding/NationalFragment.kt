@@ -58,7 +58,7 @@ class NationalFragment : Fragment() {
         binding.doneBtn.setOnClickListener {
             if (binding.doneBtn.isEnabled) {
                 val action = NationalFragmentDirections.actionNationalFragmentToGenderFragment(
-                    Onboarding(language, profile, name, "national", null, null, null, null)
+                    Onboarding(language, profile, name, national, null, null, null, null)
                 )
                 findNavController().navigate(action)
             }

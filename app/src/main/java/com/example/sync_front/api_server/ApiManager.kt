@@ -13,9 +13,9 @@ import retrofit2.Response
 import retrofit2.http.Url
 
 object LoginManager {
-    fun sendLogin(authToken: String, platform: Platform, callback: (User?) -> Unit) {
+    fun sendLogin(authToken: String, platform: Platform, fcmToken: String, callback: (User?) -> Unit) {
         val apiService = RetrofitClient().loginService
-        val call = apiService.signIn("application/json", authToken, "1234", platform)
+        val call = apiService.signIn("application/json", authToken, fcmToken, platform)
 
         call.enqueue(object : Callback<LogInResponse> {
             override fun onResponse(call: Call<LogInResponse>, response: Response<LogInResponse>) {
@@ -36,7 +36,7 @@ object LoginManager {
         })
     }
 
-    fun sendOnboarding(authToken: String, image: MultipartBody.Part?, request: OnboardingRequest, callback: (Int?) -> Unit) {
+    fun sendOnboarding(authToken: String, image: MultipartBody.Part?, request: RequestBody, callback: (Int?) -> Unit) {
         val apiService = RetrofitClient().loginService
         val call = apiService.onboarding("application/json", authToken, image, request)
 
@@ -523,14 +523,24 @@ object MypageManager {
                   callback: (ModMypageResponse?) -> Unit) {
         val apiService = RetrofitClient().mypageService
 
+//        val call = apiService.modMypage(
+//            "multipart/form-data",
+//            authToken,
+//            image,
+//            ModName(name),
+//            ModGender(gender),
+//            ModSyncType(syncType),
+//            ModDetailTypes(detailTypes)
+//        )
+
         val call = apiService.modMypage(
-            "multipart/form-data",
+            "application/json",
             authToken,
             image,
-            ModName(name),
-            ModGender(gender),
-            ModSyncType(syncType),
-            ModDetailTypes(detailTypes)
+            name,
+            gender,
+            syncType,
+            detailTypes
         )
 
         call.enqueue(object : Callback<ModMypageResponse> {

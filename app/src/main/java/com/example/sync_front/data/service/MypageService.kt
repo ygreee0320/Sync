@@ -15,16 +15,28 @@ interface MypageService {
         @Query("language") language: String,
     ): Call<MypageResponse>
 
+//    @Multipart
+//    @PATCH("mypage")
+//    fun modMypage(
+//        @Header("Content-Type") contentType: String,
+//        @Header("Authorization") accessToken: String,
+//        @Part image: MultipartBody.Part?,
+//        @Part("name") name: ModName,
+//        @Part("gender") gender: ModGender,
+//        @Part("syncType") syncType: ModSyncType,
+//        @Part("detailTypes") detailTypes: ModDetailTypes
+//    ): Call<ModMypageResponse>
+
     @Multipart
     @PATCH("mypage")
     fun modMypage(
         @Header("Content-Type") contentType: String,
         @Header("Authorization") accessToken: String,
         @Part image: MultipartBody.Part?,
-        @Part("name") name: ModName,
-        @Part("gender") gender: ModGender,
-        @Part("syncType") syncType: ModSyncType,
-        @Part("detailTypes") detailTypes: ModDetailTypes
+        @Part("name") name: String,
+        @Part("gender") gender: String,
+        @Part("syncType") syncType: String,
+        @Part("detailTypes") detailTypes: List<String>
     ): Call<ModMypageResponse>
 
     @GET("mypage/mysync")
