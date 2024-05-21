@@ -108,6 +108,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
             val notificationManager =
                 getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
             notificationManager.createNotificationChannel(chatChannel)
             notificationManager.createNotificationChannel(communityChannel)
             notificationManager.createNotificationChannel(openChatChannel)
@@ -115,38 +116,43 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             notificationManager.createNotificationChannel(reviewChannel)
         }
     }
-        private fun sendNotification(title: String, message: String, channelId: String) {
-            val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            // 로그 추가: 채널 ID와 알림 정보를 로그로 기록
-            Log.d("FCMService", "Sending notification on channel: $channelId. Title: $title, Message: $message")
 
-            // 알림을 클릭했을 때 열릴 액티비티 설정
-            val intent = Intent(this, MainActivity::class.java)
-            val pendingIntent = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                PendingIntent.getActivity(
-                    this,
-                    0,
-                    intent,
-                    PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
-                )
-            } else {
-                PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
-            }
+    private fun sendNotification(title: String, message: String, channelId: String) {
+        val notificationManager =
+            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        // 로그 추가: 채널 ID와 알림 정보를 로그로 기록
+        Log.d(
+            "FCMService",
+            "Sending notification on channel: $channelId. Title: $title, Message: $message"
+        )
 
-            // 알림 구성
-            val notification = NotificationCompat.Builder(this, channelId)
-                .setContentTitle(title)
-                .setContentText(message)
-                .setSmallIcon(R.drawable.ic_sync_notification)
-                .setAutoCancel(true)
-                .setContentIntent(pendingIntent)
-                .build()
-
-            // 알림 표시
-            notificationManager.notify(0, notification)
-
-            // 로그 추가: 알림이 표시된 후의 로그
-            Log.d("FCMService", "Notification sent on channel: $channelId. ID: 0")
+        // 알림을 클릭했을 때 열릴 액티비티 설정
+        val intent = Intent(this, MainActivity::class.java)
+        val pendingIntent = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            PendingIntent.getActivity(
+                this,
+                0,
+                intent,
+                PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+            )
+        } else {
+            PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
         }
+
+        // 알림 구성
+        val notification = NotificationCompat.Builder(this, channelId)
+            .setContentTitle(title)
+            .setContentText(message)
+            .setSmallIcon(R.drawable.ic_sync_notification)
+            .setAutoCancel(true)
+            .setContentIntent(pendingIntent)
+            .build()
+
+        // 알림 표시
+        notificationManager.notify(0, notification)
+
+        // 로그 추가: 알림이 표시된 후의 로그
+        Log.d("FCMService", "Notification sent on channel: $channelId. ID: 0")
+    }
 
 }
