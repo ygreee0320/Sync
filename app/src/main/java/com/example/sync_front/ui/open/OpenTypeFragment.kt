@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import com.example.sync_front.R
 import com.example.sync_front.databinding.FragmentOpenTypeBinding
@@ -39,21 +40,37 @@ class OpenTypeFragment : Fragment() {
             it.isSelected = true
             binding.boxOnetime.isSelected = false
             binding.boxFriend.isSelected = false
-            checkNextButtonState ()
+            checkNextButtonState()
         }
         binding.boxFriend.setOnClickListener {
             it.isSelected = true
             binding.boxOnetime.isSelected = false
             binding.boxPersistence.isSelected = false
-            checkNextButtonState ()
+            checkNextButtonState()
         }
     }
 
     private fun checkNextButtonState() {
         val isAnySubscribeSelected =
-            listOf(binding.boxOnetime, binding.boxPersistence, binding.boxFriend).any { it.isSelected }
+            listOf(
+                binding.boxOnetime,
+                binding.boxPersistence,
+                binding.boxFriend
+            ).any { it.isSelected }
 
         binding.doneBtn.isEnabled = isAnySubscribeSelected
+
+        if (isAnySubscribeSelected) {
+            binding.doneBtn.setTextColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    android.R.color.white
+                )
+            )
+        } else {
+            binding.doneBtn.setTextColor(ContextCompat.getColor(requireContext(), R.color.gray_70))
+        }
+
         binding.doneBtn.setOnClickListener {
             if (binding.doneBtn.isEnabled)
                 nextButton()

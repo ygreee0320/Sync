@@ -61,8 +61,6 @@
             <TextView
                 android:id="@+id/date_text"
                 style="@style/Body1_400"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:text="@string/select_date" />
         </LinearLayout>
@@ -84,8 +82,6 @@
             <TextView
                 android:id="@+id/time_text"
                 style="@style/Body1_400"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:text="@string/select_time" />
 
@@ -126,6 +122,7 @@
             android:background="@drawable/btn_gray_10"
             android:gravity="center"
             android:text="@string/next"
+            android:enabled="false"
             android:textColor="@color/gray_70"
             android:textSize="16sp" />
 

@@ -240,4 +240,7 @@
     <string name="싱크에서">싱크에서</string>
     <string name="싱크를_맞춰봐요">싱크를 맞춰봐요!</string>
 
+    <!--싱크 리스트-->
+    <string name="all">전체</string>
+    <string name="foreign_language">외국어</string>
 </resources>

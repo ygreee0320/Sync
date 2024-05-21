@@ -22,13 +22,27 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         super.onMessageReceived(remoteMessage)
+        // 알림 채널 생성
+        createNotificationChannel()
 
-        // 여기서 알림의 제목과 메시지를 추출합니다.
+
+        // 제목과 메시지 추출
         val title = remoteMessage.notification?.title ?: "Default title"
         val message = remoteMessage.notification?.body ?: "Default message"
 
-        // 알림을 표시하는 메소드 호출
-        sendNotification(title, message)
+        // 타입에 따른 채널 ID 설정
+        val channelId = when (title) {
+            "채팅" -> "ChatChannel"
+            "커뮤니티" -> "CommunityChannel"
+            "공지" -> "OpenChatChannel"
+            "일정" -> "RemindChannel"
+            "후기" -> "ReviewChannel"
+            else -> "OpenChatChannel"
+        }
+
+        // 알림 전송
+        sendNotification(title, message, channelId)
+
     }
 
     private val apiService by lazy {
@@ -63,44 +77,76 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         })
     }
 
-    private fun sendNotification(title: String, message: String) {
-        val notificationManager =
-            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
+    private fun createNotificationChannel() {
         // Android Oreo 이상에서는 알림 채널을 설정합니다.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(
-                "MyNotifications",
-                "My Notifications",
+            val chatChannel = NotificationChannel(
+                "ChatChannel",
+                "Chat Notifications",
                 NotificationManager.IMPORTANCE_DEFAULT
             )
-            notificationManager.createNotificationChannel(channel)
-        }
-
-        // 알림을 클릭했을 때 열릴 액티비티 설정
-        val intent = Intent(this, MainActivity::class.java)
-        val pendingIntent = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            PendingIntent.getActivity(
-                this,
-                0,
-                intent,
-                PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+            val communityChannel = NotificationChannel(
+                "CommunityChannel",
+                "Community Notifications",
+                NotificationManager.IMPORTANCE_DEFAULT
             )
-        } else {
-            PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+            val openChatChannel = NotificationChannel(
+                "OpenChatChannel",
+                "OpenChat Notifications",
+                NotificationManager.IMPORTANCE_DEFAULT
+            )
+            val remindChannel = NotificationChannel(
+                "RemindChannel",
+                "Remind Notifications",
+                NotificationManager.IMPORTANCE_DEFAULT
+            )
+            val reviewChannel = NotificationChannel(
+                "ReviewChannel",
+                "Review Notifications",
+                NotificationManager.IMPORTANCE_DEFAULT
+            )
+
+            val notificationManager =
+                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(chatChannel)
+            notificationManager.createNotificationChannel(communityChannel)
+            notificationManager.createNotificationChannel(openChatChannel)
+            notificationManager.createNotificationChannel(remindChannel)
+            notificationManager.createNotificationChannel(reviewChannel)
         }
-
-        // 알림 구성
-        val notification = NotificationCompat.Builder(this, "MyNotifications")
-            .setContentTitle(title)
-            .setContentText(message)
-            .setSmallIcon(R.drawable.ic_notification)
-            .setAutoCancel(true)
-            .setContentIntent(pendingIntent)
-            .build()
-
-        // 알림 표시
-        notificationManager.notify(0, notification)
     }
+        private fun sendNotification(title: String, message: String, channelId: String) {
+            val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            // 로그 추가: 채널 ID와 알림 정보를 로그로 기록
+            Log.d("FCMService", "Sending notification on channel: $channelId. Title: $title, Message: $message")
+
+            // 알림을 클릭했을 때 열릴 액티비티 설정
+            val intent = Intent(this, MainActivity::class.java)
+            val pendingIntent = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                PendingIntent.getActivity(
+                    this,
+                    0,
+                    intent,
+                    PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+                )
+            } else {
+                PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+            }
+
+            // 알림 구성
+            val notification = NotificationCompat.Builder(this, channelId)
+                .setContentTitle(title)
+                .setContentText(message)
+                .setSmallIcon(R.drawable.ic_sync_notification)
+                .setAutoCancel(true)
+                .setContentIntent(pendingIntent)
+                .build()
+
+            // 알림 표시
+            notificationManager.notify(0, notification)
+
+            // 로그 추가: 알림이 표시된 후의 로그
+            Log.d("FCMService", "Notification sent on channel: $channelId. ID: 0")
+        }
 
 }

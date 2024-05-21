@@ -11,9 +11,9 @@ import retrofit2.http.Part
 
 interface OpenSyncService {
     @Multipart
-    @POST("sync/upload")
+    @POST("/api/sync")
     fun uploadSyncData(
-        @Header("Authorization") authorization: String,
+        @Header("Authorization") authorization: String?,
         @Part image: MultipartBody.Part,
         @Part("requestDto") requestDto: RequestBody
     ): Call<OpenResponse>

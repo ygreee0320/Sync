@@ -24,6 +24,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Syncfront"
         tools:targetApi="31">
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+
         <activity
             android:name=".ui.main.my.review.AddReviewActivity"
             android:exported="false" />
@@ -31,13 +35,8 @@
             android:name=".ui.main.my.QuestionActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.type.ListActivity"
+            android:name=".ui.type.TypeListActivity"
             android:exported="false" />
-        <activity
-            android:name=".ui.type.TypeActivity"
-            android:exported="false"
-            android:label="@string/title_activity_type"
-            android:theme="@style/Theme.Syncfront" />
         <activity
             android:name=".ui.main.my.SettingActivity"
             android:exported="false" />
@@ -90,7 +89,7 @@
             android:exported="false" />
         <activity
             android:name=".ui.main.MainActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
             android:exported="true"

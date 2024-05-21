@@ -1,8 +1,8 @@
 package com.example.sync_front.ui.main.home
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.example.sync_front.api_server.RetrofitClient
 import com.example.sync_front.data.model.Sync
 import com.example.sync_front.data.service.AssociateSyncRequest
@@ -11,24 +11,30 @@ import com.example.sync_front.data.service.SyncResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 
 
-class HomeViewModel : ViewModel() {
+class HomeViewModel(application: Application) : AndroidViewModel(application) {
     val syncs = MutableLiveData<List<Sync>>()
     val associateSyncs = MutableLiveData<List<Sync>>()
     val recommendSyncs = MutableLiveData<List<Sync>>()
-    val token = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI5IiwiaWF0IjoxNzE1NDQ1NTQxLCJleHAiOjE3MTYwNTAzNDF9._EpiWHCK94mi3m9sD4qUX8sYk-Uk2BaSKw8Pbm1U9pM "  // Bearer 키워드 추가
+    val authToken: String?
+
+    init {
+        val sharedPreferences = application.getSharedPreferences("my_token", Context.MODE_PRIVATE)
+        authToken = sharedPreferences.getString("auth_token", null)
+    }
 
     val errorMessage = MutableLiveData<String>()
     private val _text = MutableLiveData<String>().apply {
-        value = "박시윤"
+        value = "test"
 
     }
     val text: LiveData<String> = _text
-
     fun fetchSyncs(take: Int?, type: String? = null) {
         val request = SyncRequest(take, type)
-        RetrofitClient.instance.homeService.postFriendSyncs("application/json", token, request)
+        RetrofitClient.instance.homeService.postFriendSyncs("application/json", authToken, request)
             .enqueue(object : Callback<SyncResponse> {
                 override fun onResponse(
                     call: Call<SyncResponse>,
@@ -37,7 +43,11 @@ class HomeViewModel : ViewModel() {
                     if (response.isSuccessful) {
                         syncs.postValue(response.body()?.data ?: listOf())
                     } else {
-                        errorMessage.postValue("Error: ${response.errorBody()?.string()}")
+                        if (response.code() == 401) { // 토큰 만료 체크
+                            errorMessage.postValue("Token expired. Please log in again.")
+                        } else {
+                            errorMessage.postValue("Error: ${response.errorBody()?.string()}")
+                        }
                     }
                 }
 
@@ -49,7 +59,11 @@ class HomeViewModel : ViewModel() {
 
     fun fetchAssociateSyncs(take: Int?, syncType: String? = null, type: String? = null) {
         val request = AssociateSyncRequest(take, syncType, type)
-        RetrofitClient.instance.homeService.postAssociateSyncs("application/json", token, request)
+        RetrofitClient.instance.homeService.postAssociateSyncs(
+            "application/json",
+            authToken,
+            request
+        )
             .enqueue(object : Callback<SyncResponse> {
                 override fun onResponse(
                     call: Call<SyncResponse>,
@@ -58,7 +72,11 @@ class HomeViewModel : ViewModel() {
                     if (response.isSuccessful) {
                         associateSyncs.postValue(response.body()?.data ?: listOf())
                     } else {
-                        errorMessage.postValue("Error: ${response.errorBody()?.string()}")
+                        if (response.code() == 401) { // 토큰 만료 체크
+                            errorMessage.postValue("Token expired. Please log in again.")
+                        } else {
+                            errorMessage.postValue("Error: ${response.errorBody()?.string()}")
+                        }
                     }
                 }
 
@@ -69,7 +87,7 @@ class HomeViewModel : ViewModel() {
     }
 
     fun fetchRecommendSyncs(userId: Long) {
-        RetrofitClient.instance.homeService.getRecommendSyncs("application/json", token, userId)
+        RetrofitClient.instance.homeService.getRecommendSyncs("application/json", authToken, userId)
             .enqueue(object : Callback<SyncResponse> {
                 override fun onResponse(
                     call: Call<SyncResponse>,
@@ -78,7 +96,11 @@ class HomeViewModel : ViewModel() {
                     if (response.isSuccessful) {
                         recommendSyncs.postValue(response.body()?.data ?: listOf())
                     } else {
-                        errorMessage.postValue("Error: ${response.errorBody()?.string()}")
+                        if (response.code() == 401) { // 토큰 만료 체크
+                            errorMessage.postValue("Token expired. Please log in again.")
+                        } else {
+                            errorMessage.postValue("Error: ${response.errorBody()?.string()}")
+                        }
                     }
                 }
 

@@ -12,22 +12,28 @@ interface HomeService {
     @POST("sync/friend")
     fun postFriendSyncs(
         @Header("Content-Type") application: String,
-        @Header("Authorization") authorization: String,
+        @Header("Authorization") authorization: String?,
         @Body request: SyncRequest
     ): Call<SyncResponse>
 
     @POST("sync/associate")
     fun postAssociateSyncs(
         @Header("Content-Type") application: String,
-        @Header("Authorization") authorization: String,
+        @Header("Authorization") authorization: String?,
         @Body request: AssociateSyncRequest
     ): Call<SyncResponse>
 
+    @POST("sync/search")
+    fun postTypeSyncs(
+        @Header("Content-Type") application: String,
+        @Header("Authorization") authorization: String?,
+        @Body request: AssociateSyncRequest
+    ): Call<TypeSyncRequest>
 
     @GET("sync/recommend")
     fun getRecommendSyncs(
         @Header("Content-Type") contentType: String = "application/json",
-        @Header("Authorization") authorization: String,
+        @Header("Authorization") authorization: String?,
         @Query("userId") userId: Long
     ): Call<SyncResponse>
 
@@ -39,6 +45,12 @@ data class SyncRequest(
 )
 
 data class AssociateSyncRequest(
+    val take: Int?,
+    val syncType: String?,
+    val type: String?
+)
+
+data class TypeSyncRequest(
     val take: Int?,
     val syncType: String?,
     val type: String?

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.open.OpenLeaderFragment">
+    tools:context=".ui.open.OpenReaderFragment">
 
     <LinearLayout
         android:id="@+id/explain_layout"
@@ -35,6 +35,15 @@
             android:layout_marginTop="20dp"
             android:text="@string/싱크장을_소개해_주세요"
             android:textColor="@color/gray_90" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_img"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="29dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/img_profile_default" />
 
     </LinearLayout>
 

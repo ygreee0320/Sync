@@ -12,12 +12,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import androidx.databinding.adapters.ViewBindingAdapter.setPadding
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.example.sync_front.R
 import com.example.sync_front.data.model.Sync
 import com.example.sync_front.databinding.FragmentHomeBinding
+import com.example.sync_front.ui.login.LoginActivity
+import com.example.sync_front.ui.open.OpenActivity
 import com.example.sync_front.ui.sync.SyncActivity
 
 class HomeFragment : Fragment() {
@@ -44,6 +47,7 @@ class HomeFragment : Fragment() {
         setupUser()
         setupRecyclerView()
         subscribeUi()
+        setupClickListeners()
     }
 
     private fun setupUser() {
@@ -53,6 +57,9 @@ class HomeFragment : Fragment() {
         name = sharedPreferences.getString("name", null)!!
 
         binding.homeUsername.text = name
+
+
+
     }
 
     private fun setupRecyclerView() {
@@ -82,7 +89,6 @@ class HomeFragment : Fragment() {
         }
         startActivity(intent)
     }
-
 
     private fun subscribeUi() {
         viewModel.fetchSyncs(3) // 데이터 가져오기 호출
@@ -145,6 +151,20 @@ class HomeFragment : Fragment() {
         }
     }
 
+    private fun setupClickListeners() {
+        binding.fabOpen.setOnClickListener {
+            viewModel.authToken?.let { authToken ->
+                openOpenActivity(authToken)
+            }
+        }
+    }
+
+    private fun openOpenActivity(token: String) {
+        val intent = Intent(context, OpenActivity::class.java).apply {
+            putExtra("token", token)
+        }
+        startActivity(intent)
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

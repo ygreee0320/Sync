@@ -118,8 +118,7 @@
                         <LinearLayout
                             android:id="@+id/box_onetime"
                             style="@style/home_box1"
-                            android:background="@drawable/bg_btn_box"
-                            >
+                            android:background="@drawable/bg_btn_box">
 
                             <ImageView
                                 android:layout_width="wrap_content"
@@ -357,5 +356,15 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_open"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/biscay_50"
+            android:padding="10dp"
+            android:src="@drawable/ic_fab_plus"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
