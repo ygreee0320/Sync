@@ -2,6 +2,8 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.example.sync_front.R
 import com.example.sync_front.api_server.RoomMessageElementResponseDto
 import com.example.sync_front.databinding.ItemChattingMeBinding
 import com.example.sync_front.databinding.ItemChattingOtherBinding
@@ -56,6 +58,16 @@ class ChattingAdapter(private var itemList: MutableList<RoomMessageElementRespon
                 chattingUser.text = data.user.name
                 chattingMessage.text = data.content
                 messageTime.text = formatTime(data.time)
+
+                if (!data.user.profile.isNullOrEmpty()) {
+                    Glide.with(holder.itemView.context)
+                        .load(data.user.profile)
+                        .placeholder(R.drawable.img_profile_default)
+                        .error(R.drawable.img_profile_default)
+                        .into(holder.binding.profile)
+                } else {
+                    profile.setImageResource(R.drawable.img_profile_default)
+                }
             }
         }
     }

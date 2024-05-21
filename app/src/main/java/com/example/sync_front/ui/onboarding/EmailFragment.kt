@@ -107,10 +107,10 @@ class EmailFragment : Fragment() {
             response?.let {
                 if (response == 200) {
                     Log.d("my log", "이메일로 인증 코드 요청 완료")
-                    Toast.makeText(requireContext(), "전송되었습니다.", Toast.LENGTH_LONG).show()
+                    Toast.makeText(requireContext(), getString(R.string.send_done), Toast.LENGTH_LONG).show()
                 } else {
                     Log.d("my log", "대학과 일치하지 않는 메일 도메인")
-                    Toast.makeText(requireContext(), "대학과 일치하지 않는 메일 도메인입니다.", Toast.LENGTH_LONG).show()
+                    Toast.makeText(requireContext(), getString(R.string.not_exist_email), Toast.LENGTH_LONG).show()
                 }
             }
         }
@@ -123,13 +123,13 @@ class EmailFragment : Fragment() {
             response?.let {
                 if (response == 200) {
                     Log.d("my log", "인증 성공!")
-                    Toast.makeText(requireContext(), "인증 성공!", Toast.LENGTH_LONG).show()
+                    Toast.makeText(requireContext(), getString(R.string.certify_done), Toast.LENGTH_LONG).show()
                     binding.doneBtn.isEnabled = true
                     updateDoneButtonBackground()
                 }
                 else {
                     Log.d("my log", "인증 실패")
-                    Toast.makeText(requireContext(), "인증 코드를 다시 확인해주세요", Toast.LENGTH_LONG).show()
+                    Toast.makeText(requireContext(), getString(R.string.re_code), Toast.LENGTH_LONG).show()
                 }
             }
         }

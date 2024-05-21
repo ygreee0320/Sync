@@ -1,5 +1,6 @@
 package com.example.sync_front.ui.onboarding
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -10,9 +11,16 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sync_front.R
+import com.example.sync_front.api_server.LoginManager.sendOnboarding
+import com.example.sync_front.data.model.OnboardingRequest
 import com.example.sync_front.databinding.FragmentInterestBinding
+import com.example.sync_front.ui.main.my.ModProfileActivity
 import com.example.sync_front.ui.main.my.SelectInterest
 import com.example.sync_front.ui.main.my.SelectInterestAdapter
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import java.io.File
 
 class InterestFragment : Fragment() {
     lateinit var binding: FragmentInterestBinding
@@ -25,6 +33,7 @@ class InterestFragment : Fragment() {
     private lateinit var univ: String
     private lateinit var type: String
     private val args: InterestFragmentArgs by navArgs()
+    private var authToken: String ?= null // 로그인 토큰
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -45,6 +54,10 @@ class InterestFragment : Fragment() {
         binding.doneBtn.isEnabled = false
         adapter = SelectInterestAdapter(emptyList<SelectInterest>()){}
 
+        // 저장된 토큰 읽어오기
+        val sharedPreferences = requireActivity().getSharedPreferences("my_token", Context.MODE_PRIVATE)
+        authToken = sharedPreferences.getString("auth_token", null)
+
         // 전달된 데이터 읽기
         language = args.onboarding.language!!
         profile = args.onboarding.profile
@@ -63,8 +76,6 @@ class InterestFragment : Fragment() {
             if (binding.doneBtn.isEnabled) {
                 // 온보딩 요청 API 필요
                 sendToServer()
-                val action = InterestFragmentDirections.actionInterestFragmentToOnboardingDoneFragment(name)
-                findNavController().navigate(action)
             }
         }
 
@@ -77,7 +88,26 @@ class InterestFragment : Fragment() {
         val clickedItems = adapter.getClickedItems()
         Log.d("my log", "선택된 관심사- $clickedItems")
 
+        val imagePart: MultipartBody.Part? = profile?.let {
+            val file = File(it)
+            if (file.exists()) {
+                val requestBody = RequestBody.create("image/*".toMediaTypeOrNull(), file)
+                MultipartBody.Part.createFormData("image", file.name, requestBody)
+            } else {
+                null
+            }
+        }
 
+        val request = OnboardingRequest(language, name, national, gender, univ, "", type, clickedItems)
+
+        sendOnboarding(authToken!!, imagePart, request) {
+            if (it == 201) {
+                Log.d("my log", "온보딩 완료!")
+
+                val action = InterestFragmentDirections.actionInterestFragmentToOnboardingDoneFragment(name)
+                findNavController().navigate(action)
+            }
+        }
     }
 
     private fun updateDoneButtonBackground() {
@@ -91,12 +121,20 @@ class InterestFragment : Fragment() {
     }
 
     private fun updateSelectList() { // 관심사 선택 리스트 출력
-        val interest1 = SelectInterest("@drawable/ic_exchange_language", "외국어", listOf("언어 교환", "튜터링", "스터디"))
-        val interest2 = SelectInterest("@drawable/ic_culture", "문화·예술", listOf("문학·예술", "영화", "드라마", "미술·디자인", "공연·전시", "음악"))
-        val interest3 = SelectInterest("@drawable/ic_travel", "여행·동행", listOf("관광지", "자연", "휴양"))
-        val interest4 = SelectInterest("@drawable/ic_travel", "액티비티", listOf("러닝·산책", "등산", "클라이밍", "자전거", "축구", "서핑", "테니스", "볼링", "탁구"))
-        val interest5 = SelectInterest("@drawable/ic_food", "푸드·음료", listOf("맛집", "카페", "술"))
-        val interest6 = SelectInterest("@drawable/ic_etc", "기타", listOf("기타"))
+        val interest1 = SelectInterest("@drawable/ic_exchange_language", getString(R.string.foreignLanguage),
+            listOf(getString(R.string.languageExchange), getString(R.string.tutoring), getString(R.string.study)))
+        val interest2 = SelectInterest("@drawable/ic_culture", getString(R.string.cultureArt),
+            listOf(getString(R.string.movie), getString(R.string.drama), getString(R.string.art), getString(R.string.performance), getString(R.string.music)))
+        val interest3 = SelectInterest("@drawable/ic_travel", getString(R.string.travelCompanion),
+            listOf(getString(R.string.sightseeing), getString(R.string.nature), getString(R.string.vacation)))
+        val interest4 = SelectInterest("@drawable/ic_activity", getString(R.string.activity),
+            listOf(getString(R.string.running), getString(R.string.hiking), getString(R.string.climbing),
+                getString(R.string.bike), getString(R.string.soccer), getString(R.string.surfing),
+                getString(R.string.tennis), getString(R.string.bowling), getString(R.string.tableTennis)))
+        val interest5 = SelectInterest("@drawable/ic_food", getString(R.string.foodAndDrink),
+            listOf(getString(R.string.restaurant), getString(R.string.cafe), getString(R.string.drink)))
+        val interest6 = SelectInterest("@drawable/ic_etc", getString(R.string.etc),
+            listOf(getString(R.string.etc)))
 
         val interestList = listOf(interest1, interest2, interest3, interest4, interest5, interest6)
         adapter = SelectInterestAdapter(interestList) { enable ->

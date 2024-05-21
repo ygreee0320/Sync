@@ -50,7 +50,7 @@ class SearchCommunityActivity : AppCompatActivity() {
                     searchCommunity(keyword)
                     hideKeyboard()
                 } else {
-                    Toast.makeText(this, "검색어를 입력하세요", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, getString(R.string.input_search), Toast.LENGTH_SHORT).show()
                 }
                 true
             } else {
@@ -94,7 +94,7 @@ class SearchCommunityActivity : AppCompatActivity() {
             if (response!!.status == 200 && response.data.isNotEmpty()) {
                 response.data.let {
                     Log.d("my log", "커뮤니티 목록")
-                    //adapter.updateData(it)
+                    adapter.updateData(it)
                 }
                 binding.initLayout.visibility = View.GONE
             } else {

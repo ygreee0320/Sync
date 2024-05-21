@@ -60,7 +60,7 @@ class MyFragment : Fragment() {
     }
 
     private fun loadMe() {
-        MypageManager.mypage(authToken!!) { response ->
+        MypageManager.mypage(authToken!!, "한국어") { response ->
             if (response?.status == 200) {
                 binding.username.text = response.data.name
                 binding.userschool.text = response.data.university
@@ -83,13 +83,14 @@ class MyFragment : Fragment() {
             if (response?.status == 200 && response.data.isNotEmpty()) {
                 response.data.let {
                     Log.d("my log", "내가 개설한 싱크 목록")
-                    //adapter.updateData(it)
+                    adapter.updateSyncs(it)
 
                     binding.empty1.visibility = View.GONE
                     binding.empty2.visibility = View.GONE
                 }
             } else {
                 binding.empty1.visibility = View.VISIBLE
+                binding.empty2.visibility = View.GONE
             }
         }
     }
@@ -99,13 +100,14 @@ class MyFragment : Fragment() {
             if (response?.status == 200 && response.data.isNotEmpty()) {
                 response.data.let {
                     Log.d("my log", "내가 참여한 싱크 목록")
-                    //adapter.updateData(it)
+                    adapter.updateSyncs(it)
 
                     binding.empty1.visibility = View.GONE
                     binding.empty2.visibility = View.GONE
                 }
             } else {
                 binding.empty2.visibility = View.VISIBLE
+                binding.empty1.visibility = View.GONE
             }
         }
     }
@@ -113,6 +115,11 @@ class MyFragment : Fragment() {
     private fun setupClickListeners() {
         binding.myProfileBtn.setOnClickListener {
             val intent = Intent(context, ModProfileActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.settingBtn.setOnClickListener {
+            val intent = Intent(context, SettingActivity::class.java)
             startActivity(intent)
         }
 
@@ -125,8 +132,8 @@ class MyFragment : Fragment() {
             startActivity(intent)
         }
         binding.questionBtn.setOnClickListener {
-            //val intent = Intent(context, SyncActivity::class.java)
-            //startActivity(intent)
+            val intent = Intent(context, QuestionActivity::class.java)
+            startActivity(intent)
         }
         binding.mySync1.setOnClickListener { // 내가 개설한 싱크 목록
             binding.mySync1Txt.setTextColor(Color.WHITE)

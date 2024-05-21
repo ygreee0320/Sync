@@ -7,6 +7,14 @@ import retrofit2.Call
 import retrofit2.http.*
 
 interface CommunityService {
+    @POST
+    fun getImage(
+        @Url url: String,
+        @Header("Content-Type") application: String,
+        @Header("Authorization") accessToken: String,
+        @Body image: RequestBody
+    ): Call<String>
+
     //게시글 조회
     @GET("community/post")
     fun getCommunity(

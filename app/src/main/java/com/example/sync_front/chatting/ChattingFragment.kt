@@ -1,23 +1,58 @@
 package com.example.sync_front.chatting
 
+import android.annotation.SuppressLint
+import android.content.ContentValues
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.sync_front.api_server.ChatUserResponseDto
+import com.example.sync_front.api_server.ChattingList
 import com.example.sync_front.api_server.ChattingRoom
+import com.example.sync_front.api_server.RoomMessageElementResponseDto
 import com.example.sync_front.databinding.FragmentChattingBinding
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
+import org.json.JSONObject
+import ua.naiksoftware.stomp.Stomp
+import ua.naiksoftware.stomp.StompClient
+import ua.naiksoftware.stomp.dto.LifecycleEvent
+import java.util.concurrent.atomic.AtomicBoolean
 
 class ChattingFragment : Fragment() {
     lateinit var binding: FragmentChattingBinding
     lateinit var roomList: MutableList<ChattingRoom>
     private lateinit var adapter: RoomAdapter
+    private var authToken: String ?= null // 로그인 토큰
+    private var sessionId: String ?= null //세션Id
+    private lateinit var stompClient: StompClient
+    private val compositeDisposable = CompositeDisposable()
+    private val isUnexpectedClosed = AtomicBoolean(false)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         binding = FragmentChattingBinding.inflate(inflater, container, false)
+
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        initialSetting()
+    }
+
+    private fun initialSetting() {
+        // 저장된 토큰 읽어오기
+        val sharedPreferences = requireActivity().getSharedPreferences("my_token", Context.MODE_PRIVATE)
+        authToken = sharedPreferences.getString("auth_token", null)
+        sessionId = sharedPreferences.getString("sessionId", null)
 
         // 어댑터를 설정하고 리사이클러뷰에 연결
         roomList = mutableListOf<ChattingRoom>()
@@ -25,7 +60,89 @@ class ChattingFragment : Fragment() {
         binding.roomRecyclerview.layoutManager = LinearLayoutManager(requireContext())
         binding.roomRecyclerview.adapter = adapter
 
-        return binding.root
+        initStomp()
+    }
+
+    @SuppressLint("CheckResult")
+    private fun initStomp() {
+        val headers: MutableMap<String, String> = mutableMapOf()
+        headers["Content-Type"] = "application/json"
+        headers["Authorization"] = authToken!!
+
+        stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "wss://kusitms28.store/ws", headers)
+
+        stompClient.lifecycle().subscribe { lifecycleEvent: LifecycleEvent ->
+            when (lifecycleEvent.type) {
+                LifecycleEvent.Type.OPENED -> {
+                    Log.d(ContentValues.TAG, "Stomp connection opened")
+                    loadChattingRoom()
+                }
+                LifecycleEvent.Type.ERROR -> {
+                    Log.e(ContentValues.TAG, "Error", lifecycleEvent.exception)
+                    if (lifecycleEvent.exception.message!!.contains("EOF")) {
+                        isUnexpectedClosed.set(true)
+                    }
+                }
+                LifecycleEvent.Type.CLOSED -> {
+                    Log.d(ContentValues.TAG, "Stomp connection closed")
+                    if (isUnexpectedClosed.get()) {
+                        initStomp()
+                        isUnexpectedClosed.set(false)
+                    }
+                }
+                else -> {}
+            }
+        }
+        stompClient.connect()
+    }
+
+    @SuppressLint("CheckResult")
+    private fun loadChattingRoom() {
+        val topic = "/sub/room/$sessionId"
+
+        compositeDisposable.add(stompClient.topic(topic)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ stompMessage ->
+                Log.d("my log", "${stompMessage}")
+
+                val messageType = JSONObject(stompMessage.payload).getString("messageType")
+                val dataJson = JSONObject(stompMessage.payload).getJSONObject("data").toString()
+                Log.d("my log", "data 값 - ${dataJson}")
+
+                val jsonObject = JSONObject(dataJson)
+
+                if (messageType == "chatList") { // 채팅 리스트 일 때
+                    val chatMessageArray = jsonObject.getJSONArray("chatList")
+                    Log.d("my log", "채팅 리스트 - ${chatMessageArray}")
+
+                    // roomList 초기화
+                    roomList.clear()
+
+                    for (i in 0 until chatMessageArray.length()) {
+                        val chatMessageObject = chatMessageArray.getJSONObject(i)
+
+                        val syncName = chatMessageObject.getString("syncName")
+                        val total = chatMessageObject.getInt("total")
+                        val content = chatMessageObject.getString("content")
+                        val time = chatMessageObject.getString("time")
+
+                        val chatMessage = ChattingRoom("", syncName, total, content, time)
+                        roomList.add(chatMessage)
+                    }
+
+                    adapter.updateData(roomList)
+                }
+            }, { throwable ->
+                Log.e("Stomp subscribe error", "Error on subscribe: ${throwable.localizedMessage}", throwable)
+            })
+        )
+
+        compositeDisposable.add(stompClient.send("/pub/room/all/$sessionId").subscribe({
+            Log.d("Chat", "채팅방 리스트 조회")
+        }, { throwable ->
+            Log.e("Chat", "Failed to send chat detail request: ${throwable.localizedMessage}", throwable)
+        }))
     }
 
 }

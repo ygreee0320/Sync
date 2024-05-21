@@ -44,8 +44,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="채팅 방 명"
-                        android:textColor="@color/black"
-                        android:textSize="18dp" />
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        style="@style/Body1_700"
+                        android:textColor="@color/gray_90" />
 
                     <TextView
                         android:id="@+id/member_count"
@@ -53,7 +55,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="6dp"
                         android:text="5"
-                        android:textSize="14dp" />
+                        style="@style/Body3_400"
+                        android:textColor="@color/gray_50" />
 
                 </LinearLayout>
 
@@ -62,7 +65,6 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:layout_marginTop="3dp"
-                    android:layout_marginRight="5dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -71,7 +73,10 @@
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:text="마지막 채팅 내용"
-                        android:textSize="14dp" />
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        style="@style/Body2_400"
+                        android:textColor="@color/gray_50" />
 
                 </LinearLayout>
 
@@ -81,7 +86,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
                     android:text="몇 시간전"
-                    android:textSize="12dp" />
+                    style="@style/Detail_400"
+                    android:textColor="@color/gray_50" />
 
             </LinearLayout>
 
@@ -89,8 +95,8 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="0.6dp"
-            android:background="#E1E1E1" />
+            android:layout_height="1dp"
+            android:background="@color/gray_10" />
 
     </LinearLayout>
 

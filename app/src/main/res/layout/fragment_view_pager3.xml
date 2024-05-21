@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_5"
+    tools:context=".ui.login.login_viewpager.ViewPager3Fragment">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="600dp"
+        android:layout_marginTop="-60dp"
+        android:src="@drawable/img_login_viewpager3"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="500dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Heading3"
+            android:gravity="center"
+            android:textColor="@color/gray_90"
+            android:text="@string/커뮤니티를_통해" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Heading3"
+            android:gravity="center"
+            android:textColor="@color/gray_90"
+            android:text="@string/여러분의_일상을" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Body2_400"
+            android:gravity="center"
+            android:layout_marginTop="12dp"
+            android:textColor="@color/gray_50"
+            android:text="@string/생활정보_그리고" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Body2_400"
+            android:gravity="center"
+            android:textColor="@color/gray_50"
+            android:text="@string/빠르게_묻고" />
+
+    </LinearLayout>
+
+</FrameLayout>

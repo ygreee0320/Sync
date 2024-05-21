@@ -84,7 +84,7 @@
                     style="@style/Body1_400"
                     android:textColor="@color/gray_70"
                     android:background="@null"
-                    android:text="이름" />
+                    android:hint="@string/이름" />
 
             </LinearLayout>
 
@@ -107,7 +107,7 @@
                     android:id="@+id/gender"
                     style="@style/Body1_400"
                     android:textColor="@color/gray_70"
-                    android:text="여성" />
+                    android:text="@string/성별" />
 
             </LinearLayout>
 
@@ -142,7 +142,7 @@
                 style="@style/Body1_400"
                 android:textColor="@color/gray_70"
                 android:background="@null"
-                android:text="새로운 사람과의 다양한 만남을 선호해요" />
+                android:text="@string/성향" />
 
         </LinearLayout>
 

@@ -94,7 +94,7 @@
                 style="@style/Body1_400"
                 android:textColor="@color/gray_70"
                 android:background="@null"
-                android:hint="이름" />
+                android:hint="@string/이름" />
             
             <ImageView
                 android:id="@+id/text_cancel"

@@ -60,7 +60,7 @@ class LanguageFragment : Fragment() {
     }
 
     private fun updateSelectList() { // 선택 리스트 출력
-        val selectList = listOf<String>("한국어", "English")
+        val selectList = listOf<String>(getString(R.string.korean), getString(R.string.english))
 
         adapter = SelectOneAdapter(selectList)
         binding.recyclerview.layoutManager = LinearLayoutManager(requireContext())

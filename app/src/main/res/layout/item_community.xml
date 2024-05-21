@@ -136,13 +136,6 @@
                         style="@style/Detail_400"
                         android:textColor="@color/primary"/>
 
-                    <ImageView
-                        android:layout_width="14dp"
-                        android:layout_height="14dp"
-                        android:layout_marginLeft="3dp"
-                        android:layout_gravity="center_vertical"
-                        android:background="@drawable/ic_translation" />
-
                 </LinearLayout>
 
             </LinearLayout>

@@ -62,7 +62,7 @@ class BookmarkActivity : AppCompatActivity() {
             if (response?.status == 200 && response.data.isNotEmpty()) {
                 response.data.let {
                     Log.d("my log", "북마크 목록")
-                    //adapter.updateData(it)
+                    adapter.updateSyncs(it)
 
                     binding.empty.visibility = View.GONE
                 }

@@ -1,11 +1,12 @@
 package com.example.sync_front.data.service
 
 import com.example.sync_front.data.model.LogInResponse
+import com.example.sync_front.data.model.OnboardingRequest
+import com.example.sync_front.data.model.OnboardingResponse
 import com.example.sync_front.data.model.Platform
+import okhttp3.MultipartBody
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.Header
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface LoginService {
 
@@ -19,5 +20,12 @@ interface LoginService {
     ): Call<LogInResponse>
 
     // 회원 가입
-
+    @Multipart
+    @POST("user/onboarding")
+    fun onboarding(
+        @Header("Content-Type") application: String,
+        @Header("Authorization") accessToken: String,
+        @Part profileImage: MultipartBody.Part?,
+        @Part("onBoardingRequest") onBoardingRequest: OnboardingRequest
+    ): Call<OnboardingResponse>
 }

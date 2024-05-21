@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.content.ContextCompat
+import com.example.sync_front.chatting.ChattingActivity
 import com.example.sync_front.ui.login.LoginActivity
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors

@@ -5,46 +5,62 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/gray_5"
     tools:context=".ui.login.LoginActivity">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <!-- 스와이프로 넘기면서 변경   -->
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="660dp" />
+
+    <ImageView
+        android:id="@+id/bottom_bar"
+        android:layout_width="88dp"
+        android:layout_height="10dp"
+        android:layout_marginBottom="55dp"
         android:layout_gravity="center_horizontal|bottom"
-        android:layout_marginBottom="30dp"
-        android:orientation="vertical">
+        android:src="@drawable/progressbar_login1" />
 
-        <FrameLayout
-            android:id="@+id/kakao_login_btn"
-            android:layout_width="328dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:background="@drawable/bg_btn_kakao_login">
+<!--    <LinearLayout-->
+<!--        android:id="@+id/login_layout"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="center_horizontal|bottom"-->
+<!--        android:layout_marginBottom="120dp"-->
+<!--        android:orientation="vertical">-->
 
-            <ImageView
-                android:layout_width="150dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_login_kakao"/>
+<!--        <FrameLayout-->
+<!--            android:id="@+id/kakao_login_btn"-->
+<!--            android:layout_width="328dp"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:background="@drawable/bg_btn_kakao_login">-->
 
-        </FrameLayout>
+<!--            <ImageView-->
+<!--                android:layout_width="150dp"-->
+<!--                android:layout_height="30dp"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:src="@drawable/ic_login_kakao"/>-->
 
-        <FrameLayout
-            android:id="@+id/google_login_btn"
-            android:layout_width="328dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/bg_btn_google_login">
+<!--        </FrameLayout>-->
 
-            <ImageView
-                android:layout_width="145dp"
-                android:layout_height="25dp"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_login_google"/>
+<!--        <FrameLayout-->
+<!--            android:id="@+id/google_login_btn"-->
+<!--            android:layout_width="328dp"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:layout_marginTop="16dp"-->
+<!--            android:background="@drawable/bg_btn_google_login">-->
 
-        </FrameLayout>
+<!--            <ImageView-->
+<!--                android:layout_width="145dp"-->
+<!--                android:layout_height="25dp"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:src="@drawable/ic_login_google"/>-->
 
-    </LinearLayout>
+<!--        </FrameLayout>-->
+
+<!--    </LinearLayout>-->
 
 </FrameLayout>

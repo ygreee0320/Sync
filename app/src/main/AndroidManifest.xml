@@ -29,6 +29,12 @@
             android:required="false" />
 
         <activity
+            android:name=".ui.main.my.review.AddReviewActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.my.QuestionActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.type.TypeListActivity"
             android:exported="false" />
         <activity
@@ -70,7 +76,8 @@
             android:exported="false" />
         <activity
             android:name=".ui.SplashActivity"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
