@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.sync_front.R
 import com.example.sync_front.databinding.FragmentOpenTypeBinding
@@ -15,6 +16,7 @@ import com.google.android.material.internal.ViewUtils.hideKeyboard
 class OpenTypeFragment : Fragment() {
     private var _binding: FragmentOpenTypeBinding? = null
     private val binding get() = _binding!!
+    private val openViewModel: OpenViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,15 +50,36 @@ class OpenTypeFragment : Fragment() {
             binding.boxPersistence.isSelected = false
             checkNextButtonState()
         }
+
+        binding.doneBtn.setOnClickListener {
+            if (binding.doneBtn.isEnabled) {
+                updateSyncType()
+                findNavController().navigate(R.id.action_openTypeFragment_to_openThemeFragment)
+            }
+        }
+    }
+
+    private fun updateSyncType() {
+        val newSyncType = when {
+            binding.boxOnetime.isSelected -> "일회성"
+            binding.boxPersistence.isSelected -> "지속성"
+            binding.boxFriend.isSelected -> "내친소"
+            else -> ""
+        }
+
+        // ViewModel에 있는 sharedData의 현재 값에 접근하여 업데이트
+        openViewModel.sharedData.value?.let {
+            it.syncType = newSyncType
+            openViewModel.updateData(it)
+        }
     }
 
     private fun checkNextButtonState() {
-        val isAnySubscribeSelected =
-            listOf(
-                binding.boxOnetime,
-                binding.boxPersistence,
-                binding.boxFriend
-            ).any { it.isSelected }
+        val isAnySubscribeSelected = listOf(
+            binding.boxOnetime,
+            binding.boxPersistence,
+            binding.boxFriend
+        ).any { it.isSelected }
 
         binding.doneBtn.isEnabled = isAnySubscribeSelected
 
@@ -70,18 +93,8 @@ class OpenTypeFragment : Fragment() {
         } else {
             binding.doneBtn.setTextColor(ContextCompat.getColor(requireContext(), R.color.gray_70))
         }
-
-        binding.doneBtn.setOnClickListener {
-            if (binding.doneBtn.isEnabled)
-                nextButton()
-        }
     }
 
-    private fun nextButton() {
-        binding.doneBtn.setOnClickListener {
-            findNavController().navigate(R.id.action_openTypeFragment_to_openThemeFragment)
-        }
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()
