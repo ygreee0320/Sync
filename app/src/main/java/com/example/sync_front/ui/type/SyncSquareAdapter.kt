@@ -6,15 +6,14 @@ import androidx.recyclerview.widget.RecyclerView
 import android.util.Log
 import com.bumptech.glide.Glide
 import com.example.sync_front.data.model.Sync
-import com.example.sync_front.databinding.ItemSyncBinding
 import com.example.sync_front.databinding.ItemSyncSquareBinding
 
 
-class SyncAdapter(
+class SyncSquareAdapter(
     private var syncs: List<Sync>,
     private val onSyncClickListener: OnSyncClickListener
 ) :
-    RecyclerView.Adapter<SyncAdapter.SyncViewHolder>() {
+    RecyclerView.Adapter<SyncSquareAdapter.SyncViewHolder>() {
 
     interface OnSyncClickListener {
         fun onSyncClick(sync: Sync)
