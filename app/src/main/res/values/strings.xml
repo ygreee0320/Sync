@@ -243,4 +243,5 @@
     <!--싱크 리스트-->
     <string name="all">전체</string>
     <string name="foreign_language">외국어</string>
+    <string name="all_see">전체보기 ></string>
 </resources>
