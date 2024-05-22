@@ -81,7 +81,7 @@ class ProfileFragment : Fragment() {
                 profile = profileUri?.toString()
 
                 val action = ProfileFragmentDirections.actionProfileFragmentToNationalFragment(
-                    Onboarding(language, profile, name, null, null, null, null, null)
+                    Onboarding(language, profileUri, name, null, null, null, null, null)
                 )
                 findNavController().navigate(action)
             }

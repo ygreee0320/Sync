@@ -45,21 +45,22 @@ class OpenThemeFragment : Fragment() {
         }
     }
     private fun updateSelectList() { // 관심사 선택 리스트 출력
-        val interest1 =
-            SelectTheme("@drawable/ic_exchange_language", "외국어", listOf("언어 교환", "튜터링", "스터디"))
-        val interest2 = SelectTheme(
-            "@drawable/ic_culture",
-            "문화·예술",
-            listOf("문학·예술", "영화", "드라마", "미술·디자인", "공연·전시", "음악")
-        )
-        val interest3 = SelectTheme("@drawable/ic_travel", "여행·동행", listOf("관광지", "자연", "휴양"))
-        val interest4 = SelectTheme(
-            "@drawable/ic_travel",
-            "액티비티",
-            listOf("러닝·산책", "등산", "클라이밍", "자전거", "축구", "서핑", "테니스", "볼링", "탁구")
-        )
-        val interest5 = SelectTheme("@drawable/ic_food", "푸드·음료", listOf("맛집", "카페", "술"))
-        val interest6 = SelectTheme("@drawable/ic_etc", "기타", listOf("기타"))
+        val interest1 = SelectTheme("@drawable/ic_exchange_language", getString(R.string.foreignLanguage),
+            listOf(getString(R.string.languageExchange), getString(R.string.tutoring), getString(R.string.study)))
+        val interest2 = SelectTheme("@drawable/ic_culture", getString(R.string.cultureArt),
+            listOf(getString(R.string.movie), getString(R.string.drama), getString(R.string.art), getString(R.string.performance), getString(R.string.music)))
+        val interest3 = SelectTheme("@drawable/ic_travel", getString(R.string.travelCompanion),
+            listOf(getString(R.string.sightseeing), getString(R.string.nature), getString(R.string.vacation)))
+        val interest4 = SelectTheme("@drawable/ic_activity", getString(R.string.activity),
+            listOf(getString(R.string.running), getString(R.string.hiking), getString(R.string.climbing),
+                getString(R.string.bike), getString(R.string.soccer), getString(R.string.surfing),
+                getString(R.string.tennis), getString(R.string.bowling), getString(R.string.tableTennis)))
+        val interest5 = SelectTheme("@drawable/ic_food", getString(R.string.foodAndDrink),
+            listOf(getString(R.string.restaurant), getString(R.string.cafe), getString(R.string.drink)))
+        val interest6 = SelectTheme("@drawable/ic_etc", getString(R.string.etc),
+            listOf(getString(R.string.etc)))
+
+        val interestList = listOf(interest1, interest2, interest3, interest4, interest5, interest6)
 
         val themeList = listOf(interest1, interest2, interest3, interest4, interest5, interest6)
         adapter = SelectThemeAdapter(themeList){ enable ->
