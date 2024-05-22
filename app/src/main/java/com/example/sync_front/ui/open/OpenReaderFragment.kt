@@ -17,6 +17,8 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.net.toUri
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import com.example.sync_front.R
 import com.example.sync_front.api_server.RetrofitClient
 import com.example.sync_front.databinding.FragmentOpenReaderBinding
 import com.example.sync_front.ui.main.MainActivity
@@ -40,25 +42,9 @@ import kotlinx.coroutines.launch
 class OpenReaderFragment : Fragment() {
     private var _binding: FragmentOpenReaderBinding? = null
     private val binding get() = _binding!!
-    private var authToken: String? = null // 로그인 토큰
     private val openViewModel: OpenViewModel by activityViewModels()
     private var profileUri: Uri? = null  // 프로필 uri
-   /* private var profileUri: Uri? = null  // 프로필 uri
-    private val singleImagePicker =
-        registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri: Uri? ->
-            if (uri != null) {
-                profileUri = uri
 
-                binding.profileImg.setImageURI(uri)
-
-                // URI에 대한 지속적인 권한을 부여
-                val flag = Intent.FLAG_GRANT_READ_URI_PERMISSION
-                requireContext().contentResolver.takePersistableUriPermission(uri, flag)
-            } else {
-                Toast.makeText(requireContext(), "이미지를 선택하지 않았습니다.", Toast.LENGTH_LONG).show()
-            }
-        }
-*/
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -71,12 +57,11 @@ class OpenReaderFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         observeViewModel()
         binding.doneBtn.setOnClickListener {
-            uploadData()
+            val currentData = openViewModel.sharedData.value ?: SharedOpenSyncData()
+            currentData.userIntro = binding.introduce.text.toString()
+            openViewModel.updateData(currentData)
+            findNavController().navigate(R.id.action_openLeaderFragment_to_openPreviewFragment)
         }
-
-       /* binding.profileImg.setOnClickListener {
-            singleImagePicker.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageAndVideo))
-        }*/
     }
 
     private fun observeViewModel() {
@@ -93,97 +78,6 @@ class OpenReaderFragment : Fragment() {
             Log.d("OpenReaderFragment", "Received sync type: ${data.member_max}")
         }
         profileUri= openViewModel.sharedData.value?.image.toString().toUri()
-    }
-    private fun uploadData() {
-        val sharedPreferences =
-            requireActivity().getSharedPreferences("my_token", Context.MODE_PRIVATE)
-        authToken = sharedPreferences.getString("auth_token", null)
-
-        // 이미지 파일 처리
-        val uri = profileUri
-        val imageFile = if (uri != null) {
-            val inputStream = requireContext().contentResolver.openInputStream(uri)
-            val file = File(requireContext().cacheDir, "upload_image.jpg")
-            val outputStream = FileOutputStream(file)
-            inputStream?.copyTo(outputStream)
-            inputStream?.close()
-            outputStream.close()
-            file
-        } else {
-            null
-        }
-
-        if (imageFile != null) {
-            lifecycleScope.launch {
-                try {
-                    val compressedImage = Compressor.compress(requireContext(), imageFile) {
-                        resolution(800, 600)  // 해상도를 800 x 600으로 설정
-                        quality(50)  // 압축 품질을 50%로 설정
-                    }
-
-                    // 압축된 이미지에 대한 요청 바디 생성
-                    val requestFile =
-                        compressedImage.asRequestBody("image/jpeg".toMediaTypeOrNull())
-                    val imagePart = MultipartBody.Part.createFormData(
-                        "image",
-                        compressedImage.name,
-                        requestFile
-                    )
-                    val currentData = openViewModel.sharedData.value ?: SharedOpenSyncData()
-                    currentData.userIntro = binding.introduce.text.toString()
-                    openViewModel.updateData(currentData)
-                    // Prepare the OpenSync object as before
-                    val sync = SharedOpenSyncData(
-                        userIntro = currentData.userIntro,
-                        syncIntro = currentData.syncIntro,
-                        syncType = currentData.syncType,
-                        syncName = currentData.syncName,
-                        image = compressedImage.absolutePath,
-                        location = currentData.location,
-                        date = currentData.date,
-                        regularDay = currentData.regularDay,
-                        regularTime = currentData.regularTime,
-                        routineDate = currentData.routineDate,
-                        member_min = currentData.member_min,
-                        member_max = currentData.member_max,
-                        type = "액티비티",
-                        detailType = "tennis"
-                    )
-
-                    val gson = Gson()
-                    val syncJson = gson.toJson(sync)
-                    val requestBody =
-                        syncJson.toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
-
-                    // Perform the network request as before
-                    RetrofitClient.instance.openSyncService.uploadSyncData(
-                        authToken,
-                        imagePart,
-                        requestBody
-                    ).enqueue(object : Callback<OpenResponse> {
-                        override fun onResponse(
-                            call: Call<OpenResponse>,
-                            response: Response<OpenResponse>
-                        ) {
-                            if (response.isSuccessful) {
-                                startActivity(Intent(activity, MainActivity::class.java))
-                                activity?.finish()
-                            } else {
-                                Log.e("Upload", "Failed: ${response.errorBody()?.string()}")
-                            }
-                        }
-
-                        override fun onFailure(call: Call<OpenResponse>, t: Throwable) {
-                            Log.e("Upload", "Error: ${t.message}")
-                        }
-                    })
-                } catch (e: Exception) {
-                    Toast.makeText(context, "압축 오류: ${e.message}", Toast.LENGTH_LONG).show()
-                }
-            }
-        } else {
-            Toast.makeText(context, "Image file is not available.", Toast.LENGTH_SHORT).show()
-        }
     }
 
 

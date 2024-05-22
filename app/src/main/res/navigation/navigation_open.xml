@@ -75,7 +75,11 @@
         android:id="@+id/openLeaderFragment"
         android:name="com.example.sync_front.ui.open.OpenReaderFragment"
         android:label="fragment_open_leader"
-        tools:layout="@layout/fragment_open_reader" />
+        tools:layout="@layout/fragment_open_reader" >
+        <action
+            android:id="@+id/action_openLeaderFragment_to_openPreviewFragment"
+            app:destination="@id/openPreviewFragment" />
+    </fragment>
     <fragment
         android:id="@+id/openFirstFragment"
         android:name="com.example.sync_front.ui.open.OpenFirstFragment"
@@ -94,4 +98,8 @@
             android:id="@+id/action_openRoutineFragment_to_openLocationFragment"
             app:destination="@id/openLocationFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/openPreviewFragment"
+        android:name="com.example.sync_front.ui.open.OpenPreviewFragment"
+        android:label="OpenPreviewFragment" />
 </navigation>

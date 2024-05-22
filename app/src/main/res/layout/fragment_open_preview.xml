@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.sync_front.ui.open.OpenViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.open.OpenPreviewFragment">
+
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/sync_toolbar"
+            android:layout_width="0dp"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:navigationIcon="@drawable/ic_arrow_left">
+
+            <TextView
+                style="@style/Body1_700"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.sharedData.syncName ?? @string/test}"
+                android:textColor="@color/gray_90" />
+
+            <ImageView
+                android:id="@+id/sync_share"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/ic_more" />
+
+            <ImageView
+                android:id="@+id/sync_report"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginEnd="9dp"
+                android:src="@drawable/ic_share" />
+
+        </com.google.android.material.appbar.MaterialToolbar>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toTopOf="@id/btn_open"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/sync_toolbar">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/gray_5"
+                android:padding="16dp">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/iv_sync_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="240dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/img_sample_gathering"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:shapeAppearanceOverlay="@style/all_12dp" />
+
+                <!--싱크 소개-->
+                <LinearLayout
+                    android:id="@+id/sync_linear1"
+                    style="@style/sync_linear_vertical"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/iv_sync_img">
+                    <!--싱크 소개-->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="6dp">
+
+                        <TextView
+                            style="@style/Heading4"
+                            android:text="@string/sync_intro"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/sync_label1"
+                            style="@style/label_c"
+                            android:layout_marginStart="12dp"
+                            android:text="@{viewModel.sharedData.syncType ?? @string/test}" />
+
+                        <TextView
+                            android:id="@+id/sync_label2"
+                            style="@style/label_c"
+                            android:layout_marginStart="6dp"
+                            android:text="@{viewModel.sharedData.type ?? @string/test}" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        style="@style/Body3_400"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="8dp"
+                        android:text="@{viewModel.sharedData.syncIntro ?? @string/test}" />
+
+                    <!--정기 싱크 일정-->
+                    <LinearLayout style="@style/sync_linear_vertical">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingHorizontal="6dp">
+
+                            <ImageView
+                                android:layout_width="18dp"
+                                android:layout_height="18dp"
+                                android:background="@drawable/ic_calendar_gray" />
+
+                            <TextView
+                                android:id="@+id/tv_date_title"
+                                style="@style/Body1_700"
+                                android:layout_marginStart="6dp"
+                                android:text="@string/sync_routine_calendar"
+                                android:textColor="@color/black" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/tv_date"
+                            style="@style/Body3_400"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginTop="8dp"
+                            android:text="@string/test" />
+                    </LinearLayout>
+
+                    <!--장소-->
+                    <LinearLayout style="@style/sync_linear_vertical">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingHorizontal="6dp">
+
+                            <ImageView
+                                android:layout_width="18dp"
+                                android:layout_height="18dp"
+                                android:background="@drawable/ic_map_pin_gray" />
+
+                            <TextView
+                                style="@style/Body1_700"
+                                android:layout_marginStart="6dp"
+                                android:text="@string/location"
+                                android:textColor="@color/black" />
+                        </LinearLayout>
+
+                        <TextView
+                            style="@style/Body3_400"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginTop="8dp"
+                            android:text="@{viewModel.sharedData.location ?? @string/test}" />
+                    </LinearLayout>
+
+                    <!--인원-->
+                    <LinearLayout style="@style/sync_linear_vertical">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingHorizontal="6dp">
+
+                            <ImageView
+                                android:layout_width="18dp"
+                                android:layout_height="18dp"
+                                android:background="@drawable/ic_people_gray" />
+
+                            <TextView
+                                style="@style/Body1_700"
+                                android:layout_marginStart="6dp"
+                                android:text="@string/personnel"
+                                android:textColor="@color/black" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/tv_cnt"
+                            style="@style/Body3_400"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginTop="8dp"
+                            android:text="@string/test" />
+                    </LinearLayout>
+
+                </LinearLayout>
+                <!--싱크장을 소개합니다-->
+                <LinearLayout
+                    android:id="@+id/sync_linear2"
+                    style="@style/sync_linear_vertical"
+                    android:layout_marginTop="24dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/sync_linear1">
+
+                    <TextView
+                        style="@style/Heading4"
+                        android:text="@string/sync_introduce_host"
+                        android:textColor="@color/black" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="16dp"
+                        android:paddingVertical="12dp">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/profile_img"
+                            android:layout_width="68dp"
+                            android:layout_height="68dp"
+                            android:layout_gravity="center"
+                            android:layout_marginRight="18dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/img_profile_default" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:id="@+id/username"
+                                    style="@style/Body2_700"
+                                    android:text="@string/test"
+                                    android:textColor="@color/gray_90" />
+
+                                <TextView
+                                    android:id="@+id/userschool"
+                                    style="@style/label_white_primary"
+                                    android:layout_marginStart="8dp"
+                                    android:text="@string/test" />
+
+                            </LinearLayout>
+
+                            <TextView
+                                style="@style/Detail_400"
+                                android:layout_marginTop="4dp"
+                                android:text="@{String.valueOf(viewModel.sharedData.userIntro) ?? @string/test}"
+                                android:textColor="@color/gray_50" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.core.widget.NestedScrollView>
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_open"
+            style="@style/Body1_700"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/btn_default"
+            android:gravity="center"
+            android:text="@string/open"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
