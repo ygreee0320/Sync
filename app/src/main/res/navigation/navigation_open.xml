@@ -73,9 +73,9 @@
     </fragment>
     <fragment
         android:id="@+id/openLeaderFragment"
-        android:name="com.example.sync_front.ui.open.OpenReaderFragment"
+        android:name="com.example.sync_front.ui.open.OpenLeaderFragment"
         android:label="fragment_open_leader"
-        tools:layout="@layout/fragment_open_reader" >
+        tools:layout="@layout/fragment_open_leader" >
         <action
             android:id="@+id/action_openLeaderFragment_to_openPreviewFragment"
             app:destination="@id/openPreviewFragment" />
