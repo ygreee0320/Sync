@@ -231,6 +231,11 @@
     <string name="하나로_화합하는">하나로 화합하는 곳,</string>
     <string name="싱크에서">싱크에서</string>
     <string name="싱크를_맞춰봐요">싱크를 맞춰봐요!</string>
+    <string name="마이페이지_내프로필">마이페이지 - 내프로필 을 선택하면 온보딩 때 설정한 정보를 변경할 수 있어요.</string>
+    <string name="리뷰작성">리뷰 작성</string>
+    <string name="님">님,</string>
+    <string name="싱크_어떠셨나요">싱크 어떠셨나요?</string>
+    <string name="남겨주신_리뷰는">남겨 주신 리뷰는 싱크 소개 페이지에 공개됩니다.</string>
     <string name="작성완료">작성 완료</string>
     <string name="리뷰를_작성해주세요">리뷰를 작성해 주세요.</string>
     <string name="all">전체</string>

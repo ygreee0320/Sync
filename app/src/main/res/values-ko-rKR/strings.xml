@@ -13,7 +13,7 @@
     <string name="persistence">지속성</string>
     <string name="myfriend">내친소</string>
     <string name="exchange_language">언어교환</string>
-    <string name="culture">문화예술</string>
+    <string name="culture">문학/예술</string>
     <string name="travel">여행/동행</string>
     <string name="activity">액티비티</string>
     <string name="food">푸드/음료</string>
@@ -81,7 +81,7 @@
     <string name="tutoring">튜터링</string>
     <string name="study">스터디</string>
     <!--관심사2-->
-    <string name="cultureArt">문화/예술</string>
+    <string name="cultureArt">문학/예술</string>
     <string name="movie">영화</string>
     <string name="drama">드라마</string>
     <string name="art">미술/디자인</string>
