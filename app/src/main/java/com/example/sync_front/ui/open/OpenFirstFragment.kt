@@ -160,6 +160,7 @@ class OpenFirstFragment : Fragment() {
         }
         binding.doneBtn.setOnClickListener {
             val currentData = openViewModel.sharedData.value?: SharedOpenSyncData()
+            currentData.date = selectedDateTime
             currentData.routineDate = selectedDateTime
             openViewModel.updateData(currentData)
             findNavController().navigate(R.id.action_openFirstFragment_to_openRoutineFragment)
