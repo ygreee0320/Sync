@@ -88,7 +88,7 @@ class OpenPreviewFragment : Fragment() {
                 .into(ivSyncImg)
             tvSyncName.text = currentData.syncName
             syncLabel1.text = currentData.syncType
-            syncLabel2.text = currentData.type
+            syncLabel2.text = currentData.detailType
             tvSyncIntro.text = currentData.syncIntro
             if (currentData.regularDay == null) {
                 tvDateTitle.text = "일시"
@@ -155,7 +155,6 @@ class OpenPreviewFragment : Fragment() {
                         routineDate = currentData.routineDate,
                         member_min = currentData.member_min,
                         member_max = currentData.member_max,
-                        type = "액티비티",
                         detailType = "tennis"
                     )
 
