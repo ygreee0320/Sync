@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sync_front.R
 import com.example.sync_front.databinding.FragmentOpenThemeBinding
 import android.util.Log
+import com.example.sync_front.data.model.SharedOpenSyncData
 
 
 class OpenThemeFragment : Fragment() {
@@ -89,6 +90,13 @@ class OpenThemeFragment : Fragment() {
             findNavController().navigateUp() // 이전 프래그먼트로
         }
         binding.doneBtn.setOnClickListener {
+            val clickedItems = adapter.getClickedItems()
+            Log.d("my log", "선택된 관심사- $clickedItems")
+
+            val currentData = openViewModel.sharedData.value ?: SharedOpenSyncData()
+            currentData.detailType = clickedItems
+            openViewModel.updateData(currentData)
+
             findNavController().navigate(R.id.action_openThemeFragment_to_openTitleFragment)
         }
     }

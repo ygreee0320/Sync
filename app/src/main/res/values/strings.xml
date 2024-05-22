@@ -95,20 +95,20 @@
     <string name="tutoring">튜터링</string>
     <string name="study">스터디</string>
     <!--관심사2-->
-    <string name="cultureArt">문화예술</string>
+    <string name="cultureArt">문화/예술</string>
     <string name="movie">영화</string>
     <string name="drama">드라마</string>
-    <string name="art">미술·디자인</string>
-    <string name="performance">공연·전시</string>
+    <string name="art">미술/디자인</string>
+    <string name="performance">공연/전시</string>
     <string name="music">음악</string>
     <!--관심사3-->
-    <string name="travelCompanion">여행·동행</string>
+    <string name="travelCompanion">여행/동행</string>
     <string name="sightseeing">관광지</string>
     <string name="nature">자연</string>
     <string name="vacation">휴양</string>
     <!--관심사4-->
     <!--    <string name="activity">액티비티</string>-->
-    <string name="running">러닝·산책</string>
+    <string name="running">러닝/산책</string>
     <string name="hiking">등산</string>
     <string name="climbing">클라이밍</string>
     <string name="bike">자전거</string>
@@ -118,7 +118,7 @@
     <string name="bowling">볼링</string>
     <string name="tableTennis">탁구</string>
     <!--관심사5-->
-    <string name="foodAndDrink">푸드·음료</string>
+    <string name="foodAndDrink">푸드드링크</string>
     <string name="restaurant">맛집</string>
     <string name="cafe">카페</string>
     <string name="drink">술</string>

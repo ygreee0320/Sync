@@ -102,7 +102,7 @@ class InterestFragment : Fragment() {
 //        }
         val imagePart: MultipartBody.Part? = profile?.let { getProfileImagePart(it) }
 
-        val request = OnboardingRequest(language, name, national, gender, univ, "", type, listOf("언어교환", "튜터링", "스터디"))
+        val request = OnboardingRequest(language, name, national, gender, univ, "", type, clickedItems)
 
         val gson = Gson()
         val requestJson = gson.toJson(request)

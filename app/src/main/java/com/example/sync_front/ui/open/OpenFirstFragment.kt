@@ -2,17 +2,20 @@ package com.example.sync_front.ui.open
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.sync_front.R
 import com.example.sync_front.databinding.FragmentOpenFirstBinding
 import com.example.sync_front.databinding.FragmentOpenTypeBinding
+import com.google.android.material.internal.ViewUtils.hideKeyboard
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
