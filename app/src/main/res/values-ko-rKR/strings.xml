@@ -260,5 +260,8 @@
     <string name="back">뒤로가기</string>
     <string name="share">공유하기</string>
     <string name="check">확인하기</string>
+    <string name="alarm">알림</string>
+    <string name="activity_alarm">활동 알림</string>
+    <string name="my_sync_alarm">내 싱크 알림</string>
 
 </resources>
