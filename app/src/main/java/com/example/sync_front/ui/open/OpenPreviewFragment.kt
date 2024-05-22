@@ -118,17 +118,7 @@ class OpenPreviewFragment : Fragment() {
 
     private fun observeViewModel() {
         openViewModel.sharedData.observe(viewLifecycleOwner) { data ->
-            Log.d("OpenPreviewFragment", "Received sync type: ${data.syncType}")
-            Log.d("OpenPreviewFragment", "Received syncName: ${data.syncName}")
-            Log.d("OpenPreviewFragment", "Received image: ${data.image}")
-            Log.d("OpenPreviewFragment", "Received syncIntro: ${data.syncIntro}")
-            Log.d("OpenPreviewFragment", "Received date: ${data.date}")
-            Log.d("OpenPreviewFragment", "Received regularDay: ${data.regularDay}")
-            Log.d("OpenPreviewFragment", "Received regularTime: ${data.regularTime}")
-            Log.d("OpenPreviewFragment", "Received location: ${data.location}")
-            Log.d("OpenPreviewFragment", "Received member_min: ${data.member_min}")
-            Log.d("OpenPreviewFragment", "Received member_max: ${data.member_max}")
-            Log.d("OpenPreviewFragment", "Received userIntro: ${data.userIntro}")
+            Log.d(javaClass.simpleName, "Received data: $data")
         }
 
         profileUri = openViewModel.sharedData.value?.image.toString().toUri()
@@ -148,7 +138,7 @@ class OpenPreviewFragment : Fragment() {
                 tvDate.text = currentData.date
             } else {
                 // regularDate가 null이 아니면, regularDate 값을 텍스트로 설정
-                tvDate.text = "${currentData.date}"
+                tvDate.text = "매주${currentData.regularDay}  ${currentData.regularTime}\n첫 모임 날짜: ${currentData.routineDate}"
             }
             tvLocation.text = currentData.location
             tvCnt.text = "최소 ${currentData.member_min}명 최대 ${currentData.member_max}명"

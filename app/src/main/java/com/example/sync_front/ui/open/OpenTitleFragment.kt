@@ -37,10 +37,7 @@ class OpenTitleFragment : Fragment() {
     }
     private fun observeViewModel() {
         openViewModel.sharedData.observe(viewLifecycleOwner) { data ->
-            Log.d("OpenTitleFragment", "Received syncType: ${data.syncType}")
-            Log.d("OpenTitleFragment", "Received syncName: ${data.syncName}")
-            Log.d("OpenTitleFragment", "Received detailType: ${data.detailType}")
-            // 데이터를 기반으로 UI 업데이트나 다른 로직 수행
+            Log.d(javaClass.simpleName, "Received data: $data")
         }
     }
     private fun setupClickListeners() {

@@ -38,14 +38,7 @@ class OpenLocationFragment : Fragment() {
     }
     private fun observeViewModel() {
         openViewModel.sharedData.observe(viewLifecycleOwner) { data ->
-            Log.d("OpenLocationFragment", "Received syncType: ${data.syncType}")
-            Log.d("OpenLocationFragment", "Received syncName: ${data.syncName}")
-            Log.d("OpenLocationFragment", "Received image: ${data.image}")
-            Log.d("OpenLocationFragment", "Received syncIntro: ${data.syncIntro}")
-            Log.d("OpenLocationFragment", "Received date: ${data.date}")
-            Log.d("OpenLocationFragment", "Received regularDay: ${data.regularDay}")
-            Log.d("OpenLocationFragment", "Received regularTime: ${data.regularTime}")
-            // 데이터를 기반으로 UI 업데이트나 다른 로직 수행
+            Log.d(javaClass.simpleName, "Received data: $data")
         }
     }
     private fun setupClickListeners() {
