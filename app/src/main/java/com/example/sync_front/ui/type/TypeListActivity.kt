@@ -92,13 +92,13 @@ class TypeListActivity : AppCompatActivity() {
     }
 
     private fun observeViewModel() {
-        typeViewModel.typeSyncs.observe(this, { syncs ->
+        typeViewModel.typeSyncs.observe(this) { syncs ->
             syncAdapter.updateSyncs(syncs)
-        })
+        }
 
         typeViewModel.errorMessage.observe(this, { error ->
             // 에러 메시지 처리, 예를 들어 Toast 메시지를 표시
-            Toast.makeText(this, error, Toast.LENGTH_SHORT).show()
+            //Toast.makeText(this, error, Toast.LENGTH_SHORT).show()
         })
     }
 }

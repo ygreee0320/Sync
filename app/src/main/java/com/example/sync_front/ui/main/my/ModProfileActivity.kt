@@ -13,6 +13,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContentProviderCompat.requireContext
 import com.bumptech.glide.Glide
 import com.example.sync_front.R
 import com.example.sync_front.api_server.MypageManager
@@ -140,7 +141,16 @@ class ModProfileActivity : AppCompatActivity() {
     private fun modMypage() {
         val name = binding.username.text.toString()
         val gender = binding.gender.text.toString()
-        val syncType = binding.likePeople.text.toString()
+        //val syncType = binding.likePeople.text.toString()
+
+        val type: String
+        if (binding.likePeople.text.toString() == this.getString(R.string.성향1)) {
+            type = "지속성"
+        } else if (binding.likePeople.text.toString() == this.getString(R.string.성향2)) {
+            type = "일회성"
+        } else {
+            type = "내친소"
+        }
         val detailTypes = binding.like.text.toString().split(", ").map { it.trim() }
 
         // Prepare the image file if it exists
@@ -150,11 +160,11 @@ class ModProfileActivity : AppCompatActivity() {
             MultipartBody.Part.createFormData("profileImage", file.name, requestBody)
         }
 
-        Log.d("my log", "$name $gender $syncType")
+        Log.d("my log", "$name $gender $type")
 
         val imageUrl = if (profile == null) existingImageUrl else null
 
-        val request = ModMypageRequest(name, gender,"내친소", listOf("running"))
+        val request = ModMypageRequest(name, gender,type, detailTypes)
 
         val gson = Gson()
         val requestJson = gson.toJson(request)
@@ -164,6 +174,7 @@ class ModProfileActivity : AppCompatActivity() {
             MypageManager.modMypage(authToken!!,imagePart, requestDtoBody) { response ->
                 if (response != null) {
                     Log.d("수정 완료", "")
+                    finish()
                 } else {
                 }
             }

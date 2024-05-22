@@ -6,6 +6,7 @@ import com.example.sync_front.BuildConfig.GOOGLE_CLIENT_SECRET
 import com.example.sync_front.data.model.*
 import com.kakao.sdk.common.KakaoSdk.type
 import okhttp3.MultipartBody
+import okhttp3.Request
 import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
@@ -651,6 +652,29 @@ object ReviewManager {
             }
 
             override fun onFailure(call: Call<ReviewResponse>, t: Throwable) {
+                Log.e("서버 테스트", "오류2: ${t.message}")
+                callback(null)
+            }
+        })
+    }
+
+    fun sendBookmark(authToken: String, request: BookmarkRequest, callback: (BookmarkResponse?) -> Unit) {
+        val apiService = RetrofitClient().reviewService
+        val call = apiService.sendBookmark("application/json", authToken, request)
+
+        call.enqueue(object : Callback<BookmarkResponse> {
+            override fun onResponse(call: Call<BookmarkResponse>, response: Response<BookmarkResponse>) {
+                if (response.isSuccessful) {
+                    val userData = response.body()
+                    callback(userData) // 사용자 데이터 전달
+                } else {
+                    val errorBody = response.errorBody()?.string()
+                    Log.e("서버 테스트", "오류1: $errorBody")
+                    callback(null)
+                }
+            }
+
+            override fun onFailure(call: Call<BookmarkResponse>, t: Throwable) {
                 Log.e("서버 테스트", "오류2: ${t.message}")
                 callback(null)
             }

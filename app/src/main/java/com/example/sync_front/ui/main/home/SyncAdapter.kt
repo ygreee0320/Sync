@@ -42,6 +42,11 @@ class SyncAdapter(
                 itemView.setOnClickListener {
                     onSyncClickListener.onSyncClick(sync)
                 }
+                if (sync.isMarked) {
+                    syncIcBookmark.setBackgroundResource(R.drawable.ic_bookmark_yes)
+                } else {
+                    syncIcBookmark.setBackgroundResource(R.drawable.ic_bookmark_no)
+                }
             }
         }
     }

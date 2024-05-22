@@ -25,7 +25,8 @@ import ua.naiksoftware.stomp.dto.LifecycleEvent
 import java.util.concurrent.atomic.AtomicBoolean
 
 class ChattingFragment : Fragment() {
-    lateinit var binding: FragmentChattingBinding
+    private var _binding: FragmentChattingBinding? = null
+    private val binding get() = _binding!!
     lateinit var roomList: MutableList<ChattingRoom>
     private lateinit var adapter: RoomAdapter
     private var authToken: String ?= null // 로그인 토큰
@@ -37,7 +38,7 @@ class ChattingFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentChattingBinding.inflate(inflater, container, false)
+        _binding = FragmentChattingBinding.inflate(inflater, container, false)
 
         return binding.root
     }
@@ -53,6 +54,8 @@ class ChattingFragment : Fragment() {
         val sharedPreferences = requireActivity().getSharedPreferences("my_token", Context.MODE_PRIVATE)
         authToken = sharedPreferences.getString("auth_token", null)
         sessionId = sharedPreferences.getString("sessionId", null)
+
+        Log.d("my log","$sessionId")
 
         // 어댑터를 설정하고 리사이클러뷰에 연결
         roomList = mutableListOf<ChattingRoom>()
@@ -123,11 +126,13 @@ class ChattingFragment : Fragment() {
                         val chatMessageObject = chatMessageArray.getJSONObject(i)
 
                         val syncName = chatMessageObject.getString("syncName")
+                        val roomName = chatMessageObject.getString("roomName")
                         val total = chatMessageObject.getInt("total")
                         val content = chatMessageObject.getString("content")
                         val time = chatMessageObject.getString("time")
+                        val image = chatMessageObject.getString("image")
 
-                        val chatMessage = ChattingRoom("", syncName, total, content, time)
+                        val chatMessage = ChattingRoom(roomName, syncName, total, content, time, image)
                         roomList.add(chatMessage)
                     }
 
@@ -143,6 +148,11 @@ class ChattingFragment : Fragment() {
         }, { throwable ->
             Log.e("Chat", "Failed to send chat detail request: ${throwable.localizedMessage}", throwable)
         }))
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }

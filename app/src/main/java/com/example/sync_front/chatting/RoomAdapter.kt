@@ -4,8 +4,10 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.sync_front.R
 import com.example.sync_front.api_server.ChattingRoom
 
@@ -36,6 +38,7 @@ class RoomAdapter(private var rooms: List<ChattingRoom>): RecyclerView.Adapter<R
         private val chattingTextView: TextView = itemView.findViewById(R.id.last_chatting)
         private val timeTextView: TextView = itemView.findViewById(R.id.last_time)
         private val totalTextView: TextView = itemView.findViewById(R.id.member_count)
+        private val imageView: ImageView = itemView.findViewById(R.id.room_img)
 
         init {
             itemView.setOnClickListener {
@@ -56,6 +59,16 @@ class RoomAdapter(private var rooms: List<ChattingRoom>): RecyclerView.Adapter<R
             totalTextView.text = roomList.total.toString()
             chattingTextView.text = roomList.lastText
             timeTextView.text = roomList.lastTime
+
+            if (!roomList.image.isNullOrEmpty()) {
+                Glide.with(itemView.context)
+                    .load(roomList.image)
+                    .placeholder(R.drawable.img_sample_gathering)
+                    .error(R.drawable.img_sample_gathering)
+                    .into(imageView)
+            } else {
+                imageView.setImageResource(R.drawable.img_sample_gathering)
+            }
         }
 
     }

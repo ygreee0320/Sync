@@ -14,6 +14,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.sync_front.R
+import com.example.sync_front.api_server.ReviewManager
+import com.example.sync_front.data.model.BookmarkRequest
 import com.example.sync_front.data.model.Sync
 import com.example.sync_front.ui.main.home.SyncAdapter
 import java.util.function.LongFunction
@@ -66,7 +68,13 @@ class SyncActivity : AppCompatActivity() {
 
     private fun observeViewModel() {
         viewModel.reviews.observe(this, Observer {
-            reviewAdapter.updateReviews(it)
+            //reviewAdapter.updateReviews(it)
+            if (it.isEmpty()) {
+                binding.syncLinear4.visibility = View.GONE
+            } else {
+                binding.syncLinear4.visibility = View.VISIBLE
+                reviewAdapter.updateReviews(it)
+            }
         })
         viewModel.sames.observe(this, Observer {
             sameSyncAdapter.updateSyncs(it)
@@ -97,9 +105,9 @@ class SyncActivity : AppCompatActivity() {
                 binding.btnJoin.setTextColor(getResources().getColor(R.color.gray_50))
             }
             //북마크 한 싱크면 채워지게
-            if (syncDetail.isMarked) {
-                binding.btnBookmark.isSelected = true
-            }
+            binding.btnBookmark.isSelected = syncDetail.isMarked
+
+            bookmark = syncDetail.isMarked // 북마크 여부 체크
         })
         viewModel.graphDetails.observe(this, Observer { details ->
             val graphData = details.data.sortedByDescending { it.percent }
@@ -129,8 +137,10 @@ class SyncActivity : AppCompatActivity() {
         binding.btnBookmark.setOnClickListener {
             if (!bookmark) {
                 // 북마크 등록
+                sendBookMark(syncId, bookmark)
             } else {
                 // 북마크 취소
+                sendBookMark(syncId, bookmark)
             }
         }
         binding.btnJoin.setOnClickListener {
@@ -231,5 +241,14 @@ class SyncActivity : AppCompatActivity() {
             putExtra("syncId", sync.syncId)
         }
         startActivity(intent)
+    }
+
+    private fun sendBookMark(syncId: Long, isBookmarked: Boolean) {
+        val request = BookmarkRequest(syncId, isBookmarked)
+        ReviewManager.sendBookmark(token!!, request) {
+            if (it!!.status == 200) {
+                binding.btnBookmark.isSelected = it.data == true
+            }
+        }
     }
 }
