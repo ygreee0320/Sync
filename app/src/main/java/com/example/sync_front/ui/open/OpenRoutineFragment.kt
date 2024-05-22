@@ -1,5 +1,6 @@
 package com.example.sync_front.ui.open
 
+import android.app.TimePickerDialog
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -20,7 +21,6 @@ class OpenRoutineFragment : Fragment() {
     private var selectedTextView: TextView? = null
 
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -34,21 +34,32 @@ class OpenRoutineFragment : Fragment() {
 
         initSetting()
         setupClickListeners()
+        setupTimePicker()
         observeViewModel()
     }
+
     private fun initSetting() {
-     //   binding.doneBtn.isEnabled = false
+        //   binding.doneBtn.isEnabled = false
     }
+
     private fun observeViewModel() {
         openViewModel.sharedData.observe(viewLifecycleOwner) { data ->
-            Log.d("OpenRoutineFragment", "Received syncType: ${data.syncType}")
+            Log.d(javaClass.simpleName, "Received data: $data")
         }
     }
+
     private fun updateDoneButtonBackground() {
-        if (binding.doneBtn.isEnabled) { // 다음 버튼 스타일 변경
+        val regularDay = openViewModel.sharedData.value?.regularDay
+        val regularTime = openViewModel.sharedData.value?.regularTime
+
+        if (!regularDay.isNullOrEmpty() && !regularTime.isNullOrEmpty()) {
+            // 요일과 시간이 모두 선택된 경우
+            binding.doneBtn.isEnabled = true
             binding.doneBtn.setTextColor(requireContext().resources.getColor(R.color.white))
             binding.doneBtn.setBackgroundResource(R.drawable.btn_default)
         } else {
+            // 요일 또는 시간 중 하나라도 선택되지 않은 경우
+            binding.doneBtn.isEnabled = false
             binding.doneBtn.setTextColor(requireContext().resources.getColor(R.color.gray_70))
             binding.doneBtn.setBackgroundResource(R.drawable.btn_gray_10)
         }
@@ -64,6 +75,31 @@ class OpenRoutineFragment : Fragment() {
             selectedTextView?.isSelected = false // 이전에 선택된 TextView의 선택 해제
             textView.isSelected = true // 선택된 TextView로 설정
             selectedTextView = textView
+
+            // 선택된 요일을 ViewModel에 저장
+            openViewModel.sharedData.value?.regularDay = textView.text.toString()
+
+            // 요일과 시간이 모두 선택되면 "완료" 버튼 활성화
+            updateDoneButtonBackground()
+        }
+    }
+
+    private fun setupTimePicker() {
+        binding.timeText.setOnClickListener {
+            // 시간을 선택할 때 이벤트 처리
+            val timePickerDialog = TimePickerDialog(requireContext(), { _, hourOfDay, minute ->
+                // 시간을 형식에 맞게 변환하여 TextView에 표시
+                val timeString = String.format("%02d:%02d", hourOfDay, minute)
+                binding.timeText.text = timeString
+
+                // 선택된 시간을 ViewModel에 저장
+                openViewModel.sharedData.value?.regularTime = timeString
+
+                // 요일과 시간이 모두 선택되면 "완료" 버튼 활성화
+                updateDoneButtonBackground()
+            }, 0, 0, false)
+
+            timePickerDialog.show()
         }
     }
 
