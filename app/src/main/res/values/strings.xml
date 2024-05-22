@@ -256,4 +256,11 @@
     <string name="일">일</string>
     <string name="select_day">요일을 선택해주세요</string>
     <string name="open">싱크 열기</string>
+    <string name="check_open_sync">싱크를 열기 전, 한 번만 더 확인해주세요!</string>
+    <string name="explain_check_open_sync">싱크 정보는 추후에 변경할 수 없어요</string>
+    <string name="alarm_open_sync">싱크가 열렸어요!</string>
+    <string name="explain_alarm_open_sync">친구들에게 싱크를 공유해보세요</string>
+    <string name="back">뒤로가기</string>
+    <string name="share">공유하기</string>
+    <string name="check">확인하기</string>
 </resources>

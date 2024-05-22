@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.core.net.toUri
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -18,6 +19,8 @@ import com.example.sync_front.api_server.RetrofitClient
 import com.example.sync_front.data.model.SharedOpenSyncData
 import com.example.sync_front.data.service.OpenResponse
 import com.example.sync_front.databinding.FragmentOpenPreviewBinding
+import com.example.sync_front.databinding.PopupOpenSyncBinding
+import com.example.sync_front.databinding.PopupOpenSyncNotifyBinding
 import com.example.sync_front.ui.main.MainActivity
 import com.google.gson.Gson
 import id.zelory.compressor.Compressor
@@ -58,10 +61,60 @@ class OpenPreviewFragment : Fragment() {
 
     private fun setupClickListeners() {
         binding.btnOpen.setOnClickListener {
-            uploadData()
+            showPopup1()
         }
     }
 
+    private fun showPopup1() {
+        val popupLayoutBinding = PopupOpenSyncNotifyBinding.inflate(layoutInflater)
+        val popupView = popupLayoutBinding.root
+
+        val alertDialogBuilder = AlertDialog.Builder(requireContext())
+        alertDialogBuilder.setView(popupView)
+
+        val alertDialog = alertDialogBuilder.create()
+        alertDialog.show()
+
+        popupLayoutBinding.cancelBtn.setOnClickListener {
+            alertDialog.dismiss() // 팝업 닫기
+        }
+        popupLayoutBinding.openBtn.setOnClickListener {
+            alertDialog.dismiss()
+            uploadData()
+
+        }
+
+    }
+
+    private fun showPopup2() {
+        val popupLayoutBinding = PopupOpenSyncBinding.inflate(layoutInflater)
+        val popupView = popupLayoutBinding.root
+
+        val alertDialogBuilder = AlertDialog.Builder(requireContext())
+        alertDialogBuilder.setView(popupView)
+
+        val alertDialog = alertDialogBuilder.create()
+        alertDialog.show()
+        popupLayoutBinding.shareBtn.setOnClickListener {
+            alertDialog.dismiss()
+        }
+        popupLayoutBinding.checkBtn.setOnClickListener {
+
+
+            alertDialog.dismiss() // 팝업 닫기
+            // 현재 액티비티 종료
+            requireActivity().finish()
+
+            // MainActivity의 MyFragment로 이동
+            val mainActivityIntent = Intent(requireContext(), MainActivity::class.java)
+            mainActivityIntent.putExtra(
+                "fragment",
+                "MyFragment"
+            ) // MyFragment로 이동하는 것을 나타내는 플래그나 데이터를 전달할 수 있습니다.
+            startActivity(mainActivityIntent)
+        }
+
+    }
 
     private fun observeViewModel() {
         openViewModel.sharedData.observe(viewLifecycleOwner) { data ->
@@ -155,7 +208,7 @@ class OpenPreviewFragment : Fragment() {
                         routineDate = currentData.routineDate,
                         member_min = currentData.member_min,
                         member_max = currentData.member_max,
-                        detailType = "tennis"
+                        detailType = currentData.detailType,
                     )
 
                     val gson = Gson()
@@ -174,8 +227,7 @@ class OpenPreviewFragment : Fragment() {
                             response: Response<OpenResponse>
                         ) {
                             if (response.isSuccessful) {
-                                startActivity(Intent(activity, MainActivity::class.java))
-                                activity?.finish()
+                                showPopup2()
                             } else {
                                 Log.e("Upload", "Failed: ${response.errorBody()?.string()}")
                             }
