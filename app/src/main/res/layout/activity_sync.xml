@@ -29,8 +29,8 @@
                 style="@style/Body1_700"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/gray_90"
-                android:text="@{viewModel.syncDetail.syncName ?? @string/test}" />
+                android:text="@{viewModel.syncDetail.syncName ?? @string/test}"
+                android:textColor="@color/gray_90" />
 
             <ImageView
                 android:id="@+id/sync_share"
@@ -235,8 +235,8 @@
                             android:layout_height="68dp"
                             android:layout_gravity="center"
                             android:layout_marginRight="18dp"
-                            android:src="@drawable/img_profile_default"
-                            android:scaleType="centerCrop" />
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/img_profile_default" />
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -264,11 +264,10 @@
                             </LinearLayout>
 
                             <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                style="@style/Detail_400"
                                 android:layout_marginTop="4dp"
-                                android:textColor="@color/gray_50"
-                                android:text="@{String.valueOf(viewModel.syncDetail.userIntro) ?? @string/test}" />
+                                android:text="@{String.valueOf(viewModel.syncDetail.userIntro) ?? @string/test}"
+                                android:textColor="@color/gray_50" />
                         </LinearLayout>
 
 

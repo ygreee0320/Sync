@@ -69,67 +69,68 @@
             android:gravity="center"
             android:orientation="horizontal">
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/date_text1"
                 style="@style/Body1_400"
+                android:layout_width="42dp"
                 android:background="@drawable/btn_day_selector"
-                android:paddingHorizontal="12dp"
-                android:paddingVertical="8dp"
-                android:text="@string/월" />
+                android:elevation="0dp"
+                android:text="@string/월"
+                android:textColor="@color/btn_day_text_selector" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/date_text2"
                 style="@style/Body1_400"
+                android:layout_width="42dp"
                 android:layout_marginStart="10dp"
                 android:background="@drawable/btn_day_selector"
-                android:paddingHorizontal="12dp"
-                android:paddingVertical="8dp"
-                android:text="@string/화" />
+                android:text="@string/화"
+                android:textColor="@color/btn_day_text_selector" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/date_text3"
                 style="@style/Body1_400"
+                android:layout_width="42dp"
                 android:layout_marginStart="10dp"
                 android:background="@drawable/btn_day_selector"
-                android:paddingHorizontal="12dp"
-                android:paddingVertical="8dp"
-                android:text="@string/수" />
+                android:text="@string/수"
+                android:textColor="@color/btn_day_text_selector" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/date_text4"
                 style="@style/Body1_400"
+                android:layout_width="42dp"
                 android:layout_marginStart="10dp"
                 android:background="@drawable/btn_day_selector"
-                android:paddingHorizontal="12dp"
-                android:paddingVertical="8dp"
-                android:text="@string/목" />
+                android:text="@string/목"
+                android:textColor="@color/btn_day_text_selector" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/date_text5"
                 style="@style/Body1_400"
+                android:layout_width="42dp"
                 android:layout_marginStart="10dp"
                 android:background="@drawable/btn_day_selector"
-                android:paddingHorizontal="12dp"
-                android:paddingVertical="8dp"
-                android:text="@string/금" />
+                android:text="@string/금"
+                android:textColor="@color/btn_day_text_selector" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/date_text6"
                 style="@style/Body1_400"
+                android:layout_width="42dp"
                 android:layout_marginStart="10dp"
                 android:background="@drawable/btn_day_selector"
-                android:paddingHorizontal="12dp"
-                android:paddingVertical="8dp"
-                android:text="@string/토" />
+                android:text="@string/토"
+                android:textColor="@color/btn_day_text_selector" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/date_text7"
                 style="@style/Body1_400"
+                android:layout_width="42dp"
                 android:layout_marginStart="10dp"
                 android:background="@drawable/btn_day_selector"
-                android:paddingHorizontal="12dp"
-                android:paddingVertical="8dp"
-                android:text="@string/일" />
+                android:text="@string/일"
+                android:textColor="@color/btn_day_text_selector" />
         </LinearLayout>
 
         <TextView
