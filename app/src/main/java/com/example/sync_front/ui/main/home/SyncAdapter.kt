@@ -91,6 +91,8 @@ class AssociateSyncAdapter(
                 tvSyncTitle.text = sync.syncName
                 tvSyncLocation.text = sync.location
                 tvSyncCalendar.text = sync.date
+                syncNumberOfGather.text = sync.userCnt.toString()
+                syncNumberOfTotal.text = sync.totalCnt.toString()
                 itemView.setOnClickListener {
                     onSyncClickListener.onSyncClick(sync)
                 }

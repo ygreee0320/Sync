@@ -27,7 +27,10 @@ data class SyncDetail(
     val userImage: String,
     val userName: String,
     val university: String,
-    val userIntro: String
+    val userIntro: String,
+    val isFull: Boolean,
+    val isJoin: Boolean,
+    val isMarked: Boolean,
 )
 
 data class GraphData(
