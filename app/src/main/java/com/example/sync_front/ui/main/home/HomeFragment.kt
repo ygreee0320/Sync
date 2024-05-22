@@ -24,6 +24,7 @@ import com.example.sync_front.databinding.FragmentHomeBinding
 import com.example.sync_front.ui.associate.AssociateActivity
 import com.example.sync_front.ui.friend.FriendActivity
 import com.example.sync_front.ui.interest.InterestActivity
+import com.example.sync_front.ui.main.MainActivity
 import com.example.sync_front.ui.open.OpenActivity
 import com.example.sync_front.ui.sync.SyncActivity
 import com.example.sync_front.ui.type.TypeListActivity
