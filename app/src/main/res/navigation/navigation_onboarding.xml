@@ -27,11 +27,11 @@
             android:id="@+id/action_ProfileFragment_to_NationalFragment"
             app:destination="@id/NationalFragment" >
         </action>
-
         <argument
             android:name="language"
             app:argType="string"
-            android:defaultValue='"한국어"' />
+            android:defaultValue="한국어" />
+
     </fragment>
 
     <fragment

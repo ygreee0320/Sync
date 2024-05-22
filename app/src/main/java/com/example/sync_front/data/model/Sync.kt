@@ -31,6 +31,7 @@ data class SyncDetail(
     val isFull: Boolean,
     val isJoin: Boolean,
     val isMarked: Boolean,
+    val isOwner: Boolean,
 )
 
 data class GraphData(

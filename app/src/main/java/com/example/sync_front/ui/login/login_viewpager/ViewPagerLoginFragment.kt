@@ -150,12 +150,12 @@ class ViewPagerLoginFragment : Fragment() {
                 editor.apply()
 
                 if (it.isFirst) {
-                    val intent = Intent(requireContext(), OnboardingActivity::class.java)
-//                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                    //val intent = Intent(requireContext(), OnboardingActivity::class.java)
+                    val intent = Intent(requireContext(), MainActivity::class.java)
                     startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
                     //finish()
                 } else {
-//                    val intent = Intent(requireContext(), OnboardingActivity::class.java)
+                    // val intent = Intent(requireContext(), OnboardingActivity::class.java)
                     val intent = Intent(requireContext(), MainActivity::class.java)
                     startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
                     //finish()

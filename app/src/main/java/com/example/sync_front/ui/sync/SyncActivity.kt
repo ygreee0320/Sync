@@ -90,12 +90,14 @@ class SyncActivity : AppCompatActivity() {
             binding.tvCnt.text = "최소 ${syncDetail.userCnt}명 최대 ${syncDetail.totalCnt}명"
 
             //가입 버튼
-            if (syncDetail.isFull || syncDetail.isJoin) {
+            //꽉차거나, 가입했거나, 주인장이면 false
+            if (syncDetail.isFull || syncDetail.isJoin || syncDetail.isOwner) {
                 binding.btnJoin.isEnabled = false
                 binding.btnJoin.setBackgroundResource(R.drawable.btn_gray)
                 binding.btnJoin.setTextColor(getResources().getColor(R.color.gray_50))
             }
-            if(syncDetail.isMarked){
+            //북마크 한 싱크면 채워지게
+            if (syncDetail.isMarked) {
                 binding.btnBookmark.isSelected = true
             }
         })
