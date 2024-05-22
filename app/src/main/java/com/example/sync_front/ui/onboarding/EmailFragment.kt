@@ -1,6 +1,7 @@
 package com.example.sync_front.ui.onboarding
 
 import android.content.Context
+import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -24,7 +25,7 @@ import com.example.sync_front.databinding.FragmentEmailBinding
 class EmailFragment : Fragment() {
     lateinit var binding: FragmentEmailBinding
     private lateinit var language: String
-    private var profile: String ?= null
+    private var profile: Uri?= null
     private lateinit var name: String
     private lateinit var national: String
     private lateinit var gender: String

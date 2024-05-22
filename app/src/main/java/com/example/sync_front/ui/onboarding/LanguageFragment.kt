@@ -47,7 +47,12 @@ class LanguageFragment : Fragment() {
 
         // 어댑터 내에서 선택된 아이템이 변경될 때마다 다음 활성화 여부 업데이트
         adapter.setOnItemSelectListener { selected ->
-            language = selected
+            if (selected == "English") {
+                language = "english"
+            } else {
+                language = "korean"
+            }
+
             Log.d("my log", "선택 결과 - $language")
         }
 

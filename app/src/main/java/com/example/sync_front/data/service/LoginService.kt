@@ -24,7 +24,6 @@ interface LoginService {
     @Multipart
     @POST("user/onboarding")
     fun onboarding(
-        @Header("Content-Type") application: String,
         @Header("Authorization") accessToken: String,
         @Part profileImage: MultipartBody.Part?,
         @Part("onBoardingRequest") onBoardingRequest: RequestBody

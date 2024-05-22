@@ -1,5 +1,6 @@
 package com.example.sync_front.api_server
 
+import android.net.Uri
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 import okhttp3.RequestBody
@@ -7,7 +8,7 @@ import okhttp3.RequestBody
 @Parcelize
 data class Onboarding(
     val language: String?,
-    val profile: String?,
+    val profile: Uri?,
     val userName: String?,
     val countryName: String?,
     val gender: String?,

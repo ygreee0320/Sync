@@ -1,5 +1,6 @@
 package com.example.sync_front.ui.onboarding
 
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -17,7 +18,7 @@ class TypeFragment : Fragment() {
     lateinit var binding: FragmentTypeBinding
     private lateinit var adapter: SelectOneAdapter
     private lateinit var language: String
-    private var profile: String? = null
+    private var profile: Uri? = null
     private lateinit var name: String
     private lateinit var national: String
     private lateinit var gender: String
@@ -71,7 +72,13 @@ class TypeFragment : Fragment() {
 
         // 어댑터 내에서 선택된 아이템이 변경될 때마다 다음 활성화 여부 업데이트
         adapter.setOnItemSelectListener { selected ->
-            type = selected
+            if (selected == requireContext().getString(R.string.성향1)) {
+                type = "지속성"
+            } else if (selected == requireContext().getString(R.string.성향2)) {
+                type = "일회성"
+            } else {
+                type = "내친소"
+            }
             Log.d("my log", "선택 결과 - $type")
         }
 
