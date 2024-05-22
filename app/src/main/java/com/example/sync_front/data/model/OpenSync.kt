@@ -13,7 +13,6 @@ data class SharedOpenSyncData(
     var routineDate: String? = null,
     var member_min: Int = 0,
     var member_max: Int = 0,
-    var type: String? = null,
     var detailType: String? = null
 )
 
