@@ -47,7 +47,7 @@ class InterestActivity : AppCompatActivity() {
         binding.tabLayout1.apply {
             val tabIndex = when (selectedTab) {
                 "외국어" -> 0
-                "엔터테인먼트/예술" -> 1
+                "문화/예술" -> 1
                 "여행/동행" -> 2
                 "액티비티" -> 3
                 "푸드드링크" -> 4
@@ -59,7 +59,7 @@ class InterestActivity : AppCompatActivity() {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 val type = when (tab?.position) {
                     0 -> "외국어"
-                    1 -> "엔터테인먼트/예술"
+                    1 -> "문화/예술"
                     2 -> "여행/동행"
                     3 -> "액티비티"
                     4 -> "푸드드링크"

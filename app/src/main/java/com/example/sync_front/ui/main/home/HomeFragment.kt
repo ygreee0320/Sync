@@ -258,7 +258,7 @@ class HomeFragment : Fragment() {
         }
         binding.boxCulture.setOnClickListener {
             val intent = Intent(context, InterestActivity::class.java).apply {
-                putExtra("selectedTab", "엔터테인먼트/예술")
+                putExtra("selectedTab", "문화/예술")
             }
             startActivity(intent)
         }
