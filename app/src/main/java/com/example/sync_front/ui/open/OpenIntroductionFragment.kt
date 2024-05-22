@@ -63,8 +63,8 @@ class OpenIntroductionFragment : Fragment() {
 
     private fun observeViewModel() {
         openViewModel.sharedData.observe(viewLifecycleOwner) { data ->
-            Log.d("OpenIntroductionFragment", "Received sync type: ${data.syncType}")
-            Log.d("OpenIntroductionFragment", "Received sync type: ${data.syncName}")
+            Log.d("OpenIntroductionFragment", "Received syncType: ${data.syncType}")
+            Log.d("OpenIntroductionFragment", "Received syncNamee: ${data.syncName}")
         }
     }
 
