@@ -39,12 +39,18 @@
                 android:text="@string/님의_가입이_완료" />
 
         </LinearLayout>
+        
+        <ImageView
+            android:layout_marginTop="126dp"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:src="@drawable/logo_onboarding" />
 
         <TextView
             android:id="@+id/explain_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="28dp"
             style="@style/Heading3"
             android:textColor="@color/gray_90"
             android:text="@string/이제_싱크를_시작해볼까요" />

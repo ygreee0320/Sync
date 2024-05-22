@@ -38,7 +38,7 @@ object LoginManager {
 
     fun sendOnboarding(authToken: String, image: MultipartBody.Part?, request: RequestBody, callback: (Int?) -> Unit) {
         val apiService = RetrofitClient().loginService
-        val call = apiService.onboarding("application/json", authToken, image, request)
+        val call = apiService.onboarding(authToken, image, request)
 
         call.enqueue(object : Callback<OnboardingResponse> {
             override fun onResponse(call: Call<OnboardingResponse>, response: Response<OnboardingResponse>) {
@@ -519,12 +519,21 @@ object MypageManager {
         })
     }
 
-    fun modMypage(authToken: String, name: String, gender: String, syncType: String, detailTypes: List<String>, image: MultipartBody.Part?,
+    fun modMypage(authToken: String, image: MultipartBody.Part?, request: RequestBody,
                   callback: (ModMypageResponse?) -> Unit) {
         val apiService = RetrofitClient().mypageService
 
 //        val call = apiService.modMypage(
 //            "multipart/form-data",
+//            authToken,
+//            image,
+//            name,
+//            gender,
+//            syncType,
+//            detailTypes
+//        )
+
+//        val call = apiService.modMypage(
 //            authToken,
 //            image,
 //            ModName(name),
@@ -533,15 +542,7 @@ object MypageManager {
 //            ModDetailTypes(detailTypes)
 //        )
 
-        val call = apiService.modMypage(
-            "application/json",
-            authToken,
-            image,
-            name,
-            gender,
-            syncType,
-            detailTypes
-        )
+        val call = apiService.modMypage(authToken, image, request)
 
         call.enqueue(object : Callback<ModMypageResponse> {
             override fun onResponse(call: Call<ModMypageResponse>, response: Response<ModMypageResponse>) {

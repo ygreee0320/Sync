@@ -82,6 +82,8 @@ class AssociateSyncAdapter(
             with(binding) {
                 Glide.with(ivSyncImg.context)
                     .load(sync.image)
+                    .placeholder(R.drawable.img_sample_gathering)
+                    .error(R.drawable.img_sample_gathering)
                     .into(ivSyncImg)
                 syncLabel1.text = sync.syncType
                 syncLabel2.text = sync.type

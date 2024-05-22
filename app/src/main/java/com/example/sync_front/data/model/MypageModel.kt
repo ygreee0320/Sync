@@ -16,6 +16,13 @@ data class MypageResponse(
     val data: MypageModel
 )
 
+data class ModMypageRequest(
+    val userName: String,
+    val gender: String,
+    val syncType: String,
+    val detailTypes: List<String>
+)
+
 data class ModMypageResponse(
     val status: Int,
     val message: String,

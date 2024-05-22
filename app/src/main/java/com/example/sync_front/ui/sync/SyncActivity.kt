@@ -28,6 +28,7 @@ class SyncActivity : AppCompatActivity() {
     private var syncId: Long = 0
     private var smallerDataName: String = ""
     private var token: String? = null
+    private var bookmark: Boolean = false // 북마크 중: true, 기본: false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -122,7 +123,11 @@ class SyncActivity : AppCompatActivity() {
 
     private fun setupClickListeners() {
         binding.btnBookmark.setOnClickListener {
-
+            if (!bookmark) {
+                // 북마크 등록
+            } else {
+                // 북마크 취소
+            }
         }
         binding.btnJoin.setOnClickListener {
             if (it.isEnabled) {

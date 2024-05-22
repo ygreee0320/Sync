@@ -16,7 +16,11 @@ import androidx.activity.result.contract.ActivityResultContracts
 import com.bumptech.glide.Glide
 import com.example.sync_front.R
 import com.example.sync_front.api_server.MypageManager
+import com.example.sync_front.data.model.ModMypageRequest
+import com.example.sync_front.data.model.OnboardingRequest
 import com.example.sync_front.databinding.ActivityModProfileBinding
+import com.google.gson.Gson
+import com.kakao.sdk.common.KakaoSdk.type
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -29,6 +33,7 @@ class ModProfileActivity : AppCompatActivity() {
     val REQUEST_CODE3 = 1003
     private var profile: Uri ?= null  // 이미지 추가
     private var authToken: String ?= null // 로그인 토큰
+    private var existingImageUrl: String? = null  // 서버로부터 가져온 기존 이미지 URL
 
     private val singleImagePicker =
         registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri: Uri? ->
@@ -71,6 +76,8 @@ class ModProfileActivity : AppCompatActivity() {
 
                 val detailTypesString = response.data.detailTypes?.joinToString(", ") ?: ""
                 binding.like.text = detailTypesString
+
+                existingImageUrl = response.data.image
 
                 if (!response.data.image.isNullOrEmpty()) {
                     Glide.with(this)
@@ -131,7 +138,7 @@ class ModProfileActivity : AppCompatActivity() {
     }
 
     private fun modMypage() {
-        val name = binding.nameTxt.text.toString()
+        val name = binding.username.text.toString()
         val gender = binding.gender.text.toString()
         val syncType = binding.likePeople.text.toString()
         val detailTypes = binding.like.text.toString().split(", ").map { it.trim() }
@@ -140,11 +147,21 @@ class ModProfileActivity : AppCompatActivity() {
         val imagePart: MultipartBody.Part? = profile?.let {
             val file = File(URIPathHelper().getPath(this, it) ?: return@let null)
             val requestBody = RequestBody.create("image/*".toMediaTypeOrNull(), file)
-            MultipartBody.Part.createFormData("image", file.name, requestBody)
+            MultipartBody.Part.createFormData("profileImage", file.name, requestBody)
         }
 
+        Log.d("my log", "$name $gender $syncType")
+
+        val imageUrl = if (profile == null) existingImageUrl else null
+
+        val request = ModMypageRequest(name, gender,"내친소", listOf("running"))
+
+        val gson = Gson()
+        val requestJson = gson.toJson(request)
+        val requestDtoBody = RequestBody.create("application/json".toMediaTypeOrNull(), requestJson)
+
         if (authToken != null) {
-            MypageManager.modMypage(authToken!!, name, gender, syncType, detailTypes, imagePart) { response ->
+            MypageManager.modMypage(authToken!!,imagePart, requestDtoBody) { response ->
                 if (response != null) {
                     Log.d("수정 완료", "")
                 } else {

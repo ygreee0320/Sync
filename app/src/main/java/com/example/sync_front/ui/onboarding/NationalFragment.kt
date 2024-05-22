@@ -1,5 +1,6 @@
 package com.example.sync_front.ui.onboarding
 
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -20,7 +21,7 @@ class NationalFragment : Fragment() {
     lateinit var binding: FragmentNationalBinding
     private lateinit var adapter: SelectOneAdapter
     private lateinit var language: String
-    private var profile: String ?= null
+    private var profile: Uri?= null
     private lateinit var name: String
     private lateinit var national: String
     private val args: NationalFragmentArgs by navArgs()

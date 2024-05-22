@@ -45,8 +45,8 @@ class AssociateActivity : AppCompatActivity() {
     }
 
     private fun setToolbarButton() {
-        binding.listToolbar.setNavigationOnClickListener {
-            onBackPressedDispatcher.onBackPressed()
+        binding.backBtn.setOnClickListener {
+            finish()
         }
     }
 
@@ -54,11 +54,11 @@ class AssociateActivity : AppCompatActivity() {
         associateAdapter = AssociateSyncAdapter(listOf(), object : SyncAdapter.OnSyncClickListener {
             override fun onSyncClick(sync: Sync) {
                 openSyncActivity(sync)
-                Toast.makeText(
-                    this@AssociateActivity,
-                    "Sync clicked: ${sync.syncName}",
-                    Toast.LENGTH_SHORT
-                ).show()
+//                Toast.makeText(
+//                    this@AssociateActivity,
+//                    "Sync clicked: ${sync.syncName}",
+//                    Toast.LENGTH_SHORT
+//                ).show()
             }
         })
         binding.recyclerView.apply {

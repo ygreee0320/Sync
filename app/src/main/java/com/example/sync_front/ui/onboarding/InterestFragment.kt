@@ -1,7 +1,9 @@
 package com.example.sync_front.ui.onboarding
 
 import android.content.Context
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -27,7 +29,7 @@ class InterestFragment : Fragment() {
     lateinit var binding: FragmentInterestBinding
     private lateinit var adapter: SelectInterestAdapter
     private lateinit var language: String
-    private var profile: String ?= null
+    private var profile: Uri?= null
     private lateinit var name: String
     private lateinit var national: String
     private lateinit var gender: String
@@ -89,17 +91,18 @@ class InterestFragment : Fragment() {
         val clickedItems = adapter.getClickedItems()
         Log.d("my log", "선택된 관심사- $clickedItems")
 
-        val imagePart: MultipartBody.Part? = profile?.let {
-            val file = File(it)
-            if (file.exists()) {
-                val requestBody = RequestBody.create("image/*".toMediaTypeOrNull(), file)
-                MultipartBody.Part.createFormData("profileImage", file.name, requestBody)
-            } else {
-                null
-            }
-        }
+//        val imagePart: MultipartBody.Part? = profile?.let {
+//            val file = File(it)
+//            if (file.exists()) {
+//                val requestBody = RequestBody.create("image/*".toMediaTypeOrNull(), file)
+//                MultipartBody.Part.createFormData("profileImage", file.name, requestBody)
+//            } else {
+//                null
+//            }
+//        }
+        val imagePart: MultipartBody.Part? = profile?.let { getProfileImagePart(it) }
 
-        val request = OnboardingRequest(language, name, national, gender, univ, "", type, clickedItems)
+        val request = OnboardingRequest(language, name, national, gender, univ, "", type, listOf("언어교환", "튜터링", "스터디"))
 
         val gson = Gson()
         val requestJson = gson.toJson(request)
@@ -113,6 +116,27 @@ class InterestFragment : Fragment() {
                 findNavController().navigate(action)
             }
         }
+    }
+
+    private fun getProfileImagePart(uri: Uri): MultipartBody.Part? {
+        val file = File(getRealPathFromURI(uri))
+        return if (file.exists()) {
+            val requestBody = RequestBody.create("image/*".toMediaTypeOrNull(), file)
+            MultipartBody.Part.createFormData("profileImage", file.name, requestBody)
+        } else {
+            null
+        }
+    }
+
+    private fun getRealPathFromURI(uri: Uri): String {
+        var realPath = ""
+        val cursor = context?.contentResolver?.query(uri, null, null, null, null)
+        cursor?.use {
+            it.moveToFirst()
+            val idx = it.getColumnIndex(MediaStore.Images.ImageColumns.DATA)
+            realPath = it.getString(idx)
+        }
+        return realPath
     }
 
     private fun updateDoneButtonBackground() {
