@@ -54,6 +54,7 @@ class SyncActivity : AppCompatActivity() {
         setupTabs(binding.root)
         subscribeUi()
         setupRecyclerView()
+        setupClickListeners()
         observeViewModel()
     }
 
@@ -122,6 +123,11 @@ class SyncActivity : AppCompatActivity() {
     private fun setupClickListeners() {
         binding.btnBookmark.setOnClickListener {
 
+        }
+        binding.btnJoin.setOnClickListener {
+            if (it.isEnabled) {
+                viewModel.fetchJoinSync(syncId)
+            }
         }
     }
 

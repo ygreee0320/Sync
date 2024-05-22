@@ -11,11 +11,11 @@ import androidx.core.net.toUri
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.sync_front.R
-import com.example.sync_front.databinding.FragmentOpenReaderBinding
+import com.example.sync_front.databinding.FragmentOpenLeaderBinding
 import com.example.sync_front.data.model.SharedOpenSyncData
 
 class OpenLeaderFragment : Fragment() {
-    private var _binding: FragmentOpenReaderBinding? = null
+    private var _binding: FragmentOpenLeaderBinding? = null
     private val binding get() = _binding!!
     private val openViewModel: OpenViewModel by activityViewModels()
     private var profileUri: Uri? = null  // 프로필 uri
@@ -24,7 +24,7 @@ class OpenLeaderFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentOpenReaderBinding.inflate(inflater, container, false)
+        _binding = FragmentOpenLeaderBinding.inflate(inflater, container, false)
         return binding.root
     }
 

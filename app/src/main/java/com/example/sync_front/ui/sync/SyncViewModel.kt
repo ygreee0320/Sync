@@ -18,6 +18,7 @@ import com.example.sync_front.data.model.GraphDetails
 import com.example.sync_front.data.model.Review
 import com.example.sync_front.data.model.Sync
 import com.example.sync_front.data.service.GraphResponse
+import com.example.sync_front.data.service.JoinSyncResponse
 import com.example.sync_front.data.service.ReviewResponse
 import com.example.sync_front.data.service.SyncResponse
 
@@ -152,5 +153,32 @@ class SyncViewModel(application: Application) : AndroidViewModel(application) {
             }
         })
     }
+
+    fun fetchJoinSync(syncId: Long) {
+        RetrofitClient.instance.syncDetailService.getJoinSync(
+            contentType = "application/json",
+            authorization = authToken,
+            syncId = syncId
+        ).enqueue(object : Callback<JoinSyncResponse> {
+            override fun onResponse(
+                call: Call<JoinSyncResponse>,
+                response: Response<JoinSyncResponse>
+            ) {
+                if (response.isSuccessful) {
+                    response.body()?.let {
+                        // 성공적으로 데이터를 받아왔을 경우, 필요한 데이터 처리를 이곳에서 수행
+                        Log.d("SyncViewModel", "Join Sync successful: ${it.message}")
+                    }
+                } else {
+                    _errorMessage.postValue("Error: ${response.errorBody()?.string()}")
+                }
+            }
+
+            override fun onFailure(call: Call<JoinSyncResponse>, t: Throwable) {
+                _errorMessage.postValue(t.message ?: "Unknown error during join sync")
+            }
+        })
+    }
+
 
 }
