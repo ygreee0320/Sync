@@ -43,8 +43,7 @@ class OpenThemeFragment : Fragment() {
 
     private fun observeViewModel() {
         openViewModel.sharedData.observe(viewLifecycleOwner) { data ->
-            Log.d("OpenThemeFragment", "Received sync type: ${data.syncType}")
-            // 데이터를 기반으로 UI 업데이트나 다른 로직 수행
+            Log.d(javaClass.simpleName, "Received data: $data")
         }
     }
 

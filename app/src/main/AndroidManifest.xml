@@ -8,8 +8,8 @@
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="com.google.android.apps.photos.permission.GALLERY_PROVIDER" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="29" />
@@ -27,6 +27,9 @@
         android:theme="@style/Theme.Syncfront"
         tools:targetApi="31">
         <activity
+            android:name=".ui.alarm.AlarmActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.associate.AssociateActivity"
             android:exported="false" />
         <activity
@@ -35,10 +38,10 @@
         <activity
             android:name=".ui.friend.FriendActivity"
             android:exported="false" />
-      <activity
+        <activity
             android:name=".ui.main.community.image.ImageDetailActivity"
-            android:theme="@style/Transparent"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Transparent" />
 
         <uses-library
             android:name="org.apache.http.legacy"

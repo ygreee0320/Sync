@@ -13,6 +13,7 @@ import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.sync_front.R
+import com.example.sync_front.data.model.SharedOpenSyncData
 import com.example.sync_front.databinding.FragmentOpenFirstBinding
 import com.example.sync_front.databinding.FragmentOpenTypeBinding
 import com.google.android.material.internal.ViewUtils.hideKeyboard
@@ -29,6 +30,7 @@ class OpenFirstFragment : Fragment() {
     private var dateSelected = false
     private var timeSelected = false
     private val openViewModel: OpenViewModel by activityViewModels()
+    private var selectedDateTime: String = ""
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -63,7 +65,15 @@ class OpenFirstFragment : Fragment() {
                 // 날짜 객체를 생성합니다.
                 val date = Calendar.getInstance()
                 date.set(year, month, dayOfMonth)
-
+                // 시간이 이미 선택되었는지 확인하고 날짜와 시간을 결합
+                if (timeSelected) {
+                    selectedDateTime =
+                        SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(date.time) +
+                                " " + SimpleDateFormat(
+                            "HH:mm",
+                            Locale.getDefault()
+                        ).format(calendar.time)
+                }
                 // 날짜와 요일을 함께 표시하는 포맷을 설정합니다.
                 val dateFormat = SimpleDateFormat("M월 d일 (E)", Locale.KOREA)
                 val formattedDate = dateFormat.format(date.time)
@@ -84,6 +94,7 @@ class OpenFirstFragment : Fragment() {
             datePickerDialog.show()
         }
     }
+
     private fun initializeTimePickerDialog() {
         val calendar = Calendar.getInstance()
         val hour = calendar.get(Calendar.HOUR_OF_DAY)
@@ -96,8 +107,16 @@ class OpenFirstFragment : Fragment() {
                 // 캘린더 객체에 선택된 시간을 설정
                 calendar.set(Calendar.HOUR_OF_DAY, selectedHour)
                 calendar.set(Calendar.MINUTE, selectedMinute)
-
-                // "a h:mm" 포맷으로 시간 형식 지정
+                // 날짜가 이미 선택되었는지 확인하고 날짜와 시간을 결합
+                if (dateSelected) {
+                    selectedDateTime =
+                        SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(calendar.time) +
+                                " " + SimpleDateFormat(
+                            "HH:mm",
+                            Locale.getDefault()
+                        ).format(calendar.time)
+                }
+                // "a h:mm" 포맷으로 시간 형식 지정 (예: 오후 11:30)
                 val format = SimpleDateFormat("a h:mm", Locale.getDefault())
                 val formattedTime = format.format(calendar.time)
 
@@ -140,6 +159,9 @@ class OpenFirstFragment : Fragment() {
             findNavController().navigateUp() // 이전 프래그먼트로
         }
         binding.doneBtn.setOnClickListener {
+            val currentData = openViewModel.sharedData.value?: SharedOpenSyncData()
+            currentData.routineDate = selectedDateTime
+            openViewModel.updateData(currentData)
             findNavController().navigate(R.id.action_openFirstFragment_to_openRoutineFragment)
         }
     }

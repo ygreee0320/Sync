@@ -39,14 +39,7 @@ class OpenCntFragment : Fragment() {
 
     private fun observeViewModel() {
         openViewModel.sharedData.observe(viewLifecycleOwner) { data ->
-            Log.d("OpenCntFragment", "Received sync type: ${data.syncType}")
-            Log.d("OpenCntFragment", "Received sync type: ${data.syncName}")
-            Log.d("OpenCntFragment", "Received sync type: ${data.image}")
-            Log.d("OpenCntFragment", "Received sync type: ${data.syncIntro}")
-            Log.d("OpenCntFragment", "Received sync type: ${data.date}")
-            Log.d("OpenCntFragment", "Received sync type: ${data.regularDay}")
-            Log.d("OpenCntFragment", "Received sync type: ${data.regularTime}")
-            Log.d("OpenCntFragment", "Received sync type: ${data.location}")
+            Log.d(javaClass.simpleName, "Received data: $data")
         }
     }
 

@@ -13,6 +13,8 @@ import com.example.sync_front.databinding.ActivityMainBinding
 import android.Manifest
 import android.location.*
 import android.util.Log
+import android.view.View
+import android.view.WindowManager
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContentProviderCompat.requireContext
 import java.util.*
