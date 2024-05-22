@@ -3,6 +3,7 @@ package com.example.sync_front.ui.open
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import androidx.appcompat.app.AlertDialog
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
@@ -12,6 +13,7 @@ import com.example.sync_front.R
 import com.example.sync_front.databinding.FragmentOpenThemeBinding
 import android.util.Log
 import com.example.sync_front.data.model.SharedOpenSyncData
+import com.example.sync_front.databinding.PopupCancleSyncBinding
 
 
 class OpenThemeFragment : Fragment() {
@@ -58,20 +60,58 @@ class OpenThemeFragment : Fragment() {
     }
 
     private fun updateSelectList() { // 관심사 선택 리스트 출력
-        val interest1 = SelectTheme("@drawable/ic_exchange_language", getString(R.string.foreignLanguage),
-            listOf(getString(R.string.languageExchange), getString(R.string.tutoring), getString(R.string.study)))
-        val interest2 = SelectTheme("@drawable/ic_culture", getString(R.string.cultureArt),
-            listOf(getString(R.string.movie), getString(R.string.drama), getString(R.string.art), getString(R.string.performance), getString(R.string.music)))
-        val interest3 = SelectTheme("@drawable/ic_travel", getString(R.string.travelCompanion),
-            listOf(getString(R.string.sightseeing), getString(R.string.nature), getString(R.string.vacation)))
-        val interest4 = SelectTheme("@drawable/ic_activity", getString(R.string.activity),
-            listOf(getString(R.string.running), getString(R.string.hiking), getString(R.string.climbing),
-                getString(R.string.bike), getString(R.string.soccer), getString(R.string.surfing),
-                getString(R.string.tennis), getString(R.string.bowling), getString(R.string.tableTennis)))
-        val interest5 = SelectTheme("@drawable/ic_food", getString(R.string.foodAndDrink),
-            listOf(getString(R.string.restaurant), getString(R.string.cafe), getString(R.string.drink)))
-        val interest6 = SelectTheme("@drawable/ic_etc", getString(R.string.etc),
-            listOf(getString(R.string.etc)))
+        val interest1 = SelectTheme(
+            "@drawable/ic_exchange_language", getString(R.string.foreignLanguage),
+            listOf(
+                getString(R.string.languageExchange),
+                getString(R.string.tutoring),
+                getString(R.string.study)
+            )
+        )
+        val interest2 = SelectTheme(
+            "@drawable/ic_culture", getString(R.string.cultureArt),
+            listOf(
+                getString(R.string.movie),
+                getString(R.string.drama),
+                getString(R.string.art),
+                getString(R.string.performance),
+                getString(R.string.music)
+            )
+        )
+        val interest3 = SelectTheme(
+            "@drawable/ic_travel", getString(R.string.travelCompanion),
+            listOf(
+                getString(R.string.sightseeing),
+                getString(R.string.nature),
+                getString(R.string.vacation)
+            )
+        )
+        val interest4 = SelectTheme(
+            "@drawable/ic_activity", getString(R.string.activity),
+            listOf(
+                getString(R.string.running),
+                getString(R.string.hiking),
+                getString(R.string.climbing),
+                getString(R.string.bike),
+                getString(R.string.soccer),
+                getString(R.string.surfing),
+                getString(R.string.tennis),
+                getString(R.string.bowling),
+                getString(R.string.tableTennis)
+            )
+        )
+        val interest5 = SelectTheme(
+            "@drawable/ic_food", getString(R.string.foodAndDrink),
+            listOf(
+                getString(R.string.restaurant),
+                getString(R.string.cafe),
+                getString(R.string.drink)
+            )
+        )
+        val interest6 = SelectTheme(
+            "@drawable/ic_etc", getString(R.string.etc),
+            listOf(getString(R.string.etc))
+        )
 
         val interestList = listOf(interest1, interest2, interest3, interest4, interest5, interest6)
 
@@ -85,6 +125,9 @@ class OpenThemeFragment : Fragment() {
     }
 
     private fun setupClickListeners() {
+        binding.toolbar.setNavigationOnClickListener {
+            showPopup()
+        }
         binding.beforeBtn.setOnClickListener {
             findNavController().navigateUp() // 이전 프래그먼트로
         }
@@ -98,6 +141,27 @@ class OpenThemeFragment : Fragment() {
 
             findNavController().navigate(R.id.action_openThemeFragment_to_openTitleFragment)
         }
+    }
+
+    private fun showPopup() {
+        val popupLayoutBinding = PopupCancleSyncBinding.inflate(layoutInflater)
+        val popupView = popupLayoutBinding.root
+
+        val alertDialogBuilder = AlertDialog.Builder(requireContext())
+        alertDialogBuilder.setView(popupView)
+
+        val alertDialog = alertDialogBuilder.create()
+        alertDialog.show()
+
+        popupLayoutBinding.runBtn.setOnClickListener {
+            alertDialog.dismiss() // 팝업 닫기
+        }
+        popupLayoutBinding.cancelBtn.setOnClickListener {
+            alertDialog.dismiss()
+            // 현재 액티비티 종료
+            requireActivity().finish()
+        }
+
     }
 
     override fun onDestroyView() {

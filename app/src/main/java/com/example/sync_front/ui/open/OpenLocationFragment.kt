@@ -3,6 +3,7 @@ package com.example.sync_front.ui.open
 import android.content.Context
 import android.os.Bundle
 import android.text.Editable
+import androidx.appcompat.app.AlertDialog
 import android.text.TextWatcher
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -15,6 +16,7 @@ import com.example.sync_front.R
 import com.example.sync_front.databinding.FragmentOpenLocationBinding
 import androidx.navigation.fragment.findNavController
 import com.example.sync_front.data.model.SharedOpenSyncData
+import com.example.sync_front.databinding.PopupCancleSyncBinding
 
 class OpenLocationFragment : Fragment() {
     private var _binding: FragmentOpenLocationBinding? = null
@@ -36,12 +38,17 @@ class OpenLocationFragment : Fragment() {
         observeViewModel()
         setUpChangedListener()
     }
+
     private fun observeViewModel() {
         openViewModel.sharedData.observe(viewLifecycleOwner) { data ->
             Log.d(javaClass.simpleName, "Received data: $data")
         }
     }
+
     private fun setupClickListeners() {
+        binding.toolbar.setNavigationOnClickListener {
+            showPopup()
+        }
         binding.beforeBtn.setOnClickListener {
             findNavController().navigateUp() // 이전 프래그먼트로
         }
@@ -56,6 +63,26 @@ class OpenLocationFragment : Fragment() {
         }
     }
 
+    private fun showPopup() {
+        val popupLayoutBinding = PopupCancleSyncBinding.inflate(layoutInflater)
+        val popupView = popupLayoutBinding.root
+
+        val alertDialogBuilder = AlertDialog.Builder(requireContext())
+        alertDialogBuilder.setView(popupView)
+
+        val alertDialog = alertDialogBuilder.create()
+        alertDialog.show()
+
+        popupLayoutBinding.runBtn.setOnClickListener {
+            alertDialog.dismiss() // 팝업 닫기
+        }
+        popupLayoutBinding.cancelBtn.setOnClickListener {
+            alertDialog.dismiss()
+            // 현재 액티비티 종료
+            requireActivity().finish()
+        }
+
+    }
 
     private fun setUpChangedListener() { // 이름에 값이 들어갈 때 다음 버튼 활성화
         binding.location.addTextChangedListener(object : TextWatcher {
@@ -92,7 +119,8 @@ class OpenLocationFragment : Fragment() {
 
     private fun hideKeyboard() {
         binding.location.clearFocus()
-        val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val imm =
+            requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(binding.root.windowToken, 0)
     }
 }

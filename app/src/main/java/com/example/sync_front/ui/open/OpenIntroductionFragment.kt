@@ -21,6 +21,8 @@ import com.example.sync_front.R
 import com.example.sync_front.databinding.FragmentOpenIntroductionBinding
 import androidx.navigation.fragment.findNavController
 import com.example.sync_front.data.model.SharedOpenSyncData
+import com.example.sync_front.databinding.PopupCancleSyncBinding
+import androidx.appcompat.app.AlertDialog
 
 class OpenIntroductionFragment : Fragment() {
     private var _binding: FragmentOpenIntroductionBinding? = null
@@ -68,6 +70,9 @@ class OpenIntroductionFragment : Fragment() {
     }
 
     private fun setupClickListeners() {
+        binding.toolbar.setNavigationOnClickListener {
+            showPopup()
+        }
         binding.profileImg.setOnClickListener {
             singleImagePicker.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageAndVideo))
         }
@@ -94,6 +99,27 @@ class OpenIntroductionFragment : Fragment() {
         binding.root.setOnClickListener {
             hideKeyboard()
         }
+    }
+
+    private fun showPopup() {
+        val popupLayoutBinding = PopupCancleSyncBinding.inflate(layoutInflater)
+        val popupView = popupLayoutBinding.root
+
+        val alertDialogBuilder = AlertDialog.Builder(requireContext())
+        alertDialogBuilder.setView(popupView)
+
+        val alertDialog = alertDialogBuilder.create()
+        alertDialog.show()
+
+        popupLayoutBinding.runBtn.setOnClickListener {
+            alertDialog.dismiss() // 팝업 닫기
+        }
+        popupLayoutBinding.cancelBtn.setOnClickListener {
+            alertDialog.dismiss()
+            // 현재 액티비티 종료
+            requireActivity().finish()
+        }
+
     }
 
     private fun setUpChangedListener() { // 이름에 값이 들어갈 때 다음 버튼 활성화
@@ -131,7 +157,8 @@ class OpenIntroductionFragment : Fragment() {
 
     private fun hideKeyboard() {
         binding.introduce.clearFocus()
-        val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val imm =
+            requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(binding.root.windowToken, 0)
     }
 }

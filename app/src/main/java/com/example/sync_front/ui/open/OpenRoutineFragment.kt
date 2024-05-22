@@ -12,6 +12,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.sync_front.R
 import com.example.sync_front.databinding.FragmentOpenRoutineBinding
+import com.example.sync_front.databinding.PopupCancleSyncBinding
+import androidx.appcompat.app.AlertDialog
 
 
 class OpenRoutineFragment : Fragment() {
@@ -104,6 +106,9 @@ class OpenRoutineFragment : Fragment() {
     }
 
     private fun setupClickListeners() {
+        binding.toolbar.setNavigationOnClickListener {
+            showPopup()
+        }
         binding.dateText1.setOnClickListener { toggleTextViewSelection(binding.dateText1) }
         binding.dateText2.setOnClickListener { toggleTextViewSelection(binding.dateText2) }
         binding.dateText3.setOnClickListener { toggleTextViewSelection(binding.dateText3) }
@@ -117,5 +122,26 @@ class OpenRoutineFragment : Fragment() {
         binding.doneBtn.setOnClickListener {
             findNavController().navigate(R.id.action_openRoutineFragment_to_openLocationFragment)
         }
+    }
+
+    private fun showPopup() {
+        val popupLayoutBinding = PopupCancleSyncBinding.inflate(layoutInflater)
+        val popupView = popupLayoutBinding.root
+
+        val alertDialogBuilder = AlertDialog.Builder(requireContext())
+        alertDialogBuilder.setView(popupView)
+
+        val alertDialog = alertDialogBuilder.create()
+        alertDialog.show()
+
+        popupLayoutBinding.runBtn.setOnClickListener {
+            alertDialog.dismiss() // 팝업 닫기
+        }
+        popupLayoutBinding.cancelBtn.setOnClickListener {
+            alertDialog.dismiss()
+            // 현재 액티비티 종료
+            requireActivity().finish()
+        }
+
     }
 }

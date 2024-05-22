@@ -10,11 +10,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.sync_front.R
 import com.example.sync_front.data.model.SharedOpenSyncData
 import com.example.sync_front.databinding.FragmentOpenTitleBinding
+import com.example.sync_front.databinding.PopupCancleSyncBinding
 
 class OpenTitleFragment : Fragment() {
     private var _binding: FragmentOpenTitleBinding? = null
@@ -41,6 +43,9 @@ class OpenTitleFragment : Fragment() {
         }
     }
     private fun setupClickListeners() {
+        binding.toolbar.setNavigationOnClickListener {
+            showPopup()
+        }
         binding.beforeBtn.setOnClickListener {
             findNavController().navigateUp() // 이전 프래그먼트로
         }
@@ -60,7 +65,26 @@ class OpenTitleFragment : Fragment() {
             hideKeyboard()
         }
     }
+    private fun showPopup() {
+        val popupLayoutBinding = PopupCancleSyncBinding.inflate(layoutInflater)
+        val popupView = popupLayoutBinding.root
 
+        val alertDialogBuilder = AlertDialog.Builder(requireContext())
+        alertDialogBuilder.setView(popupView)
+
+        val alertDialog = alertDialogBuilder.create()
+        alertDialog.show()
+
+        popupLayoutBinding.runBtn.setOnClickListener {
+            alertDialog.dismiss() // 팝업 닫기
+        }
+        popupLayoutBinding.cancelBtn.setOnClickListener {
+            alertDialog.dismiss()
+            // 현재 액티비티 종료
+            requireActivity().finish()
+        }
+
+    }
     private fun setUpChangedListener() { //값이 들어갈 때 다음 버튼 활성화
         binding.title.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}

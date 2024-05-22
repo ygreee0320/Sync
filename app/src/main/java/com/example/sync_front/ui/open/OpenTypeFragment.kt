@@ -6,12 +6,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.sync_front.R
 import com.example.sync_front.data.model.SharedOpenSyncData
 import com.example.sync_front.databinding.FragmentOpenTypeBinding
+import com.example.sync_front.databinding.PopupCancleSyncBinding
+import com.example.sync_front.databinding.PopupOpenSyncNotifyBinding
 import com.google.android.material.internal.ViewUtils.hideKeyboard
 
 
@@ -34,6 +37,9 @@ class OpenTypeFragment : Fragment() {
     }
 
     private fun setupClickListeners() {
+        binding.toolbar.setNavigationOnClickListener {
+            showPopup()
+        }
         binding.beforeBtn.setOnClickListener {
             activity?.finish()
         }
@@ -67,7 +73,26 @@ class OpenTypeFragment : Fragment() {
             }
         }
     }
+    private fun showPopup() {
+        val popupLayoutBinding = PopupCancleSyncBinding.inflate(layoutInflater)
+        val popupView = popupLayoutBinding.root
 
+        val alertDialogBuilder = AlertDialog.Builder(requireContext())
+        alertDialogBuilder.setView(popupView)
+
+        val alertDialog = alertDialogBuilder.create()
+        alertDialog.show()
+
+        popupLayoutBinding.runBtn.setOnClickListener {
+            alertDialog.dismiss() // 팝업 닫기
+        }
+        popupLayoutBinding.cancelBtn.setOnClickListener {
+            alertDialog.dismiss()
+            // 현재 액티비티 종료
+            requireActivity().finish()
+        }
+
+    }
     private fun updateSyncType() {
         val newSyncType = when {
             binding.boxOnetime.isSelected -> "일회성"
