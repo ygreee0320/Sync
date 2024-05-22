@@ -23,7 +23,8 @@ class MyFragment : Fragment() {
     private var _binding: FragmentMyBinding? = null
     private val binding get() = _binding!!
     private var listType: Int? = 1  // 1: 내가 개설한 2: 내가 참여한
-    lateinit var syncList: List<Sync>
+    lateinit var syncListMe: List<Sync>
+    lateinit var syncListJoin: List<Sync>
     private lateinit var adapter: SyncAdapter
     private var authToken: String ?= null // 로그인 토큰
 
@@ -156,11 +157,21 @@ class MyFragment : Fragment() {
 
     private fun updateSyncList(listType: Int) {
         if (listType == 2) {
+            // 어댑터를 설정하고 리사이클러뷰에 연결
+            syncListJoin = emptyList<Sync>()
+            adapter = SyncAdapter(syncListJoin, object : SyncAdapter.OnSyncClickListener {
+                override fun onSyncClick(sync: Sync) {
+                    openSyncActivity(sync)
+                }
+            })
+            binding.syncRecyclerview.layoutManager = LinearLayoutManager(requireContext())
+            binding.syncRecyclerview.adapter = adapter
+
             loadMyJoinList()
         } else {
             // 어댑터를 설정하고 리사이클러뷰에 연결
-            syncList = emptyList<Sync>()
-            adapter = SyncAdapter(syncList, object : SyncAdapter.OnSyncClickListener {
+            syncListMe = emptyList<Sync>()
+            adapter = SyncAdapter(syncListMe, object : SyncAdapter.OnSyncClickListener {
                 override fun onSyncClick(sync: Sync) {
                     openSyncActivity(sync)
                 }

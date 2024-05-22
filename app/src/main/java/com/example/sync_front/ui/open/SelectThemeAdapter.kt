@@ -22,7 +22,7 @@ data class SelectTheme(
 class SelectThemeAdapter(private var list: List<SelectTheme>, private val doneButtonCallback: (Boolean) -> Unit) :
     RecyclerView.Adapter<SelectThemeAdapter.SelectThemeViewHolder>() {
     private var selectedItem: String? = null
-    private val clickedItems: MutableList<String> = mutableListOf() // 클릭된 관심사 리스트
+    //private val clickedItems: MutableList<String> = mutableListOf() // 클릭된 관심사 리스트
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SelectThemeViewHolder {
         val view =
@@ -146,17 +146,24 @@ class SelectThemeAdapter(private var list: List<SelectTheme>, private val doneBu
             private fun toggleItem() {
                 if (selectedItem != itemName) {
                     selectedItem = itemName
-                    notifyDataSetChanged()  // 모든 항목에 대해 상태 업데이트를 위해 notifyDataSetChanged 호출
+
+                    select.setBackgroundResource(R.drawable.label_default)
+                    textView.setTextColor(ContextCompat.getColor(itemView.context, R.color.white))
+                    //notifyDataSetChanged()  // 모든 항목에 대해 상태 업데이트를 위해 notifyDataSetChanged 호출
                 } else {
                     selectedItem = null
-                    notifyDataSetChanged()
+
+                    select.setBackgroundResource(R.drawable.label_white_gray10)
+                    textView.setTextColor(ContextCompat.getColor(itemView.context, R.color.gray_70))
+
+                    //notifyDataSetChanged()
                 }
             }
         }
     }
 
     // 클릭된 아이템의 텍스트 리스트 반환
-    fun getClickedItems(): List<String> {
-        return clickedItems.toList()
+    fun getClickedItems(): String? {
+        return selectedItem
     }
 }

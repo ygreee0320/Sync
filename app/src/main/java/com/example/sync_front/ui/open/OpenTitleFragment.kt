@@ -1,5 +1,6 @@
 package com.example.sync_front.ui.open
 
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -8,6 +9,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.sync_front.R
@@ -37,6 +39,7 @@ class OpenTitleFragment : Fragment() {
         openViewModel.sharedData.observe(viewLifecycleOwner) { data ->
             Log.d("OpenTitleFragment", "Received sync type: ${data.syncType}")
             Log.d("OpenTitleFragment", "Received sync type: ${data.syncName}")
+            Log.d("OpenTitleFragment", "Received sync type: ${data.detailType}")
             // 데이터를 기반으로 UI 업데이트나 다른 로직 수행
         }
     }
@@ -50,6 +53,14 @@ class OpenTitleFragment : Fragment() {
             currentData.syncName = binding.title.text.toString()
             openViewModel.updateData(currentData)
             findNavController().navigate(R.id.action_openTitleFragment_to_openIntroductionFragment)
+        }
+
+        binding.textCancel.setOnClickListener {
+            binding.title.setText("") // 텍스트 초기화
+        }
+
+        binding.root.setOnClickListener {
+            hideKeyboard()
         }
     }
 
@@ -88,5 +99,11 @@ class OpenTitleFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null // 메모리 누수 방지
+    }
+
+    private fun hideKeyboard() {
+        binding.title.clearFocus()
+        val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(binding.root.windowToken, 0)
     }
 }

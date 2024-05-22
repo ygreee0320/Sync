@@ -1,5 +1,6 @@
 package com.example.sync_front.ui.open
 
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -8,6 +9,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.activityViewModels
 import com.example.sync_front.R
 import com.example.sync_front.databinding.FragmentOpenCntBinding
@@ -101,10 +103,21 @@ class OpenCntFragment : Fragment() {
             openViewModel.updateData(currentData)
             findNavController().navigate(R.id.action_openCntFragment_to_openLeaderFragment)
         }
+
+        binding.root.setOnClickListener {
+            hideKeyboard()
+        }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null // 메모리 누수 방지
+    }
+
+    private fun hideKeyboard() {
+        binding.minCnt.clearFocus()
+        binding.maxCnt.clearFocus()
+        val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(binding.root.windowToken, 0)
     }
 }
