@@ -43,16 +43,7 @@ class OpenLeaderFragment : Fragment() {
 
     private fun observeViewModel() {
         openViewModel.sharedData.observe(viewLifecycleOwner) { data ->
-            Log.d("OpenReaderFragment", "Received sync type: ${data.syncType}")
-            Log.d("OpenReaderFragment", "Received sync type: ${data.syncName}")
-            Log.d("OpenReaderFragment", "Received sync type: ${data.image}")
-            Log.d("OpenReaderFragment", "Received sync type: ${data.syncIntro}")
-            Log.d("OpenReaderFragment", "Received sync type: ${data.date}")
-            Log.d("OpenReaderFragment", "Received sync type: ${data.regularDay}")
-            Log.d("OpenReaderFragment", "Received sync type: ${data.regularTime}")
-            Log.d("OpenReaderFragment", "Received sync type: ${data.location}")
-            Log.d("OpenReaderFragment", "Received sync type: ${data.member_min}")
-            Log.d("OpenReaderFragment", "Received sync type: ${data.member_max}")
+            Log.d(javaClass.simpleName, "Received data: $data")
         }
         profileUri= openViewModel.sharedData.value?.image.toString().toUri()
     }
