@@ -6,6 +6,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,9 +14,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.activityViewModels
 import com.example.sync_front.R
 import com.example.sync_front.databinding.FragmentOpenIntroductionBinding
 import androidx.navigation.fragment.findNavController
+import com.example.sync_front.data.model.SharedOpenSyncData
 
 class OpenIntroductionFragment : Fragment() {
     private var _binding: FragmentOpenIntroductionBinding? = null
@@ -23,6 +26,7 @@ class OpenIntroductionFragment : Fragment() {
     private var profile: String? = ""  // 프로필
     private var profileUri: Uri? = null  // 프로필 uri
     private lateinit var intro: String
+    private val openViewModel: OpenViewModel by activityViewModels()
 
     private val singleImagePicker =
         registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri: Uri? ->
@@ -52,8 +56,15 @@ class OpenIntroductionFragment : Fragment() {
         binding.doneBtn.isEnabled = false
         setupClickListeners()
         setUpChangedListener()
+        observeViewModel()
     }
 
+    private fun observeViewModel() {
+        openViewModel.sharedData.observe(viewLifecycleOwner) { data ->
+            Log.d("OpenIntroductionFragment", "Received sync type: ${data.syncType}")
+            Log.d("OpenIntroductionFragment", "Received sync type: ${data.syncName}")
+        }
+    }
 
     private fun setupClickListeners() {
         binding.profileImg.setOnClickListener {
@@ -68,8 +79,13 @@ class OpenIntroductionFragment : Fragment() {
             if (binding.doneBtn.isEnabled) {
                 intro = binding.introduce.text.toString()
                 profile = profileUri?.toString()
-
-                findNavController().navigate(R.id.action_openIntroductionFragment_to_openTimeFragment)
+                val currentData = openViewModel.sharedData.value ?: SharedOpenSyncData()
+                currentData.syncIntro = intro
+                currentData.image = profile
+                if (currentData.syncType == "지속성") {
+                    findNavController().navigate(R.id.action_openIntroductionFragment_to_openFirstFragment)
+                } else
+                    findNavController().navigate(R.id.action_openIntroductionFragment_to_openTimeFragment)
             }
 
         }
@@ -95,10 +111,10 @@ class OpenIntroductionFragment : Fragment() {
 
     private fun updateDoneButtonBackground() {
         if (binding.doneBtn.isEnabled) { // 다음 버튼 스타일 변경
-            binding.doneBtn.setTextColor(context!!.resources.getColor(R.color.white))
+            binding.doneBtn.setTextColor(requireContext().resources.getColor(R.color.white))
             binding.doneBtn.setBackgroundResource(R.drawable.btn_default)
         } else {
-            binding.doneBtn.setTextColor(context!!.resources.getColor(R.color.gray_70))
+            binding.doneBtn.setTextColor(requireContext().resources.getColor(R.color.gray_70))
             binding.doneBtn.setBackgroundResource(R.drawable.btn_gray_10)
         }
     }

@@ -5,15 +5,19 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sync_front.R
 import com.example.sync_front.databinding.FragmentOpenThemeBinding
+import android.util.Log
 
 
 class OpenThemeFragment : Fragment() {
     private var _binding: FragmentOpenThemeBinding? = null
     private val binding get() = _binding!!
+    private val openViewModel: OpenViewModel by activityViewModels()
+
     private lateinit var adapter: SelectThemeAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,25 +29,34 @@ class OpenThemeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        nextButton()
+        setupClickListeners()
+        observeViewModel()
         initSetting()
         updateSelectList()
     }
 
     private fun initSetting() {
         binding.doneBtn.isEnabled = false
-        adapter = SelectThemeAdapter(emptyList<SelectTheme>()){}
-
+        adapter = SelectThemeAdapter(emptyList<SelectTheme>()) {}
     }
+
+    private fun observeViewModel() {
+        openViewModel.sharedData.observe(viewLifecycleOwner) { data ->
+            Log.d("OpenThemeFragment", "Received sync type: ${data.syncType}")
+            // 데이터를 기반으로 UI 업데이트나 다른 로직 수행
+        }
+    }
+
     private fun updateDoneButtonBackground() {
         if (binding.doneBtn.isEnabled) { // 다음 버튼 스타일 변경
-            binding.doneBtn.setTextColor(context!!.resources.getColor(R.color.white))
+            binding.doneBtn.setTextColor(requireContext().resources.getColor(R.color.white))
             binding.doneBtn.setBackgroundResource(R.drawable.btn_default)
         } else {
-            binding.doneBtn.setTextColor(context!!.resources.getColor(R.color.gray_70))
+            binding.doneBtn.setTextColor(requireContext().resources.getColor(R.color.gray_70))
             binding.doneBtn.setBackgroundResource(R.drawable.btn_gray_10)
         }
     }
+
     private fun updateSelectList() { // 관심사 선택 리스트 출력
         val interest1 = SelectTheme("@drawable/ic_exchange_language", getString(R.string.foreignLanguage),
             listOf(getString(R.string.languageExchange), getString(R.string.tutoring), getString(R.string.study)))
@@ -63,18 +76,23 @@ class OpenThemeFragment : Fragment() {
         val interestList = listOf(interest1, interest2, interest3, interest4, interest5, interest6)
 
         val themeList = listOf(interest1, interest2, interest3, interest4, interest5, interest6)
-        adapter = SelectThemeAdapter(themeList){ enable ->
+        adapter = SelectThemeAdapter(themeList) { enable ->
             binding.doneBtn.isEnabled = enable
             updateDoneButtonBackground()
         }
         binding.recyclerview.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerview.adapter = adapter
     }
-    private fun nextButton(){
+
+    private fun setupClickListeners() {
+        binding.beforeBtn.setOnClickListener {
+            findNavController().navigateUp() // 이전 프래그먼트로
+        }
         binding.doneBtn.setOnClickListener {
             findNavController().navigate(R.id.action_openThemeFragment_to_openTitleFragment)
         }
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null // 메모리 누수 방지

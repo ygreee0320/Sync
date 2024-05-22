@@ -21,7 +21,7 @@ data class SelectTheme(
 
 class SelectThemeAdapter(private var list: List<SelectTheme>, private val doneButtonCallback: (Boolean) -> Unit) :
     RecyclerView.Adapter<SelectThemeAdapter.SelectThemeViewHolder>() {
-
+    private var selectedItem: String? = null
     private val clickedItems: MutableList<String> = mutableListOf() // 클릭된 관심사 리스트
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SelectThemeViewHolder {
@@ -119,6 +119,7 @@ class SelectThemeAdapter(private var list: List<SelectTheme>, private val doneBu
         override fun onBindViewHolder(holder: InnerViewHolder, position: Int) {
             val item = innerList[position]
             holder.bind(item)
+
         }
 
         override fun getItemCount(): Int {
@@ -130,45 +131,25 @@ class SelectThemeAdapter(private var list: List<SelectTheme>, private val doneBu
             private val select: LinearLayout = itemView.findViewById(R.id.content_layout)
             private var itemName: String = ""
 
-            private var isToggled = false // 아이템의 토글 상태
-
             init {
                 select.setOnClickListener {
                     toggleItem()
-                    doneButtonCallback.invoke(clickedItems.size >= 1)
-
+                    doneButtonCallback.invoke(selectedItem != null)
                 }
             }
 
             fun bind(item: String) {
                 textView.text = item
                 itemName = item
-
-                // 아이템의 토글 상태에 따라 스타일 변경
-                if (isToggled) {
-                    select.setBackgroundResource(R.drawable.label_default)
-                    textView.setTextColor(ContextCompat.getColor(itemView.context, R.color.white))
-                } else {
-                    select.setBackgroundResource(R.drawable.label_white_gray10)
-                    textView.setTextColor(ContextCompat.getColor(itemView.context, R.color.gray_70))
-                }
             }
 
             private fun toggleItem() {
-                isToggled = !isToggled
-
-                if (isToggled) {
-                    select.setBackgroundResource(R.drawable.label_default)
-                    textView.setTextColor(ContextCompat.getColor(itemView.context, R.color.white))
-                    if (!clickedItems.contains(itemName)) {
-                        clickedItems.add(itemName)
-                    }
+                if (selectedItem != itemName) {
+                    selectedItem = itemName
+                    notifyDataSetChanged()  // 모든 항목에 대해 상태 업데이트를 위해 notifyDataSetChanged 호출
                 } else {
-                    select.setBackgroundResource(R.drawable.label_white_gray10)
-                    textView.setTextColor(ContextCompat.getColor(itemView.context, R.color.gray_70))
-                    if (clickedItems.contains(itemName)) {
-                        clickedItems.remove(itemName)
-                    }
+                    selectedItem = null
+                    notifyDataSetChanged()
                 }
             }
         }

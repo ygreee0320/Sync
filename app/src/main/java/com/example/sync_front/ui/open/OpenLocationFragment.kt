@@ -3,17 +3,21 @@ package com.example.sync_front.ui.open
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import com.example.sync_front.R
 import com.example.sync_front.databinding.FragmentOpenLocationBinding
 import androidx.navigation.fragment.findNavController
+import com.example.sync_front.data.model.SharedOpenSyncData
 
 class OpenLocationFragment : Fragment() {
     private var _binding: FragmentOpenLocationBinding? = null
     private val binding get() = _binding!!
+    private val openViewModel: OpenViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,14 +31,27 @@ class OpenLocationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupClickListeners()
+        observeViewModel()
         setUpChangedListener()
     }
-
+    private fun observeViewModel() {
+        openViewModel.sharedData.observe(viewLifecycleOwner) { data ->
+            Log.d("OpenLocationFragment", "Received sync type: ${data.syncType}")
+            Log.d("OpenLocationFragment", "Received sync type: ${data.syncName}")
+            Log.d("OpenLocationFragment", "Received sync type: ${data.image}")
+            Log.d("OpenLocationFragment", "Received sync type: ${data.syncIntro}")
+            Log.d("OpenLocationFragment", "Received sync type: ${data.date}")
+            // 데이터를 기반으로 UI 업데이트나 다른 로직 수행
+        }
+    }
     private fun setupClickListeners() {
         binding.beforeBtn.setOnClickListener {
             findNavController().navigateUp() // 이전 프래그먼트로
         }
         binding.doneBtn.setOnClickListener {
+            val currentData = openViewModel.sharedData.value ?: SharedOpenSyncData()
+            currentData.location = binding.location.text.toString()
+            openViewModel.updateData(currentData)
             findNavController().navigate(R.id.action_openLocationFragment_to_openCntFragment)
         }
     }
@@ -60,10 +77,10 @@ class OpenLocationFragment : Fragment() {
 
     private fun updateDoneButtonBackground() {
         if (binding.doneBtn.isEnabled) { // 다음 버튼 스타일 변경
-            binding.doneBtn.setTextColor(context!!.resources.getColor(R.color.white))
+            binding.doneBtn.setTextColor(requireContext().resources.getColor(R.color.white))
             binding.doneBtn.setBackgroundResource(R.drawable.btn_default)
         } else {
-            binding.doneBtn.setTextColor(context!!.resources.getColor(R.color.gray_70))
+            binding.doneBtn.setTextColor(requireContext().resources.getColor(R.color.gray_70))
             binding.doneBtn.setBackgroundResource(R.drawable.btn_gray_10)
         }
     }

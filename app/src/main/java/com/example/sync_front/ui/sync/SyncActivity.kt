@@ -40,20 +40,22 @@ class SyncActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
 
         viewModel.fetchSyncDetail(syncId)
+        viewModel.fetchGraphData("national", syncId)
 
         // 저장된 토큰 읽어오기
         val sharedPreferences = getSharedPreferences("my_token", Context.MODE_PRIVATE)
         token = sharedPreferences.getString("auth_token", null)
 
-        viewModel.fetchGraphData("national", syncId)
+
         updateGraphTextViews("${smallerDataName}보다 ", "의 비율이 더 높은 편이에요")
 
-        viewModel.fetchSyncDetail(syncId)
+
         circleGraphView = binding.circle  // circleGraphView 초기화
         setToolbarButton()
         setupTabs(binding.root)
         subscribeUi()
         setupRecyclerView()
+        setupClickListeners()
         observeViewModel()
     }
 
@@ -86,6 +88,14 @@ class SyncActivity : AppCompatActivity() {
                 binding.tvDate.text = "${syncDetail.regularDate}\n첫 모임 날짜: ${syncDetail.date}"
             }
             binding.tvCnt.text = "최소 ${syncDetail.userCnt}명 최대 ${syncDetail.totalCnt}명"
+
+            //가입 버튼
+            if (syncDetail.totalCnt == syncDetail.userCnt) {
+                binding.btnJoin.isEnabled = false
+                binding.btnJoin.text = "모집마감"
+                binding.btnJoin.setBackgroundResource(R.drawable.btn_gray)
+                binding.btnJoin.setTextColor(getResources().getColor(R.color.white))
+            }
         })
         viewModel.graphDetails.observe(this, Observer { details ->
             val graphData = details.data.sortedByDescending { it.percent }
@@ -117,6 +127,11 @@ class SyncActivity : AppCompatActivity() {
                 // 북마크 등록
             } else {
                 // 북마크 취소
+            }
+        }
+        binding.btnJoin.setOnClickListener {
+            if (it.isEnabled) {
+                viewModel.fetchJoinSync(syncId)
             }
         }
     }

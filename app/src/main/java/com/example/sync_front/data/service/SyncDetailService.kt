@@ -4,6 +4,7 @@ import com.example.sync_front.data.model.GraphData
 import com.example.sync_front.data.model.GraphDetails
 import com.example.sync_front.data.model.Review
 import com.example.sync_front.data.model.SyncDetail
+import com.google.gson.JsonObject
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -40,8 +41,20 @@ interface SyncDetailService {
         @Query("syncId") syncId: Long,
         @Query("take") take: Int
     ): Call<SyncResponse>
+
+    @GET("sync/detail/join")
+    fun getJoinSync(
+        @Header("Content-Type") contentType: String = "application/json",
+        @Header("Authorization") authorization: String?,
+        @Query("syncId") syncId: Long,
+    ): Call<JoinSyncResponse>
 }
 
+data class JoinSyncResponse(
+    val status: Int,
+    val message: String,
+    val data: JsonObject
+)
 
 data class SyncDetailResponse(
     val status: Int,
