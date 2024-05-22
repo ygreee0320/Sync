@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         // 위치 권한을 확인하고 위치 정보를 받아오는 함수 호출
-        checkLocationPermission()
+        //checkLocationPermission()
     }
 
     private fun checkLocationPermission() {

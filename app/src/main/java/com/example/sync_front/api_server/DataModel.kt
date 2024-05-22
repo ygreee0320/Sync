@@ -29,15 +29,15 @@ data class ChattingRoom(
     val syncName: String? = null,
     val total: Int,
     var lastText: String? = null,
-    var lastTime: String? = null
+    var lastTime: String? = null,
+    val image: String
 )
 
 data class ChatMessageRequestDto(
     val chatSession: String,
     val fromUserName: String,
     val toRoomName: String,
-    val content: String,
-    val image: String
+    val content: String
 )
 
 data class image(
@@ -69,6 +69,7 @@ data class RoomMessageElementResponseDto(
 
 data class ChattingList(
     val syncName: String,
+    val roomName: String,
     val total: Int,
     val content: String,
     val time: String

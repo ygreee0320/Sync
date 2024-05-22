@@ -110,10 +110,10 @@ class ChattingActivity : AppCompatActivity() {
     private fun initialSetting() {
         // 저장된 토큰 읽어오기
         val sharedPreferences = this.getSharedPreferences("my_token", Context.MODE_PRIVATE)
-        //authToken = sharedPreferences.getString("auth_token", null)
-        authToken = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMyIsImlhdCI6MTcxNjEyNDgzOSwiZXhwIjoxNzE2NzI5NjM5fQ.sItyCgXULj4jKP70aKstlh4o1dEVAECcE4Ws-r7mhuE"
+        authToken = sharedPreferences.getString("auth_token", null)
+        //authToken = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMyIsImlhdCI6MTcxNjEyNDgzOSwiZXhwIjoxNzE2NzI5NjM5fQ.sItyCgXULj4jKP70aKstlh4o1dEVAECcE4Ws-r7mhuE"
         myName = sharedPreferences.getString("name", "익명")!!
-        //roomName = intent.getStringExtra("roomName")
+        roomName = intent.getStringExtra("roomName")
         sessionId = sharedPreferences.getString("sessionId", null)
 
         // 어댑터를 설정하고 리사이클러뷰에 연결
@@ -141,7 +141,7 @@ class ChattingActivity : AppCompatActivity() {
             else { // 메세지가 있다면 전송
                 if (stompClient.isConnected()) {
                     Log.d("WebSocket", "연결됨")
-                    //sendMessage(message, null) // 전송
+                    sendMessage(message) // 전송
                 } else {
                     Log.d("WebSocket", "연결되지 않음")
                 }
@@ -212,15 +212,14 @@ class ChattingActivity : AppCompatActivity() {
         stompClient.connect()
     }
 
-    private fun sendMessage(message: String, byteString: String) {
+    private fun sendMessage(message: String) {
         binding.sendTxt.setText("") // 텍스트창 초기화
 
         val chatMessage = ChatMessageRequestDto(
-            "113828093759900814627_ef4a27",
+            sessionId!!,
             myName,
             roomName!!,
-            message,
-            byteString
+            message
         ) // 채팅 보내는 사람 정보, 텍스트
 
         val json = Gson().toJson(chatMessage)
@@ -410,7 +409,7 @@ class ChattingActivity : AppCompatActivity() {
             //CommunityManager.getImage(authToken!!, byteString.toRequestBody(contentType.toMediaTypeOrNull()))
 
             //Log.d("Encoded Image", encodedImage)
-            sendMessage("", byteString)
+            //sendMessage("", byteString)
 
             // 이미지 데이터를 웹소켓을 통해 서버로 전송
             //sendMessage(encodedImage)

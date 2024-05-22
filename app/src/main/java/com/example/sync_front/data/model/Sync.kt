@@ -10,7 +10,8 @@ data class Sync(
     val syncName: String,
     val location: String,
     val date: String,
-    val associate: String?
+    val associate: String?,
+    val isMarked: Boolean,
 )
 
 data class SyncDetail(
@@ -51,4 +52,14 @@ data class Review(
     val date: String
 )
 
+data class BookmarkRequest(
+    val syncId: Long,
+    val isMarked: Boolean
+)
+
+data class BookmarkResponse(
+    val status: Int,
+    val message: String,
+    val data: Boolean
+)
 
