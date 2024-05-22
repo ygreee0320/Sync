@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.core.net.toUri
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import com.bumptech.glide.Glide
 import com.example.sync_front.api_server.RetrofitClient
 import com.example.sync_front.data.model.SharedOpenSyncData
 import com.example.sync_front.data.service.OpenResponse
@@ -22,6 +23,7 @@ import com.google.gson.Gson
 import id.zelory.compressor.Compressor
 import id.zelory.compressor.constraint.quality
 import id.zelory.compressor.constraint.resolution
+import io.reactivex.Observer
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -51,10 +53,16 @@ class OpenPreviewFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observeViewModel()
+        setupClickListeners()
+    }
+
+    private fun setupClickListeners() {
         binding.btnOpen.setOnClickListener {
             uploadData()
         }
     }
+
+
     private fun observeViewModel() {
         openViewModel.sharedData.observe(viewLifecycleOwner) { data ->
             Log.d("OpenPreviewFragment", "Received sync type: ${data.syncType}")
@@ -69,7 +77,30 @@ class OpenPreviewFragment : Fragment() {
             Log.d("OpenPreviewFragment", "Received member_max: ${data.member_max}")
             Log.d("OpenPreviewFragment", "Received userIntro: ${data.userIntro}")
         }
-        profileUri= openViewModel.sharedData.value?.image.toString().toUri()
+
+        profileUri = openViewModel.sharedData.value?.image.toString().toUri()
+
+        //텍스트 뷰에 데이터 넣기//
+        val currentData = openViewModel.sharedData.value ?: SharedOpenSyncData()
+        (binding).apply {
+            Glide.with(ivSyncImg.context)
+                .load(currentData.image)
+                .into(ivSyncImg)
+            tvSyncName.text = currentData.syncName
+            syncLabel1.text = currentData.syncType
+            syncLabel2.text = currentData.type
+            tvSyncIntro.text = currentData.syncIntro
+            if (currentData.regularDay == null) {
+                tvDateTitle.text = "일시"
+                tvDate.text = currentData.date
+            } else {
+                // regularDate가 null이 아니면, regularDate 값을 텍스트로 설정
+                tvDate.text = "${currentData.date}"
+            }
+            tvLocation.text = currentData.location
+            tvCnt.text = "최소 ${currentData.member_min}명 최대 ${currentData.member_max}명"
+            tvLeaderIntro.text = currentData.userIntro
+        }
     }
 
 

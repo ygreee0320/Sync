@@ -26,10 +26,11 @@
             app:navigationIcon="@drawable/ic_arrow_left">
 
             <TextView
+                android:id="@+id/tv_sync_name"
                 style="@style/Body1_700"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{viewModel.sharedData.syncName ?? @string/test}"
+                android:text="@string/test"
                 android:textColor="@color/gray_90" />
 
             <ImageView
@@ -100,21 +101,22 @@
                             android:id="@+id/sync_label1"
                             style="@style/label_c"
                             android:layout_marginStart="12dp"
-                            android:text="@{viewModel.sharedData.syncType ?? @string/test}" />
+                            android:text="@string/test" />
 
                         <TextView
                             android:id="@+id/sync_label2"
                             style="@style/label_c"
                             android:layout_marginStart="6dp"
-                            android:text="@{viewModel.sharedData.type ?? @string/test}" />
+                            android:text="@string/test" />
 
                     </LinearLayout>
 
                     <TextView
+                        android:id="@+id/tv_sync_intro"
                         style="@style/Body3_400"
                         android:layout_marginStart="15dp"
                         android:layout_marginTop="8dp"
-                        android:text="@{viewModel.sharedData.syncIntro ?? @string/test}" />
+                        android:text="@string/test" />
 
                     <!--정기 싱크 일정-->
                     <LinearLayout style="@style/sync_linear_vertical">
@@ -170,10 +172,11 @@
                         </LinearLayout>
 
                         <TextView
+                            android:id="@+id/tv_location"
                             style="@style/Body3_400"
                             android:layout_marginStart="15dp"
                             android:layout_marginTop="8dp"
-                            android:text="@{viewModel.sharedData.location ?? @string/test}" />
+                            android:text="@string/test" />
                     </LinearLayout>
 
                     <!--인원-->
@@ -264,9 +267,10 @@
                             </LinearLayout>
 
                             <TextView
+                                android:id="@+id/tv_leader_intro"
                                 style="@style/Detail_400"
                                 android:layout_marginTop="4dp"
-                                android:text="@{String.valueOf(viewModel.sharedData.userIntro) ?? @string/test}"
+                                android:text="@string/test"
                                 android:textColor="@color/gray_50" />
                         </LinearLayout>
                     </LinearLayout>

@@ -63,7 +63,6 @@ class OpenIntroductionFragment : Fragment() {
         openViewModel.sharedData.observe(viewLifecycleOwner) { data ->
             Log.d("OpenIntroductionFragment", "Received sync type: ${data.syncType}")
             Log.d("OpenIntroductionFragment", "Received sync type: ${data.syncName}")
-            // 데이터를 기반으로 UI 업데이트나 다른 로직 수행
         }
     }
 
