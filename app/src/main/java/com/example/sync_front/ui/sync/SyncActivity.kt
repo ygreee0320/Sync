@@ -28,7 +28,7 @@ class SyncActivity : AppCompatActivity() {
     private lateinit var reviewAdapter: ReviewAdapter
     private lateinit var sameSyncAdapter: SyncAdapter
     private var syncId: Long = 0
-    private var smallerDataName: String = ""
+    private var smallerDataName: String = "외국인"
     private var token: String? = null
     private var bookmark: Boolean = false // 북마크 중: true, 기본: false
 
@@ -49,7 +49,6 @@ class SyncActivity : AppCompatActivity() {
         token = sharedPreferences.getString("auth_token", null)
 
 
-        updateGraphTextViews("${smallerDataName}보다 ", "의 비율이 더 높은 편이에요")
 
 
         circleGraphView = binding.circle  // circleGraphView 초기화
@@ -59,6 +58,7 @@ class SyncActivity : AppCompatActivity() {
         setupRecyclerView()
         setupClickListeners()
         observeViewModel()
+        updateGraphTextViews("${smallerDataName}보다 ", "의 비율이 더 높은 편이에요")
     }
 
     private fun subscribeUi() {
@@ -106,7 +106,6 @@ class SyncActivity : AppCompatActivity() {
             }
             //북마크 한 싱크면 채워지게
             binding.btnBookmark.isSelected = syncDetail.isMarked
-
             bookmark = syncDetail.isMarked // 북마크 여부 체크
         })
         viewModel.graphDetails.observe(this, Observer { details ->
