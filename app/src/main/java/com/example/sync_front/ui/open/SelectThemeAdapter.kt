@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -11,7 +12,6 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sync_front.R
-import com.example.sync_front.ui.open.SelectTheme
 
 data class SelectTheme(
     val icon: String,
@@ -33,6 +33,7 @@ class SelectThemeAdapter(private var list: List<SelectTheme>, private val doneBu
     override fun onBindViewHolder(holder: SelectThemeViewHolder, position: Int) {
         val item = list[position]
         holder.bind(item)
+        setAnimation(holder.itemView, position)
     }
 
     override fun getItemCount(): Int {
@@ -43,6 +44,22 @@ class SelectThemeAdapter(private var list: List<SelectTheme>, private val doneBu
     fun updateData(newList: List<SelectTheme>) {
         list = newList
         notifyDataSetChanged()
+    }
+
+    private fun setAnimation(viewToAnimate: View, position: Int) {
+        val initialTranslationY = 300f
+        val duration = 1000L
+        val interpolator = AccelerateDecelerateInterpolator()
+
+        viewToAnimate.translationY = initialTranslationY
+        viewToAnimate.alpha = 0f
+        viewToAnimate.animate()
+            .translationY(0f)
+            .alpha(1f)
+            .setInterpolator(interpolator)
+            .setDuration(duration)
+            .setStartDelay((position * 100).toLong())
+            .start()
     }
 
     inner class SelectThemeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -119,7 +136,6 @@ class SelectThemeAdapter(private var list: List<SelectTheme>, private val doneBu
         override fun onBindViewHolder(holder: InnerViewHolder, position: Int) {
             val item = innerList[position]
             holder.bind(item)
-
         }
 
         override fun getItemCount(): Int {
