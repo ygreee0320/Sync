@@ -34,7 +34,8 @@ interface HomeService {
     fun getRecommendSyncs(
         @Header("Content-Type") contentType: String = "application/json",
         @Header("Authorization") authorization: String?,
-        @Query("userId") userId: Long
+        @Query("userId") userId: Long,
+        @Query("language") language: String? = null
     ): Call<SyncResponse>
 
 }
@@ -51,7 +52,6 @@ data class AssociateSyncRequest(
     val type: String?,
     val language: String?
 )
-
 
 
 data class SyncResponse(

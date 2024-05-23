@@ -14,6 +14,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.databinding.adapters.ViewBindingAdapter.setPadding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -39,6 +40,7 @@ class HomeFragment : Fragment() {
     private lateinit var syncAdapter: SyncAdapter
     private lateinit var associateAdapter: AssociateSyncAdapter
     private lateinit var name: String
+
     private val LOCATION_PERMISSION_REQUEST_CODE = 1
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
@@ -59,6 +61,7 @@ class HomeFragment : Fragment() {
         setupRecyclerView()
         subscribeUi()
         setupClickListeners()
+        fetchAllData()  // 초기 데이터 로딩
     }
 
     private fun setupUser() {
@@ -74,73 +77,14 @@ class HomeFragment : Fragment() {
 
     }
 
-//    private fun getCurrentLocation() {
-//
-//        if (ActivityCompat.checkSelfPermission(requireContext(), android.Manifest.permission.ACCESS_FINE_LOCATION
-//            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(requireContext(),
-//                android.Manifest.permission.ACCESS_COARSE_LOCATION
-//            ) != PackageManager.PERMISSION_GRANTED
-//        ) {
-//            // TODO: Consider calling
-//            //    ActivityCompat#requestPermissions
-//
-//            fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
-//                location?.let {
-//                    // 위치 정보를 얻었을 때
-//                    val latitude = it.latitude
-//                    val longitude = it.longitude
-//                    getAddressFromLocation(latitude, longitude)
-//                } ?: run {
-//                    // 위치 정보를 얻지 못했을 때
-//                    Log.d("my log", "위치 확인 불가")
-//                }
-//            }
-//
-//            return
-//        }
-//        Log.d("my log", "위치 확인 불가2")
-//    }
-//
-//    private fun getAddressFromLocation(latitude: Double, longitude: Double) {
-//        val geocoder = Geocoder(requireContext(), Locale.getDefault())
-//        val addresses: List<Address>? = geocoder.getFromLocation(latitude, longitude, 1)
-//
-//        addresses?.let {
-//            if (it.isNotEmpty()) {
-//                val address = it[0]
-//                val city = address.locality  // 시
-//                val district = address.subLocality  // 구
-//
-//                // city와 district를 UI에 표시하거나 사용
-//                Log.d("my log","City: $city, District: $district")
-//            } else {
-//                Log.d("my log", "출력불가")
-//            }
-//        }
-//    }
-//
-//    private fun checkLocationPermission() {
-//        if (ContextCompat.checkSelfPermission(requireContext(), android.Manifest.permission.ACCESS_FINE_LOCATION)
-//            != PackageManager.PERMISSION_GRANTED) {
-//
-//            ActivityCompat.requestPermissions(requireActivity(),
-//                arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
-//                LOCATION_PERMISSION_REQUEST_CODE)
-//        } else {
-//            getCurrentLocation()
-//        }
-//    }
-//
-//    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-//        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-//        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
-//            if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-//                getCurrentLocation()
-//            } else {
-//                // 권한이 거부됨
-//            }
-//        }
-//    }
+    private fun getCurrentLanguageForApi(): String? {
+        val currentLocale = loadLanguageSetting() ?: Locale.getDefault().language
+        return when (currentLocale) {
+            "en" -> "영어"
+            "ko" -> "한국어"
+            else -> null
+        }
+    }
 
     private fun setupRecyclerView() {
         syncAdapter = SyncAdapter(listOf(), object : SyncAdapter.OnSyncClickListener {
@@ -170,10 +114,14 @@ class HomeFragment : Fragment() {
         startActivity(intent)
     }
 
+    private fun fetchAllData() {
+        val language = getCurrentLanguageForApi() // 현재 언어 설정을 동적으로 받아옵니다.
+        viewModel.fetchSyncs(3, language = language)
+        viewModel.fetchAssociateSyncs(3, language = language)
+        viewModel.fetchRecommendSyncs(2, language = language)
+    }
+
     private fun subscribeUi() {
-        viewModel.fetchSyncs(3, language = "영어") // 데이터 가져오기 호출
-        viewModel.fetchAssociateSyncs(3, language = "영어")  // Associate syncs 데이터 불러오기
-        viewModel.fetchRecommendSyncs(2)
         // 추천 Syncs 데이터 관찰
         viewModel.recommendSyncs.observe(viewLifecycleOwner) { recommendSyncs ->
             Log.d("HomeFragment", "Recommended Syncs observed: ${recommendSyncs.size}")
@@ -231,7 +179,50 @@ class HomeFragment : Fragment() {
         }
     }
 
+    //설정 언어 바꾸기
+
+    private fun saveLanguageSetting(languageCode: String) {
+        val prefs = requireActivity().getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
+        prefs.edit().putString("AppLanguage", languageCode).apply()
+    }
+
+    private fun loadLanguageSetting(): String? {
+        val prefs = requireActivity().getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
+        return prefs.getString("AppLanguage", Locale.getDefault().language)
+    }
+
+
+    private fun setLocale(languageCode: String) {
+        saveLanguageSetting(languageCode)  // 언어 설정 저장
+        val locale = Locale(languageCode)
+        Locale.setDefault(locale)
+        val config = resources.configuration
+        config.setLocale(locale)
+        resources.updateConfiguration(config, resources.displayMetrics)
+        restartActivity()  // 액티비티 재시작
+    }
+
+    private fun toggleLanguage() {
+        val currentLanguage = loadLanguageSetting() ?: Locale.getDefault().language
+        val newLanguage = if (currentLanguage == "en") "ko" else "en"
+        setLocale(newLanguage)
+    }
+
+
+    private fun restartActivity() {
+        val currentActivity = activity
+        val intent = Intent(currentActivity, MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        currentActivity?.startActivity(intent)
+        currentActivity?.finish()
+    }
+
+
     private fun setupClickListeners() {
+        binding.earth.setOnClickListener {
+            // 언어를 변경하는거
+            toggleLanguage()
+        }
         binding.fabOpen.setOnClickListener {
             viewModel.authToken?.let { authToken ->
                 openOpenActivity(authToken)

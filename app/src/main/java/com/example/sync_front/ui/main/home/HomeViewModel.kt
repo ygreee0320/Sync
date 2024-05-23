@@ -57,7 +57,12 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
             })
     }
 
-    fun fetchAssociateSyncs(take: Int?, syncType: String? = null, type: String? = null, language: String? = null) {
+    fun fetchAssociateSyncs(
+        take: Int?,
+        syncType: String? = null,
+        type: String? = null,
+        language: String? = null
+    ) {
         val request = AssociateSyncRequest(take, syncType, type, language)
         RetrofitClient.instance.homeService.postAssociateSyncs(
             "application/json",
@@ -86,8 +91,13 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
             })
     }
 
-    fun fetchRecommendSyncs(userId: Long) {
-        RetrofitClient.instance.homeService.getRecommendSyncs("application/json", authToken, userId)
+    fun fetchRecommendSyncs(userId: Long, language: String? = null) {
+        RetrofitClient.instance.homeService.getRecommendSyncs(
+            "application/json",
+            authToken,
+            userId,
+            language
+        )
             .enqueue(object : Callback<SyncResponse> {
                 override fun onResponse(
                     call: Call<SyncResponse>,

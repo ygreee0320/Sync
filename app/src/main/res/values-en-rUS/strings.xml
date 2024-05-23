@@ -267,5 +267,19 @@
     <string name="do_cancle">취소하기</string>
     <string name="do_run">계속하기</string>
     <string name="check_cancle_sync">싱크 개설을 취소하시겠습니까?</string>
+    <string name="how_intro">인기있는 싱크 소개글이 궁금하다면?</string>
+    <string name="sync_intro_example">싱크 소개 예시</string>
+    <string name="lets_intro_sync_leader">싱크장을 소개해보세요!</string>
+    <string name="intro_sync_leader">• 안녕하세요, 독일을 사랑하는 서윤입니다.</string>
+    <string name="our_sync_activity">우리 싱크는 이런 활동들을 해요!</string>
+    <string name="intro_our_sync_activity1">• 독일어 대화 30분, 한국어 대화 30분</string>
+    <string name="intro_our_sync_activity2">• 각자 서로 근황 물어본 후 요즘의 관심사나 본인이 좋아하는 주제에 대해 독일어로 얘기해보아요~</string>
+    <string name="intro_our_sync_activity3">• 서툴러도 상관없어요, 가볍게 시작해요</string>
+    <string name="want_this_member">이런 멤버와 함께하고 싶어요!</string>
+    <string name="want_this_member1">• 서로를 배려하고 모임에 활발하게 참여하실 수 있는 멤버를 원해요!</string>
+    <string name="want_this_member2">• 독일어를 자꾸 써야하는데 뭐라도 얘기할 수 있는 공간이 필요하다는 분 대. 환. 영</string>
+    <string name="notice_our_rule">우리 싱크만의 규칙을 소개해요!</string>
+    <string name="notice_our_rule1">• 지각 금지!</string>
+    <string name="notice_our_rule2">• 한국어만, 독일어만 사용하는 건 지양해요</string>
 
 </resources>

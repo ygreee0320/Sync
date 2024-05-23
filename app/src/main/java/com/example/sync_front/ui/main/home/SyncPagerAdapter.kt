@@ -49,7 +49,13 @@ class SyncPagerAdapter(
     }
 
     override fun onBindViewHolder(holder: SyncViewHolder, position: Int) {
-        holder.bind(syncList[position], onSyncClickListener, position, itemCount)
+        val sync = syncList.getOrNull(position)
+        if (sync != null) {
+            holder.bind(sync, onSyncClickListener, position, itemCount)
+        } else {
+            Log.e("SyncPagerAdapter", "Attempted to bind null sync at position $position")
+            // 선택적: null sync에 대해 처리할 로직, 예를 들어 빈 데이터를 보여주거나 뷰를 숨기는 등
+        }
     }
 
     override fun getItemCount(): Int {
