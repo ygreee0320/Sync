@@ -35,6 +35,12 @@ data class MySyncResponse(
     val data: List<Sync>
 )
 
+data class ImageUploadResponse(
+    val status: Int,
+    val message: String,
+    val data: String
+)
+
 data class ModName(
     val name: String
 )
