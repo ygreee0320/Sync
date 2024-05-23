@@ -54,11 +54,6 @@ class AssociateActivity : AppCompatActivity() {
         associateAdapter = AssociateSyncAdapter(listOf(), object : SyncAdapter.OnSyncClickListener {
             override fun onSyncClick(sync: Sync) {
                 openSyncActivity(sync)
-//                Toast.makeText(
-//                    this@AssociateActivity,
-//                    "Sync clicked: ${sync.syncName}",
-//                    Toast.LENGTH_SHORT
-//                ).show()
             }
         })
         binding.recyclerView.apply {
@@ -85,8 +80,8 @@ class AssociateActivity : AppCompatActivity() {
     }
 
 
-    fun fetchAssociateSyncs(take: Int? = null, syncType: String? = null, type: String? = null) {
-        val request = AssociateSyncRequest(take, syncType, type)
+    fun fetchAssociateSyncs(take: Int? = null, syncType: String? = null, type: String? = null, language: String? = null) {
+        val request = AssociateSyncRequest(take, syncType, type, language)
         RetrofitClient.instance.homeService.postAssociateSyncs(
             "application/json",
             authToken,

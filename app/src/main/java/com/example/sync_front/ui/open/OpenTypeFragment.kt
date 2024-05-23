@@ -1,18 +1,21 @@
 package com.example.sync_front.ui.open
 
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.sync_front.R
 import com.example.sync_front.data.model.SharedOpenSyncData
 import com.example.sync_front.databinding.FragmentOpenTypeBinding
-import com.google.android.material.internal.ViewUtils.hideKeyboard
+import com.example.sync_front.databinding.PopupCancleSyncBinding
+import android.graphics.Color
 
 
 class OpenTypeFragment : Fragment() {
@@ -34,6 +37,9 @@ class OpenTypeFragment : Fragment() {
     }
 
     private fun setupClickListeners() {
+        binding.toolbar.setNavigationOnClickListener {
+            showPopup()
+        }
         binding.beforeBtn.setOnClickListener {
             activity?.finish()
         }
@@ -66,6 +72,28 @@ class OpenTypeFragment : Fragment() {
                 findNavController().navigate(R.id.action_openTypeFragment_to_openThemeFragment)
             }
         }
+    }
+
+    private fun showPopup() {
+        val popupLayoutBinding = PopupCancleSyncBinding.inflate(layoutInflater)
+        val popupView = popupLayoutBinding.root
+
+        val alertDialogBuilder = AlertDialog.Builder(requireContext())
+        alertDialogBuilder.setView(popupView)
+
+        val alertDialog = alertDialogBuilder.create()
+        alertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        alertDialog.show()
+
+        popupLayoutBinding.runBtn.setOnClickListener {
+            alertDialog.dismiss() // 팝업 닫기
+        }
+        popupLayoutBinding.cancelBtn.setOnClickListener {
+            alertDialog.dismiss()
+            // 현재 액티비티 종료
+            requireActivity().finish()
+        }
+
     }
 
     private fun updateSyncType() {

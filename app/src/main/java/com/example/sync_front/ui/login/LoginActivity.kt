@@ -69,14 +69,14 @@ class LoginActivity : AppCompatActivity() {
         val sharedPreferences = getSharedPreferences("my_token", Context.MODE_PRIVATE)
         val authToken = sharedPreferences.getString("auth_token", null)
 
-//        if (authToken != null) {
-//            Log.d("my log", "$authToken")
-//
-//            val intent = Intent(this, MainActivity::class.java)
-//            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-//            startActivity(intent)
-//            this.finish()
-//        }
+        if (authToken != null) {
+            Log.d("my log", "$authToken")
+
+            val intent = Intent(this, MainActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+            this.finish()
+        }
 
     }
 

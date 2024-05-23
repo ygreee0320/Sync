@@ -118,6 +118,8 @@
         <TextView
             android:id="@+id/tv_sync_title"
             style="@style/Body2_700"
+            android:ellipsize="end"
+            android:singleLine="true"
             android:text="@string/확인"
             android:textColor="@color/gray_90" />
 
@@ -137,6 +139,8 @@
                 android:id="@+id/tv_sync_location"
                 style="@style/Detail_400"
                 android:layout_marginStart="2dp"
+                android:ellipsize="end"
+                android:singleLine="true"
                 android:text="@string/popular_sync"
                 android:textColor="@color/gray_50" />
         </LinearLayout>

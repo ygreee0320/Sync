@@ -1,6 +1,8 @@
 package com.example.sync_front.ui.open
 
 import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -15,6 +17,8 @@ import com.example.sync_front.R
 import com.example.sync_front.databinding.FragmentOpenCntBinding
 import androidx.navigation.fragment.findNavController
 import com.example.sync_front.data.model.SharedOpenSyncData
+import com.example.sync_front.databinding.PopupCancleSyncBinding
+import androidx.appcompat.app.AlertDialog
 
 
 class OpenCntFragment : Fragment() {
@@ -86,6 +90,9 @@ class OpenCntFragment : Fragment() {
     }
 
     private fun setupClickListeners() {
+        binding.toolbar.setNavigationOnClickListener {
+            showPopup()
+        }
         binding.beforeBtn.setOnClickListener {
             findNavController().navigateUp() // 이전 프래그먼트로
         }
@@ -102,6 +109,28 @@ class OpenCntFragment : Fragment() {
         }
     }
 
+    private fun showPopup() {
+        val popupLayoutBinding = PopupCancleSyncBinding.inflate(layoutInflater)
+        val popupView = popupLayoutBinding.root
+
+        val alertDialogBuilder = AlertDialog.Builder(requireContext())
+        alertDialogBuilder.setView(popupView)
+
+        val alertDialog = alertDialogBuilder.create()
+        alertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        alertDialog.show()
+
+        popupLayoutBinding.runBtn.setOnClickListener {
+            alertDialog.dismiss() // 팝업 닫기
+        }
+        popupLayoutBinding.cancelBtn.setOnClickListener {
+            alertDialog.dismiss()
+            // 현재 액티비티 종료
+            requireActivity().finish()
+        }
+
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null // 메모리 누수 방지
@@ -110,7 +139,8 @@ class OpenCntFragment : Fragment() {
     private fun hideKeyboard() {
         binding.minCnt.clearFocus()
         binding.maxCnt.clearFocus()
-        val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val imm =
+            requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(binding.root.windowToken, 0)
     }
 }

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="328dp"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_btn_box"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <ImageView
+        android:id="@+id/close_btn"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:background="@drawable/ic_close"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/popup_title"
+        style="@style/Heading4"
+        android:text="@string/sync_intro_example"
+        android:textColor="@color/gray_90"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/popup_title">
+
+        <TextView
+            style="@style/Body3_700"
+            android:text="@string/lets_intro_sync_leader"
+            android:textColor="@color/gray_90" />
+
+        <TextView
+            style="@style/Body3_400"
+            android:layout_marginTop="2dp"
+            android:text="@string/intro_sync_leader"
+            android:textColor="@color/gray_90" />
+
+        <TextView
+            style="@style/Body3_700"
+            android:layout_marginTop="8dp"
+            android:text="@string/our_sync_activity"
+            android:textColor="@color/gray_90" />
+
+        <TextView
+            style="@style/Body3_400"
+            android:layout_marginTop="2dp"
+            android:text="@string/intro_our_sync_activity1"
+            android:textColor="@color/gray_90" />
+
+        <TextView
+            style="@style/Body3_400"
+            android:text="@string/intro_our_sync_activity2"
+            android:textColor="@color/gray_90" />
+
+        <TextView
+            style="@style/Body3_400"
+            android:text="@string/intro_our_sync_activity3"
+            android:textColor="@color/gray_90" />
+
+        <TextView
+            style="@style/Body3_700"
+            android:layout_marginTop="8dp"
+            android:text="@string/want_this_member"
+            android:textColor="@color/gray_90" />
+
+        <TextView
+            style="@style/Body3_400"
+            android:layout_marginTop="2dp"
+            android:text="@string/want_this_member1"
+            android:textColor="@color/gray_90" />
+
+        <TextView
+            style="@style/Body3_400"
+            android:text="@string/want_this_member2"
+            android:textColor="@color/gray_90" />
+
+        <TextView
+            style="@style/Body3_700"
+            android:layout_marginTop="8dp"
+            android:text="@string/notice_our_rule"
+            android:textColor="@color/gray_90" />
+
+        <TextView
+            style="@style/Body3_400"
+            android:layout_marginTop="2dp"
+            android:text="@string/notice_our_rule1"
+            android:textColor="@color/gray_90" />
+
+        <TextView
+            style="@style/Body3_400"
+            android:text="@string/notice_our_rule2"
+            android:textColor="@color/gray_90" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

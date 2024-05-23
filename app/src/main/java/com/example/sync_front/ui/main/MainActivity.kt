@@ -14,6 +14,7 @@ import android.Manifest
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContentProviderCompat.requireContext
 import java.util.*
@@ -28,6 +29,9 @@ class MainActivity : AppCompatActivity() {
                 // 권한이 거부되었을 때의 처리
             }
         }
+
+    // 뒤로가기 버튼 누른 시간을 기록하기 위한 변수
+    private var backPressedTime: Long = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -39,7 +43,6 @@ class MainActivity : AppCompatActivity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             requestNotificationPermission()
         }
-
     }
 
     private fun requestNotificationPermission() {

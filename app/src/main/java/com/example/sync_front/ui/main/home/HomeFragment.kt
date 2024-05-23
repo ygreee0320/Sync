@@ -14,6 +14,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.databinding.adapters.ViewBindingAdapter.setPadding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -55,6 +56,7 @@ class HomeFragment : Fragment() {
         setupRecyclerView()
         subscribeUi()
         setupClickListeners()
+        fetchAllData()  // 초기 데이터 로딩
     }
 
     private fun setupUser() {
@@ -65,6 +67,15 @@ class HomeFragment : Fragment() {
 
         binding.homeUsername.text = name
 
+    }
+
+    private fun getCurrentLanguageForApi(): String? {
+        val currentLocale = loadLanguageSetting() ?: Locale.getDefault().language
+        return when (currentLocale) {
+            "en" -> "영어"
+            "ko" -> "한국어"
+            else -> null
+        }
     }
 
     private fun setupRecyclerView() {
@@ -95,10 +106,14 @@ class HomeFragment : Fragment() {
         startActivity(intent)
     }
 
+    private fun fetchAllData() {
+        val language = getCurrentLanguageForApi() // 현재 언어 설정을 동적으로 받아옵니다.
+        viewModel.fetchSyncs(3, language = language)
+        viewModel.fetchAssociateSyncs(3, language = language)
+        viewModel.fetchRecommendSyncs(2, language = language)
+    }
+
     private fun subscribeUi() {
-        viewModel.fetchSyncs(3) // 데이터 가져오기 호출
-        viewModel.fetchAssociateSyncs(3)  // Associate syncs 데이터 불러오기
-        viewModel.fetchRecommendSyncs(2)
         // 추천 Syncs 데이터 관찰
         viewModel.recommendSyncs.observe(viewLifecycleOwner) { recommendSyncs ->
             Log.d("HomeFragment", "Recommended Syncs observed: ${recommendSyncs.size}")
@@ -156,7 +171,50 @@ class HomeFragment : Fragment() {
         }
     }
 
+    //설정 언어 바꾸기
+
+    private fun saveLanguageSetting(languageCode: String) {
+        val prefs = requireActivity().getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
+        prefs.edit().putString("AppLanguage", languageCode).apply()
+    }
+
+    private fun loadLanguageSetting(): String? {
+        val prefs = requireActivity().getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
+        return prefs.getString("AppLanguage", Locale.getDefault().language)
+    }
+
+
+    private fun setLocale(languageCode: String) {
+        saveLanguageSetting(languageCode)  // 언어 설정 저장
+        val locale = Locale(languageCode)
+        Locale.setDefault(locale)
+        val config = resources.configuration
+        config.setLocale(locale)
+        resources.updateConfiguration(config, resources.displayMetrics)
+        restartActivity()  // 액티비티 재시작
+    }
+
+    private fun toggleLanguage() {
+        val currentLanguage = loadLanguageSetting() ?: Locale.getDefault().language
+        val newLanguage = if (currentLanguage == "en") "ko" else "en"
+        setLocale(newLanguage)
+    }
+
+
+    private fun restartActivity() {
+        val currentActivity = activity
+        val intent = Intent(currentActivity, MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        currentActivity?.startActivity(intent)
+        currentActivity?.finish()
+    }
+
+
     private fun setupClickListeners() {
+        binding.earth.setOnClickListener {
+            // 언어를 변경하는거
+            toggleLanguage()
+        }
         binding.fabOpen.setOnClickListener {
             viewModel.authToken?.let { authToken ->
                 openOpenActivity(authToken)
@@ -183,7 +241,7 @@ class HomeFragment : Fragment() {
         }
         binding.boxCulture.setOnClickListener {
             val intent = Intent(context, InterestActivity::class.java).apply {
-                putExtra("selectedTab", "엔터테인먼트/예술")
+                putExtra("selectedTab", "문화/예술")
             }
             startActivity(intent)
         }

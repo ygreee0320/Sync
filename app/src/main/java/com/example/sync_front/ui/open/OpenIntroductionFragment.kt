@@ -1,6 +1,8 @@
 package com.example.sync_front.ui.open
 
 import android.app.DatePickerDialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -21,6 +23,9 @@ import com.example.sync_front.R
 import com.example.sync_front.databinding.FragmentOpenIntroductionBinding
 import androidx.navigation.fragment.findNavController
 import com.example.sync_front.data.model.SharedOpenSyncData
+import com.example.sync_front.databinding.PopupCancleSyncBinding
+import androidx.appcompat.app.AlertDialog
+import com.example.sync_front.databinding.PopupIntroBinding
 
 class OpenIntroductionFragment : Fragment() {
     private var _binding: FragmentOpenIntroductionBinding? = null
@@ -68,6 +73,9 @@ class OpenIntroductionFragment : Fragment() {
     }
 
     private fun setupClickListeners() {
+        binding.toolbar.setNavigationOnClickListener {
+            showPopup()
+        }
         binding.profileImg.setOnClickListener {
             singleImagePicker.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageAndVideo))
         }
@@ -93,6 +101,48 @@ class OpenIntroductionFragment : Fragment() {
 
         binding.root.setOnClickListener {
             hideKeyboard()
+        }
+
+        binding.popupIntro.setOnClickListener {
+            showIntroPopup()
+        }
+    }
+
+    private fun showPopup() {
+        val popupLayoutBinding = PopupCancleSyncBinding.inflate(layoutInflater)
+        val popupView = popupLayoutBinding.root
+
+        val alertDialogBuilder = AlertDialog.Builder(requireContext())
+        alertDialogBuilder.setView(popupView)
+
+        val alertDialog = alertDialogBuilder.create()
+        alertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        alertDialog.show()
+
+        popupLayoutBinding.runBtn.setOnClickListener {
+            alertDialog.dismiss() // 팝업 닫기
+        }
+        popupLayoutBinding.cancelBtn.setOnClickListener {
+            alertDialog.dismiss()
+            // 현재 액티비티 종료
+            requireActivity().finish()
+        }
+
+    }
+
+    private fun showIntroPopup(){
+        val popupLayoutBinding = PopupIntroBinding.inflate(layoutInflater)
+        val popupView = popupLayoutBinding.root
+
+        val alertDialogBuilder = AlertDialog.Builder(requireContext())
+        alertDialogBuilder.setView(popupView)
+
+        val alertDialog = alertDialogBuilder.create()
+        alertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        alertDialog.show()
+
+        popupLayoutBinding.closeBtn.setOnClickListener {
+            alertDialog.dismiss() // 팝업 닫기
         }
     }
 
@@ -131,7 +181,8 @@ class OpenIntroductionFragment : Fragment() {
 
     private fun hideKeyboard() {
         binding.introduce.clearFocus()
-        val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val imm =
+            requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(binding.root.windowToken, 0)
     }
 }

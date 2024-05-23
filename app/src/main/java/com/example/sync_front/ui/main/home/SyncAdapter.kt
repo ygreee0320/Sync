@@ -101,6 +101,7 @@ class AssociateSyncAdapter(
                 itemView.setOnClickListener {
                     onSyncClickListener.onSyncClick(sync)
                 }
+                tvSyncTitle.isSelected = true
             }
         }
     }
