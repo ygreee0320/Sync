@@ -47,6 +47,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/text_layout"
         style="@style/edit_long_text_box"
         android:layout_marginStart="17dp"
         android:layout_marginTop="32dp"

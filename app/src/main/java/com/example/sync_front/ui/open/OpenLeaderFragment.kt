@@ -10,6 +10,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.util.Log
 import android.net.Uri
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AlertDialog
 import androidx.core.net.toUri
@@ -38,7 +40,7 @@ class OpenLeaderFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observeViewModel()
-        hideKeyboard()
+        setUpChangedListener()
         setupClickListeners()
     }
 
@@ -54,6 +56,9 @@ class OpenLeaderFragment : Fragment() {
             currentData.userIntro = binding.introduce.text.toString()
             openViewModel.updateData(currentData)
             findNavController().navigate(R.id.action_openLeaderFragment_to_openPreviewFragment)
+        }
+        binding.root.setOnClickListener {
+            hideKeyboard()
         }
     }
 
@@ -86,6 +91,33 @@ class OpenLeaderFragment : Fragment() {
         profileUri = openViewModel.sharedData.value?.image.toString().toUri()
     }
 
+    private fun setUpChangedListener() { // 이름에 값이 들어갈 때 다음 버튼 활성화
+        binding.introduce.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+            override fun afterTextChanged(s: Editable?) {
+                binding.doneBtn.isEnabled = s?.isNotBlank() ?: false
+                updateDoneButtonBackground()
+                if (s.isNullOrEmpty()) {
+                    binding.textLayout.setBackgroundResource(R.drawable.bg_edit_text)
+                } else {
+                    binding.textLayout.setBackgroundResource(R.drawable.label_white_primary)
+                }
+            }
+        })
+    }
+
+    private fun updateDoneButtonBackground() {
+        if (binding.doneBtn.isEnabled) { // 다음 버튼 스타일 변경
+            binding.doneBtn.setTextColor(requireContext().resources.getColor(R.color.white))
+            binding.doneBtn.setBackgroundResource(R.drawable.btn_default)
+        } else {
+            binding.doneBtn.setTextColor(requireContext().resources.getColor(R.color.gray_70))
+            binding.doneBtn.setBackgroundResource(R.drawable.btn_gray_10)
+        }
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()
