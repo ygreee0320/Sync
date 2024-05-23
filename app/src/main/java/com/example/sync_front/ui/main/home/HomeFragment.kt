@@ -3,18 +3,11 @@ package com.example.sync_front.ui.main.home
 import SyncPagerAdapter
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.location.Address
-import android.location.Geocoder
-import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import androidx.databinding.adapters.ViewBindingAdapter.setPadding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -58,6 +51,11 @@ class HomeFragment : Fragment() {
         subscribeUi()
         setupClickListeners()
         fetchAllData()  // 초기 데이터 로딩
+
+        // 현재 언어가 영어(en)일 경우 로딩 이미지 표시
+        if (loadLanguageSetting() == "en") {
+            showLoadingImageForDuration(5000)
+        }
     }
 
     private fun setupUser() {
@@ -77,6 +75,11 @@ class HomeFragment : Fragment() {
             "ko" -> "한국어"
             else -> null
         }
+    }
+
+    private fun showLoadingImageForDuration(duration: Long) {
+        val activity = activity as MainActivity
+        activity.showLoadingOverlay(duration)
     }
 
     private fun setupRecyclerView() {

@@ -1,23 +1,19 @@
 package com.example.sync_front.ui.main
 
-import android.content.pm.PackageManager
+import android.os.Handler
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.sync_front.R
 import com.example.sync_front.databinding.ActivityMainBinding
 import android.Manifest
-import android.util.Log
+import android.os.Looper
 import android.view.View
-import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.content.ContentProviderCompat.requireContext
-import java.util.*
+import com.bumptech.glide.Glide
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
@@ -53,6 +49,22 @@ class MainActivity : AppCompatActivity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             requestNotificationPermission()
         }
+    }
+
+    fun showLoadingOverlay(duration: Long) {
+        val loadingOverlay = binding.loadingOverlay
+        val loadingImageView = binding.loadingImageView
+
+        loadingOverlay.visibility = View.VISIBLE
+
+        Glide.with(this)
+            .asGif()
+            .load(R.raw.img_trans_loading)
+            .into(loadingImageView)
+
+        Handler(Looper.getMainLooper()).postDelayed({
+            loadingOverlay.visibility = View.GONE
+        }, duration)
     }
 
     private fun requestNotificationPermission() {

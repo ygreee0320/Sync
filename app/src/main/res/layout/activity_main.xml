@@ -41,5 +41,26 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:background="@drawable/shadow_effect" />
+    <!-- 로딩 이미지와 어두운 배경을 감싸는 FrameLayout -->
+    <FrameLayout
+        android:id="@+id/loadingOverlay"
+        android:layout_width="match_parent"
+        android:elevation="30dp"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent"
+        android:visibility="gone">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#80000000" /> <!-- 50% 투명 검정색 -->
+
+        <ImageView
+            android:id="@+id/loadingImageView"
+            android:layout_width="305dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:src="@raw/img_trans_loading" />
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
