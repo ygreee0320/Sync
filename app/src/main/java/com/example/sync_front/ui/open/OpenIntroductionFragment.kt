@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
@@ -64,6 +65,7 @@ class OpenIntroductionFragment : Fragment() {
         setupClickListeners()
         setUpChangedListener()
         observeViewModel()
+        startEntryAnimations()
     }
 
     private fun observeViewModel() {
@@ -130,7 +132,7 @@ class OpenIntroductionFragment : Fragment() {
 
     }
 
-    private fun showIntroPopup(){
+    private fun showIntroPopup() {
         val popupLayoutBinding = PopupIntroBinding.inflate(layoutInflater)
         val popupView = popupLayoutBinding.root
 
@@ -171,6 +173,47 @@ class OpenIntroductionFragment : Fragment() {
         } else {
             binding.doneBtn.setTextColor(requireContext().resources.getColor(R.color.gray_70))
             binding.doneBtn.setBackgroundResource(R.drawable.btn_gray_10)
+        }
+    }
+
+    private fun startEntryAnimations() {
+        val initialTranslationY = 300f
+        val duration = 1000L
+        val interpolator = AccelerateDecelerateInterpolator()
+
+        binding.profileImg.apply {
+            translationY = initialTranslationY
+            alpha = 0f
+            animate()
+                .translationY(0f)
+                .alpha(1f)
+                .setInterpolator(interpolator)
+                .setDuration(duration)
+                .start()
+        }
+
+        binding.textLayout.apply {
+            translationY = initialTranslationY
+            alpha = 0f
+            animate()
+                .translationY(0f)
+                .alpha(1f)
+                .setInterpolator(interpolator)
+                .setDuration(duration)
+                .setStartDelay(200L)
+                .start()
+        }
+
+        binding.popupIntro.apply {
+            translationY = initialTranslationY
+            alpha = 0f
+            animate()
+                .translationY(0f)
+                .alpha(1f)
+                .setInterpolator(interpolator)
+                .setDuration(duration)
+                .setStartDelay(400L)
+                .start()
         }
     }
 
