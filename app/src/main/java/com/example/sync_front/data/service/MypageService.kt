@@ -63,4 +63,11 @@ interface MypageService {
         @Header("Content-Type") application: String,
         @Header("Authorization") accessToken: String
     ): Call<MySyncResponse>
+
+    @Multipart
+    @POST("mypage/image")
+    fun imageUpload(
+        @Header("Authorization") accessToken: String,
+        @Part file: MultipartBody.Part?
+    ): Call<ImageUploadResponse>
 }

@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.sync_front.R
@@ -45,6 +46,7 @@ class OpenTimeFragment : Fragment() {
         observeViewModel()
         initializeTimePickerDialog()
         setupClickListeners()
+        startEntryAnimations()
     }
 
     private fun observeViewModel() {
@@ -186,6 +188,35 @@ class OpenTimeFragment : Fragment() {
             requireActivity().finish()
         }
 
+    }
+
+    private fun startEntryAnimations() {
+        val initialTranslationY = 300f
+        val duration = 1000L
+        val interpolator = AccelerateDecelerateInterpolator()
+
+        binding.boxDate.apply {
+            translationY = initialTranslationY
+            alpha = 0f
+            animate()
+                .translationY(0f)
+                .alpha(1f)
+                .setInterpolator(interpolator)
+                .setDuration(duration)
+                .start()
+        }
+
+        binding.boxTime.apply {
+            translationY = initialTranslationY
+            alpha = 0f
+            animate()
+                .translationY(0f)
+                .alpha(1f)
+                .setInterpolator(interpolator)
+                .setDuration(duration)
+                .setStartDelay(200L)
+                .start()
+        }
     }
 
     override fun onDestroyView() {

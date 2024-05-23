@@ -241,11 +241,11 @@ class CommunityDetailActivity : AppCompatActivity() {
     private fun setTransButtonState(trans: Boolean) {
         if (trans) {
             binding.translateBtn.setBackgroundResource(R.drawable.label_white)
-            binding.translateIc.setBackgroundResource(R.drawable.ic_translation)
+            binding.translateIc.setBackgroundResource(R.drawable.ic_translation2)
             binding.translate.setTextColor(this.resources.getColor(R.color.primary))
         } else {
             binding.translateBtn.setBackgroundResource(R.drawable.label_gray10)
-            binding.translateIc.setBackgroundResource(R.drawable.ic_translation_gray)
+            binding.translateIc.setBackgroundResource(R.drawable.ic_translation2)
             binding.translate.setTextColor(this.resources.getColor(R.color.gray_50))
         }
     }

@@ -16,6 +16,7 @@ import com.example.sync_front.R
 import com.example.sync_front.api_server.MypageManager
 import com.example.sync_front.data.model.Sync
 import com.example.sync_front.databinding.FragmentMyBinding
+import com.example.sync_front.ui.alarm.AlarmActivity
 import com.example.sync_front.ui.main.home.SyncAdapter
 import com.example.sync_front.ui.sync.SyncActivity
 
@@ -26,7 +27,7 @@ class MyFragment : Fragment() {
     lateinit var syncListMe: List<Sync>
     lateinit var syncListJoin: List<Sync>
     private lateinit var adapter: SyncAdapter
-    private var authToken: String ?= null // 로그인 토큰
+    private var authToken: String? = null // 로그인 토큰
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -44,7 +45,8 @@ class MyFragment : Fragment() {
 
     private fun initialSetting() {
         // 저장된 토큰 읽어오기
-        val sharedPreferences = requireActivity().getSharedPreferences("my_token", Context.MODE_PRIVATE)
+        val sharedPreferences =
+            requireActivity().getSharedPreferences("my_token", Context.MODE_PRIVATE)
         authToken = sharedPreferences.getString("auth_token", null)
 
         adapter = SyncAdapter(emptyList<Sync>(), object : SyncAdapter.OnSyncClickListener {
@@ -138,7 +140,12 @@ class MyFragment : Fragment() {
         }
         binding.mySync1.setOnClickListener { // 내가 개설한 싱크 목록
             binding.mySync1Txt.setTextColor(Color.WHITE)
-            binding.mySync2Txt.setTextColor(ContextCompat.getColor(requireContext(), R.color.primary))
+            binding.mySync2Txt.setTextColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.primary
+                )
+            )
             binding.mySync1.setBackgroundResource(R.drawable.bg_btn_mypage_left_clicked)
             binding.mySync2.setBackgroundResource(R.drawable.bg_btn_mypage_right)
 
@@ -147,11 +154,20 @@ class MyFragment : Fragment() {
 
         binding.mySync2.setOnClickListener { // 내가 참여한 싱크 목록
             binding.mySync2Txt.setTextColor(Color.WHITE)
-            binding.mySync1Txt.setTextColor(ContextCompat.getColor(requireContext(), R.color.primary))
+            binding.mySync1Txt.setTextColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.primary
+                )
+            )
             binding.mySync1.setBackgroundResource(R.drawable.bg_btn_mypage_left)
             binding.mySync2.setBackgroundResource(R.drawable.bg_btn_mypage_right_clicked)
 
             updateSyncList(2)
+        }
+        binding.alarmBtn.setOnClickListener {
+            val intent = Intent(context, AlarmActivity::class.java)
+            startActivity(intent)
         }
     }
 
@@ -182,6 +198,7 @@ class MyFragment : Fragment() {
             loadMySyncList()
         }
     }
+
     private fun openSyncActivity(sync: Sync) {
         val intent = Intent(context, SyncActivity::class.java).apply {
             putExtra("syncId", sync.syncId)

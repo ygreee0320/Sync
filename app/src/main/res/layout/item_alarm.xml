@@ -28,18 +28,22 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            android:id="@+id/tv_title"
             style="@style/Body3_400"
             android:text="@string/test" />
 
         <TextView
+            android:id="@+id/tv_content"
             style="@style/Body3_700"
             android:text="@string/test" />
 
         <TextView
+            android:id="@+id/tv_detail_content"
             style="@style/Detail_400"
             android:text="@string/test" />
 
         <TextView
+            android:id="@+id/tv_created_date"
             style="@style/Detail_400"
             android:text="@string/test"
             android:textColor="@color/gray_50" />
