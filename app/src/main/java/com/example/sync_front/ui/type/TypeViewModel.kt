@@ -23,8 +23,8 @@ class TypeViewModel(application: Application) : AndroidViewModel(application) {
 
     val errorMessage = MutableLiveData<String>()
 
-    fun fetchTypeSyncs(take: Int? = null, syncType: String? = null, type: String? = null) {
-        val request = AssociateSyncRequest(take, syncType, type)
+    fun fetchTypeSyncs(take: Int? = null, syncType: String? = null, type: String? = null, language: String? = null) {
+        val request = AssociateSyncRequest(take, syncType, type, language)
         RetrofitClient.instance.homeService.postTypeSyncs(
             "application/json",
             authToken,

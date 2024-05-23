@@ -32,8 +32,8 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
     }
     val text: LiveData<String> = _text
-    fun fetchSyncs(take: Int?, type: String? = null) {
-        val request = SyncRequest(take, type)
+    fun fetchSyncs(take: Int?, type: String? = null, language: String? = null) {
+        val request = SyncRequest(take, type, language)
         RetrofitClient.instance.homeService.postFriendSyncs("application/json", authToken, request)
             .enqueue(object : Callback<SyncResponse> {
                 override fun onResponse(
@@ -57,8 +57,8 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
             })
     }
 
-    fun fetchAssociateSyncs(take: Int?, syncType: String? = null, type: String? = null) {
-        val request = AssociateSyncRequest(take, syncType, type)
+    fun fetchAssociateSyncs(take: Int?, syncType: String? = null, type: String? = null, language: String? = null) {
+        val request = AssociateSyncRequest(take, syncType, type, language)
         RetrofitClient.instance.homeService.postAssociateSyncs(
             "application/json",
             authToken,

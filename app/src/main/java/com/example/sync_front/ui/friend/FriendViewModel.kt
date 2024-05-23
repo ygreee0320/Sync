@@ -5,6 +5,7 @@ import android.content.Context
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.example.sync_front.api_server.RetrofitClient
+import com.example.sync_front.data.model.ForeignLanguage
 import com.example.sync_front.data.model.Sync
 import com.example.sync_front.data.service.SyncRequest
 import com.example.sync_front.data.service.SyncResponse
@@ -22,8 +23,8 @@ class FriendViewModel(application: Application) : AndroidViewModel(application) 
         authToken = sharedPreferences.getString("auth_token", null)
     }
 
-    fun fetchSyncs(take: Int?, type: String?) {
-        val request = SyncRequest(take, type)
+    fun fetchSyncs(take: Int?, type: String?, language: String? = null) {
+        val request = SyncRequest(take, type, language)
         RetrofitClient.instance.homeService.postFriendSyncs("application/json", authToken, request)
             .enqueue(object : Callback<SyncResponse> {
                 override fun onResponse(

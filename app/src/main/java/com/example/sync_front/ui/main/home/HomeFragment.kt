@@ -171,8 +171,8 @@ class HomeFragment : Fragment() {
     }
 
     private fun subscribeUi() {
-        viewModel.fetchSyncs(3) // 데이터 가져오기 호출
-        viewModel.fetchAssociateSyncs(3)  // Associate syncs 데이터 불러오기
+        viewModel.fetchSyncs(3, language = "영어") // 데이터 가져오기 호출
+        viewModel.fetchAssociateSyncs(3, language = "영어")  // Associate syncs 데이터 불러오기
         viewModel.fetchRecommendSyncs(2)
         // 추천 Syncs 데이터 관찰
         viewModel.recommendSyncs.observe(viewLifecycleOwner) { recommendSyncs ->

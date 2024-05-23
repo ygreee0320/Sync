@@ -80,8 +80,8 @@ class AssociateActivity : AppCompatActivity() {
     }
 
 
-    fun fetchAssociateSyncs(take: Int? = null, syncType: String? = null, type: String? = null) {
-        val request = AssociateSyncRequest(take, syncType, type)
+    fun fetchAssociateSyncs(take: Int? = null, syncType: String? = null, type: String? = null, language: String? = null) {
+        val request = AssociateSyncRequest(take, syncType, type, language)
         RetrofitClient.instance.homeService.postAssociateSyncs(
             "application/json",
             authToken,
