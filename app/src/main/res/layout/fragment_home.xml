@@ -71,6 +71,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="2dp"
                     android:background="@drawable/ic_alarm"
+                    app:layout_constraintBottom_toBottomOf="@id/home_tv3"
                     app:layout_constraintEnd_toStartOf="@id/earth"
                     app:layout_constraintTop_toTopOf="@id/home_tv2" />
 
@@ -81,6 +82,7 @@
                     android:layout_marginEnd="22dp"
                     android:background="@drawable/ic_translation2"
                     android:backgroundTint="@color/white"
+                    app:layout_constraintBottom_toBottomOf="@id/home_tv3"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@id/home_tv2" />
 
@@ -88,8 +90,10 @@
                     android:id="@+id/home_vp_1"
                     android:layout_width="match_parent"
                     android:layout_height="250dp"
+                    android:layout_marginTop="20dp"
                     android:clipChildren="false"
                     android:clipToPadding="false"
+                    android:elevation="10dp"
                     android:paddingLeft="8dp"
                     android:paddingRight="8dp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -120,7 +124,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="12dp"
                         android:orientation="horizontal"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -185,7 +189,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="12dp"
                         android:orientation="horizontal"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
