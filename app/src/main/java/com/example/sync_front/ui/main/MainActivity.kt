@@ -32,6 +32,16 @@ class MainActivity : AppCompatActivity() {
 
     // 뒤로가기 버튼 누른 시간을 기록하기 위한 변수
     private var backPressedTime: Long = 0
+
+    override fun onBackPressed() {
+        if (backPressedTime + 2000 > System.currentTimeMillis()) {
+            super.onBackPressed()  // 앱 종료
+        } else {
+            Toast.makeText(this, "뒤로가기를 한 번 더 누르면 앱이 종료됩니다", Toast.LENGTH_SHORT).show()
+        }
+        backPressedTime = System.currentTimeMillis()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)

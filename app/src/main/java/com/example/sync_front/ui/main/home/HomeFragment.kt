@@ -22,6 +22,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.sync_front.R
 import com.example.sync_front.data.model.Sync
 import com.example.sync_front.databinding.FragmentHomeBinding
+import com.example.sync_front.ui.alarm.AlarmActivity
 import com.example.sync_front.ui.associate.AssociateActivity
 import com.example.sync_front.ui.friend.FriendActivity
 import com.example.sync_front.ui.interest.InterestActivity
@@ -211,6 +212,10 @@ class HomeFragment : Fragment() {
 
 
     private fun setupClickListeners() {
+        binding.alarm.setOnClickListener {
+            val intent = Intent(context, AlarmActivity::class.java)
+            startActivity(intent)
+        }
         binding.earth.setOnClickListener {
             // 언어를 변경하는거
             toggleLanguage()
