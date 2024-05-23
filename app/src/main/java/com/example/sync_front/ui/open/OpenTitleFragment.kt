@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.activityViewModels
@@ -38,6 +39,7 @@ class OpenTitleFragment : Fragment() {
         observeViewModel()
         setUpChangedListener()
         setupClickListeners()
+        startEntryAnimation()
     }
 
     private fun observeViewModel() {
@@ -123,6 +125,22 @@ class OpenTitleFragment : Fragment() {
         }
     }
 
+    private fun startEntryAnimation() {
+        val initialTranslationY = 500f
+        val duration = 1000L
+        val interpolator = AccelerateDecelerateInterpolator()
+
+        binding.textLayout.apply {
+            translationY = initialTranslationY
+            alpha = 0f
+            animate()
+                .translationY(0f)
+                .alpha(1f)
+                .setInterpolator(interpolator)
+                .setDuration(duration)
+                .start()
+        }
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

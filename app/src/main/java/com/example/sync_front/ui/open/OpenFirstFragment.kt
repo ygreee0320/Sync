@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -48,7 +49,7 @@ class OpenFirstFragment : Fragment() {
         initializeTimePickerDialog()
         observeViewModel()
         setupClickListeners()
-
+        startEntryAnimations()
     }
 
     private fun observeViewModel() {
@@ -195,7 +196,34 @@ class OpenFirstFragment : Fragment() {
         }
 
     }
+    private fun startEntryAnimations() {
+        val initialTranslationY = 300f
+        val duration = 1000L
+        val interpolator = AccelerateDecelerateInterpolator()
 
+        binding.boxDate.apply {
+            translationY = initialTranslationY
+            alpha = 0f
+            animate()
+                .translationY(0f)
+                .alpha(1f)
+                .setInterpolator(interpolator)
+                .setDuration(duration)
+                .start()
+        }
+
+        binding.boxTime.apply {
+            translationY = initialTranslationY
+            alpha = 0f
+            animate()
+                .translationY(0f)
+                .alpha(1f)
+                .setInterpolator(interpolator)
+                .setDuration(duration)
+                .setStartDelay(200L)
+                .start()
+        }
+    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null // 메모리 누수 방지

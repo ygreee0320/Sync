@@ -16,7 +16,10 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.net.toUri
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.example.sync_front.R
+import com.example.sync_front.api_server.MypageManager
 import com.example.sync_front.api_server.RetrofitClient
 import com.example.sync_front.data.model.SharedOpenSyncData
 import com.example.sync_front.data.service.OpenResponse
@@ -59,12 +62,25 @@ class OpenPreviewFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         observeViewModel()
         setupClickListeners()
+        initialSetting()
+
     }
 
     private fun setupClickListeners() {
+        binding.syncToolbar.setNavigationOnClickListener {
+            findNavController().navigateUp()
+        }
         binding.btnOpen.setOnClickListener {
             showPopup1()
         }
+    }
+
+    private fun initialSetting() {
+        // 저장된 토큰 읽어오기
+        val sharedPreferences =
+            requireActivity().getSharedPreferences("my_token", Context.MODE_PRIVATE)
+        authToken = sharedPreferences.getString("auth_token", null)
+        loadMe()
     }
 
     private fun showPopup1() {
@@ -142,7 +158,8 @@ class OpenPreviewFragment : Fragment() {
                 tvDate.text = currentData.date
             } else {
                 // regularDate가 null이 아니면, regularDate 값을 텍스트로 설정
-                tvDate.text = "매주${currentData.regularDay}  ${currentData.regularTime}\n첫 모임 날짜: ${currentData.routineDate}"
+                tvDate.text =
+                    "매주${currentData.regularDay}  ${currentData.regularTime}\n첫 모임 날짜: ${currentData.routineDate}"
             }
             tvLocation.text = currentData.location
             tvCnt.text = "최소 ${currentData.member_min}명 최대 ${currentData.member_max}명"
@@ -150,6 +167,24 @@ class OpenPreviewFragment : Fragment() {
         }
     }
 
+    private fun loadMe() {
+        MypageManager.mypage(authToken!!, "한국어") { response ->
+            if (response?.status == 200) {
+                binding.username.text = response.data.name
+                binding.userschool.text = response.data.university
+
+                if (!response.data.image.isNullOrEmpty()) {
+                    Glide.with(this)
+                        .load(response.data.image)
+                        .placeholder(R.drawable.img_profile_default)
+                        .error(R.drawable.img_profile_default)
+                        .into(binding.profileImg)
+                } else {
+                    binding.profileImg.setImageResource(R.drawable.img_profile_default)
+                }
+            }
+        }
+    }
 
     private fun uploadData() {
         val sharedPreferences =

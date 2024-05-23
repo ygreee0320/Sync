@@ -12,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.graphics.Color
 import android.view.ViewGroup
+import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.activityViewModels
 import com.example.sync_front.R
@@ -39,6 +40,7 @@ class OpenLocationFragment : Fragment() {
         setupClickListeners()
         observeViewModel()
         setUpChangedListener()
+        startEntryAnimation()
     }
 
     private fun observeViewModel() {
@@ -112,6 +114,23 @@ class OpenLocationFragment : Fragment() {
         } else {
             binding.doneBtn.setTextColor(requireContext().resources.getColor(R.color.gray_70))
             binding.doneBtn.setBackgroundResource(R.drawable.btn_gray_10)
+        }
+    }
+
+    private fun startEntryAnimation() {
+        val initialTranslationY = 500f
+        val duration = 1000L
+        val interpolator = AccelerateDecelerateInterpolator()
+
+        binding.textLayout.apply {
+            translationY = initialTranslationY
+            alpha = 0f
+            animate()
+                .translationY(0f)
+                .alpha(1f)
+                .setInterpolator(interpolator)
+                .setDuration(duration)
+                .start()
         }
     }
 

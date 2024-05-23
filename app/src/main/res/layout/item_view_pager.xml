@@ -13,7 +13,8 @@
         android:src="@drawable/img_sample_gathering"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:shapeAppearanceOverlay="@style/all_8dp" />
+        app:shapeAppearanceOverlay="@style/all_12dp" />
+
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/iv_gradient"
         android:layout_width="match_parent"
@@ -23,18 +24,19 @@
         android:src="@drawable/bg_gradient_recommend"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:shapeAppearanceOverlay="@style/all_8dp" />
+        app:shapeAppearanceOverlay="@style/all_12dp" />
+
     <TextView
         android:id="@+id/sync_label1"
         style="@style/Detail_400"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/label_gray5"
+        android:backgroundTint="@color/biscay_10"
         android:paddingHorizontal="8dp"
         android:paddingVertical="4dp"
         android:text="@string/persistence"
+        android:textColor="@color/biscay_90"
         app:layout_constraintStart_toStartOf="@id/iv_sync_img"
         app:layout_constraintTop_toTopOf="@id/iv_sync_img" />
 
@@ -46,9 +48,11 @@
         android:layout_marginStart="6dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/label_gray5"
+        android:backgroundTint="@color/biscay_10"
         android:paddingHorizontal="8dp"
         android:paddingVertical="4dp"
         android:text="@string/exchange_language"
+        android:textColor="@color/biscay_90"
         app:layout_constraintStart_toEndOf="@id/sync_label1"
         app:layout_constraintTop_toTopOf="@id/iv_sync_img" />
 
@@ -66,8 +70,6 @@
     <TextView
         android:id="@+id/sync_number_of_gather"
         style="@style/Detail_400_white"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="2"
         app:layout_constraintBottom_toTopOf="@id/tv_sync_title"
         app:layout_constraintStart_toEndOf="@id/sync_ic_people" />
@@ -92,9 +94,7 @@
 
     <TextView
         android:id="@+id/tv_sync_title"
-        style="@style/Body2_700_white"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/Heading3"
         android:layout_marginStart="16dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="6dp"
@@ -117,8 +117,6 @@
     <TextView
         android:id="@+id/tv_sync_location"
         style="@style/Detail_400_white"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:layout_marginTop="6dp"
         android:layout_marginBottom="20dp"
@@ -141,8 +139,6 @@
     <TextView
         android:id="@+id/tv_sync_calendar"
         style="@style/Detail_400_white"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:layout_marginTop="6dp"
         android:layout_marginBottom="20dp"
@@ -158,9 +154,11 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/label_gray5"
+        android:backgroundTint="@color/gray_70"
         android:paddingHorizontal="8dp"
         android:paddingVertical="4dp"
         android:text="1/7"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="@id/iv_sync_img"
         app:layout_constraintTop_toTopOf="@id/iv_sync_img" />
 
