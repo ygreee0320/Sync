@@ -64,6 +64,7 @@ class OpenLeaderFragment : Fragment() {
         }
     }
 
+
     private fun showPopup() {
         val popupLayoutBinding = PopupCancleSyncBinding.inflate(layoutInflater)
         val popupView = popupLayoutBinding.root
