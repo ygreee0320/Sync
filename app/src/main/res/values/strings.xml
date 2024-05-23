@@ -289,5 +289,7 @@
     <string name="recommend_restaurants_info">맛집 추천, 생활 정보 등 뭐든 좋아요!</string>
     <string name="ask_anything">무엇이든 물어보세요.</string>
     <string name="ask_about_life_weather">한국생활의 궁금한 점, 교환학생 갈 나라의 날씨 등 뭐든 좋아요!</string>
-
+    <string name="welcome_message">싱크에 가입했어요</string>
+    <string name="greet_members">나의 싱크 채팅방에서 멤버들에게 인사해보세요!</string>
+    <string name="do_check">확인</string>
 </resources>
