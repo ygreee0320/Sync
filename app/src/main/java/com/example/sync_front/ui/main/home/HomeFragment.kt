@@ -28,8 +28,6 @@ import com.example.sync_front.ui.main.MainActivity
 import com.example.sync_front.ui.open.OpenActivity
 import com.example.sync_front.ui.sync.SyncActivity
 import com.example.sync_front.ui.type.TypeListActivity
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
 import java.util.*
 
 class HomeFragment : Fragment() {
@@ -39,8 +37,6 @@ class HomeFragment : Fragment() {
     private lateinit var syncAdapter: SyncAdapter
     private lateinit var associateAdapter: AssociateSyncAdapter
     private lateinit var name: String
-    private val LOCATION_PERMISSION_REQUEST_CODE = 1
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -69,78 +65,7 @@ class HomeFragment : Fragment() {
 
         binding.homeUsername.text = name
 
-        //fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
-        //checkLocationPermission()
-
     }
-
-//    private fun getCurrentLocation() {
-//
-//        if (ActivityCompat.checkSelfPermission(requireContext(), android.Manifest.permission.ACCESS_FINE_LOCATION
-//            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(requireContext(),
-//                android.Manifest.permission.ACCESS_COARSE_LOCATION
-//            ) != PackageManager.PERMISSION_GRANTED
-//        ) {
-//            // TODO: Consider calling
-//            //    ActivityCompat#requestPermissions
-//
-//            fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
-//                location?.let {
-//                    // 위치 정보를 얻었을 때
-//                    val latitude = it.latitude
-//                    val longitude = it.longitude
-//                    getAddressFromLocation(latitude, longitude)
-//                } ?: run {
-//                    // 위치 정보를 얻지 못했을 때
-//                    Log.d("my log", "위치 확인 불가")
-//                }
-//            }
-//
-//            return
-//        }
-//        Log.d("my log", "위치 확인 불가2")
-//    }
-//
-//    private fun getAddressFromLocation(latitude: Double, longitude: Double) {
-//        val geocoder = Geocoder(requireContext(), Locale.getDefault())
-//        val addresses: List<Address>? = geocoder.getFromLocation(latitude, longitude, 1)
-//
-//        addresses?.let {
-//            if (it.isNotEmpty()) {
-//                val address = it[0]
-//                val city = address.locality  // 시
-//                val district = address.subLocality  // 구
-//
-//                // city와 district를 UI에 표시하거나 사용
-//                Log.d("my log","City: $city, District: $district")
-//            } else {
-//                Log.d("my log", "출력불가")
-//            }
-//        }
-//    }
-//
-//    private fun checkLocationPermission() {
-//        if (ContextCompat.checkSelfPermission(requireContext(), android.Manifest.permission.ACCESS_FINE_LOCATION)
-//            != PackageManager.PERMISSION_GRANTED) {
-//
-//            ActivityCompat.requestPermissions(requireActivity(),
-//                arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
-//                LOCATION_PERMISSION_REQUEST_CODE)
-//        } else {
-//            getCurrentLocation()
-//        }
-//    }
-//
-//    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-//        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-//        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
-//            if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-//                getCurrentLocation()
-//            } else {
-//                // 권한이 거부됨
-//            }
-//        }
-//    }
 
     private fun setupRecyclerView() {
         syncAdapter = SyncAdapter(listOf(), object : SyncAdapter.OnSyncClickListener {
