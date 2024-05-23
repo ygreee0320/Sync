@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.TextView
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -40,6 +41,7 @@ class OpenRoutineFragment : Fragment() {
         setupClickListeners()
         setupTimePicker()
         observeViewModel()
+        startEntryAnimations()
     }
 
     private fun initSetting() {
@@ -146,5 +148,58 @@ class OpenRoutineFragment : Fragment() {
             requireActivity().finish()
         }
 
+    }
+
+    private fun startEntryAnimations() {
+        val initialTranslationY = 300f
+        val duration = 1000L
+        val interpolator = AccelerateDecelerateInterpolator()
+
+        binding.explain3.apply {
+            translationY = initialTranslationY
+            alpha = 0f
+            animate()
+                .translationY(0f)
+                .alpha(1f)
+                .setInterpolator(interpolator)
+                .setDuration(duration)
+                .start()
+        }
+
+        binding.boxDate.apply {
+            translationY = initialTranslationY
+            alpha = 0f
+            animate()
+                .translationY(0f)
+                .alpha(1f)
+                .setInterpolator(interpolator)
+                .setDuration(duration)
+                .setStartDelay(200L)
+                .start()
+        }
+
+        binding.explain4.apply {
+            translationY = initialTranslationY
+            alpha = 0f
+            animate()
+                .translationY(0f)
+                .alpha(1f)
+                .setInterpolator(interpolator)
+                .setDuration(duration)
+                .setStartDelay(400L)
+                .start()
+        }
+
+        binding.boxTime.apply {
+            translationY = initialTranslationY
+            alpha = 0f
+            animate()
+                .translationY(0f)
+                .alpha(1f)
+                .setInterpolator(interpolator)
+                .setDuration(duration)
+                .setStartDelay(600L)
+                .start()
+        }
     }
 }
