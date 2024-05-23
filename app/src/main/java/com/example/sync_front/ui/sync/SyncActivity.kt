@@ -2,12 +2,16 @@ package com.example.sync_front.ui.sync
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.databinding.DataBindingUtil
 import com.example.sync_front.databinding.ActivitySyncBinding
 import android.util.Log
+import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContentProviderCompat.requireContext
 import com.google.android.material.tabs.TabLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -17,6 +21,9 @@ import com.example.sync_front.R
 import com.example.sync_front.api_server.ReviewManager
 import com.example.sync_front.data.model.BookmarkRequest
 import com.example.sync_front.data.model.Sync
+import com.example.sync_front.databinding.PopupJoinSyncBinding
+import com.example.sync_front.databinding.PopupOpenSyncBinding
+import com.example.sync_front.ui.main.MainActivity
 import com.example.sync_front.ui.main.home.SyncAdapter
 import java.util.function.LongFunction
 
@@ -101,8 +108,17 @@ class SyncActivity : AppCompatActivity() {
             //꽉차거나, 가입했거나, 주인장이면 false
             if (syncDetail.isFull || syncDetail.isJoin || syncDetail.isOwner) {
                 binding.btnJoin.isEnabled = false
-                binding.btnJoin.setBackgroundResource(R.drawable.btn_gray)
-                binding.btnJoin.setTextColor(getResources().getColor(R.color.gray_50))
+                binding.btnJoin.setBackgroundResource(R.drawable.btn_gray_10)
+                binding.btnJoin.setTextColor(getResources().getColor(R.color.gray_70))
+                binding.btnJoin.setTextAppearance(R.style.Body1_400) // 스타일 변경
+
+                if (syncDetail.isFull) {
+                    binding.btnJoin.text = "이미 꽉 찬 싱크예요"
+                } else if (syncDetail.isJoin) {
+                    binding.btnJoin.text = "이미 가입한 싱크예요"
+                } else if (syncDetail.isOwner) {
+                    binding.btnJoin.text = "내가 개설한 싱크예요"
+                }
             }
             //북마크 한 싱크면 채워지게
             binding.btnBookmark.isSelected = syncDetail.isMarked
@@ -145,6 +161,7 @@ class SyncActivity : AppCompatActivity() {
         binding.btnJoin.setOnClickListener {
             if (it.isEnabled) {
                 viewModel.fetchJoinSync(syncId)
+                showPopup()
             }
         }
     }
@@ -240,6 +257,34 @@ class SyncActivity : AppCompatActivity() {
             putExtra("syncId", sync.syncId)
         }
         startActivity(intent)
+    }
+
+    private fun showPopup() {
+        val popupLayoutBinding = PopupJoinSyncBinding.inflate(layoutInflater)
+        val popupView = popupLayoutBinding.root
+
+        val alertDialogBuilder = AlertDialog.Builder(this)
+        alertDialogBuilder.setView(popupView)
+
+        val alertDialog = alertDialogBuilder.create()
+        alertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        alertDialog.show()
+        popupLayoutBinding.doneBtn.setOnClickListener {
+
+
+            alertDialog.dismiss() // 팝업 닫기
+            // 현재 액티비티 종료
+            this.finish()
+
+            // MainActivity의 MyFragment로 이동
+            val mainActivityIntent = Intent(this, MainActivity::class.java)
+            mainActivityIntent.putExtra(
+                "fragment",
+                "MyFragment"
+            ) // MyFragment로 이동하는 것을 나타내는 플래그나 데이터를 전달할 수 있습니다.
+            startActivity(mainActivityIntent)
+        }
+
     }
 
     private fun sendBookMark(syncId: Long, isBookmarked: Boolean) {
