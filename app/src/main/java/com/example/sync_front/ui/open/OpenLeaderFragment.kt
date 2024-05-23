@@ -1,7 +1,9 @@
 package com.example.sync_front.ui.open
 
 import android.content.Context
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.graphics.Color
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -63,6 +65,7 @@ class OpenLeaderFragment : Fragment() {
         alertDialogBuilder.setView(popupView)
 
         val alertDialog = alertDialogBuilder.create()
+        alertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         alertDialog.show()
 
         popupLayoutBinding.runBtn.setOnClickListener {

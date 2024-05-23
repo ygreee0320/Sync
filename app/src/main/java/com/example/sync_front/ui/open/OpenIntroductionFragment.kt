@@ -1,6 +1,8 @@
 package com.example.sync_front.ui.open
 
 import android.app.DatePickerDialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -114,6 +116,7 @@ class OpenIntroductionFragment : Fragment() {
         alertDialogBuilder.setView(popupView)
 
         val alertDialog = alertDialogBuilder.create()
+        alertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         alertDialog.show()
 
         popupLayoutBinding.runBtn.setOnClickListener {
@@ -135,6 +138,7 @@ class OpenIntroductionFragment : Fragment() {
         alertDialogBuilder.setView(popupView)
 
         val alertDialog = alertDialogBuilder.create()
+        alertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         alertDialog.show()
 
         popupLayoutBinding.closeBtn.setOnClickListener {

@@ -2,6 +2,8 @@ package com.example.sync_front.ui.open
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import android.util.Log
@@ -172,6 +174,7 @@ class OpenTimeFragment : Fragment() {
         alertDialogBuilder.setView(popupView)
 
         val alertDialog = alertDialogBuilder.create()
+        alertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         alertDialog.show()
 
         popupLayoutBinding.runBtn.setOnClickListener {

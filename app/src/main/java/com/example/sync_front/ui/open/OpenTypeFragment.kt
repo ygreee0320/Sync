@@ -1,5 +1,6 @@
 package com.example.sync_front.ui.open
 
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -14,8 +15,7 @@ import com.example.sync_front.R
 import com.example.sync_front.data.model.SharedOpenSyncData
 import com.example.sync_front.databinding.FragmentOpenTypeBinding
 import com.example.sync_front.databinding.PopupCancleSyncBinding
-import com.example.sync_front.databinding.PopupOpenSyncNotifyBinding
-import com.google.android.material.internal.ViewUtils.hideKeyboard
+import android.graphics.Color
 
 
 class OpenTypeFragment : Fragment() {
@@ -73,6 +73,7 @@ class OpenTypeFragment : Fragment() {
             }
         }
     }
+
     private fun showPopup() {
         val popupLayoutBinding = PopupCancleSyncBinding.inflate(layoutInflater)
         val popupView = popupLayoutBinding.root
@@ -81,6 +82,7 @@ class OpenTypeFragment : Fragment() {
         alertDialogBuilder.setView(popupView)
 
         val alertDialog = alertDialogBuilder.create()
+        alertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         alertDialog.show()
 
         popupLayoutBinding.runBtn.setOnClickListener {
@@ -93,6 +95,7 @@ class OpenTypeFragment : Fragment() {
         }
 
     }
+
     private fun updateSyncType() {
         val newSyncType = when {
             binding.boxOnetime.isSelected -> "일회성"

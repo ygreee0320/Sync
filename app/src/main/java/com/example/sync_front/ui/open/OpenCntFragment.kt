@@ -1,6 +1,8 @@
 package com.example.sync_front.ui.open
 
 import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -115,6 +117,7 @@ class OpenCntFragment : Fragment() {
         alertDialogBuilder.setView(popupView)
 
         val alertDialog = alertDialogBuilder.create()
+        alertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         alertDialog.show()
 
         popupLayoutBinding.runBtn.setOnClickListener {

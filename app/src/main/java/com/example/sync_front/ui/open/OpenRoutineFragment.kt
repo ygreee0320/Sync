@@ -1,6 +1,8 @@
 package com.example.sync_front.ui.open
 
 import android.app.TimePickerDialog
+import android.graphics.drawable.ColorDrawable
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -132,6 +134,7 @@ class OpenRoutineFragment : Fragment() {
         alertDialogBuilder.setView(popupView)
 
         val alertDialog = alertDialogBuilder.create()
+        alertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         alertDialog.show()
 
         popupLayoutBinding.runBtn.setOnClickListener {

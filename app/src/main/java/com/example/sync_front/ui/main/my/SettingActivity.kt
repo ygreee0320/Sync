@@ -3,8 +3,10 @@ package com.example.sync_front.ui.main.my
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.graphics.Color
 import android.util.Log
 import androidx.appcompat.app.AlertDialog
 import com.example.sync_front.R
@@ -14,7 +16,7 @@ import com.example.sync_front.ui.login.LoginActivity
 
 class SettingActivity : AppCompatActivity() {
     lateinit var binding: ActivitySettingBinding
-    private var authToken: String ?= null // 로그인 토큰
+    private var authToken: String? = null // 로그인 토큰
 
     companion object {
         private val REQUEST_CODE = 1001
@@ -47,7 +49,8 @@ class SettingActivity : AppCompatActivity() {
         binding.languageLayout.setOnClickListener {
             val itemList = listOf(
                 getString(R.string.korean),
-                getString(R.string.english),)
+                getString(R.string.english),
+            )
             val intent = Intent(this, SelectListActivity::class.java)
             intent.putStringArrayListExtra("itemList", ArrayList(itemList))
             startActivityForResult(intent, REQUEST_CODE)
@@ -76,6 +79,7 @@ class SettingActivity : AppCompatActivity() {
         alertDialogBuilder.setView(popupView)
 
         val alertDialog = alertDialogBuilder.create()
+        alertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         alertDialog.show()
 
         // 팝업 레이아웃 내의 버튼에 대한 클릭 리스너

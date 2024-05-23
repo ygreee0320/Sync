@@ -1,6 +1,8 @@
 package com.example.sync_front.ui.open
 
 import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -37,11 +39,13 @@ class OpenTitleFragment : Fragment() {
         setUpChangedListener()
         setupClickListeners()
     }
+
     private fun observeViewModel() {
         openViewModel.sharedData.observe(viewLifecycleOwner) { data ->
             Log.d(javaClass.simpleName, "Received data: $data")
         }
     }
+
     private fun setupClickListeners() {
         binding.toolbar.setNavigationOnClickListener {
             showPopup()
@@ -65,6 +69,7 @@ class OpenTitleFragment : Fragment() {
             hideKeyboard()
         }
     }
+
     private fun showPopup() {
         val popupLayoutBinding = PopupCancleSyncBinding.inflate(layoutInflater)
         val popupView = popupLayoutBinding.root
@@ -73,6 +78,7 @@ class OpenTitleFragment : Fragment() {
         alertDialogBuilder.setView(popupView)
 
         val alertDialog = alertDialogBuilder.create()
+        alertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         alertDialog.show()
 
         popupLayoutBinding.runBtn.setOnClickListener {
@@ -85,6 +91,7 @@ class OpenTitleFragment : Fragment() {
         }
 
     }
+
     private fun setUpChangedListener() { //값이 들어갈 때 다음 버튼 활성화
         binding.title.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -124,7 +131,8 @@ class OpenTitleFragment : Fragment() {
 
     private fun hideKeyboard() {
         binding.title.clearFocus()
-        val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val imm =
+            requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(binding.root.windowToken, 0)
     }
 }
