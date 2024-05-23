@@ -23,6 +23,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.sync_front.data.model.SharedOpenSyncData
 import com.example.sync_front.databinding.PopupCancleSyncBinding
 import androidx.appcompat.app.AlertDialog
+import com.example.sync_front.databinding.PopupIntroBinding
 
 class OpenIntroductionFragment : Fragment() {
     private var _binding: FragmentOpenIntroductionBinding? = null
@@ -99,6 +100,10 @@ class OpenIntroductionFragment : Fragment() {
         binding.root.setOnClickListener {
             hideKeyboard()
         }
+
+        binding.popupIntro.setOnClickListener {
+            showIntroPopup()
+        }
     }
 
     private fun showPopup() {
@@ -120,6 +125,21 @@ class OpenIntroductionFragment : Fragment() {
             requireActivity().finish()
         }
 
+    }
+
+    private fun showIntroPopup(){
+        val popupLayoutBinding = PopupIntroBinding.inflate(layoutInflater)
+        val popupView = popupLayoutBinding.root
+
+        val alertDialogBuilder = AlertDialog.Builder(requireContext())
+        alertDialogBuilder.setView(popupView)
+
+        val alertDialog = alertDialogBuilder.create()
+        alertDialog.show()
+
+        popupLayoutBinding.closeBtn.setOnClickListener {
+            alertDialog.dismiss() // 팝업 닫기
+        }
     }
 
     private fun setUpChangedListener() { // 이름에 값이 들어갈 때 다음 버튼 활성화
