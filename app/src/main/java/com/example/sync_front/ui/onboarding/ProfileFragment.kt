@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
@@ -23,8 +24,8 @@ import com.example.sync_front.databinding.FragmentProfileBinding
 class ProfileFragment : Fragment() {
     lateinit var binding: FragmentProfileBinding
     private lateinit var language: String
-    private var profile: String?= ""  // 프로필
-    private var profileUri: Uri?= null  // 프로필 uri
+    private var profile: String? = ""  // 프로필
+    private var profileUri: Uri? = null  // 프로필 uri
     private lateinit var name: String
 
     private val singleImagePicker =
@@ -38,7 +39,11 @@ class ProfileFragment : Fragment() {
                 val flag = Intent.FLAG_GRANT_READ_URI_PERMISSION
                 requireContext().contentResolver.takePersistableUriPermission(uri, flag)
             } else {
-                Toast.makeText(requireContext(), getString(R.string.didnt_select_img), Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.didnt_select_img),
+                    Toast.LENGTH_LONG
+                ).show()
             }
         }
 
@@ -59,11 +64,13 @@ class ProfileFragment : Fragment() {
         setupUser()
         setupClickListeners()
         setUpChangedListener()
+        startEntryAnimations()
     }
 
     private fun setupUser() {
         // 소셜 로그인으로 얻은 유저이름, 프로필 꺼내기
-        val sharedPreferences = requireActivity().getSharedPreferences("my_token", Context.MODE_PRIVATE)
+        val sharedPreferences =
+            requireActivity().getSharedPreferences("my_token", Context.MODE_PRIVATE)
         name = sharedPreferences.getString("name", null)!!
 
         binding.explainName.setText(name)
@@ -123,9 +130,63 @@ class ProfileFragment : Fragment() {
         }
     }
 
+    private fun startEntryAnimations() {
+        val initialTranslationY = 300f
+        val duration = 1000L
+        val interpolator = AccelerateDecelerateInterpolator()
+
+        binding.tv1.apply {
+            translationY = initialTranslationY
+            alpha = 0f
+            animate()
+                .translationY(0f)
+                .alpha(1f)
+                .setInterpolator(interpolator)
+                .setDuration(duration)
+                .start()
+        }
+
+        binding.profileImg.apply {
+            translationY = initialTranslationY
+            alpha = 0f
+            animate()
+                .translationY(0f)
+                .alpha(1f)
+                .setInterpolator(interpolator)
+                .setDuration(duration)
+                .setStartDelay(200L)
+                .start()
+        }
+
+        binding.nameTxt.apply {
+            translationY = initialTranslationY
+            alpha = 0f
+            animate()
+                .translationY(0f)
+                .alpha(1f)
+                .setInterpolator(interpolator)
+                .setDuration(duration)
+                .setStartDelay(400L)
+                .start()
+        }
+
+        binding.tv2.apply {
+            translationY = initialTranslationY
+            alpha = 0f
+            animate()
+                .translationY(0f)
+                .alpha(1f)
+                .setInterpolator(interpolator)
+                .setDuration(duration)
+                .setStartDelay(600L)
+                .start()
+        }
+    }
+
     private fun hideKeyboard() {
         binding.username.clearFocus()
-        val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val imm =
+            requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(binding.root.windowToken, 0)
     }
 }
