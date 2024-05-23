@@ -195,7 +195,7 @@
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:layout_marginRight="4dp"
-                            android:background="@drawable/ic_translation_gray" />
+                            android:background="@drawable/ic_translation2" />
 
                         <TextView
                             android:id="@+id/translate"
