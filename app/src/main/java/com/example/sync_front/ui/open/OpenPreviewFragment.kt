@@ -16,6 +16,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.net.toUri
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.sync_front.R
 import com.example.sync_front.api_server.MypageManager
@@ -66,6 +67,9 @@ class OpenPreviewFragment : Fragment() {
     }
 
     private fun setupClickListeners() {
+        binding.syncToolbar.setNavigationOnClickListener {
+            findNavController().navigateUp()
+        }
         binding.btnOpen.setOnClickListener {
             showPopup1()
         }
