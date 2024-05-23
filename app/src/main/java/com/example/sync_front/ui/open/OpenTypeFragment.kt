@@ -16,6 +16,7 @@ import com.example.sync_front.data.model.SharedOpenSyncData
 import com.example.sync_front.databinding.FragmentOpenTypeBinding
 import com.example.sync_front.databinding.PopupCancleSyncBinding
 import android.graphics.Color
+import android.view.animation.AccelerateDecelerateInterpolator
 
 
 class OpenTypeFragment : Fragment() {
@@ -34,6 +35,7 @@ class OpenTypeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupClickListeners()
+        startEntryAnimations()
     }
 
     private fun setupClickListeners() {
@@ -132,6 +134,48 @@ class OpenTypeFragment : Fragment() {
         }
     }
 
+
+    private fun startEntryAnimations() {
+        //시작 애니메이션
+        val initialTranslationY = 300f
+        val duration = 1000L
+        val interpolator = AccelerateDecelerateInterpolator()
+
+        binding.boxOnetime.apply {
+            translationY = initialTranslationY
+            alpha = 0f
+            animate()
+                .translationY(0f)
+                .alpha(1f)
+                .setInterpolator(interpolator)
+                .setDuration(duration)
+                .start()
+        }
+
+        binding.boxPersistence.apply {
+            translationY = initialTranslationY
+            alpha = 0f
+            animate()
+                .translationY(0f)
+                .alpha(1f)
+                .setInterpolator(interpolator)
+                .setDuration(duration)
+                .setStartDelay(200L)
+                .start()
+        }
+
+        binding.boxFriend.apply {
+            translationY = initialTranslationY
+            alpha = 0f
+            animate()
+                .translationY(0f)
+                .alpha(1f)
+                .setInterpolator(interpolator)
+                .setDuration(duration)
+                .setStartDelay(400L)
+                .start()
+        }
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()
