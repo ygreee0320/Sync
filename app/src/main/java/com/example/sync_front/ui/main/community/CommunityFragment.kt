@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.sync_front.R
 import com.example.sync_front.api_server.CommunityManager
 import com.example.sync_front.data.model.Community
 import com.example.sync_front.databinding.FragmentCommunityBinding
@@ -19,7 +20,7 @@ class CommunityFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var communityList: List<Community>
     private lateinit var adapter: CommunityAdapter
-    private var authToken: String ?= null // 로그인 토큰
+    private var authToken: String? = null // 로그인 토큰
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -42,9 +43,16 @@ class CommunityFragment : Fragment() {
                 when (tab?.position) {
                     0 -> {
                         getCommunity("생활")
+                        binding.tvHelpTitle.text = getString(R.string.share_everyday_life)
+                        binding.tvHelpExplain.text = getString(R.string.recommend_restaurants_info)
+                        binding.ivHelp.setImageResource(R.drawable.img_community_1)
                     }
+
                     1 -> {
                         getCommunity("질문")
+                        binding.tvHelpTitle.text = getString(R.string.ask_anything)
+                        binding.tvHelpExplain.text = getString(R.string.ask_about_life_weather)
+                        binding.ivHelp.setImageResource(R.drawable.img_community_2)
                     }
                 }
             }
@@ -60,7 +68,8 @@ class CommunityFragment : Fragment() {
 
     private fun initialSetting() {
         // 저장된 토큰 읽어오기
-        val sharedPreferences = requireActivity().getSharedPreferences("my_token", Context.MODE_PRIVATE)
+        val sharedPreferences =
+            requireActivity().getSharedPreferences("my_token", Context.MODE_PRIVATE)
         authToken = sharedPreferences.getString("auth_token", null)
 
         Log.d("my log", "현재 토큰 값: $authToken")
