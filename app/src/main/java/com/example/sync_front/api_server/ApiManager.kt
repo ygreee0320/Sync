@@ -524,25 +524,6 @@ object MypageManager {
                   callback: (ModMypageResponse?) -> Unit) {
         val apiService = RetrofitClient().mypageService
 
-//        val call = apiService.modMypage(
-//            "multipart/form-data",
-//            authToken,
-//            image,
-//            name,
-//            gender,
-//            syncType,
-//            detailTypes
-//        )
-
-//        val call = apiService.modMypage(
-//            authToken,
-//            image,
-//            ModName(name),
-//            ModGender(gender),
-//            ModSyncType(syncType),
-//            ModDetailTypes(detailTypes)
-//        )
-
         val call = apiService.modMypage(authToken, image, request)
 
         call.enqueue(object : Callback<ModMypageResponse> {
@@ -627,6 +608,29 @@ object MypageManager {
             }
 
             override fun onFailure(call: Call<MySyncResponse>, t: Throwable) {
+                Log.e("서버 테스트", "오류2: ${t.message}")
+                callback(null)
+            }
+        })
+    }
+
+    fun imageUpload(authToken: String, image: MultipartBody.Part?, callback: (ImageUploadResponse?) -> Unit) {
+        val apiService = RetrofitClient().mypageService
+        val call = apiService.imageUpload(authToken, image)
+
+        call.enqueue(object : Callback<ImageUploadResponse> {
+            override fun onResponse(call: Call<ImageUploadResponse>, response: Response<ImageUploadResponse>) {
+                if (response.isSuccessful) {
+                    val userData = response.body()
+                    callback(userData!!) // 사용자 데이터 전달
+                } else {
+                    val errorBody = response.errorBody()?.string()
+                    Log.e("서버 테스트", "오류1: $errorBody")
+                    callback(null)
+                }
+            }
+
+            override fun onFailure(call: Call<ImageUploadResponse>, t: Throwable) {
                 Log.e("서버 테스트", "오류2: ${t.message}")
                 callback(null)
             }
