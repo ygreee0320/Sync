@@ -12,6 +12,7 @@ import android.util.Log
 import android.net.Uri
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AlertDialog
 import androidx.core.net.toUri
@@ -42,6 +43,7 @@ class OpenLeaderFragment : Fragment() {
         observeViewModel()
         setUpChangedListener()
         setupClickListeners()
+        startEntryAnimation()
     }
 
     private fun setupClickListeners() {
@@ -122,6 +124,23 @@ class OpenLeaderFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun startEntryAnimation() {
+        val initialTranslationY = 500f
+        val duration = 1000L
+        val interpolator = AccelerateDecelerateInterpolator()
+
+        binding.textLayout.apply {
+            translationY = initialTranslationY
+            alpha = 0f
+            animate()
+                .translationY(0f)
+                .alpha(1f)
+                .setInterpolator(interpolator)
+                .setDuration(duration)
+                .start()
+        }
     }
 
     private fun hideKeyboard() {
