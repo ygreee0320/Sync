@@ -29,8 +29,6 @@ import com.example.sync_front.ui.main.MainActivity
 import com.example.sync_front.ui.open.OpenActivity
 import com.example.sync_front.ui.sync.SyncActivity
 import com.example.sync_front.ui.type.TypeListActivity
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
 import java.util.*
 
 class HomeFragment : Fragment() {
@@ -40,9 +38,6 @@ class HomeFragment : Fragment() {
     private lateinit var syncAdapter: SyncAdapter
     private lateinit var associateAdapter: AssociateSyncAdapter
     private lateinit var name: String
-
-    private val LOCATION_PERMISSION_REQUEST_CODE = 1
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -71,9 +66,6 @@ class HomeFragment : Fragment() {
         name = sharedPreferences.getString("name", null)!!
 
         binding.homeUsername.text = name
-
-        //fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
-        //checkLocationPermission()
 
     }
 
