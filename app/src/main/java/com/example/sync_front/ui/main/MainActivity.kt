@@ -15,6 +15,7 @@ import android.location.*
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContentProviderCompat.requireContext
 import java.util.*
@@ -30,6 +31,9 @@ class MainActivity : AppCompatActivity() {
                 // 권한이 거부되었을 때의 처리
             }
         }
+
+    // 뒤로가기 버튼 누른 시간을 기록하기 위한 변수
+    private var backPressedTime: Long = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -44,6 +48,15 @@ class MainActivity : AppCompatActivity() {
 
         // 위치 권한을 확인하고 위치 정보를 받아오는 함수 호출
         //checkLocationPermission()
+    }
+
+    override fun onBackPressed() {
+        if (backPressedTime + 2000 > System.currentTimeMillis()) {
+            super.onBackPressed()  // 앱 종료
+        } else {
+            Toast.makeText(this, "뒤로가기를 한 번 더 누르면 앱이 종료됩니다", Toast.LENGTH_SHORT).show()
+        }
+        backPressedTime = System.currentTimeMillis()
     }
 
     private fun checkLocationPermission() {
@@ -133,7 +146,7 @@ class MainActivity : AppCompatActivity() {
                 val district = address.subLocality  // 구
 
                 // city와 district를 UI에 표시하거나 사용
-                Log.d("my log","City: $city, District: $district")
+                Log.d("my log", "City: $city, District: $district")
             } else {
                 Log.d("my log", "출력불가")
             }
