@@ -18,16 +18,17 @@ class AlarmActivity : AppCompatActivity() {
         binding = ActivityAlarmBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setupToolbar()
+        setupClickListeners()
+        subscribeToViewModel()
         setupRecyclerView()
         setupTabLayout()
-        subscribeToViewModel()
+// 초기 데이터 로드
+        viewModel.fetchNotifications("활동")
     }
 
-    private fun setupToolbar() {
-        setSupportActionBar(binding.listToolbar)
-        binding.listToolbar.setNavigationOnClickListener {
-            onBackPressedDispatcher.onBackPressed()
+    private fun setupClickListeners() {
+        binding.backBtn.setOnClickListener {
+            finish()
         }
     }
 
