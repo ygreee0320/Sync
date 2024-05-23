@@ -1,12 +1,16 @@
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.sync_front.R
 import com.example.sync_front.api_server.RoomMessageElementResponseDto
+import com.example.sync_front.api_server.image
 import com.example.sync_front.databinding.ItemChattingMeBinding
 import com.example.sync_front.databinding.ItemChattingOtherBinding
+import com.google.common.base.Strings.isNullOrEmpty
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -52,12 +56,37 @@ class ChattingAdapter(private var itemList: MutableList<RoomMessageElementRespon
                 messageTime.text = formatTime(data.time)
                 chattingMessage.gravity = Gravity.RIGHT
             }
+
+            val image = data.image
+
+            if (image != "null") {
+                Log.d("my log", "이미지 존재?1")
+                holder.binding.image.visibility = View.VISIBLE
+                Glide.with(holder.itemView.context)
+                    .load(data.image)
+                    .into(holder.binding.image)
+            } else {
+                holder.binding.image.visibility = View.GONE
+            }
+
         } else if (holder is OtherChattingViewHolder && data != null) {
             holder.binding.run {
                 chattingMessage.gravity = Gravity.LEFT
                 chattingUser.text = data.user.name
                 chattingMessage.text = data.content
                 messageTime.text = formatTime(data.time)
+
+                val image = data.image
+
+                if (image != "null") {
+                    Log.d("my log", "이미지 존재?2")
+                    holder.binding.image.visibility = View.VISIBLE
+                    Glide.with(holder.itemView.context)
+                        .load(data.image)
+                        .into(holder.binding.image)
+                } else {
+                    holder.binding.image.visibility = View.GONE
+                }
 
                 if (!data.user.profile.isNullOrEmpty()) {
                     Glide.with(holder.itemView.context)
@@ -67,6 +96,12 @@ class ChattingAdapter(private var itemList: MutableList<RoomMessageElementRespon
                         .into(holder.binding.profile)
                 } else {
                     profile.setImageResource(R.drawable.img_profile_default)
+                }
+
+                if (data.user.isOwner) {
+                    owner.visibility = View.VISIBLE
+                } else {
+                    owner.visibility = View.GONE
                 }
             }
         }

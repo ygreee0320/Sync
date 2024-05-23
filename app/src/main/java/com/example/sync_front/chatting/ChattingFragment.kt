@@ -131,6 +131,7 @@ class ChattingFragment : Fragment() {
                         val content = chatMessageObject.getString("content")
                         val time = chatMessageObject.getString("time")
                         val image = chatMessageObject.getString("image")
+                        val oner = chatMessageObject.getString("ownerSessionId")
 
                         val chatMessage = ChattingRoom(roomName, syncName, total, content, time, image)
                         roomList.add(chatMessage)

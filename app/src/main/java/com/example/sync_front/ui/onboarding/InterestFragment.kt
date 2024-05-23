@@ -111,10 +111,9 @@ class InterestFragment : Fragment() {
         sendOnboarding(authToken!!, imagePart, requestDtoBody) {
             if (it == 201) {
                 Log.d("my log", "온보딩 완료!")
-
-                val action = InterestFragmentDirections.actionInterestFragmentToOnboardingDoneFragment(name)
-                findNavController().navigate(action)
             }
+            val action = InterestFragmentDirections.actionInterestFragmentToOnboardingDoneFragment(name)
+            findNavController().navigate(action)
         }
     }
 

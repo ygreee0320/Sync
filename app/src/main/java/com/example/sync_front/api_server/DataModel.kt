@@ -17,13 +17,6 @@ data class Onboarding(
     val categoryTypes: String?
 ) : Parcelable
 
-data class Chatting(
-    var chattingId: String? = null,
-    var user: String? = null,
-    var text: String? = null,
-    var time: String? = null
-)
-
 data class ChattingRoom(
     val roomName: String? = null,
     val syncName: String? = null,
@@ -37,34 +30,26 @@ data class ChatMessageRequestDto(
     val chatSession: String,
     val fromUserName: String,
     val toRoomName: String,
-    val content: String
+    val content: String,
+    val image: String?
 )
 
 data class image(
     val image: ByteArray
 )
 
-data class ChatMessageListRequestDto(
-    val chatSession: String,
-    val fromUserName: String,
-    val toUserName: String,
-)
-
-data class RoomMessageListResponseDto(
-    val users: List<ChatUserResponseDto>,
-    val chatMessageList: List<RoomMessageElementResponseDto> = emptyList()
-)
-
 data class ChatUserResponseDto(
     val sessionId: String,
     val name: String,
-    val profile: String
+    val profile: String,
+    val isOwner: Boolean
 )
 
 data class RoomMessageElementResponseDto(
     val user: ChatUserResponseDto,
     val content: String,
-    val time: String
+    val time: String,
+    val image: String?
 )
 
 data class ChattingList(
