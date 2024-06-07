@@ -273,7 +273,7 @@ class HomeFragment : Fragment() {
         }
         binding.boxEtc.setOnClickListener {
             val intent = Intent(context, InterestActivity::class.java).apply {
-                putExtra("selectedTab", "")
+                putExtra("selectedTab", "기타")
             }
             startActivity(intent)
         }

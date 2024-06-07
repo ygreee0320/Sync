@@ -64,7 +64,7 @@ class ChattingActivity : AppCompatActivity() {
         initialSetting()
         setupClickListeners()
 
-        initStomp()
+        //initStomp()
     }
 
     private fun initialSetting() {
@@ -86,6 +86,15 @@ class ChattingActivity : AppCompatActivity() {
 
         val total = intent.getIntExtra("total", 0)
         binding.memberCount.text = total.toString()
+
+        if (!::stompClient.isInitialized) {
+            initStomp()
+        } else {
+            // Reconnect if needed
+            if (stompClient.isConnected.not()) {
+                stompClient.connect()
+            }
+        }
     }
 
     private fun setupClickListeners() {
@@ -136,6 +145,8 @@ class ChattingActivity : AppCompatActivity() {
     private fun initStomp() {
         stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "wss://kusitms28.store/ws")
 
+        stompClient.connect()
+
         stompClient.lifecycle().subscribe { lifecycleEvent: LifecycleEvent ->
             when (lifecycleEvent.type) {
                 LifecycleEvent.Type.OPENED -> {
@@ -158,7 +169,7 @@ class ChattingActivity : AppCompatActivity() {
                 else -> {}
             }
         }
-        stompClient.connect()
+        //stompClient.connect()
     }
 
     private fun sendMessage(message: String, image: String?) {
@@ -246,23 +257,20 @@ class ChattingActivity : AppCompatActivity() {
             })
         )
 
-        compositeDisposable.add(stompClient.send("/pub/room/detail/$roomName").subscribe({
-            Log.d("Chat", "Chat detail request sent for session $roomName")
+//        compositeDisposable.add(stompClient.send("/pub/room/detail/$roomName").subscribe({
+//            Log.d("Chat", "Chat detail request sent for session $roomName")
+//        }, { throwable ->
+//            Log.e("Chat", "Failed to send chat detail request: ${throwable.localizedMessage}", throwable)
+//        }))
+        compositeDisposable.add(
+            stompClient.send("/pub/room/detail/$roomName")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    { Log.d("Chat", "Chat detail request sent for session $roomName")
         }, { throwable ->
             Log.e("Chat", "Failed to send chat detail request: ${throwable.localizedMessage}", throwable)
         }))
-    }
-
-    private fun getRealPathFromURI(uri: Uri): String {
-        val cursor = contentResolver.query(uri, null, null, null, null)
-        cursor?.let {
-            it.moveToFirst()
-            val columnIndex = it.getColumnIndex(MediaStore.Images.ImageColumns.DATA)
-            val filePath = it.getString(columnIndex)
-            it.close()
-            return filePath ?: ""
-        }
-        return ""
     }
 
     private val singleImagePicker =

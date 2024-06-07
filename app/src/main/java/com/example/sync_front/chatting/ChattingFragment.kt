@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -63,7 +65,13 @@ class ChattingFragment : Fragment() {
         binding.roomRecyclerview.layoutManager = LinearLayoutManager(requireContext())
         binding.roomRecyclerview.adapter = adapter
 
-        initStomp()
+        if (!::stompClient.isInitialized) {
+            initStomp()
+        } else {
+            if (stompClient.isConnected.not()) {
+                stompClient.connect()
+            }
+        }
     }
 
     @SuppressLint("CheckResult")
@@ -73,6 +81,8 @@ class ChattingFragment : Fragment() {
         headers["Authorization"] = authToken!!
 
         stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "wss://kusitms28.store/ws", headers)
+
+        stompClient.connect()
 
         stompClient.lifecycle().subscribe { lifecycleEvent: LifecycleEvent ->
             when (lifecycleEvent.type) {
@@ -96,7 +106,6 @@ class ChattingFragment : Fragment() {
                 else -> {}
             }
         }
-        stompClient.connect()
     }
 
     @SuppressLint("CheckResult")
@@ -137,23 +146,40 @@ class ChattingFragment : Fragment() {
                         roomList.add(chatMessage)
                     }
 
-                    adapter.updateData(roomList)
+                    // UI 업데이트
+                    if (isAdded) {
+                        requireActivity().runOnUiThread {
+                            adapter.updateData(roomList)
+                        }
+                    }
+                    //adapter.updateData(roomList)
                 }
             }, { throwable ->
                 Log.e("Stomp subscribe error", "Error on subscribe: ${throwable.localizedMessage}", throwable)
             })
         )
 
-        compositeDisposable.add(stompClient.send("/pub/room/all/$sessionId").subscribe({
-            Log.d("Chat", "채팅방 리스트 조회")
-        }, { throwable ->
-            Log.e("Chat", "Failed to send chat detail request: ${throwable.localizedMessage}", throwable)
-        }))
+        Handler(Looper.getMainLooper()).postDelayed({
+            compositeDisposable.add(
+                stompClient.send("/pub/room/all/$sessionId")
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({
+                        Log.d("Chat", "채팅방 리스트 조회")
+                    }, { throwable ->
+                        Log.e("Chat", "Failed to send chat detail request: ${throwable.localizedMessage}", throwable)
+                    })
+            )
+        }, 100) // 1-second delay
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+//        compositeDisposable.clear()
+        if (stompClient.isConnected) {
+            stompClient.disconnect()
+        }
     }
 
 }
