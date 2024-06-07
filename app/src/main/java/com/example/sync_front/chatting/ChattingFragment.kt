@@ -12,10 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.sync_front.api_server.ChatUserResponseDto
-import com.example.sync_front.api_server.ChattingList
 import com.example.sync_front.api_server.ChattingRoom
-import com.example.sync_front.api_server.RoomMessageElementResponseDto
 import com.example.sync_front.databinding.FragmentChattingBinding
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -170,7 +167,7 @@ class ChattingFragment : Fragment() {
                         Log.e("Chat", "Failed to send chat detail request: ${throwable.localizedMessage}", throwable)
                     })
             )
-        }, 100) // 1-second delay
+        }, 100) // 0.1-second delay
     }
 
     override fun onDestroyView() {

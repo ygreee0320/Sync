@@ -223,9 +223,15 @@ class SyncActivity : AppCompatActivity() {
         viewModel.graphDetails.observe(this, Observer { details ->
             if (details.data.isNotEmpty()) {
                 binding.tvGraph2.text = details.status
+                // details.status가 "요"로 끝나는지 확인
+                if (details.status.endsWith("요")) {
+                    binding.tvGraph3.text = ""
+                } else {
+                    binding.tvGraph3.text = suffix
+                }
             }
         })
-        binding.tvGraph3.text = suffix
+        //binding.tvGraph3.text = suffix
     }
 
 

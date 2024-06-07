@@ -31,12 +31,7 @@ import org.json.JSONObject
 import ua.naiksoftware.stomp.Stomp
 import ua.naiksoftware.stomp.StompClient
 import ua.naiksoftware.stomp.dto.LifecycleEvent
-import ua.naiksoftware.stomp.dto.StompCommand
-import ua.naiksoftware.stomp.dto.StompMessage
-import java.io.ByteArrayOutputStream
 import java.io.File
-import java.io.InputStream
-import java.util.ArrayList
 import java.util.concurrent.atomic.AtomicBoolean
 
 class ChattingActivity : AppCompatActivity() {
@@ -51,9 +46,8 @@ class ChattingActivity : AppCompatActivity() {
     private lateinit var stompClient: StompClient
     private val compositeDisposable = CompositeDisposable()
     val isUnexpectedClosed = AtomicBoolean(false)
-    private var roomName: String ?= "eksxhr"
+    private var roomName: String ?= null
     private var sessionId: String ?= null // 세션id
-    private val PICK_IMAGE_REQUEST = 1
 
     @SuppressLint("CheckResult")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -129,7 +123,6 @@ class ChattingActivity : AppCompatActivity() {
             if (!plusToggle) {
                 plusToggle = !plusToggle
                 binding.picBtn.visibility = View.VISIBLE
-                //binding.plusBtn.setBackgroundResource(R.drawable.)
             } else {
                 plusToggle = !plusToggle
                 binding.picBtn.visibility = View.GONE
@@ -257,11 +250,6 @@ class ChattingActivity : AppCompatActivity() {
             })
         )
 
-//        compositeDisposable.add(stompClient.send("/pub/room/detail/$roomName").subscribe({
-//            Log.d("Chat", "Chat detail request sent for session $roomName")
-//        }, { throwable ->
-//            Log.e("Chat", "Failed to send chat detail request: ${throwable.localizedMessage}", throwable)
-//        }))
         compositeDisposable.add(
             stompClient.send("/pub/room/detail/$roomName")
                 .subscribeOn(Schedulers.io())
